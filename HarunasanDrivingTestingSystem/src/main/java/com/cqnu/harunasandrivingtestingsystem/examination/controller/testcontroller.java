@@ -1,24 +1,21 @@
 package com.cqnu.harunasandrivingtestingsystem.examination.controller;
 
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.boot.SpringApplication;
+import java.util.Map;
 
 
 @Controller
-@EnableAutoConfiguration(exclude = DataSourceAutoConfiguration.class)
 public class testcontroller {
 
-    @RequestMapping("/")
-    @ResponseBody
-    String home(){
-        return "Hello Worl1231323d!";
+    @RequestMapping(value = "/index")
+    public String hello(Map<String, Object> map){
+        map.put("hello","Hello thymeleaf");
+        map.put("message","这是一条信息");
+        return "success";
     }
-    public static void main(String[] args) throws Exception {
-        SpringApplication.run(testcontroller.class, args);
-    }
+
 
 }

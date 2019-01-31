@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script src="webjars/jquery/3.1.1/jquery.min.js"></script>
+    <script src="webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="webjars/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <title>学员用户注册</title>
+    <style>
+        body{
+            padding: 50px;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div id="nav"></div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1 class="text-center">欢迎注册成为我们网站的学员用户</h1><br>
+            <h3 class="text-center">请填写以下信息，以便我们为您提供优质的服务</h3>
+        </div>
+        <br>
+    </div>
+
+    <div class="container">
+
+        <form class="form-horizontal col-lg-offset-4" role="form">
+            <div class="form-group">
+                <label class="col-lg-2 control-label" for="InputEmail">账号/邮箱</label>
+                <div class="col-lg-3">
+                    <input class="form-control " type="email" placeholder="Email" id="InputEmail">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-2 control-label" for="InputPassword">昵称</label>
+                <div class="col-lg-3">
+                    <input class="form-control" type="text" placeholder="Nickname" id="InputNickName">
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-lg-2 control-label" for="InputPassword">密码</label>
+                <div class="col-lg-3">
+                    <input class="form-control" type="password" placeholder="Password" id="InputPassword">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-2 control-label" for="InputPasswordAgain">确认密码</label>
+                <div class="col-lg-3">
+                    <input type="text" name="InputPasswordAgain" placeholder="Password" class="form-email form-control" id="InputPasswordAgain">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-2 control-label" for="InputNumber">手机号</label>
+                <div class="col-lg-3">
+                    <input type="tel" name="InputNumber" placeholder="Telphone" class="form-email form-control" id="InputNumber">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <div class="checkbox" >
+                        <label >
+                            <input type="checkbox">
+                            我已浏览并接受<a href="#">服务条款</a>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-12">
+                    <button type="submit" class="btn btn-primary ">确认</button>&emsp;&emsp;&emsp;
+                    <button type="reset" class="btn btn-info">重置</button>
+                </div>
+
+            </div>
+        </form>
+
+    </div>
+
+    <script>
+        $("#nav").load("nav");//导入导航页面
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script src="webjars/jquery/3.1.1/jquery.min.js"></script>
+    <script src="webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="webjars/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <style>
+        body{
+            padding: 50px;
+        }
+    </style>
+    <title>欢迎来到秋名山驾考网</title>
+</head>
+<body>
+<!--<h1>thymeleaf 语法 </h1>-->
+<!--&lt;!&ndash;th:text 将div里面的文本内容设置为&ndash;&gt;-->
+<!--<div th:text="${hello}">  如果不穿hello，直接显示此段话</div>-->
+<!--<div th:text="${message}"></div>-->
+<div id="nav"></div>
+
+<div class="jumbotron">
+    <div class="container">
+        <h1>欢迎来到秋名山驾考网</h1>
+        <br>
+        <p>在这里您可以学习到最新最全的驾考知识，提升您的驾考技能，帮助您顺利通过驾照考试！</p>
+        <br>
+        <p style="float: left;margin-right:2em; "><a class="btn btn-primary btn-lg" href="#" role="button">如何开始？</a></p>
+        <p style="float:left;   margin-right:2em; "><a class="btn btn-success btn-lg" href="#" role="button">我是学员</a> </p>
+        <p><a class="btn btn-info btn-lg" href="#" role="button">Learn more</a> </p>
+    </div>
+</div>
+
+
+<script>
+    $("#nav").load("nav"); //导入导航页面
+</script>
+</body>
+</html>

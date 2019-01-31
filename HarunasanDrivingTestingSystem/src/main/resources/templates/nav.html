@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--导航条-->
+    <title>nav</title>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-inverse  navbar-fixed-top" role="navigation">
+        <div class="container-fluid" style="margin: 0 auto; width: 1200px;">
+        <div class="navbar-header nav" >
+            <a href="#" class="navbar-brand">秋名山驾考网</a>
+        </div>
+        <div class="collapse navbar-collapse"  >
+            <div id="navbar">
+                <ul class="nav navbar-nav" id="MainTab" >
+                    <li class="active"><a href="" onclick="window.location.href='index'">主页</a></li>
+                    <li><a href="">科目一</a></li>
+                    <li><a href="">科目四</a></li>
+                    <li><a href="">驾考资讯</a></li>
+                    <li><a href="">学车视频</a></li>
+                    <li><a href="">买车推荐</a></li>
+                </ul>
+            </div>
+
+
+            <form class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="搜索">
+                </div>
+                <button type="submit" class="btn btn-default">搜索</button>
+            </form>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contact us <span class="caret"></span></a>
+                    <ul class="dropdown-menu navbar-right" role="menu">
+                        <li><a href="#">袁馗峰</a></li>
+                        <li><a href="#">李艾兴</a></li>
+                        <li><a href="#">王梓</a></li>
+                        <li><a href="#">邱南翔</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">联系邮箱：303333549@qq.com</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div>
+                <ul class="nav navbar-nav navbar-left" id="LoginTab">
+                    <li class="dropdown">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown">登录</a>
+                        <ul class="dropdown-menu pull-left" style="width:22em;" role="menu" >
+                            <li>
+                                <div class="container col-lg-12" >
+                                    <form class="form-signin col-lg-12  col-lg-offset-0" role="form" >
+                                        <h1 class="h3 mb-3 font-weight-normal text-center">请先登录</h1>
+                                        <label for="inputEmail" class="control-label" style="margin-top: 10px">用户名/邮箱</label>
+                                        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                                        <label for="inputPassword" style="margin-top: 10px">密码</label>
+                                        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                                        <div class="checkbox mb-3">
+                                            <label>
+                                                <input type="checkbox" class="col-md-1" value="remember-me"> Remember me
+                                            </label>
+                                        </div>
+                                        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+                                        <p class="mt-5 mb-3 text-muted">没有账号？<a href="#">立即注册</a>&emsp;&emsp;&copy; 2018-2019</p>
+                                    </form>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="" onclick="window.location.href='register'" data-toggle="tab" >注册</a> </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </nav>
+    <script>
+        //让导航页可点击切换
+        $("#navbar a").click(function (e) {
+            e.preventDefault();
+            $(this).tab("show");
+        });
+    </script>
+</body>
+
+</html>

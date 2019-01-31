@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script src="webjars/jquery/3.1.1/jquery.min.js"></script>
+    <script src="webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="webjars/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <title>用户注册</title>
+    <style>
+        body{
+            padding: 50px;
+        }
+        /*禁用radio圆圈*/
+        /*.RadioUser{*/
+            /*appearance: none;*/
+            /*-webkit-appearance: none;*/
+            /*-moz-appearance: none;*/
+        /*}*/
+    </style>
+</head>
+<body>
+    <div id="nav"></div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1 class="text-center">欢迎注册成为我们网站的用户</h1><br>
+            <h3 class="text-center">请选择您想注册的用户类别</h3>
+        </div>
+        <br>
+    </div>
+
+    <div class="row">
+        <div class="container">
+            <label class="col-lg-5">
+                <div class="thumbnail " >
+                    <img src="/images/register/student.jpeg" width="500" height="333" alt="">
+                        <div class="caption">
+                            <h3 class="text-center">学员用户</h3>
+                            <p class="text-center">我们将为您提供专业的驾考知识，丰富您的驾考技能</p>
+                        </div>
+                    <input class="RadioUser" name="optionsRadioUser" type="radio" checked>
+                </div>
+            </label>
+            <label class="col-lg-5 col-lg-offset-2">
+                <div class="thumbnail">
+                    <img src="/images/register/coach.jpg" width="500" height="333">
+                        <div class="caption">
+                            <h3 class="text-center">驾校用户</h3>
+                            <p class="text-center">我们将为您发布您的驾校信息,使学员享受优质服务</p>
+                        </div>
+                    <input class="RadioUser" name="optionsRadioUser" type="radio">
+                </div>
+            </label>
+            <div style="text-align: center">
+                <button type="button" style="margin-top: 2em;" class="btn btn-lg btn-primary ">开始注册</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        $("#nav").load("nav");   //导入导航页面
+    </script>
+</body>
+</html>

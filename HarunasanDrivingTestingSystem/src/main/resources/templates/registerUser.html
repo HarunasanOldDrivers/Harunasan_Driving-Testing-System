@@ -16,80 +16,103 @@
 </head>
 <body>
 
-    <div id="nav"></div>
+<div id="nav"></div>
 
-    <div class="container">
-        <div class="page-header">
-            <h1 class="text-center">欢迎注册成为我们网站的学员用户</h1><br>
-            <h3 class="text-center">请填写以下信息，以便我们为您提供优质的服务</h3>
-        </div>
-        <br>
+<div class="container">
+    <div class="page-header">
+        <h1 class="text-center">欢迎注册成为我们网站的学员用户</h1><br>
+        <h3 class="text-center">请填写以下信息，以便我们为您提供优质的服务</h3>
     </div>
+    <br>
+</div>
 
-    <div class="container">
-
-        <form class="form-horizontal col-lg-offset-4" role="form">
-            <div class="form-group">
-                <label class="col-lg-2 control-label" for="InputEmail">账号/邮箱</label>
-                <div class="col-lg-3">
-                    <input class="form-control " type="email" placeholder="Email" id="InputEmail">
+<div class="container" >
+    <form class="form-horizontal" role="form" >
+        <div class="form-group ">
+            <div class="col-md-6 col-md-offset-3"  >
+                <label class="col-md-3 col-md-offset-2 control-label" for="InputNumber">账号/手机号</label>
+                <div class="col-md-4" data-toggle="tooltip" title="此手机号将作为您的登录账号使用"  data-placement="right">
+                    <input class="form-control" name="InputNumber" type="email" placeholder="Account/Telphone" id="InputNumber">
                 </div>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label class="col-lg-2 control-label" for="InputPassword">昵称</label>
-                <div class="col-lg-3">
-                    <input class="form-control" type="text" placeholder="Nickname" id="InputNickName">
+        <div class="form-group">
+            <div class="col-md-6 col-md-offset-3">
+                <label class="col-md-3 col-md-offset-2 control-label" for="InputPassword">昵称</label>
+                <div class="col-md-4"  data-toggle="tooltip" title="此昵称为您社区名称"  data-placement="right">
+                    <input class="form-control" name="InputPassword" type="text" placeholder="Nickname" id="InputNickName">
                 </div>
             </div>
+        </div>
 
-
-            <div class="form-group">
-                <label class="col-lg-2 control-label" for="InputPassword">密码</label>
-                <div class="col-lg-3">
-                    <input class="form-control" type="password" placeholder="Password" id="InputPassword">
+        <div class="form-group">
+            <div class="col-md-6 col-md-offset-3">
+                <label class="col-md-3 col-md-offset-2 control-label" for="InputPassword">密码</label>
+                <div class="col-md-4">
+                    <input class="form-control" name="InputPassword" type="password" placeholder="Password" id="InputPassword">
                 </div>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label class="col-lg-2 control-label" for="InputPasswordAgain">确认密码</label>
-                <div class="col-lg-3">
-                    <input type="text" name="InputPasswordAgain" placeholder="Password" class="form-email form-control" id="InputPasswordAgain">
+        <div class="form-group">
+            <div class="col-md-6 col-md-offset-3">
+                <label class="col-md-3 col-md-offset-2 control-label" for="InputPasswordAgain">确认密码</label>
+                <div class="col-md-4">
+                    <input type="password" name="InputPasswordAgain" placeholder="Password" class="form-control" id="InputPasswordAgain">
                 </div>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label class="col-lg-2 control-label" for="InputNumber">手机号</label>
-                <div class="col-lg-3">
-                    <input type="tel" name="InputNumber" placeholder="Telphone" class="form-email form-control" id="InputNumber">
+        <div class="form-group">
+            <div class="col-md-6 col-md-offset-3">
+                <label class="col-md-3 col-md-offset-2 control-label" for="InputEmail">邮箱</label>
+                <div class="col-md-4" >
+                    <input type="tel" name="InputEmail" placeholder="Email Address" class="form-control" id="InputEmail">
                 </div>
             </div>
+        </div>
 
-            <div class="form-group">
-                <div class="col-lg-10 col-lg-offset-2">
-                    <div class="checkbox" >
-                        <label >
-                            <input type="checkbox">
-                            我已浏览并接受<a href="#">服务条款</a>
-                        </label>
-                    </div>
+        <div class="form-group">
+            <div class="col-md-6 col-md-offset-3">
+                <label class="col-md-3 col-md-offset-2 control-label" for="inputCode">手机验证码</label>
+                <div class="col-md-4">
+                    <input type="text" name="InputNumber" placeholder="Verification Code" class="form-control" id="inputCode">
                 </div>
+                <!--<a href="" class="btn btn-primary btn-sm">验证码</a>-->
+                <button class="btn btn-primary btn-sm">获取验证码</button>
             </div>
 
-            <div class="form-group">
-                <div class="col-lg-offset-2 col-lg-12">
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="checkbox col-md-offset-5">
+                    <label>
+                        <input type="checkbox">
+                        我已浏览并接受<a href="" style="color: #25aeff">服务条款</a>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-6 col-md-offset-3" >
+                <div class="col-md-5 col-md-offset-5">
                     <button type="submit" class="btn btn-primary ">确认</button>&emsp;&emsp;&emsp;
                     <button type="reset" class="btn btn-info">重置</button>
                 </div>
-
             </div>
-        </form>
 
-    </div>
+        </div>
+    </form>
 
-    <script>
-        $("#nav").load("nav");//导入导航页面
-    </script>
+</div>
+
+<script>
+    $("#nav").load("nav");//导入导航页面
+    $('[data-toggle="tooltip"]').tooltip();  //初始化
+</script>
 
 
 </body>

@@ -30,5 +30,10 @@ public class IndexController {
         return "registerUser";
     }
 
+    @RequestMapping(value = "/registerSchool")
+    public String school(Map<String, Object> map){
+        return "registerSchool";
+    }
+
 
 }

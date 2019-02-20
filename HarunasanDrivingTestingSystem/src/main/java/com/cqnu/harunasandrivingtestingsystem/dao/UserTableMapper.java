@@ -12,6 +12,6 @@ public interface UserTableMapper {
     UserTable selectByPrimaryKey(Integer userId);
 
     int updateByPrimaryKeySelective(UserTable record);
-//==
+//==！
     int updateByPrimaryKey(UserTable record);
 }

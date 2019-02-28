@@ -2,12 +2,14 @@ package com.cqnu.harunasandrivingtestingsystem.entity;
 
 import java.util.Date;
 
-public class UserSchoolTable {
+public class School {
     private Integer schoolId;
 
     private String schoolCorporateName;
 
     private Integer schoolCorporateTel;
+
+    private String schoolPassword;
 
     private String schoolEmail;
 
@@ -43,6 +45,10 @@ public class UserSchoolTable {
 
     private Double schoolPublicPraise;
 
+    private Date schoolRegDate;
+
+    private Integer schoolEnable;
+
     private String schoolIntroduction;
 
     public Integer getSchoolId() {
@@ -67,6 +73,14 @@ public class UserSchoolTable {
 
     public void setSchoolCorporateTel(Integer schoolCorporateTel) {
         this.schoolCorporateTel = schoolCorporateTel;
+    }
+
+    public String getSchoolPassword() {
+        return schoolPassword;
+    }
+
+    public void setSchoolPassword(String schoolPassword) {
+        this.schoolPassword = schoolPassword == null ? null : schoolPassword.trim();
     }
 
     public String getSchoolEmail() {
@@ -203,6 +217,22 @@ public class UserSchoolTable {
 
     public void setSchoolPublicPraise(Double schoolPublicPraise) {
         this.schoolPublicPraise = schoolPublicPraise;
+    }
+
+    public Date getSchoolRegDate() {
+        return schoolRegDate;
+    }
+
+    public void setSchoolRegDate(Date schoolRegDate) {
+        this.schoolRegDate = schoolRegDate;
+    }
+
+    public Integer getSchoolEnable() {
+        return schoolEnable;
+    }
+
+    public void setSchoolEnable(Integer schoolEnable) {
+        this.schoolEnable = schoolEnable;
     }
 
     public String getSchoolIntroduction() {

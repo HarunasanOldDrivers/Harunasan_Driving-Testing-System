@@ -1,4 +1,4 @@
-package com.cqnu.harunasandrivingtestingsystem.dao;
+package com.cqnu.harunasandrivingtestingsystem.mapper;
 
 import com.cqnu.harunasandrivingtestingsystem.entity.QuestionsOne;
 

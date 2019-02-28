@@ -1,9 +1,26 @@
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://teriri.com:3306/question_one?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=CONVERT_TO_NULL&autoReconnect=true&failOverReadOnly=false
+    url: jdbc:mysql://teriri.com:3306/hodts_db?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=CONVERT_TO_NULL&autoReconnect=true&failOverReadOnly=false
     username: olddrivers
     password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
 
 server:
   port: 8000
+
+jwt:
+  header: jwtHeader   #jwt的请求头
+  secret: 3f3a6639098c6afc5055260a411c283e3990e58424efd3be42a70c089c7dae98   #jwt的加密字符串 "Harunasan" SHA256
+  expiration: 3600000   #token有效时间（毫秒）
+  route:
+    login: /auth/login    #登录地址
+    refresh: /auth/refresh  #刷新token地址
+    register: /auth/register  #注册的地址
+
+
+
+
+#mybatis:
+#  mapper-locations: classpath:resources/mapping/*.xml
+#  type-aliases-package: com.cqnu.harunasandrivingtestingsystem.dao

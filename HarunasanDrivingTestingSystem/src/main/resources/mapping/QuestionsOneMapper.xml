@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cqnu.harunasandrivingtestingsystem.dao.QuestionsOneMapper">
+<mapper namespace="com.cqnu.harunasandrivingtestingsystem.mapper.QuestionsOneMapper">
   <resultMap id="BaseResultMap" type="com.cqnu.harunasandrivingtestingsystem.entity.QuestionsOne">
     <id column="qo_Id" jdbcType="INTEGER" property="qoId" />
     <result column="qo_type" jdbcType="VARCHAR" property="qoType" />

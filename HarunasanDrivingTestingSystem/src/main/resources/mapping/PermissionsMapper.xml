@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqnu.harunasandrivingtestingsystem.mapper.PermissionsMapper">
+  <resultMap id="BaseResultMap" type="com.cqnu.harunasandrivingtestingsystem.entity.Permissions">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="Alias" jdbcType="VARCHAR" property="alias" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, Alias, Name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from hodts_db..permissions
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hodts_db..permissions
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.Permissions">
+    insert into hodts_db..permissions (Id, Alias, Name
+      )
+    values (#{id,jdbcType=INTEGER}, #{alias,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.Permissions">
+    insert into hodts_db..permissions
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="alias != null">
+        Alias,
+      </if>
+      <if test="name != null">
+        Name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="alias != null">
+        #{alias,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.Permissions">
+    update hodts_db..permissions
+    <set>
+      <if test="alias != null">
+        Alias = #{alias,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.Permissions">
+    update hodts_db..permissions
+    set Alias = #{alias,jdbcType=VARCHAR},
+      Name = #{name,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

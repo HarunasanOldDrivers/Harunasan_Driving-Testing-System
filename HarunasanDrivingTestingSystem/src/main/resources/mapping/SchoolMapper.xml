@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cqnu.harunasandrivingtestingsystem.dao.UserSchoolTableMapper">
-  <resultMap id="BaseResultMap" type="com.cqnu.harunasandrivingtestingsystem.entity.UserSchoolTable">
+<mapper namespace="com.cqnu.harunasandrivingtestingsystem.mapper.SchoolMapper">
+  <resultMap id="BaseResultMap" type="com.cqnu.harunasandrivingtestingsystem.entity.School">
     <id column="school_id" jdbcType="INTEGER" property="schoolId" />
     <result column="school_corporate_name" jdbcType="VARCHAR" property="schoolCorporateName" />
     <result column="school_corporate_tel" jdbcType="INTEGER" property="schoolCorporateTel" />
+    <result column="school_password" jdbcType="VARCHAR" property="schoolPassword" />
     <result column="school_email" jdbcType="VARCHAR" property="schoolEmail" />
     <result column="school_name" jdbcType="VARCHAR" property="schoolName" />
     <result column="school_company_name" jdbcType="VARCHAR" property="schoolCompanyName" />
@@ -22,16 +23,18 @@
     <result column="school_start_time" jdbcType="DATE" property="schoolStartTime" />
     <result column="school_pass_time" jdbcType="DATE" property="schoolPassTime" />
     <result column="school_public_praise" jdbcType="DOUBLE" property="schoolPublicPraise" />
+    <result column="school_reg_date" jdbcType="DATE" property="schoolRegDate" />
+    <result column="school_enable" jdbcType="INTEGER" property="schoolEnable" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.cqnu.harunasandrivingtestingsystem.entity.UserSchoolTable">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.cqnu.harunasandrivingtestingsystem.entity.School">
     <result column="school_introduction" jdbcType="LONGVARCHAR" property="schoolIntroduction" />
   </resultMap>
   <sql id="Base_Column_List">
-    school_id, school_corporate_name, school_corporate_tel, school_email, school_name, 
-    school_company_name, school_authentication_status, school_card_id, school_enroll_telphone, 
+    school_id, school_corporate_name, school_corporate_tel, school_password, school_email, 
+    school_name, school_company_name, school_authentication_status, school_card_id, school_enroll_telphone, 
     school_start_price, school_business_license, school_certification_license, school_social_credit_code, 
     school_province, school_city, school_area, school_detail_address, school_start_time, 
-    school_pass_time, school_public_praise
+    school_pass_time, school_public_praise, school_reg_date, school_enable
   </sql>
   <sql id="Blob_Column_List">
     school_introduction
@@ -41,35 +44,37 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from hodts_db..user_school_table
+    from hodts_db..school
     where school_id = #{schoolId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from hodts_db..user_school_table
+    delete from hodts_db..school
     where school_id = #{schoolId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.UserSchoolTable">
-    insert into hodts_db..user_school_table (school_id, school_corporate_name, school_corporate_tel, 
-      school_email, school_name, school_company_name, 
-      school_authentication_status, school_card_id, 
-      school_enroll_telphone, school_start_price, 
+  <insert id="insert" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.School">
+    insert into hodts_db..school (school_id, school_corporate_name, school_corporate_tel, 
+      school_password, school_email, school_name, 
+      school_company_name, school_authentication_status, 
+      school_card_id, school_enroll_telphone, school_start_price, 
       school_business_license, school_certification_license, 
       school_social_credit_code, school_province, 
       school_city, school_area, school_detail_address, 
       school_start_time, school_pass_time, school_public_praise, 
-      school_introduction)
+      school_reg_date, school_enable, school_introduction
+      )
     values (#{schoolId,jdbcType=INTEGER}, #{schoolCorporateName,jdbcType=VARCHAR}, #{schoolCorporateTel,jdbcType=INTEGER}, 
-      #{schoolEmail,jdbcType=VARCHAR}, #{schoolName,jdbcType=VARCHAR}, #{schoolCompanyName,jdbcType=VARCHAR}, 
-      #{schoolAuthenticationStatus,jdbcType=TINYINT}, #{schoolCardId,jdbcType=VARCHAR}, 
-      #{schoolEnrollTelphone,jdbcType=VARCHAR}, #{schoolStartPrice,jdbcType=INTEGER}, 
+      #{schoolPassword,jdbcType=VARCHAR}, #{schoolEmail,jdbcType=VARCHAR}, #{schoolName,jdbcType=VARCHAR}, 
+      #{schoolCompanyName,jdbcType=VARCHAR}, #{schoolAuthenticationStatus,jdbcType=TINYINT}, 
+      #{schoolCardId,jdbcType=VARCHAR}, #{schoolEnrollTelphone,jdbcType=VARCHAR}, #{schoolStartPrice,jdbcType=INTEGER}, 
       #{schoolBusinessLicense,jdbcType=VARCHAR}, #{schoolCertificationLicense,jdbcType=VARCHAR}, 
       #{schoolSocialCreditCode,jdbcType=VARCHAR}, #{schoolProvince,jdbcType=VARCHAR}, 
       #{schoolCity,jdbcType=VARCHAR}, #{schoolArea,jdbcType=VARCHAR}, #{schoolDetailAddress,jdbcType=VARCHAR}, 
       #{schoolStartTime,jdbcType=DATE}, #{schoolPassTime,jdbcType=DATE}, #{schoolPublicPraise,jdbcType=DOUBLE}, 
-      #{schoolIntroduction,jdbcType=LONGVARCHAR})
+      #{schoolRegDate,jdbcType=DATE}, #{schoolEnable,jdbcType=INTEGER}, #{schoolIntroduction,jdbcType=LONGVARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.UserSchoolTable">
-    insert into hodts_db..user_school_table
+  <insert id="insertSelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.School">
+    insert into hodts_db..school
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="schoolId != null">
         school_id,
@@ -79,6 +84,9 @@
       </if>
       <if test="schoolCorporateTel != null">
         school_corporate_tel,
+      </if>
+      <if test="schoolPassword != null">
+        school_password,
       </if>
       <if test="schoolEmail != null">
         school_email,
@@ -131,6 +139,12 @@
       <if test="schoolPublicPraise != null">
         school_public_praise,
       </if>
+      <if test="schoolRegDate != null">
+        school_reg_date,
+      </if>
+      <if test="schoolEnable != null">
+        school_enable,
+      </if>
       <if test="schoolIntroduction != null">
         school_introduction,
       </if>
@@ -144,6 +158,9 @@
       </if>
       <if test="schoolCorporateTel != null">
         #{schoolCorporateTel,jdbcType=INTEGER},
+      </if>
+      <if test="schoolPassword != null">
+        #{schoolPassword,jdbcType=VARCHAR},
       </if>
       <if test="schoolEmail != null">
         #{schoolEmail,jdbcType=VARCHAR},
@@ -196,19 +213,28 @@
       <if test="schoolPublicPraise != null">
         #{schoolPublicPraise,jdbcType=DOUBLE},
       </if>
+      <if test="schoolRegDate != null">
+        #{schoolRegDate,jdbcType=DATE},
+      </if>
+      <if test="schoolEnable != null">
+        #{schoolEnable,jdbcType=INTEGER},
+      </if>
       <if test="schoolIntroduction != null">
         #{schoolIntroduction,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.UserSchoolTable">
-    update hodts_db..user_school_table
+  <update id="updateByPrimaryKeySelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.School">
+    update hodts_db..school
     <set>
       <if test="schoolCorporateName != null">
         school_corporate_name = #{schoolCorporateName,jdbcType=VARCHAR},
       </if>
       <if test="schoolCorporateTel != null">
         school_corporate_tel = #{schoolCorporateTel,jdbcType=INTEGER},
+      </if>
+      <if test="schoolPassword != null">
+        school_password = #{schoolPassword,jdbcType=VARCHAR},
       </if>
       <if test="schoolEmail != null">
         school_email = #{schoolEmail,jdbcType=VARCHAR},
@@ -261,16 +287,23 @@
       <if test="schoolPublicPraise != null">
         school_public_praise = #{schoolPublicPraise,jdbcType=DOUBLE},
       </if>
+      <if test="schoolRegDate != null">
+        school_reg_date = #{schoolRegDate,jdbcType=DATE},
+      </if>
+      <if test="schoolEnable != null">
+        school_enable = #{schoolEnable,jdbcType=INTEGER},
+      </if>
       <if test="schoolIntroduction != null">
         school_introduction = #{schoolIntroduction,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where school_id = #{schoolId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.UserSchoolTable">
-    update hodts_db..user_school_table
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.School">
+    update hodts_db..school
     set school_corporate_name = #{schoolCorporateName,jdbcType=VARCHAR},
       school_corporate_tel = #{schoolCorporateTel,jdbcType=INTEGER},
+      school_password = #{schoolPassword,jdbcType=VARCHAR},
       school_email = #{schoolEmail,jdbcType=VARCHAR},
       school_name = #{schoolName,jdbcType=VARCHAR},
       school_company_name = #{schoolCompanyName,jdbcType=VARCHAR},
@@ -288,13 +321,16 @@
       school_start_time = #{schoolStartTime,jdbcType=DATE},
       school_pass_time = #{schoolPassTime,jdbcType=DATE},
       school_public_praise = #{schoolPublicPraise,jdbcType=DOUBLE},
+      school_reg_date = #{schoolRegDate,jdbcType=DATE},
+      school_enable = #{schoolEnable,jdbcType=INTEGER},
       school_introduction = #{schoolIntroduction,jdbcType=LONGVARCHAR}
     where school_id = #{schoolId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.UserSchoolTable">
-    update hodts_db..user_school_table
+  <update id="updateByPrimaryKey" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.School">
+    update hodts_db..school
     set school_corporate_name = #{schoolCorporateName,jdbcType=VARCHAR},
       school_corporate_tel = #{schoolCorporateTel,jdbcType=INTEGER},
+      school_password = #{schoolPassword,jdbcType=VARCHAR},
       school_email = #{schoolEmail,jdbcType=VARCHAR},
       school_name = #{schoolName,jdbcType=VARCHAR},
       school_company_name = #{schoolCompanyName,jdbcType=VARCHAR},
@@ -311,7 +347,9 @@
       school_detail_address = #{schoolDetailAddress,jdbcType=VARCHAR},
       school_start_time = #{schoolStartTime,jdbcType=DATE},
       school_pass_time = #{schoolPassTime,jdbcType=DATE},
-      school_public_praise = #{schoolPublicPraise,jdbcType=DOUBLE}
+      school_public_praise = #{schoolPublicPraise,jdbcType=DOUBLE},
+      school_reg_date = #{schoolRegDate,jdbcType=DATE},
+      school_enable = #{schoolEnable,jdbcType=INTEGER}
     where school_id = #{schoolId,jdbcType=INTEGER}
   </update>
 </mapper>

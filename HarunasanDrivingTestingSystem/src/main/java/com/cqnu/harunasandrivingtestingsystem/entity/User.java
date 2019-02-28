@@ -2,7 +2,7 @@ package com.cqnu.harunasandrivingtestingsystem.entity;
 
 import java.util.Date;
 
-public class UserTable {
+public class User {
     private Integer userId;
 
     private String userTelphone;
@@ -16,6 +16,10 @@ public class UserTable {
     private Date userEnrollTime;
 
     private String userNormalPosition;
+
+    private Date userRegDate;
+
+    private Integer userEnable;
 
     public Integer getUserId() {
         return userId;
@@ -71,5 +75,21 @@ public class UserTable {
 
     public void setUserNormalPosition(String userNormalPosition) {
         this.userNormalPosition = userNormalPosition == null ? null : userNormalPosition.trim();
+    }
+
+    public Date getUserRegDate() {
+        return userRegDate;
+    }
+
+    public void setUserRegDate(Date userRegDate) {
+        this.userRegDate = userRegDate;
+    }
+
+    public Integer getUserEnable() {
+        return userEnable;
+    }
+
+    public void setUserEnable(Integer userEnable) {
+        this.userEnable = userEnable;
     }
 }

@@ -331,7 +331,12 @@
         </form>
     </div>
     <script>
-        $("#nav").load("nav");//导入导航页面
+        //导入导航页面
+        $("#nav").load("nav",function () {
+            //在载入完成之后改变导航栏状态
+            $("#mainpage").removeClass("active")
+            $("#register").addClass("active");
+        });
         $('[data-toggle="tooltip"]').tooltip();  //初始化
     </script>
 

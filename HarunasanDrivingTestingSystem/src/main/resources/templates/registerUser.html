@@ -7,11 +7,6 @@
     <script src="webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="webjars/bootstrap/3.3.5/css/bootstrap.min.css" />
     <title>学员用户注册</title>
-    <style>
-        body{
-            padding: 50px;
-        }
-    </style>
 
 </head>
 <body>
@@ -110,7 +105,12 @@
 </div>
 
 <script>
-    $("#nav").load("nav");//导入导航页面
+    //导入导航页面
+    $("#nav").load("nav",function () {
+        //在载入完成之后改变导航栏状态
+        $("#mainpage").removeClass("active")
+        $("#register").addClass("active");
+    });
     $('[data-toggle="tooltip"]').tooltip();  //初始化
 </script>
 

@@ -1,0 +1,267 @@
+/*清除默认样式*/
+html, body {
+    margin: 0;/*清除默认样式*/
+    padding: 0;
+    height: 100%;
+}
+
+/*解决登录模态框造成的页面偏移*/
+body {
+    padding-right: 0px !important;
+}
+*.modal-open {
+    overflow-y: scroll;
+    padding-right: 0 !important;
+}
+
+.onepage{
+    height: 750px;
+}
+
+/*侧边导航CSS*/
+.side-nav{
+    position: fixed;
+    top:45%;
+    right: 20px;
+    z-index: 1;
+}
+
+.side-nav ul.nav-side-nav{
+    text-align: center;
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+}
+
+.side-nav ul.nav-side-nav > li{
+    display: block;
+    line-height: 1.45em;
+    margin: 0;
+    padding: 8px 0;
+}
+
+.side-nav ul.nav-side-nav > li > a {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #2aabd2;
+}
+
+
+/**/
+
+
+/*背景图片*/
+.onepage-bg{
+    margin-top: 0px;
+    margin-right: 30px;
+    height:730px;
+    width: 100%;
+    position: absolute;
+    background-position: center center;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+
+#onepagebg{
+    background-image: url("onepage-bg.png");
+}
+
+.onepage-bg{
+}
+
+.headh1content{
+    margin-top: 170px;
+    line-height: 75px;
+}
+
+.title-text{
+    margin-right:60px;
+}
+
+.headfontsize{
+    color: #286090;
+}
+
+.headfontsize p{
+    margin-top: 10px;
+    font-size:20px ;
+    color: rgba(30, 24, 24, 0.79);
+}
+
+
+/*第二页屏*/
+
+.twopage{
+    padding: 100px 0 0 2px;
+    height: 750px;
+    /*
+    可以添加背景图片:
+    background-image:url("")
+    */
+    position: relative;
+}
+
+.twoppage-text{
+    width: 100%;
+    text-align: center;
+}
+
+/*覆盖bootstrap原本的row的效果*/
+
+.row img{
+    width: 485px;
+    height: 300px;
+}
+
+.twopage-courses{
+    float: left;
+    background: #ffffff;
+    padding: 100px 2px 2px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.twopage-courses >a{
+    width: 100%;
+    float: left;
+    text-align: center;
+    position:relative;
+}
+
+.classicon h3{
+    margin-top:15px;
+    color: #f0ad4e;
+}
+
+.classicon h1{
+    margin-top:100px;
+    color: #ffffff;
+}
+
+.classicon{
+    width:100%;
+    height: 100%;
+    position: absolute;
+    left:0;
+    top: 0;
+    color: #fff;
+    opacity: 0;
+}
+
+.classicon:hover{
+    background:#337ab7;
+    opacity: 0.9;
+    -webkit-transition: opacity 0.5s;
+    -moz-transition: opacity 0.5s;
+    -o-transition: opacity 0.5s;
+    transition: opacity 0.5s;
+}
+
+/*第三页屏幕*/
+.threepage-bg{
+    margin-top: 0px;
+    margin-right: 30px;
+    height:750px;
+    width: 100%;
+    background-image:url("threepagebg4.png");
+    position: absolute;
+    background-position: center center;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+
+.threepagecontent{
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.threepagecontent2{
+    margin-top: 2.5em;
+}
+.threepagetext{
+    margin-top: 100px;
+    color: #1e1818;
+}
+
+.threepageimages:hover{
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+.threepagebtn{
+    margin-top: 3em;
+    text-align: center;
+}
+
+.threepagesubtitle {
+    text-align: center;
+    color: #ff9b6e;
+}
+
+.threepagesubtitle h2{
+    text-align: center;
+    color: #f0ad4e;
+}
+
+.fourpagebg{
+    margin-top: 750px;
+    margin-right: 30px;
+    height:750px;
+    width: 100%;
+    /*background-image:url("threepagebg4.png");*/
+    position: absolute;
+    background-position: center center;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+.fourpagediv{
+    margin-top: 8em;
+}
+
+.fourpageoverview h1{
+    text-align: center;
+}
+.fourpagetitle h1{
+    text-align: center;
+}
+
+.fourpageContent{
+    line-height: 15px;
+    color: #ff4194;
+}
+
+.fourpageContentUl{
+    list-style: none;
+}
+
+.fourpagePanelBodyFontColor{
+    color:#ff4194;
+}
+.fourpagefooter{
+    position: absolute;
+    top: 1300px;
+    background: #676767;
+    color: white;
+}
+
+.footerTitle{
+    color: white;
+}
+
+.footerUl{
+    color: #ffc057;
+}
+
+.footerUl li a{
+    color: #ffc057;
+}
+
+.footerUl li a:hover{
+    color: white;
+}
+
+
+

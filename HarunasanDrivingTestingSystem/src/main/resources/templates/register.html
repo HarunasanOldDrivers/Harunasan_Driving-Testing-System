@@ -39,7 +39,7 @@
                             <h3 class="text-center">学员用户</h3>
                             <p class="text-center">我们将为您提供专业的驾考知识，丰富您的驾考技能</p>
                         </div>
-                    <input class="RadioUser" name="optionsRadioUser" type="radio" checked>
+                    <input class="RadioUser" name="optionsRadioUser" type="radio" checked value="StudentUser">
                 </div>
             </label>
             <label class="col-lg-5 col-lg-offset-2">
@@ -49,11 +49,11 @@
                             <h3 class="text-center">驾校用户</h3>
                             <p class="text-center">我们将为您发布您的驾校信息,使学员享受优质服务</p>
                         </div>
-                    <input class="RadioUser" name="optionsRadioUser" type="radio">
+                    <input class="RadioUser" name="optionsRadioUser" type="radio" value="SchoolUser">
                 </div>
             </label>
             <div style="text-align: center">
-                <button type="button" style="margin-top: 2em;" class="btn btn-lg btn-primary ">开始注册</button>
+                <button type="button" id="StartRegisterBtn" style="margin-top: 2em;" class="btn btn-lg btn-primary ">开始注册</button>
             </div>
         </div>
     </div>
@@ -66,6 +66,20 @@
             $("#mainpage").removeClass("active")
             $("#register").addClass("active");
         });
+
+        //选择不同的学员类型进行跳转
+        var StartRegisterBtn = $("#StartRegisterBtn");
+        StartRegisterBtn.click(chooseUserType);
+        function chooseUserType() {
+            var optionsRadioUser = $("input[name='optionsRadioUser']:checked").val();
+            if(optionsRadioUser === "SchoolUser"){
+                window.location.href='registerSchool'
+            }else if(optionsRadioUser === "StudentUser"){
+                window.location.href='registerUser'
+            }else{
+                alert("请选择一种用户进行注册");
+            }
+        }
     </script>
 </body>
 </html>

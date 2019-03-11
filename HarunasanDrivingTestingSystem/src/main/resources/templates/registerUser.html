@@ -9,6 +9,11 @@
     <title>学员用户注册</title>
 
 </head>
+    <style>
+        body{
+            padding-top: 50px;
+        }
+    </style>
 <body>
 
 <div id="nav"></div>
@@ -108,7 +113,12 @@
     //导入导航页面
     $("#nav").load("nav",function () {
         //在载入完成之后改变导航栏状态
-        $("#mainpage").removeClass("active")
+        $("#mainpage").removeClass("active");
+        $("#subjectOne").removeClass("active");
+        $("#subjecttwo").removeClass("active");
+        $("#testInfo").removeClass("active");
+        $("#drivingVideo").removeClass("active");
+        $("#buyCommend").removeClass("active");
         $("#register").addClass("active");
     });
     $('[data-toggle="tooltip"]').tooltip();  //初始化

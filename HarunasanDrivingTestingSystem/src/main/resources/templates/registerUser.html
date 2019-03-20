@@ -3,127 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <script src="webjars/jquery/3.1.1/jquery.min.js"></script>
-    <script src="webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="webjars/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <script src="../js/jquery-3.1.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
+    <!--引入本页面JS-->
+    <script src="../js/registerUser.js" type="text/javascript"></script>
     <title>学员用户注册</title>
-
-</head>
     <style>
         body{
-            padding-top: 50px;
+            padding: 50px;   /*空出导航页面位置*/
         }
+        /*密码强度CSS样式*/
+        .tbl-txt{font-size:14px;}
+        .tbl-txt input{padding:0 5px; height:22px; line-height:22px; margin-bottom:6px;}
+        .pw-strength {clear: both;position: relative;top: 8px;width: 180px;}
+        .pw-bar{background: url(images/pwd-1.png) no-repeat; position:relative; top:1px;height: 14px;overflow: hidden;width: 179px;}
+        .pw-bar-on{background: url(images/pwd-2.png) no-repeat; width:0px; height:14px;position: absolute;top: 1px;left: 2px;transition: width .5s ease-in;-moz-transition: width .5s ease-in;-webkit-transition: width .5s ease-in;-o-transition: width .5s ease-in;}
+        .pw-weak .pw-bar-on {width: 60px;}
+        .pw-medium .pw-bar-on {width: 120px;}
+        .pw-strong .pw-bar-on {width: 179px;}
+        .pw-txt {padding-top: 2px;width: 180px;overflow: hidden;}
+        .pw-txt span {color: #707070;float: left;font-size: 12px;text-align: center;width: 58px;}
     </style>
+
+</head>
 <body>
 
-<div id="nav"></div>
+    <div id="nav"></div>
 
-<div class="container">
-    <div class="page-header">
-        <h1 class="text-center">欢迎注册成为我们网站的学员用户</h1><br>
-        <h3 class="text-center">请填写以下信息，以便我们为您提供优质的服务</h3>
+    <div class="container">
+        <div class="page-header">
+            <h1 class="text-center">欢迎注册成为我们网站的学员用户</h1><br>
+            <h3 class="text-center">请填写以下信息，以便我们为您提供优质的服务</h3>
+        </div>
+        <br>
     </div>
-    <br>
-</div>
 
-<div class="container" >
-    <form class="form-horizontal" role="form" >
-        <div class="form-group ">
-            <div class="col-md-6 col-md-offset-3"  >
-                <label class="col-md-3 col-md-offset-2 control-label" for="InputNumber">账号/手机号</label>
-                <div class="col-md-4" data-toggle="tooltip" title="此手机号将作为您的登录账号使用"  data-placement="right">
-                    <input class="form-control" name="InputNumber" type="tel" placeholder="Account/Telphone" id="InputNumber">
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-6 col-md-offset-3">
-                <label class="col-md-3 col-md-offset-2 control-label" for="InputPassword">昵称</label>
-                <div class="col-md-4"  data-toggle="tooltip" title="此昵称为您社区名称"  data-placement="right">
-                    <input class="form-control" name="InputPassword" type="text" placeholder="Nickname" id="InputNickName">
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-6 col-md-offset-3">
-                <label class="col-md-3 col-md-offset-2 control-label" for="InputPassword">密码</label>
-                <div class="col-md-4">
-                    <input class="form-control" name="InputPassword" type="password" placeholder="Password" id="InputPassword">
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-6 col-md-offset-3">
-                <label class="col-md-3 col-md-offset-2 control-label" for="InputPasswordAgain">确认密码</label>
-                <div class="col-md-4">
-                    <input type="password" name="InputPasswordAgain" placeholder="Password" class="form-control" id="InputPasswordAgain">
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-6 col-md-offset-3">
-                <label class="col-md-3 col-md-offset-2 control-label" for="InputEmail">邮箱</label>
-                <div class="col-md-4" >
-                    <input type="tel" name="InputEmail" placeholder="Email Address" class="form-control" id="InputEmail">
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-6 col-md-offset-3">
-                <label class="col-md-3 col-md-offset-2 control-label" for="inputCode">手机验证码</label>
-                <div class="col-md-4">
-                    <input type="text" name="InputNumber" placeholder="Verification Code" class="form-control" id="inputCode">
-                </div>
-                <!--<a href="" class="btn btn-primary btn-sm">验证码</a>-->
-                <button class="btn btn-primary btn-sm">获取验证码</button>
-            </div>
-
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-6 col-md-offset-3">
-                <div class="checkbox col-md-offset-5">
-                    <label>
-                        <input type="checkbox">
-                        我已浏览并接受<a href="" style="color: #25aeff">服务条款</a>
-                    </label>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-6 col-md-offset-3" >
-                <div class="col-md-5 col-md-offset-5">
-                    <button type="submit" class="btn btn-primary ">确认</button>&emsp;&emsp;&emsp;
-                    <button type="reset" class="btn btn-info">重置</button>
+    <div class="container" >
+        <form class="form-horizontal" role="form" >
+            <div class="form-group ">
+                <div class="col-md-10 col-md-offset-1 has-feedback" id="InputAccountTelDiv">
+                    <label class="col-md-3 col-md-offset-2 control-label" for="InputAccountTel">账号/手机号</label>
+                    <div class="col-md-3" data-toggle="tooltip" title="此手机号将作为您的登录账号使用"  data-placement="right">
+                        <input class="form-control" name="InputAccountTel" type="tel" placeholder="Account/Telphone" id="InputAccountTel">
+                        <span id="InputAccountTelGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
+                        <span id="InputAccountTelGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
+                        <span id="InputAccountTelFalseTip" style="color: #bd2a31;" class="hidden"></span>
+                    </div>
                 </div>
             </div>
 
-        </div>
-    </form>
+            <div class="form-group">
+                <div class="col-md-10 col-md-offset-1 has-feedback" id="InputNickNameDiv">
+                    <label class="col-md-3 col-md-offset-2 control-label" for="InputNickName">昵称</label>
+                    <div class="col-md-3"  data-toggle="tooltip" title="此昵称为您社区名称"  data-placement="right">
+                        <input class="form-control" name="InputNickName" type="text" placeholder="Nickname" id="InputNickName">
+                        <span id="InputNickNameGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
+                        <span id="InputNickNameGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
+                        <span id="InputNickNameFalseTip" style="color: #bd2a31;" class="hidden"></span>
+                    </div>
+                </div>
+            </div>
 
-</div>
+            <div class="form-group">
+                <div class="col-md-10 col-md-offset-1 has-feedback" id="InputUserPasswordDiv">
+                    <label class="col-md-3 col-md-offset-2 control-label" for="InputUserPassword">密码</label>
+                    <div class="col-md-3">
+                        <input class="form-control" name="InputPassword" type="password" placeholder="Password" id="InputUserPassword">
+                        <span id="InputUserPasswordGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
+                        <span id="InputUserPasswordGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
+                        <span id="InputUserPasswordGlyWarning" class="glyphicon glyphicon-warning-sign form-control-feedback hidden" aria-hidden="true"></span>
+                        <span id="InputUserPasswordFalseTip" style="color: #bd2a31;" class="hidden"></span>
+                    </div>
+                </div>
+                <div class="pw-strength-div" >
+                    <table style="width:320px;" class="col-md-offset-4" >
+                        <tr>
+                            <th></th>
+                            <td id="level" class="pw-strength ">
+                                <div class="pw-bar"></div>
+                                <div class="pw-bar-on"></div>
+                                <div class="pw-txt">
+                                    <span>弱</span>
+                                    <span>中</span>
+                                    <span>强</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
 
-<script>
-    //导入导航页面
-    $("#nav").load("nav",function () {
-        //在载入完成之后改变导航栏状态
-        $("#mainpage").removeClass("active");
-        $("#subjectOne").removeClass("active");
-        $("#subjecttwo").removeClass("active");
-        $("#testInfo").removeClass("active");
-        $("#drivingVideo").removeClass("active");
-        $("#buyCommend").removeClass("active");
-        $("#register").addClass("active");
-    });
-    $('[data-toggle="tooltip"]').tooltip();  //初始化
-</script>
+            <div class="form-group">
+                <div class="col-md-10 col-md-offset-1 has-feedback" id="InputUserPasswordAgainDiv">
+                    <label class="col-md-3 col-md-offset-2 control-label" for="InputUserPasswordAgain">确认密码</label>
+                    <div class="col-md-3">
+                        <input type="password" name="InputPasswordAgain" placeholder="Password" class="form-control" id="InputUserPasswordAgain">
+                        <span id="InputUserPasswordAgainGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
+                        <span id="InputUserPasswordAgainGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
+                        <span id="InputUserPasswordAgainFalseTip" style="color: #bd2a31;" class="hidden"></span>
+                    </div>
+                </div>
+            </div>
 
+            <div class="form-group">
+                <div class="col-md-10 col-md-offset-1 has-feedback" id="InputUserEmailDiv">
+                    <label class="col-md-3 col-md-offset-2 control-label" for="InputUserEmail">邮箱</label>
+                    <div class="col-md-3" >
+                        <input type="tel" name="InputEmail" placeholder="Email Address" class="form-control" id="InputUserEmail">
+                        <span id="InputUserEmailGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
+                        <span id="InputUserEmailGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
+                        <span id="InputUserEmailFalseTip" style="color: #bd2a31;" class="hidden"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-10 col-md-offset-1 has-feedback" id="InputUserinputCodeDiv">
+                    <label class="col-md-3 col-md-offset-2 control-label" for="inputCode">手机验证码</label>
+                    <div class="col-md-2">
+                        <input type="text" name="InputNumber" placeholder="Verification Code" class="form-control" id="inputCode">
+                    </div>
+                    <!--<a href="" class="btn btn-primary btn-sm">验证码</a>-->
+                    <button class="btn btn-primary btn-sm">获取验证码</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="checkbox col-md-offset-5">
+                        <label>
+                            <input type="checkbox" id="checkBoxAcceptLaw">
+                            我已浏览并接受<a href="" style="color: #25aeff">服务条款</a>
+                            <span id="checkBoxAcceptLawFalseTips" style="color: #bd2a31;" class="hidden"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-6 col-md-offset-3" >
+                    <div class="col-md-5 col-md-offset-5">
+                        <button type="button" class="btn btn-primary " id="Btnconfirm">确认</button>&emsp;&emsp;&emsp;
+                        <button type="reset" class="btn btn-info">重置</button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <script>
+        $("#nav").load("nav",function () {
+            // 在载入完成之后改变状态
+            $("#mainpage").removeClass("active");
+            $("#schoolCommend").addClass("active");
+        });
+    </script>
 
 </body>
 </html>

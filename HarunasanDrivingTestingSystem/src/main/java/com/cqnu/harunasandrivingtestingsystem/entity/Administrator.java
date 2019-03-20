@@ -1,13 +1,24 @@
 package com.cqnu.harunasandrivingtestingsystem.entity;
 
-public class Administrator {
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+
+/**
+ * @author LiAixing
+ */
+public class Administrator implements UserDetails {
+
+    private static final long serialVersionUID = 8653300622373680493L;
+
     private Integer id;
 
-    private String name;
+    private String adminName;
 
-    private String password;
+    private String adminPassword;
 
-    private String phone;
+    private String adminPhone;
 
     private Integer enable;
 
@@ -19,28 +30,28 @@ public class Administrator {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getAdminName() {
+        return adminName;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setAdminName(String adminName) {
+        this.adminName = adminName == null ? null : adminName.trim();
     }
 
-    public String getPassword() {
-        return password;
+    public String getAdminPassword() {
+        return adminPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+    public void setAdminPassword(String adminPassword) {
+        this.adminPassword = adminPassword == null ? null : adminPassword.trim();
     }
 
-    public String getPhone() {
-        return phone;
+    public String getAdminPhone() {
+        return adminPhone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
+    public void setAdminPhone(String adminPhone) {
+        this.adminPhone = adminPhone == null ? null : adminPhone.trim();
     }
 
     public Integer getEnable() {
@@ -49,5 +60,40 @@ public class Administrator {
 
     public void setEnable(Integer enable) {
         this.enable = enable;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getPassword() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return String.valueOf(id);
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enable == 1;
     }
 }

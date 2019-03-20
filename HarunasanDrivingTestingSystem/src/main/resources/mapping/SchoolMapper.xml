@@ -44,11 +44,16 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from hodts_db..school
+    from hodts_db.school
     where school_id = #{schoolId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from hodts_db..school
+    <select id="selectIdByTelephone" parameterType="java.lang.String" resultType="java.lang.Integer">
+      SELECT school_id FROM hodts_db.school
+      WHERE
+
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hodts_db.school
     where school_id = #{schoolId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.School">
@@ -74,7 +79,7 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.School">
-    insert into hodts_db..school
+    insert into hodts_db.school
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="schoolId != null">
         school_id,
@@ -225,7 +230,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.School">
-    update hodts_db..school
+    update hodts_db.school
     <set>
       <if test="schoolCorporateName != null">
         school_corporate_name = #{schoolCorporateName,jdbcType=VARCHAR},
@@ -300,7 +305,7 @@
     where school_id = #{schoolId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.School">
-    update hodts_db..school
+    update hodts_db.school
     set school_corporate_name = #{schoolCorporateName,jdbcType=VARCHAR},
       school_corporate_tel = #{schoolCorporateTel,jdbcType=INTEGER},
       school_password = #{schoolPassword,jdbcType=VARCHAR},

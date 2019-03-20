@@ -19,15 +19,21 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from hodts_db..user
+    from hodts_db.user
     where user_id = #{userId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from hodts_db..user
+    <select id="selectByTelphone" parameterType="java.lang.String" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List" />
+      from hodts_db.user
+      where user_telphone = #{userTelphone,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hodts_db.user
     where user_id = #{userId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.User">
-    insert into hodts_db..user (user_id, user_telphone, user_password, 
+    insert into hodts_db.user (user_id, user_telphone, user_password,
       user_nickname, user_email, user_enroll_time, 
       user_normal_position, user_reg_date, user_enable
       )
@@ -37,7 +43,7 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.User">
-    insert into hodts_db..user
+    insert into hodts_db.user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userId != null">
         user_id,
@@ -98,7 +104,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.User">
-    update hodts_db..user
+    update hodts_db.user
     <set>
       <if test="userTelphone != null">
         user_telphone = #{userTelphone,jdbcType=VARCHAR},
@@ -128,7 +134,7 @@
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.User">
-    update hodts_db..user
+    update hodts_db.user
     set user_telphone = #{userTelphone,jdbcType=VARCHAR},
       user_password = #{userPassword,jdbcType=VARCHAR},
       user_nickname = #{userNickname,jdbcType=VARCHAR},

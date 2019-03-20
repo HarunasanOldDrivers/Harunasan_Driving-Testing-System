@@ -9,9 +9,18 @@ package com.cqnu.harunasandrivingtestingsystem.service;
  **/
 public interface IBaseUserService {
 
-    public void register(String telphone, String nickname, String password, String email);
+    int signUp(String telephone, String nickname, String password, String email);
 
-    public void login();
+    boolean loginByTelephone(String telephone, String password);
 
-    public void verifyCode(String telphone);
+    /**
+     *
+     * @param telephone
+     * @return
+     */
+    String verifyCode(String telephone);
+
+    boolean verification(String telephone, String verifyCode);
+
+    boolean telephoneHavaExsit(String telephone);
 }

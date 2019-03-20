@@ -14,4 +14,14 @@ public interface QuestionsOneMapper {
     int updateByPrimaryKeySelective(QuestionsOne record);
 
     int updateByPrimaryKey(QuestionsOne record);
+
+    /**
+     * 随机查一题
+     * @return  QueestionOne
+     */
+    QuestionsOne selectByRandom();
+
+    QuestionsOne selectByRandomWithChapter(String chapter);
+
+
 }

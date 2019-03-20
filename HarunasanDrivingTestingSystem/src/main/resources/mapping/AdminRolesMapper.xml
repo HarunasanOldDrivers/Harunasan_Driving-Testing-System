@@ -12,19 +12,19 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from hodts_db..admin_roles
+    from hodts_db.admin_roles
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from hodts_db..admin_roles
+    delete from hodts_db.admin_roles
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.AdminRoles">
-    insert into hodts_db..admin_roles (id, Aid, Rid)
+    insert into hodts_db.admin_roles (id, Aid, Rid)
     values (#{id,jdbcType=INTEGER}, #{aid,jdbcType=INTEGER}, #{rid,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.AdminRoles">
-    insert into hodts_db..admin_roles
+    insert into hodts_db.admin_roles
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -49,7 +49,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.AdminRoles">
-    update hodts_db..admin_roles
+    update hodts_db.admin_roles
     <set>
       <if test="aid != null">
         Aid = #{aid,jdbcType=INTEGER},
@@ -61,7 +61,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.AdminRoles">
-    update hodts_db..admin_roles
+    update hodts_db.admin_roles
     set Aid = #{aid,jdbcType=INTEGER},
       Rid = #{rid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}

@@ -30,19 +30,23 @@
         </javaClientGenerator>
         <!-- 要生成那些表(更改tableName和domainObjectName就可以) -->
         <!-- 表名、实体类名称 -->
-        <table catalog="hodts_db" tableName="questions_one" domainObjectName="QuestionsOne" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        <!--<table catalog="hodts_db" tableName="questions_one" domainObjectName="QuestionsOne" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">-->
+            <!--<columnOverride column="qo_title" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+            <!--<columnOverride column="qo_description" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+        <!--</table>-->
+        <table catalog="hodts_db" tableName="questions_four" domainObjectName="QuestionsFour" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <columnOverride column="qo_title" javaType="java.lang.String" jdbcType="VARCHAR" />
             <columnOverride column="qo_description" javaType="java.lang.String" jdbcType="VARCHAR" />
         </table>
-        <table catalog="hodts_db" tableName="hodts_db.school" domainObjectName="School" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
-        <table catalog="hodts_db" tableName="hodts_db.user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
-        <table catalog="hodts_db" tableName="hodts_db.admin_roles" domainObjectName="AdminRoles" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
-        <table catalog="hodts_db" tableName="hodts_db.administrator" domainObjectName="Administrator" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
-        <table catalog="hodts_db" tableName="hodts_db.permissions" domainObjectName="Permissions" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
-        <table catalog="hodts_db" tableName="hodts_db.roles" domainObjectName="Roles" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
-        <table catalog="hodts_db" tableName="hodts_db.roles_permissions" domainObjectName="RolesPermissions" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
-        <table catalog="hodts_db" tableName="hodts_db.school_roles" domainObjectName="SchoolRoles" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
-        <table catalog="hodts_db" tableName="hodts_db.user_roles" domainObjectName="UserRoles" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
+        <!--<table catalog="hodts_db" tableName="hodts_db.school" domainObjectName="School" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
+        <!--<table catalog="hodts_db" tableName="hodts_db.user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
+        <!--<table catalog="hodts_db" tableName="hodts_db.admin_roles" domainObjectName="AdminRoles" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
+        <!--<table catalog="hodts_db" tableName="hodts_db.administrator" domainObjectName="Administrator" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
+        <!--<table catalog="hodts_db" tableName="hodts_db.permissions" domainObjectName="Permissions" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
+        <!--<table catalog="hodts_db" tableName="hodts_db.roles" domainObjectName="Roles" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
+        <!--<table catalog="hodts_db" tableName="hodts_db.roles_permissions" domainObjectName="RolesPermissions" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
+        <!--<table catalog="hodts_db" tableName="hodts_db.school_roles" domainObjectName="SchoolRoles" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
+        <!--<table catalog="hodts_db" tableName="hodts_db.user_roles" domainObjectName="UserRoles" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
 
     </context>
 </generatorConfiguration>

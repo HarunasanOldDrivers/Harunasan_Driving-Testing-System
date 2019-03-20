@@ -72,6 +72,8 @@ public class SendSMS {
 
 
     public static void main(String[] args) {
-        SmsSingleSenderResult result = new SendSMS().sendSMS("18523191495","123456");
+//        SmsSingleSenderResult result = new SendSMS().sendSMS("18523191495","123456");
+
+
     }
 }

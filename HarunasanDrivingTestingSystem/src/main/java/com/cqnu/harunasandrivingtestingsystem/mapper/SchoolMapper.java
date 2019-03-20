@@ -16,4 +16,6 @@ public interface SchoolMapper {
     int updateByPrimaryKeyWithBLOBs(School record);
 
     int updateByPrimaryKey(School record);
+
+    int selectIdByTelephone(String telephone);
 }

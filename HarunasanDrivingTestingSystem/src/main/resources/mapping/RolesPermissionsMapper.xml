@@ -12,19 +12,19 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from hodts_db..roles_permissions
+    from hodts_db.roles_permissions
     where Id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from hodts_db..roles_permissions
+    delete from hodts_db.roles_permissions
     where Id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.RolesPermissions">
-    insert into hodts_db..roles_permissions (Id, Rid, Pid)
+    insert into hodts_db.roles_permissions (Id, Rid, Pid)
     values (#{id,jdbcType=INTEGER}, #{rid,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.RolesPermissions">
-    insert into hodts_db..roles_permissions
+    insert into hodts_db.roles_permissions
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         Id,
@@ -49,7 +49,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.RolesPermissions">
-    update hodts_db..roles_permissions
+    update hodts_db.roles_permissions
     <set>
       <if test="rid != null">
         Rid = #{rid,jdbcType=INTEGER},
@@ -61,7 +61,7 @@
     where Id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.RolesPermissions">
-    update hodts_db..roles_permissions
+    update hodts_db.roles_permissions
     set Rid = #{rid,jdbcType=INTEGER},
       Pid = #{pid,jdbcType=INTEGER}
     where Id = #{id,jdbcType=INTEGER}

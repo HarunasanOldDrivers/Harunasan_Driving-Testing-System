@@ -1,8 +1,17 @@
 package com.cqnu.harunasandrivingtestingsystem.entity;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Date;
 
+/**
+ * @author LiAixing
+ */
 public class User {
+
     private Integer userId;
 
     private String userTelphone;
@@ -17,7 +26,7 @@ public class User {
 
     private String userNormalPosition;
 
-    private Date userRegDate;
+    private LocalDateTime userRegDate;
 
     private Integer userEnable;
 
@@ -77,11 +86,11 @@ public class User {
         this.userNormalPosition = userNormalPosition == null ? null : userNormalPosition.trim();
     }
 
-    public Date getUserRegDate() {
+    public LocalDateTime getUserRegDate() {
         return userRegDate;
     }
 
-    public void setUserRegDate(Date userRegDate) {
+    public void setUserRegDate(LocalDateTime userRegDate) {
         this.userRegDate = userRegDate;
     }
 

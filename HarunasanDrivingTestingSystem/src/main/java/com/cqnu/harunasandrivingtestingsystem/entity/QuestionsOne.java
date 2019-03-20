@@ -1,6 +1,9 @@
 package com.cqnu.harunasandrivingtestingsystem.entity;
 
-public class QuestionsOne {
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+public class QuestionsOne extends Questions{
     private Integer qoId;
 
     private String qoType;
@@ -15,6 +18,7 @@ public class QuestionsOne {
 
     private String qoOptionD;
 
+    @JsonIgnore
     private String qoAnswer;
 
     private String qoVideo;
@@ -23,11 +27,11 @@ public class QuestionsOne {
 
     private String qoDescription;
 
-    private Integer qoDifficultty;
+    private Integer qoDifficulty;
 
     private String qoKnowledge;
 
-    private Integer qoChapter;
+    private String qoChapter;
 
     public Integer getQoId() {
         return qoId;
@@ -118,11 +122,11 @@ public class QuestionsOne {
     }
 
     public Integer getQoDifficultty() {
-        return qoDifficultty;
+        return qoDifficulty;
     }
 
     public void setQoDifficultty(Integer qoDifficultty) {
-        this.qoDifficultty = qoDifficultty;
+        this.qoDifficulty = qoDifficultty;
     }
 
     public String getQoKnowledge() {
@@ -133,11 +137,11 @@ public class QuestionsOne {
         this.qoKnowledge = qoKnowledge == null ? null : qoKnowledge.trim();
     }
 
-    public Integer getQoChapter() {
+    public String getQoChapter() {
         return qoChapter;
     }
 
-    public void setQoChapter(Integer qoChapter) {
-        this.qoChapter = qoChapter;
+    public void setQoChapter(String qoChapter) {
+        this.qoChapter = qoChapter == null ? null : qoChapter.trim();
     }
 }

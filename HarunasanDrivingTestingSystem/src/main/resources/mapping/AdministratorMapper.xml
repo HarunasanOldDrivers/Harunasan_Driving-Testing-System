@@ -3,44 +3,44 @@
 <mapper namespace="com.cqnu.harunasandrivingtestingsystem.mapper.AdministratorMapper">
   <resultMap id="BaseResultMap" type="com.cqnu.harunasandrivingtestingsystem.entity.Administrator">
     <id column="Id" jdbcType="INTEGER" property="id" />
-    <result column="Name" jdbcType="VARCHAR" property="name" />
-    <result column="Password" jdbcType="VARCHAR" property="password" />
-    <result column="Phone" jdbcType="VARCHAR" property="phone" />
+    <result column="Admin_Name" jdbcType="VARCHAR" property="adminName" />
+    <result column="Admin_Password" jdbcType="VARCHAR" property="adminPassword" />
+    <result column="Admin_Phone" jdbcType="VARCHAR" property="adminPhone" />
     <result column="Enable" jdbcType="INTEGER" property="enable" />
   </resultMap>
   <sql id="Base_Column_List">
-    Id, Name, Password, Phone, Enable
+    Id, Admin_Name, Admin_Password, Admin_Phone, Enable
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from hodts_db..administrator
+    from hodts_db.administrator
     where Id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from hodts_db..administrator
+    delete from hodts_db.administrator
     where Id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.Administrator">
-    insert into hodts_db..administrator (Id, Name, Password, 
-      Phone, Enable)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{enable,jdbcType=INTEGER})
+    insert into hodts_db.administrator (Id, Admin_Name, Admin_Password,
+      Admin_Phone, Enable)
+    values (#{id,jdbcType=INTEGER}, #{adminName,jdbcType=VARCHAR}, #{adminPassword,jdbcType=VARCHAR}, 
+      #{adminPhone,jdbcType=VARCHAR}, #{enable,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.Administrator">
-    insert into hodts_db..administrator
+    insert into hodts_db.administrator
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         Id,
       </if>
-      <if test="name != null">
-        Name,
+      <if test="adminName != null">
+        Admin_Name,
       </if>
-      <if test="password != null">
-        Password,
+      <if test="adminPassword != null">
+        Admin_Password,
       </if>
-      <if test="phone != null">
-        Phone,
+      <if test="adminPhone != null">
+        Admin_Phone,
       </if>
       <if test="enable != null">
         Enable,
@@ -50,14 +50,14 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="adminName != null">
+        #{adminName,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
+      <if test="adminPassword != null">
+        #{adminPassword,jdbcType=VARCHAR},
       </if>
-      <if test="phone != null">
-        #{phone,jdbcType=VARCHAR},
+      <if test="adminPhone != null">
+        #{adminPhone,jdbcType=VARCHAR},
       </if>
       <if test="enable != null">
         #{enable,jdbcType=INTEGER},
@@ -65,16 +65,16 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.Administrator">
-    update hodts_db..administrator
+    update hodts_db.administrator
     <set>
-      <if test="name != null">
-        Name = #{name,jdbcType=VARCHAR},
+      <if test="adminName != null">
+        Admin_Name = #{adminName,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
-        Password = #{password,jdbcType=VARCHAR},
+      <if test="adminPassword != null">
+        Admin_Password = #{adminPassword,jdbcType=VARCHAR},
       </if>
-      <if test="phone != null">
-        Phone = #{phone,jdbcType=VARCHAR},
+      <if test="adminPhone != null">
+        Admin_Phone = #{adminPhone,jdbcType=VARCHAR},
       </if>
       <if test="enable != null">
         Enable = #{enable,jdbcType=INTEGER},
@@ -83,10 +83,10 @@
     where Id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.Administrator">
-    update hodts_db..administrator
-    set Name = #{name,jdbcType=VARCHAR},
-      Password = #{password,jdbcType=VARCHAR},
-      Phone = #{phone,jdbcType=VARCHAR},
+    update hodts_db.administrator
+    set Admin_Name = #{adminName,jdbcType=VARCHAR},
+      Admin_Password = #{adminPassword,jdbcType=VARCHAR},
+      Admin_Phone = #{adminPhone,jdbcType=VARCHAR},
       Enable = #{enable,jdbcType=INTEGER}
     where Id = #{id,jdbcType=INTEGER}
   </update>

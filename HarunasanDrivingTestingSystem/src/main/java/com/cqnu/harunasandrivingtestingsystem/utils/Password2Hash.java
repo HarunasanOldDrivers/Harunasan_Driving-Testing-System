@@ -19,6 +19,6 @@ public class Password2Hash {
     }
 
 //    public static void main(String[] args) {
-//        System.out.println(sha256CryptWithSalt("123456","10000001"));
+//        System.out.println(sha256CryptWithSalt("123456","王二狗"));
 //    }
 }

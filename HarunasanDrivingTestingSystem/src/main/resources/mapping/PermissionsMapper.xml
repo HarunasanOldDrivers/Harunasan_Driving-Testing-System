@@ -16,7 +16,7 @@
     where Id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from hodts_db..permissions
+    delete from hodts_db.permissions
     where Id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.Permissions">
@@ -26,7 +26,7 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.Permissions">
-    insert into hodts_db..permissions
+    insert into hodts_db.permissions
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         Id,
@@ -51,7 +51,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.Permissions">
-    update hodts_db..permissions
+    update hodts_db.permissions
     <set>
       <if test="alias != null">
         Alias = #{alias,jdbcType=VARCHAR},
@@ -63,7 +63,7 @@
     where Id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.Permissions">
-    update hodts_db..permissions
+    update hodts_db.permissions
     set Alias = #{alias,jdbcType=VARCHAR},
       Name = #{name,jdbcType=VARCHAR}
     where Id = #{id,jdbcType=INTEGER}

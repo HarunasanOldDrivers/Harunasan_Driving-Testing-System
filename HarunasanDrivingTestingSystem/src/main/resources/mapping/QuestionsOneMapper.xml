@@ -13,38 +13,38 @@
     <result column="qo_video" jdbcType="VARCHAR" property="qoVideo" />
     <result column="qo_image" jdbcType="VARCHAR" property="qoImage" />
     <result column="qo_description" jdbcType="VARCHAR" property="qoDescription" />
-    <result column="qo_difficultty" jdbcType="INTEGER" property="qoDifficultty" />
+    <result column="qo_difficulty" jdbcType="INTEGER" property="qoDifficulty" />
     <result column="qo_knowledge" jdbcType="VARCHAR" property="qoKnowledge" />
-    <result column="qo_chapter" jdbcType="INTEGER" property="qoChapter" />
+    <result column="qo_chapter" jdbcType="VARCHAR" property="qoChapter" />
   </resultMap>
   <sql id="Base_Column_List">
     qo_Id, qo_type, qo_title, qo_option_a, qo_option_b, qo_option_c, qo_option_d, qo_answer, 
-    qo_video, qo_image, qo_description, qo_difficultty, qo_knowledge, qo_chapter
+    qo_video, qo_image, qo_description, qo_difficulty, qo_knowledge, qo_chapter
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from hodts_db..questions_one
+    from hodts_db.questions_one
     where qo_Id = #{qoId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from hodts_db..questions_one
+    delete from hodts_db.questions_one
     where qo_Id = #{qoId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.QuestionsOne">
-    insert into hodts_db..questions_one (qo_Id, qo_type, qo_title, 
+    insert into hodts_db.questions_one (qo_Id, qo_type, qo_title,
       qo_option_a, qo_option_b, qo_option_c, 
       qo_option_d, qo_answer, qo_video, 
-      qo_image, qo_description, qo_difficultty, 
+      qo_image, qo_description, qo_difficulty, 
       qo_knowledge, qo_chapter)
     values (#{qoId,jdbcType=INTEGER}, #{qoType,jdbcType=VARCHAR}, #{qoTitle,jdbcType=VARCHAR}, 
       #{qoOptionA,jdbcType=VARCHAR}, #{qoOptionB,jdbcType=VARCHAR}, #{qoOptionC,jdbcType=VARCHAR}, 
       #{qoOptionD,jdbcType=VARCHAR}, #{qoAnswer,jdbcType=VARCHAR}, #{qoVideo,jdbcType=VARCHAR}, 
-      #{qoImage,jdbcType=VARCHAR}, #{qoDescription,jdbcType=VARCHAR}, #{qoDifficultty,jdbcType=INTEGER}, 
-      #{qoKnowledge,jdbcType=VARCHAR}, #{qoChapter,jdbcType=INTEGER})
+      #{qoImage,jdbcType=VARCHAR}, #{qoDescription,jdbcType=VARCHAR}, #{qoDifficulty,jdbcType=INTEGER}, 
+      #{qoKnowledge,jdbcType=VARCHAR}, #{qoChapter,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.QuestionsOne">
-    insert into hodts_db..questions_one
+    insert into hodts_db.questions_one
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="qoId != null">
         qo_Id,
@@ -79,8 +79,8 @@
       <if test="qoDescription != null">
         qo_description,
       </if>
-      <if test="qoDifficultty != null">
-        qo_difficultty,
+      <if test="qoDifficulty != null">
+        qo_difficulty,
       </if>
       <if test="qoKnowledge != null">
         qo_knowledge,
@@ -123,19 +123,19 @@
       <if test="qoDescription != null">
         #{qoDescription,jdbcType=VARCHAR},
       </if>
-      <if test="qoDifficultty != null">
-        #{qoDifficultty,jdbcType=INTEGER},
+      <if test="qoDifficulty != null">
+        #{qoDifficulty,jdbcType=INTEGER},
       </if>
       <if test="qoKnowledge != null">
         #{qoKnowledge,jdbcType=VARCHAR},
       </if>
       <if test="qoChapter != null">
-        #{qoChapter,jdbcType=INTEGER},
+        #{qoChapter,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.QuestionsOne">
-    update hodts_db..questions_one
+    update hodts_db.questions_one
     <set>
       <if test="qoType != null">
         qo_type = #{qoType,jdbcType=VARCHAR},
@@ -167,20 +167,20 @@
       <if test="qoDescription != null">
         qo_description = #{qoDescription,jdbcType=VARCHAR},
       </if>
-      <if test="qoDifficultty != null">
-        qo_difficultty = #{qoDifficultty,jdbcType=INTEGER},
+      <if test="qoDifficulty != null">
+        qo_difficulty = #{qoDifficulty,jdbcType=INTEGER},
       </if>
       <if test="qoKnowledge != null">
         qo_knowledge = #{qoKnowledge,jdbcType=VARCHAR},
       </if>
       <if test="qoChapter != null">
-        qo_chapter = #{qoChapter,jdbcType=INTEGER},
+        qo_chapter = #{qoChapter,jdbcType=VARCHAR},
       </if>
     </set>
     where qo_Id = #{qoId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.QuestionsOne">
-    update hodts_db..questions_one
+    update hodts_db.questions_one
     set qo_type = #{qoType,jdbcType=VARCHAR},
       qo_title = #{qoTitle,jdbcType=VARCHAR},
       qo_option_a = #{qoOptionA,jdbcType=VARCHAR},
@@ -191,9 +191,22 @@
       qo_video = #{qoVideo,jdbcType=VARCHAR},
       qo_image = #{qoImage,jdbcType=VARCHAR},
       qo_description = #{qoDescription,jdbcType=VARCHAR},
-      qo_difficultty = #{qoDifficultty,jdbcType=INTEGER},
+      qo_difficulty = #{qoDifficulty,jdbcType=INTEGER},
       qo_knowledge = #{qoKnowledge,jdbcType=VARCHAR},
-      qo_chapter = #{qoChapter,jdbcType=INTEGER}
+      qo_chapter = #{qoChapter,jdbcType=VARCHAR}
     where qo_Id = #{qoId,jdbcType=INTEGER}
   </update>
+  <select id="selectByRandom"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.questions_one
+    GROUP BY RAND() LIMIT 1
+  </select>
+  <select id="selectByRandomWithChapter" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.questions_one
+    WHERE qo_chapter = #{qoChapter,jdbcType=VARCHAR}
+    GROUP BY RAND() LIMIT 1
+  </select>
 </mapper>

@@ -48,4 +48,9 @@ public class IndexController {
         return "schoolCommend";
     }
 
+    @RequestMapping(value = "/schoolDetails")
+    public String schoolDetails(Map<String, Object> map){
+        return "schoolDetails";
+    }
+
 }

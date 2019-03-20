@@ -144,7 +144,7 @@ public class Json2DB {
             questionsFour.setQoImage(jsonArray.getJSONObject(i).getString("image"));
             questionsFour.setQoVideo(jsonArray.getJSONObject(i).getString("video"));
             questionsFour.setQoDescription(jsonArray.getJSONObject(i).getString("description"));
-            questionsFour.setQoDifficultty((new Random().nextInt(5)+1));
+            questionsFour.setQoDifficulty((new Random().nextInt(5)+1));
             questionsFour.setQoKnowledge(getFromList(knowledges));
             questionsFour.setQoChapter(getFromList(chapters2));
 

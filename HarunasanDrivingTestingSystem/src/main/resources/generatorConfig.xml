@@ -48,11 +48,11 @@
         <!--<table catalog="hodts_db" tableName="hodts_db.school_roles" domainObjectName="SchoolRoles" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
         <!--<table catalog="hodts_db" tableName="hodts_db.user_roles" domainObjectName="UserRoles" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
 
-        <table catalog="hodts_db" tableName="hodts_db.course" domainObjectName="Course" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
-        <table catalog="hodts_db" tableName="hodts_db.enroll" domainObjectName="Enroll" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
-        <table catalog="hodts_db" tableName="hodts_db.mistakes_collection_four" domainObjectName="MistakesCollectionFour" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
-        <table catalog="hodts_db" tableName="hodts_db.mistakes_collection_one" domainObjectName="MistakesCollectionOne" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
-        <table catalog="hodts_db" tableName="hodts_db.news" domainObjectName="News" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
+        <!--<table catalog="hodts_db" tableName="hodts_db.course" domainObjectName="Course" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
+        <!--<table catalog="hodts_db" tableName="hodts_db.enroll" domainObjectName="Enroll" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
+        <!--<table catalog="hodts_db" tableName="hodts_db.mistakes_collection_four" domainObjectName="MistakesCollectionFour" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
+        <!--<table catalog="hodts_db" tableName="hodts_db.mistakes_collection_one" domainObjectName="MistakesCollectionOne" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
+        <!--<table catalog="hodts_db" tableName="hodts_db.news" domainObjectName="News" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
 
 
     </context>

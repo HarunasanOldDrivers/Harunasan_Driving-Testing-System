@@ -34,7 +34,7 @@ public class IndexController {
     }
 
     @RequestMapping(value = "/registerSchool")
-    public String school(Map<String, Object> map){
+    public String rgisterSchool(Map<String, Object> map){
         return "registerSchool";
     }
 
@@ -43,5 +43,9 @@ public class IndexController {
         return "drivingTestInformation";
     }
 
+    @RequestMapping(value = "/school")
+    public String schoolCommend(Map<String, Object> map){
+        return "schoolCommend";
+    }
 
 }

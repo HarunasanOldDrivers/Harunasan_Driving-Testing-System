@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqnu.harunasandrivingtestingsystem.mapper.EnrollMapper">
+  <resultMap id="BaseResultMap" type="com.cqnu.harunasandrivingtestingsystem.entity.Enroll">
+    <id column="enroll_id" jdbcType="INTEGER" property="enrollId" />
+    <result column="course_id" jdbcType="INTEGER" property="courseId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="enroll_date_time" jdbcType="TIMESTAMP" property="enrollDateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    enroll_id, course_id, user_id, enroll_date_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from hodts_db.enroll
+    where enroll_id = #{enrollId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hodts_db.enroll
+    where enroll_id = #{enrollId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.Enroll">
+    insert into hodts_db.enroll (enroll_id, course_id, user_id, 
+      enroll_date_time)
+    values (#{enrollId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{enrollDateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.Enroll">
+    insert into hodts_db.enroll
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="enrollId != null">
+        enroll_id,
+      </if>
+      <if test="courseId != null">
+        course_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="enrollDateTime != null">
+        enroll_date_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="enrollId != null">
+        #{enrollId,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null">
+        #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="enrollDateTime != null">
+        #{enrollDateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.Enroll">
+    update hodts_db.enroll
+    <set>
+      <if test="courseId != null">
+        course_id = #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="enrollDateTime != null">
+        enroll_date_time = #{enrollDateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where enroll_id = #{enrollId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.Enroll">
+    update hodts_db.enroll
+    set course_id = #{courseId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      enroll_date_time = #{enrollDateTime,jdbcType=TIMESTAMP}
+    where enroll_id = #{enrollId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqnu.harunasandrivingtestingsystem.mapper.MistakesCollectionFourMapper">
+  <resultMap id="BaseResultMap" type="com.cqnu.harunasandrivingtestingsystem.entity.MistakesCollectionFour">
+    <id column="mistakes_id" jdbcType="INTEGER" property="mistakesId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="questions_id" jdbcType="INTEGER" property="questionsId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    mistakes_id, user_id, questions_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from hodts_db.mistakes_collection_four
+    where mistakes_id = #{mistakesId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hodts_db.mistakes_collection_four
+    where mistakes_id = #{mistakesId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.MistakesCollectionFour">
+    insert into hodts_db.mistakes_collection_four (mistakes_id, user_id, questions_id
+      )
+    values (#{mistakesId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{questionsId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.MistakesCollectionFour">
+    insert into hodts_db.mistakes_collection_four
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mistakesId != null">
+        mistakes_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="questionsId != null">
+        questions_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mistakesId != null">
+        #{mistakesId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="questionsId != null">
+        #{questionsId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.MistakesCollectionFour">
+    update hodts_db.mistakes_collection_four
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="questionsId != null">
+        questions_id = #{questionsId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where mistakes_id = #{mistakesId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.MistakesCollectionFour">
+    update hodts_db.mistakes_collection_four
+    set user_id = #{userId,jdbcType=INTEGER},
+      questions_id = #{questionsId,jdbcType=INTEGER}
+    where mistakes_id = #{mistakesId,jdbcType=INTEGER}
+  </update>
+</mapper>

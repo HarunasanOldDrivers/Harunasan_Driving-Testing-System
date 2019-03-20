@@ -64,8 +64,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 return new BaseUserDetails(administrator.getId(), administrator.getEnable());
             }
         } else if (typeUser.equals(type)){
-            User user = this.userMapper.selectByTelphone(username);
-//            User user = this.userMapper.selectByPrimaryKey(Integer.valueOf(username));
+//            User user = this.userMapper.selectByTelphone(username);
+            User user = this.userMapper.selectByPrimaryKey(Integer.valueOf(username));
             if (user == null) {
                 logger.info("No user found");
                 throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));

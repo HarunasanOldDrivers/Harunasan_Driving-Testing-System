@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -66,6 +67,16 @@ public class BaseUserServiceImpl implements IBaseUserService {
     }
 
     @Override
+    public int getIdByTelephone(String telephone) {
+        User user = userMapper.selectByTelphone(telephone);
+        if (user == null){
+            logger.info("User not find");
+            throw new UsernameNotFoundException(String.format("No user found with telephone '%s'.", telephone));
+        }
+        return user.getUserId();
+    }
+
+    @Override
     public String verifyCode(String telephone) {
         String verifyCode = String.valueOf((new Random()).nextInt(899999) + 100000);
         stringRedisTemplate.opsForValue().set("telephone:" + telephone, verifyCode,5, TimeUnit.MINUTES);
@@ -79,8 +90,31 @@ public class BaseUserServiceImpl implements IBaseUserService {
     }
 
     @Override
-    public boolean telephoneHavaExsit(String telephone) {
+    public boolean telephoneHaveExist(String telephone) {
         return (userMapper.selectByTelphone(telephone)!=null);
+    }
+
+    @Override
+    public boolean oldPasswordIsCorrect(int id, String oldPassword) {
+        User user = userMapper.selectByPrimaryKey(id);
+        if (user == null){
+            logger.info("User not find");
+            throw new UsernameNotFoundException(String.format("No user found with id '%s'.", id));
+        }
+        return oldPassword.equals(user.getUserPassword());
+    }
+
+    @Override
+    public int alterPassword(int id, String newPassword) {
+        User user = userMapper.selectByPrimaryKey(id);
+        user.setUserId(id);
+        user.setUserPassword(Password2Hash.sha256CryptWithSalt(newPassword, String.valueOf(user.getUserRegDate())));
+        return userMapper.updateByPrimaryKeySelective(user);
+    }
+
+    @Override
+    public User getProfile(int id) {
+        return userMapper.selectByPrimaryKey(id);
     }
 
 }

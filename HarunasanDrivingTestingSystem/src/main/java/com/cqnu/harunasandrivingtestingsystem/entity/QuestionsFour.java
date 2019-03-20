@@ -1,7 +1,5 @@
 package com.cqnu.harunasandrivingtestingsystem.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 public class QuestionsFour extends Questions{
     private Integer qoId;
 
@@ -17,7 +15,6 @@ public class QuestionsFour extends Questions{
 
     private String qoOptionD;
 
-    @JsonIgnore
     private String qoAnswer;
 
     private String qoVideo;
@@ -120,12 +117,12 @@ public class QuestionsFour extends Questions{
         this.qoDescription = qoDescription == null ? null : qoDescription.trim();
     }
 
-    public Integer getQoDifficultty() {
+    public Integer getQoDifficulty() {
         return qoDifficulty;
     }
 
-    public void setQoDifficultty(Integer qoDifficultty) {
-        this.qoDifficulty = qoDifficultty;
+    public void setQoDifficulty(Integer qoDifficulty) {
+        this.qoDifficulty = qoDifficulty;
     }
 
     public String getQoKnowledge() {

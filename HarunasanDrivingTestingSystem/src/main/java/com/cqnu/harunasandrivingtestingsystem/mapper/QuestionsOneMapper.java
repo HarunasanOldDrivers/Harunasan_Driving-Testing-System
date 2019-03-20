@@ -1,7 +1,9 @@
 package com.cqnu.harunasandrivingtestingsystem.mapper;
 
 import com.cqnu.harunasandrivingtestingsystem.entity.QuestionsOne;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface QuestionsOneMapper {
     int deleteByPrimaryKey(Integer qoId);
 

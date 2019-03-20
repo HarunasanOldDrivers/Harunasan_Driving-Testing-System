@@ -1,5 +1,7 @@
 package com.cqnu.harunasandrivingtestingsystem.service;
 
+import com.cqnu.harunasandrivingtestingsystem.entity.User;
+
 /**
  * @author LiAixing
  * @version 1.0
@@ -13,6 +15,7 @@ public interface IBaseUserService {
 
     boolean loginByTelephone(String telephone, String password);
 
+    int getIdByTelephone(String telephone);
     /**
      *
      * @param telephone
@@ -22,5 +25,11 @@ public interface IBaseUserService {
 
     boolean verification(String telephone, String verifyCode);
 
-    boolean telephoneHavaExsit(String telephone);
+    boolean telephoneHaveExist(String telephone);
+
+    boolean oldPasswordIsCorrect(int id,String oldPassword);
+
+    int alterPassword(int id, String newPassword);
+
+    User getProfile(int id);
 }

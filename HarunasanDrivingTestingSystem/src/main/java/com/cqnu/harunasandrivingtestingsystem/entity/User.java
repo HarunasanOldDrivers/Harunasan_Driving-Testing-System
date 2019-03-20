@@ -1,5 +1,6 @@
 package com.cqnu.harunasandrivingtestingsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -16,6 +17,7 @@ public class User {
 
     private String userTelphone;
 
+    @JsonIgnore
     private String userPassword;
 
     private String userNickname;

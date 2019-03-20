@@ -24,6 +24,201 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
+    from hodts_db..questions_four
+    where qo_Id = #{qoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hodts_db..questions_four
+    where qo_Id = #{qoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.QuestionsFour">
+    insert into hodts_db..questions_four (qo_Id, qo_type, qo_title, 
+      qo_option_a, qo_option_b, qo_option_c, 
+      qo_option_d, qo_answer, qo_video, 
+      qo_image, qo_description, qo_difficulty, 
+      qo_knowledge, qo_chapter)
+    values (#{qoId,jdbcType=INTEGER}, #{qoType,jdbcType=VARCHAR}, #{qoTitle,jdbcType=VARCHAR}, 
+      #{qoOptionA,jdbcType=VARCHAR}, #{qoOptionB,jdbcType=VARCHAR}, #{qoOptionC,jdbcType=VARCHAR}, 
+      #{qoOptionD,jdbcType=VARCHAR}, #{qoAnswer,jdbcType=VARCHAR}, #{qoVideo,jdbcType=VARCHAR}, 
+      #{qoImage,jdbcType=VARCHAR}, #{qoDescription,jdbcType=VARCHAR}, #{qoDifficulty,jdbcType=INTEGER}, 
+      #{qoKnowledge,jdbcType=VARCHAR}, #{qoChapter,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.QuestionsFour">
+    insert into hodts_db..questions_four
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="qoId != null">
+        qo_Id,
+      </if>
+      <if test="qoType != null">
+        qo_type,
+      </if>
+      <if test="qoTitle != null">
+        qo_title,
+      </if>
+      <if test="qoOptionA != null">
+        qo_option_a,
+      </if>
+      <if test="qoOptionB != null">
+        qo_option_b,
+      </if>
+      <if test="qoOptionC != null">
+        qo_option_c,
+      </if>
+      <if test="qoOptionD != null">
+        qo_option_d,
+      </if>
+      <if test="qoAnswer != null">
+        qo_answer,
+      </if>
+      <if test="qoVideo != null">
+        qo_video,
+      </if>
+      <if test="qoImage != null">
+        qo_image,
+      </if>
+      <if test="qoDescription != null">
+        qo_description,
+      </if>
+      <if test="qoDifficulty != null">
+        qo_difficulty,
+      </if>
+      <if test="qoKnowledge != null">
+        qo_knowledge,
+      </if>
+      <if test="qoChapter != null">
+        qo_chapter,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="qoId != null">
+        #{qoId,jdbcType=INTEGER},
+      </if>
+      <if test="qoType != null">
+        #{qoType,jdbcType=VARCHAR},
+      </if>
+      <if test="qoTitle != null">
+        #{qoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="qoOptionA != null">
+        #{qoOptionA,jdbcType=VARCHAR},
+      </if>
+      <if test="qoOptionB != null">
+        #{qoOptionB,jdbcType=VARCHAR},
+      </if>
+      <if test="qoOptionC != null">
+        #{qoOptionC,jdbcType=VARCHAR},
+      </if>
+      <if test="qoOptionD != null">
+        #{qoOptionD,jdbcType=VARCHAR},
+      </if>
+      <if test="qoAnswer != null">
+        #{qoAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="qoVideo != null">
+        #{qoVideo,jdbcType=VARCHAR},
+      </if>
+      <if test="qoImage != null">
+        #{qoImage,jdbcType=VARCHAR},
+      </if>
+      <if test="qoDescription != null">
+        #{qoDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="qoDifficulty != null">
+        #{qoDifficulty,jdbcType=INTEGER},
+      </if>
+      <if test="qoKnowledge != null">
+        #{qoKnowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="qoChapter != null">
+        #{qoChapter,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.QuestionsFour">
+    update hodts_db..questions_four
+    <set>
+      <if test="qoType != null">
+        qo_type = #{qoType,jdbcType=VARCHAR},
+      </if>
+      <if test="qoTitle != null">
+        qo_title = #{qoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="qoOptionA != null">
+        qo_option_a = #{qoOptionA,jdbcType=VARCHAR},
+      </if>
+      <if test="qoOptionB != null">
+        qo_option_b = #{qoOptionB,jdbcType=VARCHAR},
+      </if>
+      <if test="qoOptionC != null">
+        qo_option_c = #{qoOptionC,jdbcType=VARCHAR},
+      </if>
+      <if test="qoOptionD != null">
+        qo_option_d = #{qoOptionD,jdbcType=VARCHAR},
+      </if>
+      <if test="qoAnswer != null">
+        qo_answer = #{qoAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="qoVideo != null">
+        qo_video = #{qoVideo,jdbcType=VARCHAR},
+      </if>
+      <if test="qoImage != null">
+        qo_image = #{qoImage,jdbcType=VARCHAR},
+      </if>
+      <if test="qoDescription != null">
+        qo_description = #{qoDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="qoDifficulty != null">
+        qo_difficulty = #{qoDifficulty,jdbcType=INTEGER},
+      </if>
+      <if test="qoKnowledge != null">
+        qo_knowledge = #{qoKnowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="qoChapter != null">
+        qo_chapter = #{qoChapter,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where qo_Id = #{qoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.QuestionsFour">
+    update hodts_db..questions_four
+    set qo_type = #{qoType,jdbcType=VARCHAR},
+      qo_title = #{qoTitle,jdbcType=VARCHAR},
+      qo_option_a = #{qoOptionA,jdbcType=VARCHAR},
+      qo_option_b = #{qoOptionB,jdbcType=VARCHAR},
+      qo_option_c = #{qoOptionC,jdbcType=VARCHAR},
+      qo_option_d = #{qoOptionD,jdbcType=VARCHAR},
+      qo_answer = #{qoAnswer,jdbcType=VARCHAR},
+      qo_video = #{qoVideo,jdbcType=VARCHAR},
+      qo_image = #{qoImage,jdbcType=VARCHAR},
+      qo_description = #{qoDescription,jdbcType=VARCHAR},
+      qo_difficulty = #{qoDifficulty,jdbcType=INTEGER},
+      qo_knowledge = #{qoKnowledge,jdbcType=VARCHAR},
+      qo_chapter = #{qoChapter,jdbcType=VARCHAR}
+    where qo_Id = #{qoId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.cqnu.harunasandrivingtestingsystem.entity.QuestionsFour">
+    <id column="qo_Id" jdbcType="INTEGER" property="qoId" />
+    <result column="qo_type" jdbcType="VARCHAR" property="qoType" />
+    <result column="qo_title" jdbcType="VARCHAR" property="qoTitle" />
+    <result column="qo_option_a" jdbcType="VARCHAR" property="qoOptionA" />
+    <result column="qo_option_b" jdbcType="VARCHAR" property="qoOptionB" />
+    <result column="qo_option_c" jdbcType="VARCHAR" property="qoOptionC" />
+    <result column="qo_option_d" jdbcType="VARCHAR" property="qoOptionD" />
+    <result column="qo_answer" jdbcType="VARCHAR" property="qoAnswer" />
+    <result column="qo_video" jdbcType="VARCHAR" property="qoVideo" />
+    <result column="qo_image" jdbcType="VARCHAR" property="qoImage" />
+    <result column="qo_description" jdbcType="VARCHAR" property="qoDescription" />
+    <result column="qo_difficulty" jdbcType="INTEGER" property="qoDifficulty" />
+    <result column="qo_knowledge" jdbcType="VARCHAR" property="qoKnowledge" />
+    <result column="qo_chapter" jdbcType="VARCHAR" property="qoChapter" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    qo_Id, qo_type, qo_title, qo_option_a, qo_option_b, qo_option_c, qo_option_d, qo_answer, 
+    qo_video, qo_image, qo_description, qo_difficulty, qo_knowledge, qo_chapter
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
     from hodts_db.questions_four
     where qo_Id = #{qoId,jdbcType=INTEGER}
   </select>

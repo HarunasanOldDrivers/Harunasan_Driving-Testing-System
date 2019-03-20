@@ -23,7 +23,7 @@ $(document).ready(function () {
 
         if (
             $("#InputUserEmailDiv").hasClass("has-success")  &&
-            $("#inputUserPasswordDiv").hasClass("has-success") &&
+            $("#InputUserPasswordDiv").hasClass("has-success") &&
             $("#InputUserPasswordAgainDiv").hasClass("has-success") &&
             $("#InputAccountTelDiv").hasClass("has-success") &&
             $("#InputNickNameDiv").hasClass("has-success") &&

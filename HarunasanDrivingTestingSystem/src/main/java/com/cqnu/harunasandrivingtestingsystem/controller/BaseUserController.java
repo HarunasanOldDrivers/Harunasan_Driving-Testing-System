@@ -114,17 +114,20 @@ public class BaseUserController {
      * @return
      */
     @PostMapping("/signUp")
-    public Result signUp(String telephone, String password, String nickname, String mail, String verifyCode)  {
+    public Result signUp(@RequestParam("InputAccountTel") String telephone, @RequestParam("InputUserPassword") String password, @RequestParam("InputNickName")String nickname, @RequestParam("InputUserEmail") String mail, String verifyCode)  {
+
+        logger.info("password" + password);
         Map map = new HashMap(16);
-        int result = 0;
-        if (baseUserService.telephoneHavaExsit(telephone)){
+        if (baseUserService.telephoneHaveExist(telephone)){
             return ResultUtil.failure(408,"用户名已存在");
-        } else if (!baseUserService.verification(telephone,verifyCode)){
+        }
+        else if (!baseUserService.verification(telephone,verifyCode)){
             return ResultUtil.failure(408,"验证码错误或失效");
-        } else {
+        }
+        else {
             try {
                 logger.info("New User:" + URLDecoder.decode(nickname,"UTF-8"));
-                result = baseUserService.signUp(telephone,URLDecoder.decode(nickname,"UTF-8"),password,mail);
+                baseUserService.signUp(telephone,URLDecoder.decode(nickname,"UTF-8"),password,mail);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
@@ -134,7 +137,7 @@ public class BaseUserController {
     }
 
     /**
-     *
+     * 用户登录
      * @param username  用户名，对于User来说是手机号
      * @param password  密码
      * @return  登录成功后返回token
@@ -142,24 +145,73 @@ public class BaseUserController {
     @GetMapping("/login")
     public String login(String username,String password){
         if (baseUserService.loginByTelephone(username,password)){
-            return jwtTokenUtil.generateToken(userDetailsService.loadUserByUsername(username,"User"),"User");
+            return jwtTokenUtil.generateToken(userDetailsService.loadUserByUsername(String.valueOf(baseUserService.getIdByTelephone(username)),"User"),"User");
         }
         return JSON.toJSONString(ResultUtil.failure(408,"登录失败"));
     }
 
 
-
-    @GetMapping("/profile/{id}")
-    public User getProfile(@PathVariable int id){
-        return null;
+    /**
+     * 个人信息
+     * @return
+     */
+    @GetMapping("/profile")
+    public User getProfile(){
+        String authToken = request.getHeader(this.tokenHeader);
+        String username = this.tokenUtils.getUsernameFromToken(authToken);
+        return baseUserService.getProfile(Integer.parseInt(username));
     }
 
+    /**
+     * 验证验证码
+     * @param telephone 手机号
+     * @param verifyCode 验证码
+     * @return
+     */
+    @PostMapping("/validate")
+    public Result validate(String telephone,String verifyCode){
+        if (baseUserService.verification(telephone,verifyCode)){
+            return ResultUtil.success();
+        }
+        return ResultUtil.failure(408, "验证码错误或失效");
+    }
+
+    /**
+     * 修改密码
+     * @param oldPassword   旧密码
+     * @param newPassword   新密码
+     * @return
+     */
     @PostMapping("/alterPassword")
     public Result alterPassword(String oldPassword, String newPassword){
         String authToken = request.getHeader(this.tokenHeader);
         String username = this.tokenUtils.getUsernameFromToken(authToken);
-        logger.info("userId: " + username);
-        return ResultUtil.success();
+        if (baseUserService.oldPasswordIsCorrect(Integer.parseInt(username),oldPassword)){
+            return ResultUtil.failure(408,"密码不正确");
+        }
+        int msg = baseUserService.alterPassword(Integer.parseInt(username),newPassword);
+        if (msg == 1){
+            return ResultUtil.success();
+        } else {
+            return ResultUtil.failure(409,"修改密码失败");
+        }
+    }
+
+    /**
+     * 忘记密码
+     * @param newPassword 新密码
+     * @return
+     */
+    @PostMapping("/forgotPassword")
+    public Result forgotPassword(String newPassword){
+        String authToken = request.getHeader(this.tokenHeader);
+        String username = this.tokenUtils.getUsernameFromToken(authToken);
+        int msg = baseUserService.alterPassword(Integer.parseInt(username),username);
+        if (msg == 1){
+            return ResultUtil.success();
+        } else {
+            return ResultUtil.failure(409,"修改密码失败");
+        }
     }
 
 

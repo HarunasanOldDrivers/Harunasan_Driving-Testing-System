@@ -38,5 +38,10 @@ public class IndexController {
         return "registerSchool";
     }
 
+    @RequestMapping(value = "/information")
+    public String information(Map<String, Object> map){
+        return "drivingTestInformation";
+    }
+
 
 }

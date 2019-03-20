@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>驾考资讯</title>
+    <script src="../js/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script src="../js/bootstrap.min.js" type="text/javascript"></script>
+    <link rel="stylesheet"  href="./css/bootstrap.min.css" />
+</head>
+<body>
+    <style>
+        body{
+            padding-top: 50px;
+        }
+    </style>
+    <div id="nav"></div>
+
+    <div class="container">
+        <h1 class="page-header text-center">学车其实可以更简单</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel panel-warning ">
+                    <div class="panel-heading">
+                        <h2 class="text-center">学车动态</h2>
+                        <span class="col-lg-offset-10"><a href="#">更多...</a></span>
+                    </div>
+                    <div class="">
+                        <div class="list-group">
+                            <a href="" class="list-group-item">
+                                <p>驾考是科目二难还是科目三难？教练说出真真相</p>
+                            </a>
+                            <a href="" class="list-group-item">
+                                <p>警惕最危险的500米！江西男子酒后驾车酿悲剧</p>
+                            </a>
+                            <a href="" class="list-group-item">
+                                <p>2019驾考报名须知，不知道的就麻烦了</p>
+                            </a>
+                            <a href="" class="list-group-item">
+                                <p>科目二右转弯满分操作，知道的人都过了</p>
+                            </a>
+                            <a href="" class="list-group-item">
+                                <p>已经报名驾校的有福了，学车费用将要升高</p>
+                            </a>
+                            <a href="" class="list-group-item">
+                                <p>速看！车感差的人如何通过驾校考试！</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-default ">
+                    <div class="panel-heading">
+                        <h2 class="text-center">理论学习</h2>
+                        <span class="col-lg-offset-10"><a href="#">更多...</a></span>
+                    </div>
+                    <div class="">
+                        <div class="list-group">
+                            <a href="" class="list-group-item">
+                                <p>驾考是科目二难还是科目三难？教练说出真真相</p>
+                            </a>
+                            <a href="" class="list-group-item">
+                                <p>警惕最危险的500米！江西男子酒后驾车酿悲剧</p>
+                            </a>
+                            <a href="" class="list-group-item">
+                                <p>2019驾考报名须知，不知道的就麻烦了</p>
+                            </a>
+                            <a href="" class="list-group-item">
+                                <p>科目二右转弯满分操作，知道的人都过了</p>
+                            </a>
+                            <a href="" class="list-group-item">
+                                <p>已经报名驾校的有福了，学车费用将要升高</p>
+                            </a>
+                            <a href="" class="list-group-item">
+                                <p>速看！车感差的人如何通过驾校考试！</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-primary ">
+                    <div class="panel-heading">
+                        <h2 class="text-center">学车视频</h2>
+                        <span class="col-lg-offset-10"><a href="#">更多...</a></span>
+                    </div>
+                    <div class="">
+                        <div class="list-group">
+                            <a href="" class="list-group-item">
+                                <p>驾考是科目二难还是科目三难？教练说出真真相</p>
+                            </a>
+                            <a href="" class="list-group-item">
+                                <p>警惕最危险的500米！江西男子酒后驾车酿悲剧</p>
+                            </a>
+                            <a href="" class="list-group-item">
+                                <p>2019驾考报名须知，不知道的就麻烦了</p>
+                            </a>
+                            <a href="" class="list-group-item">
+                                <p>科目二右转弯满分操作，知道的人都过了</p>
+                            </a>
+                            <a href="" class="list-group-item">
+                                <p>已经报名驾校的有福了，学车费用将要升高</p>
+                            </a>
+                            <a href="" class="list-group-item">
+                                <p>速看！车感差的人如何通过驾校考试！</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $("#nav").load("nav",function () {
+            //在载入完成之后改变状态
+            $("#mainpage").removeClass("active")
+            $("#testInfo").addClass("active");
+        });
+        $('[data-toggle="tooltip"]').tooltip();  //初始化
+    </script>
+</body>
+
+</html>

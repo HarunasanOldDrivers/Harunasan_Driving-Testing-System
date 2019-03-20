@@ -1,8 +1,12 @@
 package com.cqnu.harunasandrivingtestingsystem.security;
 
+import com.cqnu.harunasandrivingtestingsystem.entity.Administrator;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -20,15 +24,20 @@ import java.util.Map;
  * @date 2019/2/23 4:39
  **/
 
-@ConfigurationProperties(prefix = "jwt")
 @Component
 public class JwtTokenUtil implements Serializable {
 
+    private final static Logger logger = LoggerFactory.getLogger(JwtTokenUtil.class);
+
+    @Value("${jwt.secret}")
     private String secret;
 
+    @Value("${jwt.expiration}")
     private Long expiration;
 
+    @Value("${jwt.header}")
     private String header;
+
 
     /**
      * 从数据声明生成令牌
@@ -39,6 +48,7 @@ public class JwtTokenUtil implements Serializable {
     private String generateToken(Map<String, Object> claims) {
         //
         Date expirationDate = new Date(System.currentTimeMillis() + expiration);
+        logger.info("jwt:" + secret);
         return Jwts.builder().setClaims(claims).setExpiration(expirationDate).signWith(SignatureAlgorithm.HS512, secret).compact();
     }
 
@@ -62,12 +72,14 @@ public class JwtTokenUtil implements Serializable {
      * 生成令牌
      *
      * @param userDetails 用户
+     * @param type 访问类型
      * @return 令牌
      */
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(UserDetails userDetails, String type) {
         Map<String, Object> claims = new HashMap<>(2);
         claims.put("sub", userDetails.getUsername());
         claims.put("created", new Date());
+        claims.put("AccountName",type);
         return generateToken(claims);
     }
 
@@ -82,11 +94,29 @@ public class JwtTokenUtil implements Serializable {
         try {
             Claims claims = getClaimsFromToken(token);
             username = claims.getSubject();
+            logger.info("claims: "+username);
         } catch (Exception e) {
             username = null;
         }
         return username;
     }
+
+    /**
+     * 从令牌获取访问类型
+     * @param token
+     * @return
+     */
+    public String getAccountName(String token){
+        String accountName;
+        try {
+            Claims claims = getClaimsFromToken(token);
+            accountName = String.valueOf(claims.get("AccountName"));
+        } catch (Exception e){
+            accountName = null;
+        }
+        return accountName;
+    }
+
 
     /**
      * 判断令牌是否过期
@@ -122,17 +152,17 @@ public class JwtTokenUtil implements Serializable {
         return refreshedToken;
     }
 
-//    /**
-//     * 验证令牌
-//     *
-//     * @param token       令牌
-//     * @param userDetails 用户
-//     * @return 是否有效
-//     */
-//    public Boolean validateToken(String token, UserDetails userDetails) {
-//        JwtUser user = (JwtUser) userDetails;
-//        String username = getUsernameFromToken(token);
-//        return (username.equals(user.getUsername()) && !isTokenExpired(token));
-//    }
+    /**
+     * 验证令牌
+     *
+     * @param token       令牌
+     * @param userDetails 用户
+     * @return 是否有效
+     */
+    public Boolean validateToken(String token, UserDetails userDetails) {
+//        Administrator administrator = (Administrator) userDetails;
+        String username = getUsernameFromToken(token);
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
 
 }

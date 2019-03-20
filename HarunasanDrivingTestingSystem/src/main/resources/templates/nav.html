@@ -10,8 +10,8 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-default navbar-inverse  navbar-fixed-top" role="navigation">
-        <div class="container-fluid" style="margin: 0 auto; width: 1200px;">
+<nav class="navbar navbar-default navbar-inverse  navbar-fixed-top" role="navigation">
+    <div class="container-fluid" style="margin: 0 auto; width: 1200px;">
         <div class="navbar-header nav" >
             <a href="#" class="navbar-brand">秋名山驾考网</a>
         </div>
@@ -20,9 +20,9 @@
                 <ul class="nav navbar-nav" id="MainTab" >
                     <li id="mainpage" class="active"><a href="" onclick="window.location.href='index'">主页</a></li>
                     <li id="subjectOne"><a href="">科目一</a></li>
-                    <li id="subjecttwo"><a href="">科目四</a></li>
+                    <li id="subjectTwo"><a href="">科目四</a></li>
                     <li id="testInfo"><a href="">驾考资讯</a></li>
-                    <li id="drivingVideo"><a href="">学车视频</a></li>
+                    <li id="schoolCommend"><a href="">驾校推荐</a></li>
                     <li id="buyCommend"><a href="">买车推荐</a></li>
                 </ul>
             </div>
@@ -59,78 +59,70 @@
             </div>
         </div>
     </div>
-    </nav>
+</nav>
 
-    <!--登录页面model框-->
-    <div class="modal fade loginModel" id="login" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content" style="width: 350px" >
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <strong class="modal-title text-center" id="example-header">请登录</strong>
-                </div>
+<!--登录页面model框-->
+<div class="modal fade loginModel" id="login" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="width: 350px" >
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong class="modal-title text-center" id="example-header">请登录</strong>
+            </div>
 
-                <div class="modal-body"  style=" height: 350px;">
-                    <div class="form-group" >
-                        <div class="login-html" >
-                            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">普通用户</label>
-                            <input id="tab-2" type="radio" name="tab" class="sign-up" ><label for="tab-2" class="tab">驾校用户</label>
-                            <div class="login-form">
-                                <div class="sign-in-htm">
-                                    <form class="col-lg-12  col-lg-offset-0" role="form" >
-                                        <label for="inputUserEmail" class="control-label" style="margin-top: 10px">用户名/手机号</label>
-                                        <input type="email" id="inputUserEmail" class="form-control" placeholder="Telphone number" required autofocus>
-                                        <label for="inputUserPassword" style="margin-top: 10px">密码</label>
-                                        <input type="password" id="inputUserPassword" class="form-control" placeholder="Password" required>
-                                        <div class="checkbox mb-3">
-                                            <label>
-                                                <input type="checkbox" class="col-md-1" value="remember-me"> Remember me
-                                            </label>
-                                        </div>
-                                        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
-                                        <p></p>
-                                        <p class="mt-5 mb-3 text-muted">没有账号？<a href="#">立即注册</a>&emsp;&emsp;&emsp;&emsp;&emsp;&copy; 2018-2019</p>
-                                    </form>
-                                </div>
-                                <div class="sign-up-htm" >
-                                    <form class="col-lg-12  col-lg-offset-0" role="form" >
-                                        <label for="inputSchoolEmail" class="control-label" style="margin-top: 10px">用户名/邮箱</label>
-                                        <input type="email" id="inputSchoolEmail" class="form-control" placeholder="Email address" required autofocus>
-                                        <label for="inputSchoolPassword" style="margin-top: 10px">密码</label>
-                                        <input type="password" id="inputSchoolPassword" class="form-control" placeholder="Password" required>
-                                        <div class="checkbox mb-3">
-                                            <label>
-                                                <input type="Checkbox" class="col-md-1" value="remember-me"> Remember me
-                                            </label>
-                                        </div>
-                                        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
-                                        <p></p>
-                                        <p class="mt-5 mb-3 text-muted">想注册您的驾校？<a href="#">立即注册</a>&emsp;&emsp;&copy; 2018-2019</p>
-                                    </form>
-                                </div>
+            <div class="modal-body"  style=" height: 350px;">
+                <div class="form-group" >
+                    <div class="login-html" >
+                        <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">普通用户</label>
+                        <input id="tab-2" type="radio" name="tab" class="sign-up" ><label for="tab-2" class="tab">驾校用户</label>
+                        <div class="login-form">
+                            <div class="sign-in-htm">
+                                <form class="col-lg-12  col-lg-offset-0" role="form" >
+                                    <label for="inputUserEmail" class="control-label" style="margin-top: 10px">账号/手机号</label>
+                                    <input type="tel" id="inputUserEmail" class="form-control" placeholder="Telphone number" required autofocus>
+                                    <label for="inputUserPassword" style="margin-top: 10px">密码</label>
+                                    <input type="password" id="inputUserPassword" class="form-control" placeholder="Password" required>
+                                    <div class="checkbox mb-3">
+                                        <label>
+                                            <input type="checkbox" class="col-md-1" value="remember-me"> Remember me
+                                        </label>
+                                    </div>
+                                    <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+                                    <p class="mt-5 mb-3 text-muted">没有账号？<a href="#">立即注册</a>&emsp;&emsp;&emsp;&emsp;&emsp;&copy; 2018-2019</p>
+                                </form>
+                            </div>
+                            <div class="sign-up-htm" >
+                                <form class="col-lg-12  col-lg-offset-0" role="form" >
+                                    <label for="inputSchoolEmail" class="control-label" style="margin-top: 10px">账号/邮箱</label>
+                                    <input type="email" id="inputSchoolEmail" class="form-control" placeholder="Email address" required autofocus>
+                                    <label for="inputSchoolPassword" style="margin-top: 10px">密码</label>
+                                    <input type="password" id="inputSchoolPassword" class="form-control" placeholder="Password" required>
+                                    <div class="checkbox mb-3">
+                                        <label>
+                                            <input type="Checkbox" class="col-md-1" value="remember-me"> Remember me
+                                        </label>
+                                    </div>
+                                    <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+                                    <p class="mt-5 mb-3 text-muted">想注册您的驾校？<a href="#">立即注册</a>&emsp;&emsp;&copy; 2018-2019</p>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!--<div class="modal-footer">-->
-                <!--<button type="button" class="btn btn-info" data-dismiss="modal">Close-->
-                <!--</button>-->
-                <!--<button type="button" class="btn btn-success" data-dismiss="modal">Send-->
-                <!--</button>-->
-                <!--</div>-->
             </div>
+
         </div>
     </div>
-    <!--<script>-->
-        <!--//让导航页可点击切换-->
-        <!--$("#navbar a").click(function (e) {-->
-            <!--e.preventDefault();-->
-            <!--$(this).tab("show");-->
-        <!--});-->
-    <!--</script>-->
+</div>
+<script>
+    //让导航页可点击切换
+    $("#navbar a").click(function (e) {
+        e.preventDefault();
+        $(this).tab("show");
+    });
+</script>
 </body>
 
 </html>

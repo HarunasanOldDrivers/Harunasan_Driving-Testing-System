@@ -1,10 +1,11 @@
 $(document).ready(function () {
     //改变导航页面可选择状态
-    $("#nav").load("nav.html",function () {
+    $("#nav").load("nav",function () {
         //在载入完成之后改变导航栏状态
         $("#mainpage").removeClass("active");
         $("#register").addClass("active");
     });
+
     $('[data-toggle="tooltip"]').tooltip();  //初始化
     //页面加载时，先隐藏后面两个步骤的表格
     var DetailInfo = $("#DetailInfo");
@@ -12,8 +13,8 @@ $(document).ready(function () {
     var BaseInfo = $("#BaseInfo");
     var InputPassword = $("#InputPassword");
 
-    DetailInfo.hide();
-    CertificationInfo.hide();
+    // DetailInfo.hide();
+    // CertificationInfo.hide();
 
 
     //首先将表格设置为不可见，在加载完成后设置为可见，以回避城市联动栏过长的bug
@@ -34,8 +35,8 @@ $(document).ready(function () {
             checkBoxAcceptLawFalseTips.addClass("hidden");
         }
 
-        if ($("#InputEmailDiv").hasClass("has-success")  && $("#InputSchoolNameDiv").has("has-success") && $("#InputPasswordDiv").has("has-success") &&
-            $("#InputPasswordAgainDiv").hasClass("has-success") &&  $("#InputChargerTelDiv").has("has-success") && checkBoxAcceptLaw.is(':checked')
+        if ($("#InputEmailDiv").hasClass("has-success")  && $("#InputSchoolNameDiv").hasClass("has-success") && $("#InputPasswordDiv").hasClass("has-success") &&
+            $("#InputPasswordAgainDiv").hasClass("has-success") &&  $("#InputChargerTelDiv").hasClass("has-success") && checkBoxAcceptLaw.is(':checked')
         ){
             setTimeout(showSchoolInfo,1000);
             function showSchoolInfo() {
@@ -92,6 +93,7 @@ $(document).ready(function () {
         validateCompanyName();          //非空验证公司名字
         validateCorporatePersonName();  //非空验证法人姓名
         validateCorporateTel();         //验证公司电话
+        validateEntrollTel();
         validateSocialCode();            //非空验证社会信用代码
         validateEmbarkTime();          //驾校成立时间非空
         validateSchoolDics();          //地区非空验证
@@ -379,6 +381,34 @@ $(document).ready(function () {
             InputCorporateNumberGlyFalse.addClass("hidden");
             InputCorporateNumberGlyTrue.removeClass("hidden");
             InputCorporateNumberFalseTip.addClass("hidden");
+        }
+    }
+
+    //报名电话验证
+    function validateEntrollTel() {
+        //验证130-139,150-159,180-189号码段的手机号码
+        var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+        var InputEnrollTelFalseTip = $("#InputEnrollTelFalseTip");
+        var InputEnrollTelDiv = $("#InputEnrollTelDiv");
+        var InputEnrollTelGlyFalse = $("#InputEnrollTelGlyFalse");
+        var InputEnrollTelGlyTrue = $("#InputEnrollTelGlyTrue");
+        if(!myreg.test($("#InputEnrollTel").val()))
+        {
+            //如果输入的手机号码错误
+            InputEnrollTelDiv.removeClass("has-success");
+            InputEnrollTelDiv.addClass("has-error");
+            InputEnrollTelGlyTrue.addClass("hidden");
+            InputEnrollTelGlyFalse.removeClass("hidden");
+            InputEnrollTelFalseTip.removeClass("hidden");
+            InputEnrollTelFalseTip.html("请输入有效的手机号码！");
+            return false;
+        }else{
+            //如果输入的手机号码正确
+            InputEnrollTelDiv.removeClass("has-error");
+            InputEnrollTelDiv.addClass("has-success");
+            InputEnrollTelGlyFalse.addClass("hidden");
+            InputEnrollTelGlyTrue.removeClass("hidden");
+            InputEnrollTelFalseTip.addClass("hidden");
         }
     }
 

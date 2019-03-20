@@ -40,365 +40,368 @@
     </style>
 <body>
 
-    <div id="nav"></div>
+<div id="nav"></div>
 
-    <div class="container">
-        <div class="page-header">
-            <h1 class="text-center">欢迎注册成为我们网站的驾校</h1><br>
-            <h3 class="text-center">请填写以下信息，以便我们为您提供优质的服务</h3>
+<div class="container">
+    <div class="page-header" >
+        <h1 class="text-center">欢迎注册成为我们网站的驾校</h1><br>
+        <h3 class="text-center">请填写以下信息，以便我们为您提供优质的服务</h3>
+    </div>
+    <br>
+</div>
+
+<!--基本信息填写-->
+<div class="container" id="BaseInfo"  >
+    <!--进度条-->
+    <div class=" col-md-offset-3 col-md-6" >
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-success active" role="progressbar" aria-valuemin="0" aria-valuemax="100"  style="width: 33.3%">
+                Step1:基本信息
+            </div>
+            <div class="progress-bar progress-bar-striped progress-bar-warning " role="progressbar" aria-valuemin="0" aria-valuemax="100"  style="width: 33.3%">
+                Step2:驾校详情
+            </div>
+            <div class="progress-bar progress-bar-striped progress-bar-warning " role="progressbar" aria-valuemin="0" aria-valuemax="100"  style="width: 33.3%">
+                Step3：上传相关证件
+            </div>
         </div>
-        <br>
+    </div>
+    <form class="form-horizontal" role="form" >
+        <div class="form-group ">
+            <div class="col-md-10 col-md-offset-1 has-feedback" id="InputEmailDiv"   >
+                <label class="col-md-3 col-md-offset-2 control-label" for="InputEmail">账号/邮箱</label>
+                <div class="col-md-3" data-toggle="tooltip" title="此邮箱号将作为您的登录账号使用"  data-placement="right">
+                    <input class="form-control" name="InputNumber" type="email" placeholder="Account/Email" id="InputEmail">
+                    <!--错误或者正确时显示图标-->
+                    <span id="InputEmailGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
+                    <span id="InputEmailGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
+                    <span id="InputEmailFalseTip" style="color: #bd2a31;" class="hidden"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-1 has-feedback" id="InputSchoolNameDiv">
+                <label class="col-md-3 col-md-offset-2 control-label" for="InputSchoolName">驾校名称</label>
+                <div class="col-md-3" data-toggle="tooltip" title="请填写您的驾校全称"  data-placement="right">
+                    <input class="form-control" name="InputPassword" type="text" placeholder="School Name" id="InputSchoolName">
+                    <span id="InputSchoolNameGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
+                    <span id="InputSchoolNameGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
+                    <span id="InputSchoolNameFalseTips" style="color: #bd2a31;" class="hidden"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-1 has-feedback" id="InputPasswordDiv">
+                <label class="col-md-3 col-md-offset-2 control-label" for="InputPassword">密码</label>
+                <div class="col-md-3" data-toggle="tooltip" title="请输入6位以上密码，并包含大小写字母、数字、特殊字符中的两项"  data-placement="right">
+                    <input class="form-control" name="InputPassword" type="password" placeholder="Password" id="InputPassword">
+                    <span id="InputPasswordGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
+                    <span id="InputPasswordGlyWarning"class="glyphicon glyphicon-warning-sign form-control-feedback hidden" aria-hidden="true"></span>
+                    <span id="InputPasswordGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
+                </div>
+            </div>
+            <div class="pw-strength-div" >
+                <table style="width:320px;" class="col-md-offset-4" >
+                    <tr>
+                        <th></th>
+                        <td id="level" class="pw-strength ">
+                            <div class="pw-bar"></div>
+                            <div class="pw-bar-on"></div>
+                            <div class="pw-txt">
+                                <span>弱</span>
+                                <span>中</span>
+                                <span>强</span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-1 has-feedback" id="InputPasswordAgainDiv">
+                <label class="col-md-3 col-md-offset-2 control-label" for="InputPasswordAgain">确认密码</label>
+                <div class="col-md-3" data-toggle="tooltip" title="请确保与以上密码一致"  data-placement="right">
+                    <input type="password" name="InputPasswordAgain" placeholder="Password" class="form-control" id="InputPasswordAgain">
+                    <span id="InputPasswordAgainGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
+                    <span id="InputPasswordAgainGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
+                    <span id="InputPasswordAgainFalseTip" style="color: #bd2a31;" class="hidden"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-1 has-feedback" id="InputChargerTelDiv">
+                <label class="col-md-3 col-md-offset-2 control-label" for="InputChargerTel">负责人手机号</label>
+                <div class="col-md-3" data-toggle="tooltip" title="将发送验证码至该手机号"  data-placement="right" >
+                    <input type="tel" name="InputChargerTel" placeholder="Telphone" class="form-control" id="InputChargerTel">
+                    <span id="InputChargerTelGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
+                    <span id="InputChargerTelGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
+                    <span id="InputChargerTelFalseTip" style="color: #bd2a31;" class="hidden"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-1 has-feedback" id="InputTelCodeDiv">
+                <label class="col-md-3 col-md-offset-2 control-label" for="InputTelCode">手机验证码</label>
+                <div class="col-md-3">
+                    <input type="text" name="InputNumber" placeholder="Verification Code" class="form-control" id="InputTelCode">
+                    <span id="InputTelCodeFalseTip" style="color: #bd2a31;" class="hidden"></span>
+                </div>
+                <!--<a href="" class="btn btn-primary btn-sm">验证码</a>-->
+                <button class="btn btn-info btn-sm">获取验证码</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="checkbox col-md-offset-5">
+                    <label>
+                        <input type="checkbox" id="checkBoxAcceptLaw">
+                        我已浏览并接受<a href="" style="color: #25aeff">服务条款</a>
+                        <span id="checkBoxAcceptLawFalseTips" style="color: #bd2a31;" class="hidden"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-6 col-md-offset-3" >
+                <div class="col-md-5 col-md-offset-5">
+                    <button type="reset" class="btn btn-primary">重置</button>&emsp;&emsp;&emsp;
+                    <button type="button" id="BaseInfoNextBtn" class="btn btn-primary">下一页</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--驾校详情填写-->
+<div class="container" id="DetailInfo" style="visibility: hidden">
+    <!--进度条-->
+    <div class=" col-md-offset-3 col-md-6">
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-success " role="progressbar" aria-valuemin="0" aria-valuemax="100"  style="width: 33.3%">
+                Step1:基本信息
+            </div>
+            <div class="progress-bar progress-bar-striped progress-bar-success active" role="progressbar" aria-valuemin="0" aria-valuemax="100"  style="width: 33.3%">
+                Step2:驾校详情
+            </div>
+            <div class="progress-bar progress-bar-striped progress-bar-warning " role="progressbar" aria-valuemin="0" aria-。valuemax="100"  style="width: 33.3%">
+                Step3：上传相关证件
+            </div>
+        </div>
     </div>
 
-    <!--基本信息填写-->
-    <div class="container" id="BaseInfo"  >
-        <!--进度条-->
-        <div class=" col-md-offset-3 col-md-6" >
-            <div class="progress">
-                <div class="progress-bar progress-bar-striped progress-bar-success active" role="progressbar" aria-valuemin="0" aria-valuemax="100"  style="width: 33.3%">
-                    Step1:基本信息
-                </div>
-                <div class="progress-bar progress-bar-striped progress-bar-warning " role="progressbar" aria-valuemin="0" aria-valuemax="100"  style="width: 33.3%">
-                    Step2:驾校详情
-                </div>
-                <div class="progress-bar progress-bar-striped progress-bar-warning " role="progressbar" aria-valuemin="0" aria-valuemax="100"  style="width: 33.3%">
-                    Step3：上传相关证件
-                </div>
-            </div>
-        </div>
-        <form class="form-horizontal" role="form" >
-            <div class="form-group ">
-                <div class="col-md-10 col-md-offset-1 has-feedback" id="InputEmailDiv"   >
-                    <label class="col-md-3 col-md-offset-2 control-label" for="InputEmail">账号/邮箱</label>
-                    <div class="col-md-3" data-toggle="tooltip" title="此邮箱号将作为您的登录账号使用"  data-placement="right">
-                        <input class="form-control" name="InputNumber" type="email" placeholder="Account/Email" id="InputEmail">
-                        <!--错误或者正确时显示图标-->
-                        <span id="InputEmailGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
-                        <span id="InputEmailGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
-                        <span id="InputEmailFalseTip" style="color: #bd2a31;" class="hidden"></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-10 col-md-offset-1 has-feedback" id="InputSchoolNameDiv">
-                    <label class="col-md-3 col-md-offset-2 control-label" for="InputSchoolName">驾校名称</label>
-                    <div class="col-md-3" data-toggle="tooltip" title="请填写您的驾校全称"  data-placement="right">
-                        <input class="form-control" name="InputPassword" type="text" placeholder="School Name" id="InputSchoolName">
-                        <span id="InputSchoolNameGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
-                        <span id="InputSchoolNameGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
-                        <span id="InputSchoolNameFalseTips" style="color: #bd2a31;" class="hidden"></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-10 col-md-offset-1 has-feedback" id="InputPasswordDiv">
-                    <label class="col-md-3 col-md-offset-2 control-label" for="InputPassword">密码</label>
-                    <div class="col-md-3" data-toggle="tooltip" title="请输入6位以上密码，并包含大小写字母、数字、特殊字符中的两项"  data-placement="right">
-                        <input class="form-control" name="InputPassword" type="password" placeholder="Password" id="InputPassword">
-                        <span id="InputPasswordGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
-                        <span id="InputPasswordGlyWarning"class="glyphicon glyphicon-warning-sign form-control-feedback hidden" aria-hidden="true"></span>
-                        <span id="InputPasswordGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
-                    </div>
-                </div>
-                <div class="pw-strength-div" >
-                    <table style="width:320px;" class="col-md-offset-4" >
-                        <tr>
-                            <th></th>
-                            <td id="level" class="pw-strength ">
-                                <div class="pw-bar"></div>
-                                <div class="pw-bar-on"></div>
-                                <div class="pw-txt">
-                                    <span>弱</span>
-                                    <span>中</span>
-                                    <span>强</span>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-10 col-md-offset-1 has-feedback" id="InputPasswordAgainDiv">
-                    <label class="col-md-3 col-md-offset-2 control-label" for="InputPasswordAgain">确认密码</label>
-                    <div class="col-md-3" data-toggle="tooltip" title="请确保与以上密码一致"  data-placement="right">
-                        <input type="password" name="InputPasswordAgain" placeholder="Password" class="form-control" id="InputPasswordAgain">
-                        <span id="InputPasswordAgainGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
-                        <span id="InputPasswordAgainGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
-                        <span id="InputPasswordAgainFalseTip" style="color: #bd2a31;" class="hidden"></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-10 col-md-offset-1 has-feedback" id="InputChargerTelDiv">
-                    <label class="col-md-3 col-md-offset-2 control-label" for="InputChargerTel">负责人手机号</label>
-                    <div class="col-md-3" data-toggle="tooltip" title="将发送验证码至该手机号"  data-placement="right" >
-                        <input type="tel" name="InputChargerTel" placeholder="Telphone" class="form-control" id="InputChargerTel">
-                        <span id="InputChargerTelGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
-                        <span id="InputChargerTelGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
-                        <span id="InputChargerTelFalseTip" style="color: #bd2a31;" class="hidden"></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-10 col-md-offset-1 has-feedback" id="InputTelCodeDiv">
-                    <label class="col-md-3 col-md-offset-2 control-label" for="InputTelCode">手机验证码</label>
-                    <div class="col-md-3">
-                        <input type="text" name="InputNumber" placeholder="Verification Code" class="form-control" id="InputTelCode">
-                        <span id="InputTelCodeFalseTip" style="color: #bd2a31;" class="hidden"></span>
-                    </div>
-                    <!--<a href="" class="btn btn-primary btn-sm">验证码</a>-->
-                    <button class="btn btn-info btn-sm">获取验证码</button>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-6 col-md-offset-3">
-                    <div class="checkbox col-md-offset-5">
-                        <label>
-                            <input type="checkbox" id="checkBoxAcceptLaw">
-                            我已浏览并接受<a href="" style="color: #25aeff">服务条款</a>
-                            <span id="checkBoxAcceptLawFalseTips" style="color: #bd2a31;" class="hidden"></span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-6 col-md-offset-3" >
-                    <div class="col-md-5 col-md-offset-5">
-                        <button type="reset" class="btn btn-primary">重置</button>&emsp;&emsp;&emsp;
-                        <button type="button" id="BaseInfoNextBtn" class="btn btn-primary">下一页</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-
-    <!--驾校详情填写-->
-    <div class="container" id="DetailInfo" style="visibility: hidden">
-        <!--进度条-->
-        <div class=" col-md-offset-3 col-md-6">
-            <div class="progress">
-                <div class="progress-bar progress-bar-striped progress-bar-success " role="progressbar" aria-valuemin="0" aria-valuemax="100"  style="width: 33.3%">
-                    Step1:基本信息
-                </div>
-                <div class="progress-bar progress-bar-striped progress-bar-success active" role="progressbar" aria-valuemin="0" aria-valuemax="100"  style="width: 33.3%">
-                    Step2:驾校详情
-                </div>
-                <div class="progress-bar progress-bar-striped progress-bar-warning " role="progressbar" aria-valuemin="0" aria-。valuemax="100"  style="width: 33.3%">
-                    Step3：上传相关证件
+    <form class="form-horizontal" role="form">
+        <div class="form-group ">
+            <div class="col-md-10 col-md-offset-1 has-feedback" id="InputCompanyNameDiv"  >
+                <label class="col-md-3 col-md-offset-2 control-label" for="InputCompanyName">驾校所属公司名</label>
+                <div class="col-md-3" data-toggle="tooltip" title="请填写工商局注册的公司名称"  data-placement="right">
+                    <input class="form-control" name="InputCompanyName" type="text" placeholder="Company Name" id="InputCompanyName">
+                    <span id="InputCompanyNameGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
+                    <span id="InputCompanyNameGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
+                    <span id="InputCompanyNameFalseTip" style="color: #bd2a31;" class="hidden"></span>
                 </div>
             </div>
         </div>
 
-        <form class="form-horizontal" role="form">
-            <div class="form-group ">
-                <div class="col-md-10 col-md-offset-1 has-feedback" id="InputCompanyNameDiv"  >
-                    <label class="col-md-3 col-md-offset-2 control-label" for="InputCompanyName">驾校所属公司名</label>
-                    <div class="col-md-3" data-toggle="tooltip" title="请填写工商局注册的公司名称"  data-placement="right">
-                        <input class="form-control" name="InputCompanyName" type="text" placeholder="Company Name" id="InputCompanyName">
-                        <span id="InputCompanyNameGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
-                        <span id="InputCompanyNameGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
-                        <span id="InputCompanyNameFalseTip" style="color: #bd2a31;" class="hidden"></span>
-                    </div>
+        <div class="form-group ">
+            <div class="col-md-10 col-md-offset-1 has-feedback" id="InputCorporateNameDiv"  >
+                <label class="col-md-3 col-md-offset-2 control-label" for="InputCorporateName">法人姓名</label>
+                <div class="col-md-3" data-toggle="tooltip" title="请填写公司法人姓名"  data-placement="right">
+                    <input class="form-control" name="InputCorporateName" type="text" placeholder="Corporate Name" id="InputCorporateName">
+                    <span id="InputCorporateNameGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
+                    <span id="InputCorporateNameGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
+                    <span id="InputCorporateNameFalseTip" style="color: #bd2a31;" class="hidden"></span>
                 </div>
             </div>
+        </div>
 
-            <div class="form-group ">
-                <div class="col-md-10 col-md-offset-1 has-feedback" id="InputCorporateNameDiv"  >
-                    <label class="col-md-3 col-md-offset-2 control-label" for="InputCorporateName">法人姓名</label>
-                    <div class="col-md-3" data-toggle="tooltip" title="请填写公司法人姓名"  data-placement="right">
-                        <input class="form-control" name="InputCorporateName" type="text" placeholder="Corporate Name" id="InputCorporateName">
-                        <span id="InputCorporateNameGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
-                        <span id="InputCorporateNameGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
-                        <span id="InputCorporateNameFalseTip" style="color: #bd2a31;" class="hidden"></span>
-                    </div>
+        <div class="form-group ">
+            <div class="col-md-10 col-md-offset-1 has-feedback" id="InputCorporateNumberDiv">
+                <label class="col-md-3 col-md-offset-2 control-label" for="InputCorporateNumber">法人电话</label>
+                <div class="col-md-3" data-toggle="tooltip" title="请填写公司法人电话"  data-placement="right">
+                    <input class="form-control" name="InputCorporateNumber" type="tel" placeholder="Corporate Tel" id="InputCorporateNumber">
+                    <span id="InputCorporateNumberGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
+                    <span id="InputCorporateNumberGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
+                    <span id="InputCorporateNumberFalseTip" style="color: #bd2a31;" class="hidden"></span>
                 </div>
             </div>
+        </div>
 
-            <div class="form-group ">
-                <div class="col-md-10 col-md-offset-1 has-feedback" id="InputCorporateNumberDiv">
-                    <label class="col-md-3 col-md-offset-2 control-label" for="InputCorporateNumber">法人电话</label>
-                    <div class="col-md-3" data-toggle="tooltip" title="请填写公司法人电话"  data-placement="right">
-                        <input class="form-control" name="InputCorporateNumber" type="tel" placeholder="Corporate Tel" id="InputCorporateNumber">
-                        <span id="InputCorporateNumberGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
-                        <span id="InputCorporateNumberGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
-                        <span id="InputCorporateNumberFalseTip" style="color: #bd2a31;" class="hidden"></span>
-                    </div>
+        <div class="form-group ">
+            <div class="col-md-10 col-md-offset-1 has-feedback" id="InputEnrollTelDiv">
+                <label class="col-md-3 col-md-offset-2 control-label" for="InputCorporateNumber">报名电话</label>
+                <div class="col-md-3" data-toggle="tooltip" title="请填写公司法人电话"  data-placement="right">
+                    <input class="form-control" name="InputCorporateNumber" type="tel" placeholder="Enroll Tel" id="InputEnrollTel">
+                    <span id="InputEnrollTelGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
+                    <span id="InputEnrollTelGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
+                    <span id="InputEnrollTelFalseTip" style="color: #bd2a31;" class="hidden"></span>
                 </div>
             </div>
+        </div>
 
-            <div class="form-group">
-                <div class="col-md-10 col-md-offset-1 has-feedback" id="InputSocialCodeDiv">
-                    <label class="col-md-3 col-md-offset-2 control-label" for="InputSocialCode">社会信用代码</label>
-                    <div class="col-md-3"  data-toggle="tooltip" title="请填写您驾校的完整社会信用代码"  data-placement="right">
-                        <input class="form-control" name="InputSocialCode" type="text" placeholder="Social Credit Code" id="InputSocialCode">
-                        <span id="InputSocialCodeGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
-                        <span id="InputSocialCodeGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
-                        <span id="InputSocialCodeFalseTip" style="color: #bd2a31;" class="hidden"></span>
-                    </div>
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-1 has-feedback" id="InputSocialCodeDiv">
+                <label class="col-md-3 col-md-offset-2 control-label" for="InputSocialCode">社会信用代码</label>
+                <div class="col-md-3"  data-toggle="tooltip" title="请填写您驾校的完整社会信用代码"  data-placement="right">
+                    <input class="form-control" name="InputSocialCode" type="text" placeholder="Social Credit Code" id="InputSocialCode">
+                    <span id="InputSocialCodeGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
+                    <span id="InputSocialCodeGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
+                    <span id="InputSocialCodeFalseTip" style="color: #bd2a31;" class="hidden"></span>
                 </div>
             </div>
+        </div>
 
-            <div class="form-group">
-                <div class="col-md-10 col-md-offset-1 has-feedback" id="InputEnbarkTimeDiv">
-                    <label class="col-md-3 col-md-offset-2 control-label" for="InputEnbarkTime">驾校成立时间</label>
-                    <div class="col-md-3">
-                        <input class="form-control" name="InputEnbarkTime" type="date" placeholder="Password" id="InputEnbarkTime">
-                        <span id="InputEnbarkTimeGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
-                        <span id="InputEnbarkTimeGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
-                    </div>
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-1 has-feedback" id="InputEnbarkTimeDiv">
+                <label class="col-md-3 col-md-offset-2 control-label" for="InputEnbarkTime">驾校成立时间</label>
+                <div class="col-md-3">
+                    <input class="form-control" name="InputEnbarkTime" type="date" id="InputEnbarkTime">
+                    <span id="InputEnbarkTimeGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
+                    <span id="InputEnbarkTimeGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
                 </div>
             </div>
+        </div>
 
 
-            <div class="form-group">
-                <div class="col-md-10 col-md-offset-1 has-feedback" id="InputDistrictDiv">
-                    <label class="col-md-3 col-md-offset-2 control-label" for="InputDistrict">驾校所在地区</label>
-                    <!--城市联动核心代码-->
-                    <div class="docs-methods">
-                        <div id="distpicker">
-                            <div class="form-group">
-                                <div class="col-md-3">
-                                    <input name="InputDistrict" id="InputDistrict" class="form-control"  type="text" data-toggle="city-picker">
-                                </div>
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-1 has-feedback" id="InputDistrictDiv">
+                <label class="col-md-3 col-md-offset-2 control-label" for="InputDistrict">驾校所在地区</label>
+                <!--城市联动核心代码-->
+                <div class="docs-methods">
+                    <div id="distpicker">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <input name="InputDistrict" id="InputDistrict" class="form-control"  type="text" data-toggle="city-picker">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="form-group">
-                <div class="col-md-10 col-md-offset-1 has-feedback" id="InputDetailedLocationDiv">
-                    <label class="col-md-3 col-md-offset-2 control-label" for="InputDetailedLocation">驾校详细地址</label>
-                    <div class="col-md-3">
-                        <textarea class="form-control" name="InputDetailedLocation" id="InputDetailedLocation" placeholder="Detailed Location" rows="2"></textarea>
-                        <span id="InputDetailedLocationGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
-                        <span id="InputDetailedLocationGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
-                        <span id="InputDetailedLocationFalseTip" style="color: #bd2a31;" class="hidden"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-10 col-md-offset-1" >
-                    <div class="col-md-5 col-md-offset-5">
-                        <button type="button" id="DetailInfoPreBtn" class="btn btn-primary">上一页</button>&emsp;&emsp;&emsp;
-                        <button type="button" id="DetailInfoNextBtn" class="btn btn-primary">下一页</button>
-                    </div>
-                </div>
-
-            </div>
-        </form>
-    </div>
-
-    <!--上传三证-->
-    <div class="container" id="CertificationInfo" >
-        <!--进度条-->
-        <div class=" col-md-offset-3 col-md-6">
-            <div class="progress">
-                <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" aria-valuemin="0" aria-valuemax="100"  style="width: 33.3%">
-                    Step1:基本信息
-                </div>
-                <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" aria-valuemin="0" aria-valuemax="100"  style="width: 33.3%">
-                    Step2:驾校详情
-                </div>
-                <div class="progress-bar progress-bar-striped progress-bar-success active" role="progressbar" aria-valuemin="0" aria-valuemax="100"  style="width: 33.3%">
-                    Step3：上传相关证件
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-1 has-feedback" id="InputDetailedLocationDiv">
+                <label class="col-md-3 col-md-offset-2 control-label" for="InputDetailedLocation">驾校详细地址</label>
+                <div class="col-md-3">
+                    <textarea class="form-control" name="InputDetailedLocation" id="InputDetailedLocation" placeholder="Detailed Location" rows="2"></textarea>
+                    <span id="InputDetailedLocationGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
+                    <span id="InputDetailedLocationGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
+                    <span id="InputDetailedLocationFalseTip" style="color: #bd2a31;" class="hidden"></span>
                 </div>
             </div>
         </div>
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-1" >
+                <div class="col-md-5 col-md-offset-5">
+                    <button type="button" id="DetailInfoPreBtn" class="btn btn-primary">上一页</button>&emsp;&emsp;&emsp;
+                    <button type="button" id="DetailInfoNextBtn" class="btn btn-primary">下一页</button>
+                </div>
+            </div>
 
-        <form class="form-horizontal" role="form"  >
-            <div class="form-group ">
-                <div class="col-md-6 col-md-offset-3"  >
-                    <label class="col-md-4 col-md-offset-2 control-label" for="InputCorporateId">法人手持身份证相片</label>
-                    <div class="col-md-5">
-                        <div class="fileinput fileinput-new" data-provides="fileinput" >
-                            <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                            </div>
-                            <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
-                            <div>
+        </div>
+    </form>
+</div>
+
+<!--上传三证-->
+<div class="container" id="CertificationInfo" >
+    <!--进度条-->
+    <div class=" col-md-offset-3 col-md-6">
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" aria-valuemin="0" aria-valuemax="100"  style="width: 33.3%">
+                Step1:基本信息
+            </div>
+            <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" aria-valuemin="0" aria-valuemax="100"  style="width: 33.3%">
+                Step2:驾校详情
+            </div>
+            <div class="progress-bar progress-bar-striped progress-bar-success active" role="progressbar" aria-valuemin="0" aria-valuemax="100"  style="width: 33.3%">
+                Step3：上传相关证件
+            </div>
+        </div>
+    </div>
+
+    <form class="form-horizontal" role="form"  >
+        <div class="form-group ">
+            <div class="col-md-6 col-md-offset-3"  >
+                <label class="col-md-4 col-md-offset-2 control-label" for="InputCorporateId">法人手持身份证相片</label>
+                <div class="col-md-5">
+                    <div class="fileinput fileinput-new" data-provides="fileinput" >
+                        <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                        </div>
+                        <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+                        <div>
                             <span class="btn default btn-file">
                             <span class="fileinput-new"><a href="" class="btn btn-info">选择图片</a></span>
                             <span class="fileinput-exists"><a href="" class="btn btn-info">更改</a></span>
                             <input type="file" name="InputCorporateId" id="InputCorporateId" /></span>
-                                <span href="#" class="btn default fileinput-exists" data-dismiss="fileinput"><a href="" class="btn btn-info">移除</a></span>
-                                <p class="">1、请被授权人手持身份证正面合照，上传。 <br>2、JPG或PNG格式，图片大小不能超过2MB。</p>
-                            </div>
+                            <span href="#" class="btn default fileinput-exists" data-dismiss="fileinput"><a href="" class="btn btn-info">移除</a></span>
+                            <p class="">1、请被授权人手持身份证正面合照，上传。 <br>2、JPG或PNG格式，图片大小不能超过2MB。</p>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="form-group ">
-                <div class="col-md-6 col-md-offset-3"  >
-                    <label class="col-md-4 col-md-offset-2 control-label" for="InputCertificationlicense">驾校信息管理授权书</label>
-                    <div class="col-md-5">
-                        <div class="fileinput fileinput-new" data-provides="fileinput">
-                            <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                            </div>
-                            <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
-                            <div>
+        <div class="form-group ">
+            <div class="col-md-6 col-md-offset-3"  >
+                <label class="col-md-4 col-md-offset-2 control-label" for="InputCertificationlicense">驾校信息管理授权书</label>
+                <div class="col-md-5">
+                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                        <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                        </div>
+                        <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+                        <div>
                             <span class="btn default btn-file">
                             <span class="fileinput-new"><a href="" class="btn btn-info">选择图片</a></span>
                             <span class="fileinput-exists"><a href="" class="btn btn-info">更改</a></span>
                             <input type="file" name="InputCorporateId" id="InputCertificationlicense" /></span>
-                                <span href="#" class="btn default fileinput-exists" data-dismiss="fileinput"><a href="" class="btn btn-info">移除</a></span>
-                                <p class="">1、将加盖公章后的授权书扫描或拍照，然后上传。<br>2、JPG或PNG格式，图片大小不能超过2MB。</p>
-                            </div>
+                            <span href="#" class="btn default fileinput-exists" data-dismiss="fileinput"><a href="" class="btn btn-info">移除</a></span>
+                            <p class="">1、将加盖公章后的授权书扫描或拍照，然后上传。<br>2、JPG或PNG格式，图片大小不能超过2MB。</p>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
 
-            <div class="form-group ">
-                <div class="col-md-6 col-md-offset-3"  >
-                    <label class="col-md-4 col-md-offset-2 control-label" for="InputBusinessLicense">营业执照</label>
-                    <div class="col-md-5">
-                        <div class="fileinput fileinput-new" data-provides="fileinput" id="uploadImageDiv">
-                            <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                            </div>
-                            <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
-                            <div>
+        <div class="form-group ">
+            <div class="col-md-6 col-md-offset-3"  >
+                <label class="col-md-4 col-md-offset-2 control-label" for="InputBusinessLicense">营业执照</label>
+                <div class="col-md-5">
+                    <div class="fileinput fileinput-new" data-provides="fileinput" id="uploadImageDiv">
+                        <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                        </div>
+                        <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+                        <div>
                             <span class="btn default btn-file">
                             <span class="fileinput-new"><a href="" class="btn btn-info">选择图片</a></span>
                             <span class="fileinput-exists"><a href="" class="btn btn-info">更改</a></span>
                             <input type="file" name="InputCorporateId" id="InputBusinessLicense" /></span>
-                                <span href="#" class="btn default fileinput-exists" data-dismiss="fileinput"><a href="" class="btn btn-info">移除</a></span>
-                                <p class="">1、将经营许可证复印<br>2、该复印件加盖公章<br>3、将加盖公章后的复印件扫描或拍照，然后上传。<br>4、JPG或PNG格式，图片大小不能超过2MB。</p>
-                            </div>
+                            <span href="#" class="btn default fileinput-exists" data-dismiss="fileinput"><a href="" class="btn btn-info">移除</a></span>
+                            <p class="">1、将经营许可证复印<br>2、该复印件加盖公章<br>3、将加盖公章后的复印件扫描或拍照，然后上传。<br>4、JPG或PNG格式，图片大小不能超过2MB。</p>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="form-group">
-                <div class="col-md-6 col-md-offset-3" >
-                    <div class="col-md-5 col-md-offset-5">
-                        <button type="button" id="CertificationPreBtn" class="btn btn-primary">上一页</button>&emsp;&emsp;&emsp;
-                        <button type="button" id="CertificationSubmit" class="btn btn-primary">提交</button>
-                    </div>
+        <div class="form-group">
+            <div class="col-md-6 col-md-offset-3" >
+                <div class="col-md-5 col-md-offset-5">
+                    <button type="button" id="CertificationPreBtn" class="btn btn-primary">上一页</button>&emsp;&emsp;&emsp;
+                    <button type="button" id="CertificationSubmit" class="btn btn-primary">提交</button>
                 </div>
-
             </div>
-        </form>
-    </div>
 
-    <script>
-        //导入导航页面
-        $("#nav").load("nav",function () {
-            //在载入完成之后改变导航栏状态
-            $("#mainpage").removeClass("active");
-            $("#buyCommend").removeClass("active");
-        });
-        $('[data-toggle="tooltip"]').tooltip();  //初始化
-    </script>
+        </div>
+    </form>
+</div>
+
 
 </body>
 </html>

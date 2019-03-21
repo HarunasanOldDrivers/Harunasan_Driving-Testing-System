@@ -7,6 +7,7 @@
     <!--<script type="text/javascript" src=/css/bootstrap.min.css></script>-->
     <link rel="stylesheet" type="text/css" href="/css/loginstyles.css" />
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+    <script src="../js/nav.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -80,8 +81,8 @@
                         <div class="login-form">
                             <div class="sign-in-htm">
                                 <form class="col-lg-12  col-lg-offset-0" role="form" >
-                                    <label for="inputUserEmail" class="control-label" style="margin-top: 10px">账号/手机号</label>
-                                    <input type="tel" id="inputUserEmail" class="form-control" placeholder="Telphone number" required autofocus>
+                                    <label for="inputUserAccountTel" class="control-label" style="margin-top: 10px">账号/手机号</label>
+                                    <input type="tel" id="inputUserAccountTel" class="form-control" placeholder="Telphone number" required autofocus>
                                     <label for="inputUserPassword" style="margin-top: 10px">密码</label>
                                     <input type="password" id="inputUserPassword" class="form-control" placeholder="Password" required>
                                     <div class="checkbox mb-3">
@@ -89,7 +90,7 @@
                                             <input type="checkbox" class="col-md-1" value="remember-me"> Remember me
                                         </label>
                                     </div>
-                                    <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+                                    <button class="btn btn-lg btn-primary btn-block" id="UserLogin" type="button">登录</button>
                                     <p class="mt-5 mb-3 text-muted">没有账号？<a href="#">立即注册</a>&emsp;&emsp;&emsp;&emsp;&emsp;&copy; 2018-2019</p>
                                 </form>
                             </div>

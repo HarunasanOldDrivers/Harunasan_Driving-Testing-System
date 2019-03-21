@@ -114,10 +114,14 @@ public class BaseUserController {
      * @return
      */
     @PostMapping("/signUp")
-    public Result signUp(@RequestParam("InputAccountTel") String telephone, @RequestParam("InputUserPassword") String password, @RequestParam("InputNickName")String nickname, @RequestParam("InputUserEmail") String mail, String verifyCode)  {
+    public Result signUp(String telephone, String password, String nickname,
+                         String mail, String verifyCode) {
 
         logger.info("password" + password);
         Map map = new HashMap(16);
+        if (telephone == null || password == null || nickname == null || mail == null || verifyCode == null){
+            return ResultUtil.failure(408,"参数错误");
+        }
         if (baseUserService.telephoneHaveExist(telephone)){
             return ResultUtil.failure(408,"用户名已存在");
         }

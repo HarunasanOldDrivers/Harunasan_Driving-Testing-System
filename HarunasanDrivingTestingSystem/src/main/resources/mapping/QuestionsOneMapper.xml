@@ -202,6 +202,15 @@
     from hodts_db.questions_one
     GROUP BY RAND() LIMIT 1
   </select>
+  <select id="selectByOrderWithChapter"
+          resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.questions_one
+    WHERE qo_chapter = #{qoChapter,jdbcType=VARCHAR}
+    order by questions_one.qo_Id desc
+    LIMIT #{qoId,jdbcType=INTEGER}, 1
+  </select>
   <select id="selectByRandomWithChapter" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
@@ -209,4 +218,123 @@
     WHERE qo_chapter = #{qoChapter,jdbcType=VARCHAR}
     GROUP BY RAND() LIMIT 1
   </select>
+  <select id="selectByOrderWithDifficulty"
+          resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.questions_one
+    WHERE qo_difficulty = #{qoDifficulty,jdbcType=INTEGER}
+    order by questions_one.qo_Id desc
+    LIMIT #{qoId,jdbcType=INTEGER}, 1
+  </select>
+  <select id="selectByRandomWithDifficulty" parameterType="java.lang.Integer"
+          resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.questions_one
+    WHERE qo_difficulty = #{qoDifficulty,jdbcType=VARCHAR}
+    GROUP BY RAND() LIMIT 1
+  </select>
+  <select id="selectByOrderWithKnowledge"
+          resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.questions_one
+    WHERE qo_knowledge = #{qoKnowledge,jdbcType=VARCHAR}
+    order by questions_one.qo_Id desc
+    LIMIT #{qoId,jdbcType=INTEGER}, 1
+  </select>
+  <select id="selectByRandomWithKnowledge" parameterType="java.lang.String"
+          resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.questions_one
+    WHERE qo_knowledge = #{qoKnowledge,jdbcType=VARCHAR}
+    GROUP BY RAND() LIMIT 1
+  </select>
+  <select id="selectByOrderWithType" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.questions_one
+    WHERE qo_type = #{qoType,jdbcType=VARCHAR}
+    order by questions_one.qo_Id desc
+    LIMIT #{qoId,jdbcType=INTEGER}, 1
+  </select>
+  <select id="selectByRandomWithType" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.questions_one
+    WHERE qo_type = #{qoType,jdbcType=VARCHAR}
+    GROUP BY RAND() LIMIT 1
+  </select>
+  <select id="selectByOrderWithImage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.questions_one
+    WHERE qo_image is not null
+    order by questions_one.qo_Id desc
+    LIMIT #{qoId,jdbcType=INTEGER}, 1
+  </select>
+  <select id="selectByRandomWithImage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.questions_one
+    WHERE qo_image is not null
+    GROUP BY RAND() LIMIT 1
+  </select>
+  <select id="selectByOrderWithWord" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.questions_one
+    WHERE  qo_image is null
+    AND qo_video is null
+    order by questions_one.qo_Id desc
+    LIMIT #{qoId,jdbcType=INTEGER}, 1
+  </select>
+  <select id="selectByRandomWithWord" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.questions_one
+    WHERE  qo_image is null
+    AND qo_video is null
+    GROUP BY RAND() LIMIT 1
+  </select>
+
+  <select id="getCount" resultType="java.lang.Integer">
+    select count(*)
+    from hodts_db.questions_one
+
+  </select>
+  <select id="getCountByChapter" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select count(*)
+    from hodts_db.questions_one
+    where qo_chapter = #{qoChapter,jdbcType=VARCHAR}
+  </select>
+  <select id="getCountByDifficulty" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select count(*)
+    from hodts_db.questions_one
+    where qo_difficulty = #{qoDifficulty,jdbcType=INTEGER}
+  </select>
+  <select id="getCountByKnowledge" parameterType="java.lang.String"  resultType="java.lang.Integer">
+    select count(*)
+    from hodts_db.questions_one
+    where qo_knowledge = #{qoKnowledge,jdbcType=VARCHAR}
+  </select>
+  <select id="getCountByType" resultType="java.lang.Integer">
+    select count(*)
+    from hodts_db.questions_one
+    where qo_type = #{qoType,jdbcType=VARCHAR}
+  </select>
+  <select id="getCountByImage" resultType="java.lang.Integer">
+    select count(*)
+    from hodts_db.questions_one
+    where qo_image is not null
+  </select>
+  <select id="getCountByWord" resultType="java.lang.Integer">
+    select count(*)
+    from hodts_db.questions_one
+    where qo_image is null
+    AND qo_video is null
+  </select>
+
 </mapper>

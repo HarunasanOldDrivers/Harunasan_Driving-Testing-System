@@ -27,6 +27,7 @@ public interface IQuestionsService {
 
     /**
      * 按章节顺序练习
+     * @param id 题号
      * @param chapter  章节名
      * @return Questions
      */
@@ -42,6 +43,7 @@ public interface IQuestionsService {
 
     /**
      * 按难度顺序练习
+     * @param id 题号
      * @param difficulty 难度
      * @return Questions
      */
@@ -56,6 +58,7 @@ public interface IQuestionsService {
 
     /**
      * 按知识点顺序练习
+     * @param id 题号
      * @param knowledge 知识点
      * @return Questions
      */
@@ -70,6 +73,7 @@ public interface IQuestionsService {
 
     /**
      * 按类型顺序练习
+     * @param id 题号
      * @param type 类型
      * @return Questions
      */
@@ -83,8 +87,8 @@ public interface IQuestionsService {
     Questions randomTrainByType(String type);
 
     /**
-     * 科目四
      * 图片题顺序练习
+     * @param id 题号
      * @return Questions
      */
     Questions orderTrainByImage(int id);
@@ -97,6 +101,7 @@ public interface IQuestionsService {
 
     /**
      * 文字题顺序练习
+     * @param id 题号
      * @return Questions
      */
     Questions orderTrainByWord(int id);
@@ -107,5 +112,57 @@ public interface IQuestionsService {
      */
     Questions randomTrainByWord();
 
+    /**
+     * 获取题目总数
+     * @return  题目总数
+     */
+    int getCount();
 
+    /**
+     * 获取某章节题目数
+     * @param chapter  章节名称
+     * @return  题目数
+     */
+    int getCountByChapter (String chapter);
+
+    /**
+     * 获取某难度题目数
+     * @param difficulty  题目难度
+     * @return  题目数
+     */
+    int getCountByDifficulty(Integer difficulty);
+
+    /**
+     * 获取某知识点题目数
+     * @param knowledge  知识点
+     * @return  题目数
+     */
+    int getCountByKnowledge(String knowledge);
+
+    /**
+     * 获取某类型题目数
+     * @param type  题目类型
+     * @return  题目数
+     */
+    int getCountByType(String type);
+
+    /**
+     * 获取图片题题目数
+     * @return 题目数
+     */
+    int getCountByImage();
+
+    /**
+     * 获取文字题题目数
+     * @return 题目数
+     */
+    int getCountByWord();
+
+    /**
+     *
+     * @param id
+     * @param answer
+     * @return
+     */
+    String judge(int id, String answer);
 }

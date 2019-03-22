@@ -32,61 +32,113 @@ public class QuestionsOneServiceImpl implements IQuestionsService {
 
     @Override
     public QuestionsOne orderTrainByChapter(int id, String chapter) {
-        return null;
+        return questionsOneMapper.selectByOrderWithChapter(id , chapter);
     }
 
     @Override
     public QuestionsOne randomTrainByChapter(String chapter) {
-        return null;
+        return questionsOneMapper.selectByRandomWithChapter(chapter);
     }
 
     @Override
     public QuestionsOne orderTrainByDifficulty(int id, int difficulty) {
-        return null;
+        return questionsOneMapper.selectByOrderWithDifficulty(id,difficulty);
     }
 
     @Override
     public QuestionsOne randomTrainByDifficulty(int difficulty) {
-        return null;
+        return questionsOneMapper.selectByRandomWithDifficulty(difficulty);
     }
 
     @Override
     public QuestionsOne orderTrainByKnowledge(int id, String knowledge) {
-        return null;
+        return questionsOneMapper.selectByOrderWithKnowledge(id,knowledge);
     }
 
     @Override
     public QuestionsOne randomTrainByKnowledge(String knowledge) {
-        return null;
+        return questionsOneMapper.selectByRandomWithKnowledge(knowledge);
     }
 
     @Override
     public QuestionsOne orderTrainByType(int id, String type) {
-        return null;
+        return questionsOneMapper.selectByOrderWithType(id, type);
     }
 
     @Override
     public QuestionsOne randomTrainByType(String type) {
-        return null;
+        return questionsOneMapper.selectByRandomWithType(type);
     }
 
     @Override
     public QuestionsOne orderTrainByImage(int id) {
-        return null;
+        return questionsOneMapper.selectByOrderWithImage(id);
     }
 
     @Override
     public QuestionsOne randomTrainByImage() {
-        return null;
+        return questionsOneMapper.selectByRandomWithImage();
     }
 
     @Override
     public QuestionsOne orderTrainByWord(int id) {
-        return null;
+        return questionsOneMapper.selectByOrderWithWord(id);
     }
 
     @Override
     public QuestionsOne randomTrainByWord() {
-        return null;
+        return questionsOneMapper.selectByRandomWithWord();
     }
+
+    @Override
+    public int getCount() {
+        return questionsOneMapper.getCount();
+    }
+
+    @Override
+    public int getCountByChapter(String chapter) {
+        return questionsOneMapper.getCountByChapter(chapter);
+    }
+
+    @Override
+    public int getCountByDifficulty(Integer difficulty) {
+        return questionsOneMapper.getCountByDifficulty(difficulty);
+    }
+
+    @Override
+    public int getCountByKnowledge(String knowledge) {
+        return questionsOneMapper.getCountByKnowledge(knowledge);
+    }
+
+    @Override
+    public int getCountByType(String type) {
+        return questionsOneMapper.getCountByType(type);
+    }
+
+    @Override
+    public int getCountByImage() {
+        return questionsOneMapper.getCountByImage();
+    }
+
+    @Override
+    public int getCountByWord() {
+        return questionsOneMapper.getCountByWord();
+    }
+
+    @Override
+    public String judge(int id, String answer) {
+        if (answer == null){
+            return "false";
+        }
+        QuestionsOne questionsOne = questionsOneMapper.selectByPrimaryKey(id);
+        if (questionsOne == null){
+            return "false";
+        }
+        if (answer.equals(questionsOne.getQoAnswer())){
+            return "true";
+        }
+        return questionsOne.getQoAnswer();
+    }
+
+
 }

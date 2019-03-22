@@ -46,9 +46,7 @@ public class JwtTokenUtil implements Serializable {
      * @return 令牌
      */
     private String generateToken(Map<String, Object> claims) {
-        //
         Date expirationDate = new Date(System.currentTimeMillis() + expiration);
-        logger.info("jwt:" + secret);
         return Jwts.builder().setClaims(claims).setExpiration(expirationDate).signWith(SignatureAlgorithm.HS512, secret).compact();
     }
 
@@ -160,7 +158,6 @@ public class JwtTokenUtil implements Serializable {
      * @return 是否有效
      */
     public Boolean validateToken(String token, UserDetails userDetails) {
-//        Administrator administrator = (Administrator) userDetails;
         String username = getUsernameFromToken(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }

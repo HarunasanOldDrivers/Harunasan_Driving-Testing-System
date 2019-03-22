@@ -7,6 +7,8 @@ public class MistakesCollectionOne {
 
     private Integer questionsId;
 
+    private String wrongAnswer;
+
     public Integer getMistakesId() {
         return mistakesId;
     }
@@ -29,5 +31,13 @@ public class MistakesCollectionOne {
 
     public void setQuestionsId(Integer questionsId) {
         this.questionsId = questionsId;
+    }
+
+    public String getWrongAnswer() {
+        return wrongAnswer;
+    }
+
+    public void setWrongAnswer(String wrongAnswer) {
+        this.wrongAnswer = wrongAnswer == null ? null : wrongAnswer.trim();
     }
 }

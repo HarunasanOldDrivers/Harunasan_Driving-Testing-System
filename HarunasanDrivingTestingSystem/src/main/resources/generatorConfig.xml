@@ -34,10 +34,10 @@
             <!--<columnOverride column="qo_title" javaType="java.lang.String" jdbcType="VARCHAR" />-->
             <!--<columnOverride column="qo_description" javaType="java.lang.String" jdbcType="VARCHAR" />-->
         <!--</table>-->
-        <table catalog="hodts_db" tableName="questions_four" domainObjectName="QuestionsFour" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-            <columnOverride column="qo_title" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <columnOverride column="qo_description" javaType="java.lang.String" jdbcType="VARCHAR" />
-        </table>
+        <!--<table catalog="hodts_db" tableName="questions_four" domainObjectName="QuestionsFour" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">-->
+            <!--<columnOverride column="qo_title" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+            <!--<columnOverride column="qo_description" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+        <!--</table>-->
         <!--<table catalog="hodts_db" tableName="hodts_db.school" domainObjectName="School" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
         <!--<table catalog="hodts_db" tableName="hodts_db.user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
         <!--<table catalog="hodts_db" tableName="hodts_db.admin_roles" domainObjectName="AdminRoles" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
@@ -48,7 +48,7 @@
         <!--<table catalog="hodts_db" tableName="hodts_db.school_roles" domainObjectName="SchoolRoles" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
         <!--<table catalog="hodts_db" tableName="hodts_db.user_roles" domainObjectName="UserRoles" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
 
-        <!--<table catalog="hodts_db" tableName="hodts_db.course" domainObjectName="Course" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
+        <table catalog="hodts_db" tableName="hodts_db.course" domainObjectName="Course" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
         <!--<table catalog="hodts_db" tableName="hodts_db.enroll" domainObjectName="Enroll" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
         <!--<table catalog="hodts_db" tableName="hodts_db.mistakes_collection_four" domainObjectName="MistakesCollectionFour" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
         <!--<table catalog="hodts_db" tableName="hodts_db.mistakes_collection_one" domainObjectName="MistakesCollectionOne" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->

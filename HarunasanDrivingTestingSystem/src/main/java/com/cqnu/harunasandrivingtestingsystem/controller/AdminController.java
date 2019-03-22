@@ -1,8 +1,15 @@
 package com.cqnu.harunasandrivingtestingsystem.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.cqnu.harunasandrivingtestingsystem.entity.Result;
+import com.cqnu.harunasandrivingtestingsystem.security.JwtTokenUtil;
+import com.cqnu.harunasandrivingtestingsystem.security.UserDetailsServiceImpl;
 import com.cqnu.harunasandrivingtestingsystem.service.IAdminService;
+import com.cqnu.harunasandrivingtestingsystem.utils.ResultUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -28,7 +35,14 @@ public class AdminController {
     @Resource
     private IAdminService adminService;
 
+    @Resource
+    private UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
     @PostMapping("/createAdmin")
+    @PreAuthorize("hasAuthority('Admin:Create')")
     public Map createAdmin(String name, String password, String phone){
         Map map = new HashMap();
         int result = 0;
@@ -44,12 +58,19 @@ public class AdminController {
     }
 
     @PostMapping("/banAdmin/{id}")
-    public Map banAdmin(@PathVariable int id){
-        Map map = new HashMap();
-        int result = 0;
+    @PreAuthorize("hasRole('Admin_root')")
+    public Result banAdmin(@PathVariable int id){
 
-
-
-        return map;
+        return ResultUtil.success();
     }
+
+    @PostMapping("/login")
+    public String login(int username, String password){
+        if (adminService.loginById(username,password)){
+            return jwtTokenUtil.generateToken(userDetailsService.loadUserByUsername(String.valueOf(username),"Administrator"),"Administrator");
+        }
+        return JSON.toJSONString(ResultUtil.failure(408,"登录失败"));
+    }
+
+
 }

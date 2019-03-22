@@ -8,9 +8,8 @@ import java.util.Collection;
 /**
  * @author LiAixing
  */
-public class Administrator implements UserDetails {
+public class Administrator {
 
-    private static final long serialVersionUID = 8653300622373680493L;
 
     private Integer id;
 
@@ -62,38 +61,4 @@ public class Administrator implements UserDetails {
         this.enable = enable;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
-    @Override
-    public String getPassword() {
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return String.valueOf(id);
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return enable == 1;
-    }
 }

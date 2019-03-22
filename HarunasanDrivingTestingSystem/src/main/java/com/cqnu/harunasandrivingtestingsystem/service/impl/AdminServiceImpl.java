@@ -6,6 +6,7 @@ import com.cqnu.harunasandrivingtestingsystem.service.IAdminService;
 import com.cqnu.harunasandrivingtestingsystem.utils.Password2Hash;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -46,20 +47,22 @@ public class AdminServiceImpl implements IAdminService {
     }
 
     @Override
-    public void loginById(int id) {
-
+    public boolean loginById(int id, String password) {
+        Administrator administrator = administratorMapper.selectByPrimaryKey(id);
+        if (administrator == null){
+            logger.info("Administrator not find");
+            throw new UsernameNotFoundException(String.format("No administrator found with id '%s'.", id));
+        } else if (administrator.getAdminPassword().equals(Password2Hash.sha256CryptWithSalt(password, String.valueOf(administrator.getAdminName())))){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
-    public void loginByTelephone(String telephone) {
-
+    public boolean loginByTelephone(String telephone, String password) {
+        return false;
     }
-
-
-//    @Override
-//    public void createAdmin(String name, String password, String phone){
-//        administratorMapper.create(name,Password2Hash.sha256CryptWithSalt(password,name),phone);
-//    }
 
 
 }

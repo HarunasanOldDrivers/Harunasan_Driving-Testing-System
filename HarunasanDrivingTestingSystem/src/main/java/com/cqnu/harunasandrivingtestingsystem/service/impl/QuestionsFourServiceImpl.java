@@ -82,4 +82,44 @@ public class QuestionsFourServiceImpl implements IQuestionsService {
     public QuestionsFour randomTrainByWord() {
         return null;
     }
+
+    @Override
+    public int getCount() {
+        return 0;
+    }
+
+    @Override
+    public int getCountByChapter(String chapter) {
+        return 0;
+    }
+
+    @Override
+    public int getCountByDifficulty(Integer difficulty) {
+        return 0;
+    }
+
+    @Override
+    public int getCountByKnowledge(String knowledge) {
+        return 0;
+    }
+
+    @Override
+    public int getCountByType(String type) {
+        return 0;
+    }
+
+    @Override
+    public int getCountByImage() {
+        return 0;
+    }
+
+    @Override
+    public int getCountByWord() {
+        return 0;
+    }
+
+    @Override
+    public String judge(int id, String answer) {
+        return null;
+    }
 }

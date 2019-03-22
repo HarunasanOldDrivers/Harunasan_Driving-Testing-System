@@ -5,9 +5,10 @@
     <id column="mistakes_id" jdbcType="INTEGER" property="mistakesId" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="questions_id" jdbcType="INTEGER" property="questionsId" />
+    <result column="wrong_answer" jdbcType="VARCHAR" property="wrongAnswer" />
   </resultMap>
   <sql id="Base_Column_List">
-    mistakes_id, user_id, questions_id
+    mistakes_id, user_id, questions_id, wrong_answer
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -20,10 +21,10 @@
     where mistakes_id = #{mistakesId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.MistakesCollectionOne">
-    insert into hodts_db.mistakes_collection_one (mistakes_id, user_id, questions_id
-      )
-    values (#{mistakesId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{questionsId,jdbcType=INTEGER}
-      )
+    insert into hodts_db.mistakes_collection_one (mistakes_id, user_id, questions_id, 
+      wrong_answer)
+    values (#{mistakesId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{questionsId,jdbcType=INTEGER}, 
+      #{wrongAnswer,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.MistakesCollectionOne">
     insert into hodts_db.mistakes_collection_one
@@ -37,6 +38,9 @@
       <if test="questionsId != null">
         questions_id,
       </if>
+      <if test="wrongAnswer != null">
+        wrong_answer,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="mistakesId != null">
@@ -47,6 +51,9 @@
       </if>
       <if test="questionsId != null">
         #{questionsId,jdbcType=INTEGER},
+      </if>
+      <if test="wrongAnswer != null">
+        #{wrongAnswer,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -59,13 +66,17 @@
       <if test="questionsId != null">
         questions_id = #{questionsId,jdbcType=INTEGER},
       </if>
+      <if test="wrongAnswer != null">
+        wrong_answer = #{wrongAnswer,jdbcType=VARCHAR},
+      </if>
     </set>
     where mistakes_id = #{mistakesId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.MistakesCollectionOne">
     update hodts_db.mistakes_collection_one
     set user_id = #{userId,jdbcType=INTEGER},
-      questions_id = #{questionsId,jdbcType=INTEGER}
+      questions_id = #{questionsId,jdbcType=INTEGER},
+      wrong_answer = #{wrongAnswer,jdbcType=VARCHAR}
     where mistakes_id = #{mistakesId,jdbcType=INTEGER}
   </update>
 </mapper>

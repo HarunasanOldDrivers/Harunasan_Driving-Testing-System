@@ -15,6 +15,32 @@
     from hodts_db.roles
     where Id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="selectByAdministratorId" parameterType="java.lang.Integer" resultType="com.cqnu.harunasandrivingtestingsystem.entity.Roles">
+    select
+    roles.*
+    from hodts_db.roles
+    left join admin_roles ar on ar.Rid = roles.Id
+    left join administrator a on a.Id = ar.Aid
+    where a.Id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUserId" parameterType="java.lang.Integer" resultType="com.cqnu.harunasandrivingtestingsystem.entity.Roles">
+    select
+    roles.*
+    from hodts_db.roles
+    left join user_roles ur on ur.Rid = roles.Id
+    left join user u on u.user_id = ur.Uid
+    where u.user_id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectBySchoolId" parameterType="java.lang.Integer" resultType="com.cqnu.harunasandrivingtestingsystem.entity.Roles">
+    select
+    roles.*
+    from hodts_db.roles
+    left join school_roles sr on sr.Rid = roles.Id
+    left join school s on s.school_id = sr.Sid
+    where s.school_id = #{id,jdbcType=INTEGER}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from hodts_db.roles
     where Id = #{id,jdbcType=INTEGER}

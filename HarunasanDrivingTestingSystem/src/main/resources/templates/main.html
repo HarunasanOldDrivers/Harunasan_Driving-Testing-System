@@ -48,7 +48,7 @@
                                 <br>
                             </h1>
                             <p style="margin-top: 30px">在这里您可以学习到最新最全的驾考知识，提升您的驾考技能，帮助您顺利通过驾照考试！</p>
-                            <p style="float: left;margin-right:2em; margin-top: 2em"><a class="btn btn-primary btn-lg" href="#two" role="button">如何开始？</a></p>
+                            <p style="float: left;margin-right:2em; margin-top: 2em"><a class="btn btn-primary btn-lg" href="#two" role="button" >如何开始？</a></p>
                             <p style="float:left;   margin-right:2em;margin-top: 2em "><a class="btn btn-success btn-lg" href="#" role="button">我是学员</a> </p>
                             <p style="float:left;   margin-right:2em;margin-top: 2em "><a class="btn btn-info btn-lg" href="#two" role="button">learn more</a> </p>
                         </div>
@@ -309,6 +309,44 @@
 
     <script>
         $("#nav").load("nav"); //导入导航页面
+        $("#testBTN").click(function () {
+            // $.ajax({
+            //     type:"get",
+            //     url:"/druid",
+            //     async:false,
+            //     beforeSend: function (XMLHttpRequest) {
+            //                          //HttpUtility.UrlEncode
+            //                          var token = $.cookie("Authorization");
+            //                          XMLHttpRequest.setRequestHeader("Authorization", token);
+            //                      },
+            //     success:function (result) {
+            //         alert("OKOKOK");
+            //
+            //         },
+            //     error:function (result) {
+            //         alert("druid");
+            //     }
+            // //     })
+            var token = $.cookie("Authorization");
+            var xmlhttp = new XMLHttpRequest();
+            // var Usertoken = {
+            //     name: 'Authorization',
+            //     age: token
+            // };
+            xmlhttp.open("POST", "/register", true);
+            xmlhttp.setRequestHeader("Authorization",token); // 可以定义请求头带给后端
+
+            xmlhttp.send();  // 要发送的参数，要转化为json字符串发送给后端，后端就会接受到json对象
+            // readyState == 4 为请求完成，status == 200为请求陈宫返回的状态
+            window.location.href="register";
+            xmlhttp.onreadystatechange = function(){
+                if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+                    console.log(xmlhttp.responseText);
+                }
+            }
+
+
+        })
     </script>
 </body>
 </html>

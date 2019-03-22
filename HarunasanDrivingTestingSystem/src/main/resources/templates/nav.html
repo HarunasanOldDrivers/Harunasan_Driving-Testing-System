@@ -7,7 +7,11 @@
     <!--<script type="text/javascript" src=/css/bootstrap.min.css></script>-->
     <link rel="stylesheet" type="text/css" href="/css/loginstyles.css" />
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+    <script src="webjars/jquery/3.1.1/jquery.min.js"></script>
+    <script src="webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="../js/nav.js" type="text/javascript"></script>
+    <script src="../js/jquery.cookie.js" type="text/javascript"></script>
+
 </head>
 
 <body>
@@ -52,10 +56,16 @@
 
             <div>
                 <ul class="nav navbar-nav navbar-left" id="LoginTab">
-                    <li class="dropdown">
+                    <li class="dropdown loginIn">
                         <a href="" class="dropdown-toggle" data-toggle="modal" data-target=".loginModel">登录</a>
                     </li>
-                    <li id="register"><a href="" onclick="window.location.href='register'" data-toggle="tab" >注册</a> </li>
+                    <li id="register" class="loginIn"><a href="" onclick="window.location.href='register'" data-toggle="tab" >注册</a> </li>
+
+                    <div class="UserOnlineDiv">
+                        <br>
+                        <a href="#" style="color: #c8c8c8;" class="UserNameAndLogoff" id="AUserName">用户名123</a>
+                        <a href="#" style="color: #c8c8c8;margin-right: 20px"  class="UserNameAndLogoff" id="AUserLogoff" >注销</a>
+                    </div>
                 </ul>
             </div>
         </div>
@@ -67,7 +77,7 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content" style="width: 350px" >
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" id="modelLoginClose" class="close"  aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <strong class="modal-title text-center" id="example-header">请登录</strong>
@@ -90,7 +100,7 @@
                                             <input type="checkbox" class="col-md-1" value="remember-me"> Remember me
                                         </label>
                                     </div>
-                                    <button class="btn btn-lg btn-primary btn-block" id="UserLogin" type="button">登录</button>
+                                    <button class="js-loading-btn btn btn-lg btn-primary btn-block" data-dissmiss="modal" data-target=".loginModel" data-loading-text="请稍后" id="UserLogin" type="button" >登录</button>
                                     <br>
                                     <p class="mt-5 mb-3 text-muted">没有账号？<a href="#">立即注册</a>&emsp;&emsp;&emsp;&emsp;&emsp;&copy; 2018-2019</p>
                                 </form>
@@ -119,6 +129,7 @@
         </div>
     </div>
 </div>
+
 <script>
     //让导航页可点击切换
     $("#navbar a").click(function (e) {

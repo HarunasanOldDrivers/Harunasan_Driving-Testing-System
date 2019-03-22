@@ -23,34 +23,34 @@ $(document).ready(function () {
     UserLogin.click(function () {
         var inputUserAccountTel = $("#inputUserAccountTel");
         var inputUserPassword = $("#inputUserPassword");
-        $.ajax({
-            type:"post",
-            dataType:"json",
-            url:"/api/user/login",
-            data:{username:inputUserAccountTel.val(),password:inputUserPassword.val()
-            },
-            success:function (result) {
-                if (result.code === 408){
-                    alert(result.msg + "  用户名/密码错误" );
-                }else{
-                    alert("登录成功！");
-                    alert(result.token);
-                    $.cookie("Authorization",result.token);
-                    $(".UserNameAndLogoff").show();
-                    $(".loginIn").hide();
-                    // $("#modelLoginClose").click();
-                    // $('#login').modal('hide');
-                    $('#login').modal('hide');
-                    $('.modal-backdrop').remove();
+        if(inputUserAccountTel.val() && inputUserPassword.val()){
+            $.ajax({
+                type:"post",
+                dataType:"json",
+                url:"/api/user/login",
+                data:{username:inputUserAccountTel.val(),password:inputUserPassword.val(),
+                },
+                success:function (result) {
+                    if (result.code === 408){
+                        alert(result.msg + "  用户名/密码错误" );
+                    }else{
+                        alert("登录成功！");
+                        alert(result.token);
+                        $.cookie("Authorization",result.token);
+                        $(".UserNameAndLogoff").show();
+                        $(".loginIn").hide();
+                        $('#login').modal('hide');
+                        $('.modal-backdrop').remove();
+                    }
+                },
+                error :function (result) {
+                    alert("登录失败");
                 }
-            },
-            error :function (result) {
-               alert("登录失败");
-            }
-        })
-
-
-    })
+            })
+        }else {
+            alert("请填写用户名/密码");
+        }
+    });
 
     //注销按钮点击之后自己删cookies里面的Authorization
     $("#AUserLogoff").click(function () {
@@ -61,8 +61,8 @@ $(document).ready(function () {
 
         $(".loginIn").show();
         $(".UserNameAndLogoff").hide();
-        //跳转回主页面
-        // window.location.href="index";
+        // 跳转回主页面
+        window.location.href="index";
     })
 
     //创建Alert
@@ -85,4 +85,11 @@ $(document).ready(function () {
         alert.insertAfter(alertDiv);
     }
 
+    //让登陆btn禁用三秒
+    $(".js-loading-btn").on("click",function (e) {
+        var btn = $(this).button("loading");
+        setTimeout(function (e) {
+            btn.button("reset")
+        },3000)
+    })
 })

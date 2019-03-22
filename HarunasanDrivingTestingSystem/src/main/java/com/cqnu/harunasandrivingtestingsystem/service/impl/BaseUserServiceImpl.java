@@ -57,7 +57,7 @@ public class BaseUserServiceImpl implements IBaseUserService {
         User user = userMapper.selectByTelphone(telephone);
         if (user == null){
             logger.info("User not find");
-            return false;
+            throw new UsernameNotFoundException(String.format("No user found with telephone '%s'.", telephone));
         } else if (user.getUserPassword().equals(Password2Hash.sha256CryptWithSalt(password, String.valueOf(user.getUserRegDate())))){
             return true;
         } else {

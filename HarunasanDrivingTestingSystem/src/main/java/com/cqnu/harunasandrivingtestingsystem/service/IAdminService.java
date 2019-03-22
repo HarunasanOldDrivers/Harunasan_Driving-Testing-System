@@ -31,9 +31,9 @@ public interface IAdminService {
      */
     public int deleteAdmin(int id);
 
-    void loginById(int id);
+    boolean loginById(int id, String password);
 
-    void loginByTelephone(String telephone);
+    boolean loginByTelephone(String telephone, String password);
 
 
 //    public int updateAdmin()

@@ -32,4 +32,6 @@ public interface IBaseUserService {
     int alterPassword(int id, String newPassword);
 
     User getProfile(int id);
+
+
 }

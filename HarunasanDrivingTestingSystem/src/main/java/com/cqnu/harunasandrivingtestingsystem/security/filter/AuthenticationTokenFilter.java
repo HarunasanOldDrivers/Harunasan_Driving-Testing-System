@@ -58,7 +58,7 @@ public class AuthenticationTokenFilter extends UsernamePasswordAuthenticationFil
         String username = this.tokenUtils.getUsernameFromToken(authToken);
         // accountName 为 访问类型
         String accountName = this.tokenUtils.getAccountName(authToken);
-        logger.info("AccountName: " + accountName);
+        // logger.info("AccountName: " + accountName);
         // 如果上面解析 token 成功并且拿到了 username 并且本次会话的权限还未被写入
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             // 用 UserDetailsService 从数据库中拿到用户的 UserDetails 类
@@ -68,6 +68,7 @@ public class AuthenticationTokenFilter extends UsernamePasswordAuthenticationFil
             // 包括 token 和 userDetails 中用户名是否一样， token 是否过期， token 生成时间是否在最后一次密码修改时间之前
             // 若是检查通过
             if (this.tokenUtils.validateToken(authToken, userDetails)) {
+                logger.info("access validate");
                 // 生成通过认证
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpRequest));

@@ -6,26 +6,22 @@ import com.cqnu.harunasandrivingtestingsystem.entity.User;
 import com.cqnu.harunasandrivingtestingsystem.security.JwtTokenUtil;
 import com.cqnu.harunasandrivingtestingsystem.security.UserDetailsServiceImpl;
 import com.cqnu.harunasandrivingtestingsystem.service.IBaseUserService;
-import com.cqnu.harunasandrivingtestingsystem.service.impl.BaseUserServiceImpl;
 import com.cqnu.harunasandrivingtestingsystem.utils.*;
 import com.github.qcloudsms.SmsSingleSenderResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 /**
  * @author LiAixing
@@ -92,7 +88,7 @@ public class BaseUserController {
         // 发送成功
         if (result.result == 0){
             map.put("result",result.result);
-            map.put("VeriftyCode",verifyCode);
+//            map.put("VeriftyCode",verifyCode);
             return map;
         }
 
@@ -148,8 +144,10 @@ public class BaseUserController {
      */
     @PostMapping("/login")
     public String login(String username,String password){
+        Map<String, String> map = new HashMap<String, String>();
         if (baseUserService.loginByTelephone(username,password)){
-            return jwtTokenUtil.generateToken(userDetailsService.loadUserByUsername(String.valueOf(baseUserService.getIdByTelephone(username)),"User"),"User");
+            map.put("token",jwtTokenUtil.generateToken(userDetailsService.loadUserByUsername(String.valueOf(baseUserService.getIdByTelephone(username)),"User"),"User"));
+            return JSON.toJSONString(map);
         }
         return JSON.toJSONString(ResultUtil.failure(408,"登录失败"));
     }
@@ -160,6 +158,7 @@ public class BaseUserController {
      * @return
      */
     @GetMapping("/profile")
+    @PreAuthorize("hasRole('User')")
     public User getProfile(){
         String authToken = request.getHeader(this.tokenHeader);
         String username = this.tokenUtils.getUsernameFromToken(authToken);
@@ -218,8 +217,12 @@ public class BaseUserController {
         }
     }
 
+    @GetMapping("/getEnroll")
+//    public
 
-    @PreAuthorize("hasAnyAuthority(ORIGIN)")
+
+
+    @PreAuthorize("hasAnyAuthority('ORIGIN')")
     @PostMapping("/db")
     public void db() throws FileNotFoundException {
 //        json2DB.add2DB(json2DB.readFile("classpath:json/DataSubject1.json"));

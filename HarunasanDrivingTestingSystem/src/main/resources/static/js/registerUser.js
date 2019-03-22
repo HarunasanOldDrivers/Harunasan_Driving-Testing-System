@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $("#nav").load("nav.html",function () {
+    $("#nav").load("nav",function () {
         //在载入完成之后改变状态
         $("#mainpage").removeClass("active");
         $("#register").addClass("active");
@@ -9,6 +9,7 @@ $(document).ready(function () {
     var Btnconfirm = $("#Btnconfirm");
     Btnconfirm.click(function () {
         checkInfo();
+        validateCode();
         var checkBoxAcceptLaw = $("#checkBoxAcceptLaw");
         var checkBoxAcceptLawFalseTips = $("#checkBoxAcceptLawFalseTips");
 
@@ -27,17 +28,32 @@ $(document).ready(function () {
             $("#InputUserPasswordAgainDiv").hasClass("has-success") &&
             $("#InputAccountTelDiv").hasClass("has-success") &&
             $("#InputNickNameDiv").hasClass("has-success") &&
-            checkBoxAcceptLaw.is(':checked')
-        )
-            {
-            setTimeout(showSchoolInfo,1000);
-            function showSchoolInfo() {
-                BaseInfo.hide(300);
-                DetailInfo.show(300);
-            }
-            alert("success");
-        }else{
-            alert("False");
+            checkBoxAcceptLaw.is(':checked') && $("#InputUserinputCodeDiv").hasClass("has-success")
+        ){
+            // 前端验证成功，发送Ajax请求
+                $.ajax({
+                    type:"post",
+                    dataType:"json",
+                    url:"/api/user/signUp",
+                    data:{telephone:$("#InputAccountTel").val(),password:$("#InputUserPassword").val(),
+                        nickname:$("#InputNickName").val(),mail:$("#InputUserEmail").val(),verifyCode:$("#inputCode").val()
+                    },
+                    success:function (result) {
+                        if (result.code === 200){
+                            createAlert(0,result.msg + "，页面将在两秒后自动跳转到首页");
+                            setTimeout(function () {
+                                window.location.href="index"
+                            },2000)
+                        }else{
+                            createAlert(1,result.msg);
+                        }
+                    },
+                    error :function () {
+                        createAlert(1,result.errmsg);
+                    }
+                })}
+        else{
+            createAlert(1,"请填写未填写的信息");
         }
     });
 
@@ -189,6 +205,22 @@ $(document).ready(function () {
         }
     }
 
+    //手机验证码非空验证
+    function  validateCode() {
+        var InputNickNameDiv = $("#InputUserinputCodeDiv");
+        var InputNickNameFalseTip = $("#BtnGetCodeFalseTip");
+        if ($("#inputCode").val()){
+            InputNickNameDiv.removeClass("has-error");
+            InputNickNameDiv.addClass("has-success");
+            InputNickNameFalseTip.addClass("hidden");
+        }else{
+            InputNickNameDiv.removeClass("has-success");
+            InputNickNameDiv.addClass("has-error");
+            InputNickNameFalseTip.removeClass("hidden");
+            InputNickNameFalseTip.html("请输入验证码");
+        }
+    }
+
     //输入密码时实时验证密码强度
     var InputUserPassword = $("#InputUserPassword");
     InputUserPassword.keyup(function () {
@@ -257,5 +289,60 @@ $(document).ready(function () {
     var InputUserPasswordAgain = $("#InputUserPasswordAgain");
     InputUserPasswordAgain.blur(validatePasswordAgain);
 
+    $("#BtnGetCode").click(function () {
+        checkInfo();
+
+        
+        
+        $.ajax({
+            type:"get",
+            dataType:"json",
+            url:"api/user/sendSMS",
+            data:{telephone:$("#InputAccountTel").val()},
+            success:function (result) {
+
+                if (result.result === 0){
+                    var SuccessWarning = $("#SuccessWarning");
+                    createAlert(0,"验证码已成功发送到您手机")
+                }else {
+                    createAlert(1,result.errmsg);
+                }
+            },
+            error :function () {
+                var BtnGetCodeFalseTip =  $("#BtnGetCodeFalseTip");
+                BtnGetCodeFalseTip.html("验证码错误，请重新输入");
+                BtnGetCodeFalseTip.removeClass("hidden");
+            }
+        })
+    })
+
+    //创建Alert
+    function createAlert(type,mesg) {
+        var alert;
+        // type ===1 创建危险框
+        if(type === 1){
+        alert = $(" <div class=\"alert alert-danger alert-dismissible col-lg-10 col-lg-offset-1 text-center\" style=\"font-size: 25px;\" id=\"dangerWarning\" role=\"alert\">\n" +
+            "        <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n" +
+            "    </div> ");
+        }else if(type ===0){
+           // type===0 创建成功狂
+            alert = $(" <div class=\"alert alert-success alert-dismissible col-lg-10 col-lg-offset-1 text-center\" style=\"font-size: 25px;\" id=\"dangerWarning\" role=\"alert\">\n" +
+                "        <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n" +
+                "    </div> ");
+        }
+        // alertDiv.append(newDom);
+        var alertDiv = $("#alertDiv");
+        alert.append(mesg);
+        alert.insertAfter(alertDiv);
+    }
+
+
+    //让验证码禁用60s
+    $(".js-loading-btn").on("click",function (e) {
+        var btn = $(this).button("loading");
+        setTimeout(function (e) {
+            btn.button("reset")
+        },3000)
+    })
 
 })

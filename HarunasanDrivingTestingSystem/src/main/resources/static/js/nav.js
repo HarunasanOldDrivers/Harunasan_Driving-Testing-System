@@ -11,14 +11,6 @@ $(document).ready(function () {
         $(".UserNameAndLogoff").hide();
     }
 
-    //点击登录之后按钮禁用
-    // $(".js-loading-btn").on("click",function (e) {
-    //     var btn = $(this).button("loading");
-    //     setTimeout(function (e) {
-    //         btn.button("reset")
-    //     },3000)
-    // })
-
     //点击登录时发送Ajax请求
     UserLogin.click(function () {
         var inputUserAccountTel = $("#inputUserAccountTel");
@@ -85,11 +77,5 @@ $(document).ready(function () {
         alert.insertAfter(alertDiv);
     }
 
-    //让登陆btn禁用三秒
-    $(".js-loading-btn").on("click",function (e) {
-        var btn = $(this).button("loading");
-        setTimeout(function (e) {
-            btn.button("reset")
-        },3000)
-    })
+
 })

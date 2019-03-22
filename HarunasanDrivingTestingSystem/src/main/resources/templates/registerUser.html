@@ -30,6 +30,8 @@
 <body>
 
     <div id="nav"></div>
+    <div id="alertDiv"></div>
+
 
     <div class="container">
         <div class="page-header">
@@ -40,7 +42,7 @@
     </div>
 
     <div class="container" >
-        <form class="form-horizontal" action="/api/user/signUp" method="post" role="form" >
+        <form class="form-horizontal" id="FormUserRegister" action="/api/user/signUp" method="post" role="form" >
             <div class="form-group ">
                 <div class="col-md-10 col-md-offset-1 has-feedback" id="InputAccountTelDiv">
                     <label class="col-md-3 col-md-offset-2 control-label" for="InputAccountTel">账号/手机号</label>
@@ -122,10 +124,11 @@
                 <div class="col-md-10 col-md-offset-1 has-feedback" id="InputUserinputCodeDiv">
                     <label class="col-md-3 col-md-offset-2 control-label" for="inputCode">手机验证码</label>
                     <div class="col-md-2">
-                        <input type="text" name="InputNumber" placeholder="Verification Code" class="form-control" id="inputCode">
+                        <input type="text" name="inputCode" placeholder="Verification Code" class="form-control" id="inputCode">
+                        <span id="BtnGetCodeFalseTip" style="color: #bd2a31;" class="hidden"></span>
                     </div>
                     <!--<a href="" class="btn btn-primary btn-sm">验证码</a>-->
-                    <button class="btn btn-primary btn-sm">获取验证码</button>
+                    <button class="btn btn-primary btn-sm js-loading-btn" data-loading-text="10秒后才可重新发送" type="button" id="BtnGetCode">获取验证码</button>
                 </div>
             </div>
 
@@ -144,7 +147,7 @@
             <div class="form-group">
                 <div class="col-md-6 col-md-offset-3" >
                     <div class="col-md-5 col-md-offset-5">
-                        <button type="submit" class="btn btn-primary " id="Btnconfirm">确认</button>&emsp;&emsp;&emsp;
+                        <button type="button" class="btn btn-primary " id="Btnconfirm">确认</button>&emsp;&emsp;&emsp;
                         <button type="reset" class="btn btn-info">重置</button>
                     </div>
                 </div>
@@ -152,13 +155,6 @@
             </div>
         </form>
     </div>
-    <script>
-        $("#nav").load("nav",function () {
-            // 在载入完成之后改变状态
-            $("#mainpage").removeClass("active");
-            $("#schoolCommend").addClass("active");
-        });
-    </script>
 
 </body>
 </html>

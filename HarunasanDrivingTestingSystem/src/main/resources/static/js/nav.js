@@ -9,7 +9,7 @@ $(document).ready(function () {
             type:"post",
             dataType:"json",
             url:"/api/user/login",
-            data:{username:inputUserAccountTel.val(),password:inputUserPassword.val()
+            data:{username:inputUserAccountTel.val(),password:inputUserPassword.val(),
             },
             success:function (result) {
                 if (result.code === 408){

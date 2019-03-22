@@ -146,7 +146,7 @@ public class BaseUserController {
      * @param password  密码
      * @return  登录成功后返回token
      */
-    @GetMapping("/login")
+    @PostMapping("/login")
     public String login(String username,String password){
         if (baseUserService.loginByTelephone(username,password)){
             return jwtTokenUtil.generateToken(userDetailsService.loadUserByUsername(String.valueOf(baseUserService.getIdByTelephone(username)),"User"),"User");

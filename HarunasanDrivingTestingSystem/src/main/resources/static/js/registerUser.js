@@ -30,7 +30,7 @@ $(document).ready(function () {
             $("#InputNickNameDiv").hasClass("has-success") &&
             checkBoxAcceptLaw.is(':checked') && $("#InputUserinputCodeDiv").hasClass("has-success")
         ){
-            // 前端验证成功，发送Ajax请求验
+            // 前端验证成功，发送Ajax请求
                 $.ajax({
                     type:"post",
                     dataType:"json",
@@ -289,7 +289,6 @@ $(document).ready(function () {
     var InputUserPasswordAgain = $("#InputUserPasswordAgain");
     InputUserPasswordAgain.blur(validatePasswordAgain);
 
-    //点击发送验证码，进行验证
     $("#BtnGetCode").click(function () {
         checkInfo();
         $.ajax({
@@ -298,7 +297,9 @@ $(document).ready(function () {
             url:"api/user/sendSMS",
             data:{telephone:$("#InputAccountTel").val()},
             success:function (result) {
+
                 if (result.result === 0){
+                    var SuccessWarning = $("#SuccessWarning");
                     createAlert(0,"验证码已成功发送到您手机")
                 }else {
                     createAlert(1,result.errmsg);
@@ -331,14 +332,5 @@ $(document).ready(function () {
         alert.append(mesg);
         alert.insertAfter(alertDiv);
     }
-
-
-    //让验证码禁用60s
-    $(".js-loading-btn").on("click",function (e) {
-        var btn = $(this).button("loading");
-        setTimeout(function (e) {
-            btn.button("reset")
-        },3000)
-    })
 
 })

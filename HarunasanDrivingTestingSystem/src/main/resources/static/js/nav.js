@@ -1,6 +1,6 @@
 $(document).ready(function () {
     var UserLogin = $("#UserLogin");
-
+    var BtnSchoolUserLogin = $("#BtnSchoolUserLogin");
     // alert($.cookie("Authorization").val());
     //加载的时候判断是否有cookie的登录信息，如果有，显示用户名密码，如果没有，显示登录/注册
     if($.cookie("Authorization")){
@@ -9,7 +9,12 @@ $(document).ready(function () {
         $(".UserNameAndLogoff").show();
         $(".loginIn").hide();
     }
-    else {
+    else if($.cookie("AuthorizationSchool")){
+        var schoolName = $.cookie("schoolName");
+        $("#AUserName").html(schoolName);
+        $(".UserNameAndLogoff").show();
+        $(".loginIn").hide();
+    }else{
         $(".loginIn").show();
         $(".UserNameAndLogoff").hide();
     }
@@ -22,7 +27,7 @@ $(document).ready(function () {
     //     },3000)
     // })
 
-    //点击登录时发送Ajax请求
+    //点击普通用户登录时发送Ajax请求
     UserLogin.click(function () {
         var inputUserAccountTel = $("#inputUserAccountTel");
         var inputUserPassword = $("#inputUserPassword");
@@ -54,12 +59,45 @@ $(document).ready(function () {
 
 
     })
+    BtnSchoolUserLogin.click(function () {
+       var inputSchoolEmail = $("#inputSchoolEmail");
+       var inputSchoolPassword = $("#inputSchoolPassword");
+
+        $.ajax({
+            type:"post",
+            dataType:"json",
+            url:"/api/school/login",
+            data:{email:inputSchoolEmail.val(),password:inputSchoolPassword.val(),
+            },
+            success:function (result) {
+                if (result.code === 408){
+                    alert(result.msg + "  用户名/密码错误" );
+                }else{
+                    alert("登录成功！");
+                    //把token和用户名放入cookie
+                    $.cookie("AuthorizationSchool",result.token);
+                    $.cookie("schoolName",result.schoolName);
+                    $(".UserNameAndLogoff").show();
+                    $(".loginIn").hide();
+                    $("#AUserName").html(result.schoolName);
+                    $('#login').modal('hide');
+                    $('.modal-backdrop').remove();
+                }
+            },
+            error :function (result) {
+                alert("登录失败");
+            }
+        })
+    })
+
 
     //注销按钮点击之后自己删cookies里面的Authorization
     $("#AUserLogoff").click(function () {
         //本地删除Authorization
         $.cookie('Authorization',null,{expires:-1});
         $.cookie('UserName',null,{expires:-1});
+        $.cookie('AuthorizationSchool',null,{expires:-1});
+        $.cookie('schoolName',null,{expires:-1});
         $("#AUserName").html("");
         createAlert(0,"您已经成功退出登录");
         alert("您已经成功注销");

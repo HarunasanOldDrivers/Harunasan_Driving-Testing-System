@@ -117,4 +117,9 @@ public class BaseUserServiceImpl implements IBaseUserService {
         return userMapper.selectByPrimaryKey(id);
     }
 
+    @Override
+    public String getNickNameByTelephone(String telephone) {
+        return userMapper.selectByTelphone(telephone).getUserNickname();
+    }
+
 }

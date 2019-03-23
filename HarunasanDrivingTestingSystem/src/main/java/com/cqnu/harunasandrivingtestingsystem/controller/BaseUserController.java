@@ -47,6 +47,9 @@ public class BaseUserController {
     @Resource
     private UserDetailsServiceImpl userDetailsService;
 
+    /**
+     * 辅助操作 token 的工具类
+     */
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
@@ -62,11 +65,6 @@ public class BaseUserController {
     @Value("${jwt.header}")
     private String tokenHeader;
 
-    /**
-     * 辅助操作 token 的工具类
-     */
-    @Autowired
-    private JwtTokenUtil tokenUtils;
 
     /**
      * 发送验证码
@@ -144,9 +142,10 @@ public class BaseUserController {
      */
     @PostMapping("/login")
     public String login(String username,String password){
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<String, String>(16);
         if (baseUserService.loginByTelephone(username,password)){
             map.put("token",jwtTokenUtil.generateToken(userDetailsService.loadUserByUsername(String.valueOf(baseUserService.getIdByTelephone(username)),"User"),"User"));
+            map.put("nickname:",baseUserService.getNickNameByTelephone(username));
             return JSON.toJSONString(map);
         }
         return JSON.toJSONString(ResultUtil.failure(408,"登录失败"));
@@ -161,7 +160,7 @@ public class BaseUserController {
     @PreAuthorize("hasRole('User')")
     public User getProfile(){
         String authToken = request.getHeader(this.tokenHeader);
-        String username = this.tokenUtils.getUsernameFromToken(authToken);
+        String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
         return baseUserService.getProfile(Integer.parseInt(username));
     }
 
@@ -188,7 +187,7 @@ public class BaseUserController {
     @PostMapping("/alterPassword")
     public Result alterPassword(String oldPassword, String newPassword){
         String authToken = request.getHeader(this.tokenHeader);
-        String username = this.tokenUtils.getUsernameFromToken(authToken);
+        String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
         if (baseUserService.oldPasswordIsCorrect(Integer.parseInt(username),oldPassword)){
             return ResultUtil.failure(408,"密码不正确");
         }
@@ -208,7 +207,7 @@ public class BaseUserController {
     @PostMapping("/forgotPassword")
     public Result forgotPassword(String newPassword){
         String authToken = request.getHeader(this.tokenHeader);
-        String username = this.tokenUtils.getUsernameFromToken(authToken);
+        String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
         int msg = baseUserService.alterPassword(Integer.parseInt(username),username);
         if (msg == 1){
             return ResultUtil.success();

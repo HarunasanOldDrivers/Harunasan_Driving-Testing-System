@@ -47,17 +47,25 @@
     from hodts_db.school
     where school_id = #{schoolId,jdbcType=INTEGER}
   </select>
-    <select id="selectIdByTelephone" parameterType="java.lang.String" resultType="java.lang.Integer">
-      SELECT school_id FROM hodts_db.school
-      WHERE
-
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <select id="selectIdByEmail" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from hodts_db.school
+    where school_email = #{schoolEmail,jdbcType=VARCHAR}
+  </select>
+  <select id="selectSchoolNameByEmail" parameterType="java.lang.String" resultType="java.lang.String">
+    select school_name
+    from hodts_db.school
+    where school_email = #{schoolEmail,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from hodts_db.school
     where school_id = #{schoolId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.School">
-    insert into hodts_db..school (school_id, school_corporate_name, school_corporate_tel, 
+    insert into hodts_db.school (school_id, school_corporate_name, school_corporate_tel,
       school_password, school_email, school_name, 
       school_company_name, school_authentication_status, 
       school_card_id, school_enroll_telphone, school_start_price, 
@@ -332,7 +340,7 @@
     where school_id = #{schoolId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.School">
-    update hodts_db..school
+    update hodts_db.school
     set school_corporate_name = #{schoolCorporateName,jdbcType=VARCHAR},
       school_corporate_tel = #{schoolCorporateTel,jdbcType=VARCHAR},
       school_password = #{schoolPassword,jdbcType=VARCHAR},

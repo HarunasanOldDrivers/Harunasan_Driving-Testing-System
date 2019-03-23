@@ -184,7 +184,7 @@ $(document).ready(function () {
                     alert("注册成功，页面将在两秒后自动跳转到首页");
                     // createAlert(0,"注册成功，页面将在两秒后自动跳转到首页");
                     setTimeout(function () {
-                        window.location.href="index";
+                        window.location.href="/index";
                     },2000);
 
                 }else{

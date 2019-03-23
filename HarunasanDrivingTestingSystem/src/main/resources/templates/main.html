@@ -338,7 +338,7 @@
 
             xmlhttp.send();  // 要发送的参数，要转化为json字符串发送给后端，后端就会接受到json对象
             // readyState == 4 为请求完成，status == 200为请求陈宫返回的状态
-            window.location.href="register";
+            window.location.href="/register";
             xmlhttp.onreadystatechange = function(){
                 if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
                     console.log(xmlhttp.responseText);

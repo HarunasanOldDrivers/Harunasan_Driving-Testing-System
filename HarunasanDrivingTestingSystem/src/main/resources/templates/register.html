@@ -73,9 +73,9 @@
         function chooseUserType() {
             var optionsRadioUser = $("input[name='optionsRadioUser']:checked").val();
             if(optionsRadioUser === "SchoolUser"){
-                window.location.href='register/school'
+                window.location.href='/register/school'
             }else if(optionsRadioUser === "StudentUser"){
-                window.location.href='register/user'
+                window.location.href='/register/user'
             }else{
                 alert("请选择一种用户进行注册");
             }

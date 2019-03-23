@@ -42,9 +42,8 @@ $(document).ready(function () {
                         if (result.code === 200){
                             createAlert(0,"注册" + result.msg + "，页面将在两秒后自动跳转到首页");
                             setTimeout(function () {
-                                // window.location.href="index"
+                                window.location.href="/index";
                             },2000);
-                            window.location.href="index";
                         }else{
                             createAlert(1,result.msg);
                         }

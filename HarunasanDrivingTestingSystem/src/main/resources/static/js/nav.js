@@ -105,7 +105,7 @@ $(document).ready(function () {
         $(".loginIn").show();
         $(".UserNameAndLogoff").hide();
         //跳转回主页面
-        window.location.href="index";
+        window.location.href="/index";
     })
 
     //创建Alert

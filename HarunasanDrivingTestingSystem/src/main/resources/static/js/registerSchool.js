@@ -36,11 +36,35 @@ $(document).ready(function () {
         if ($("#InputEmailDiv").hasClass("has-success")  && $("#InputSchoolNameDiv").has("has-success") && $("#InputPasswordDiv").has("has-success") &&
             $("#InputPasswordAgainDiv").hasClass("has-success") &&  $("#InputChargerTelDiv").has("has-success") && checkBoxAcceptLaw.is(':checked')
         ){
-            setTimeout(showSchoolInfo,1000);
-            function showSchoolInfo() {
-                BaseInfo.hide(300);
-                DetailInfo.show(300);
-            }
+            //页面都验证通过，验证验证码
+            $.ajax({
+                type:"post",
+                dataType:"json",
+                url:"api/school/validate",
+                data:{telephone:$("#InputChargerTel").val(),
+                     verifyCode:$("#InputTelCode").val()},
+                success:function (result) {
+                    if (result.code === 200){
+                        createAlert(0,"手机号码验证通过");
+                        //显示下一个表单
+                        setTimeout(showSchoolInfo,1000);
+                        function showSchoolInfo() {
+                            BaseInfo.hide(300);
+                            DetailInfo.show(300);
+                        }
+                    }else {
+                        createAlert(1,result.msg);
+                    }
+                },
+                error :function () {
+                    var BtnGetCodeFalseTip =  $("#BtnGetCodeFalseTip");
+                    BtnGetCodeFalseTip.html("验证码错误，请重新输入");
+                    BtnGetCodeFalseTip.removeClass("hidden");
+                }
+            })
+
+        }else{
+            createAlert(1,"请填写所有信息，并接受服务条款");
         }
     });
 
@@ -103,12 +127,72 @@ $(document).ready(function () {
     //点击第三页提交,查看数据
     $("#CertificationSubmit").click(function () {
     //            首先要判断图片代码
+
+        var img1 = document.getElementById("InputCorporateId").files[0];
+        var img2 = document.getElementById("InputCertificationlicense").files[0];
+        var img3 = document.getElementById("InputBusinessLicense").files[0];
+        var formdata = new FormData();
+        //法人手持身份证照片
+        // var img1 = $("#InputCorporateId").val();
+        // //驾校信息管理授权书
+        // var img2 = $("#InputCertificationlicense").val();
+        // //营业执照
+        // var img3 = $("#InputBusinessLicense").val();
+        var email = $("#InputEmail").val();
+        var schoolName = $("#InputSchoolName").val();
+        var password = $("#InputPassword").val();
+        var enrollTelephone = $("#InputEnrollTel").val();
+        var companyName = $("#InputCompanyName").val();
+        var corporateName = $("#InputCorporateName").val();
+        var corporateTelephone = $("#InputCorporateNumber").val();
+        var socialCreditCode = $("#InputSocialCode").val();
+        var InputstartDate = $("#InputEnbarkTime").val();
+        var startDate=new Date(InputstartDate);
+        var district = $("#InputDistrict").val();
+        var detailLocation = $("#InputDetailedLocation").val();
+        formdata.append("email",email);
+        formdata.append("schoolName",schoolName);
+        formdata.append("password",password);
+        formdata.append("enrollTelephone",enrollTelephone);
+        formdata.append("companyName",companyName);
+        formdata.append("corporateName",corporateName);
+        formdata.append("corporateTelephone",corporateTelephone);
+        formdata.append("socialCreditCode",socialCreditCode);
+        formdata.append("startDate",startDate);
+        formdata.append("district",district);
+        formdata.append("detailLocation",detailLocation);
+        formdata.append("image",img1);
+        formdata.append("image",img2);
+        formdata.append("image",img3);
+        // formdata.append("image",img4);
+      //  alert(startDate);
         $.ajax({
             type:"post",
             dataType:"json",
             url:"/api/school/signUp",
-            date:{
+            data:formdata,
+            async:false,
+            processData:false,
+            contentType:false,
+            // data:{email:$("#InputEmail").val(),schoolName:$("#InputSchoolName").val(),
+            //     password:$("#InputPassword").val(),enrollTelephone:$("#InputEnrollTel").val(),companyName:$("#InputCompanyName").val(),
+            //     corporateName:$("#InputCorporateName").val(),corporateTelephone:$("#InputCorporateNumber").val(),socialCreditCode:$("#InputSocialCode").val(),
+            //     startDate:$("#InputEnbarkTime").val(),district:$("#InputDistrict").val(),detailLocation:$("#InputDetailedLocation").val(),
+            // },
+            success:function (result) {
+                if (result.code === 200){
+                    alert("注册成功，页面将在两秒后自动跳转到首页");
+                    // createAlert(0,"注册成功，页面将在两秒后自动跳转到首页");
+                    setTimeout(function () {
+                        window.location.href="index";
+                    },2000);
 
+                }else{
+                    createAlert(1,result.msg);
+                }
+            },
+            error :function (result) {
+                createAlert(1,result.errmsg);
             }
         })
 

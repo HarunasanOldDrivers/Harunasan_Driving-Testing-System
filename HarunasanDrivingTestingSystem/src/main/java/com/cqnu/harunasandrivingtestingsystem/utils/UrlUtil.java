@@ -40,7 +40,8 @@ public class UrlUtil {
     public List<String> getUrls(List<String> paths){
         List<String> urlList = new ArrayList<>();
 
-        String filePath = "D:\\文档\\毕设\\Harunasan_Driving-Testing-System\\HarunasanDrivingTestingSystem\\src\\main\\resources\\upload\\";
+//        String filePath = "D:\\文档\\毕设\\Harunasan_Driving-Testing-System\\HarunasanDrivingTestingSystem\\src\\main\\resources\\upload\\";
+        String filePath = "D:\\newproject\\HarunasanDrivingTestingSystem\\src\\main\\resources\\upload";
         String fileName = "";
         String url = "";
 

@@ -89,7 +89,8 @@ public class SchoolServiceImpl implements ISchoolService {
 
     @Override
     public List<String> uploadImage(MultipartFile[] files) {
-        String filePath = "D:\\文档\\毕设\\Harunasan_Driving-Testing-System\\HarunasanDrivingTestingSystem\\src\\main\\resources\\upload\\";
+//        String filePath = "D:\\文档\\毕设\\Harunasan_Driving-Testing-System\\HarunasanDrivingTestingSystem\\src\\main\\resources\\upload\\";
+        String filePath = "D:\\newproject\\HarunasanDrivingTestingSystem\\src\\main\\resources\\upload";
         String fileName = "";
         List<String> urlList = new ArrayList<>();
 

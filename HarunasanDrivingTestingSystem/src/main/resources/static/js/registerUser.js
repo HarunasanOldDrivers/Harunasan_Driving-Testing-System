@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $("#nav").load("nav",function () {
+    $("#nav").load("../nav",function () {
         //在载入完成之后改变状态
         $("#mainpage").removeClass("active");
         $("#register").addClass("active");
@@ -34,7 +34,7 @@ $(document).ready(function () {
                 $.ajax({
                     type:"post",
                     dataType:"json",
-                    url:"/api/user/signUp",
+                    url:"../api/user/signUp",
                     data:{telephone:$("#InputAccountTel").val(),password:$("#InputUserPassword").val(),
                         nickname:$("#InputNickName").val(),mail:$("#InputUserEmail").val(),verifyCode:$("#inputCode").val()
                     },
@@ -44,7 +44,7 @@ $(document).ready(function () {
                             setTimeout(function () {
                                 // window.location.href="index"
                             },2000);
-                            window.location.href="idnex";
+                            window.location.href="index";
                         }else{
                             createAlert(1,result.msg);
                         }
@@ -295,7 +295,7 @@ $(document).ready(function () {
         $.ajax({
             type:"get",
             dataType:"json",
-            url:"api/user/sendSMS",
+            url:"../api/user/sendSMS",
             data:{telephone:$("#InputAccountTel").val()},
             success:function (result) {
 

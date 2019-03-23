@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <script src="webjars/jquery/3.1.1/jquery.min.js"></script>
+    <script src="../webjars/jquery/3.1.1/jquery.min.js"></script>
     <script src="../js/bootstrap.min.js" type="text/javascript"></script>
     <!--城市联动必要样式-->
     <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -402,16 +402,6 @@
             </div>
         </form>
     </div>
-
-    <script>
-        //导入导航页面
-        $("#nav").load("nav",function () {
-            //在载入完成之后改变导航栏状态
-            $("#mainpage").removeClass("active");
-            $("#buyCommend").removeClass("active");
-        });
-        $('[data-toggle="tooltip"]').tooltip();  //初始化
-    </script>
 
 </body>
 </html>

@@ -34,7 +34,7 @@ $(document).ready(function () {
         $.ajax({
             type:"post",
             dataType:"json",
-            url:"/api/user/login",
+            url:"../api/user/login",
             data:{username:inputUserAccountTel.val(),password:inputUserPassword.val(),
             },
             success:function (result) {
@@ -66,7 +66,7 @@ $(document).ready(function () {
         $.ajax({
             type:"post",
             dataType:"json",
-            url:"/api/school/login",
+            url:"../api/school/login",
             data:{email:inputSchoolEmail.val(),password:inputSchoolPassword.val(),
             },
             success:function (result) {

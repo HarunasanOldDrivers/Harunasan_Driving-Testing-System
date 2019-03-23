@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <script src="webjars/jquery/3.1.1/jquery.min.js"></script>
-    <script src="webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="../webjars/jquery/3.1.1/jquery.min.js"></script>
+    <script src="../webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="webjars/bootstrap/3.3.5/css/bootstrap.min.css" />
     <title>用户注册</title>
     <style>
@@ -61,7 +61,7 @@
 
     <script>
         //导入导航页面
-        $("#nav").load("nav",function () {
+        $("#nav").load("../nav",function () {
             //在载入完成之后改变导航栏状态
             $("#mainpage").removeClass("active")
             $("#register").addClass("active");
@@ -73,9 +73,9 @@
         function chooseUserType() {
             var optionsRadioUser = $("input[name='optionsRadioUser']:checked").val();
             if(optionsRadioUser === "SchoolUser"){
-                window.location.href='registerSchool'
+                window.location.href='register/school'
             }else if(optionsRadioUser === "StudentUser"){
-                window.location.href='registerUser'
+                window.location.href='register/user'
             }else{
                 alert("请选择一种用户进行注册");
             }

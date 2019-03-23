@@ -1,6 +1,6 @@
 $(document).ready(function () {
     //改变导航页面可选择状态
-    $("#nav").load("nav",function () {
+    $("#nav").load("../nav",function () {
         //在载入完成之后改变导航栏状态
         $("#mainpage").removeClass("active");
         $("#register").addClass("active");
@@ -40,7 +40,7 @@ $(document).ready(function () {
             $.ajax({
                 type:"post",
                 dataType:"json",
-                url:"api/school/validate",
+                url:"../api/school/validate",
                 data:{telephone:$("#InputChargerTel").val(),
                      verifyCode:$("#InputTelCode").val()},
                 success:function (result) {
@@ -98,7 +98,7 @@ $(document).ready(function () {
             $.ajax({
                 type:"get",
                 dataType:"json",
-                url:"api/user/sendSMS",
+                url:"../api/user/sendSMS",
                 data:{telephone:$("#InputChargerTel").val()},
                 success:function (result) {
                     if (result.result === 0){
@@ -169,7 +169,7 @@ $(document).ready(function () {
         $.ajax({
             type:"post",
             dataType:"json",
-            url:"/api/school/signUp",
+            url:"../api/school/signUp",
             data:formdata,
             async:false,
             processData:false,

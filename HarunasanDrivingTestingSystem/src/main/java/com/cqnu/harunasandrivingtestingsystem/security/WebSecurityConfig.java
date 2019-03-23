@@ -55,12 +55,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         httpSecurity.csrf().disable().
                 sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and()
-//                .formLogin()
-//                .loginPage("/index").permitAll()
+                .and()
+                .formLogin()
+                .loginPage("/index").permitAll()
                 .and()
                 .authorizeRequests()
-//                .antMatchers("/**").permitAll()
+                .antMatchers("/**").permitAll()
 //                .antMatchers("/druid/**").hasRole("Admin_root")
                 .antMatchers("/druid/**").permitAll()
                 .antMatchers("/api/**").permitAll()
@@ -86,7 +86,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         //解决静态资源被拦截的问题
-        web.ignoring().antMatchers("/static/**");
+        web.ignoring().antMatchers("/resources/static/**");
 //                .antMatchers("/js/**")
 //                .antMatchers("/images/**")
 //                .antMatchers("/css/**")

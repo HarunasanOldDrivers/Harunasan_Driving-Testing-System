@@ -10,15 +10,13 @@ import java.util.Date;
  * @author LiAixing
  */
 
-public class School implements UserDetails {
-
-    private static final long serialVersionUID = -7820427746257034247L;
+public class School{
 
     private Integer schoolId;
 
     private String schoolCorporateName;
 
-    private Integer schoolCorporateTel;
+    private String schoolCorporateTel;
 
     private String schoolPassword;
 
@@ -78,11 +76,11 @@ public class School implements UserDetails {
         this.schoolCorporateName = schoolCorporateName == null ? null : schoolCorporateName.trim();
     }
 
-    public Integer getSchoolCorporateTel() {
+    public String getSchoolCorporateTel() {
         return schoolCorporateTel;
     }
 
-    public void setSchoolCorporateTel(Integer schoolCorporateTel) {
+    public void setSchoolCorporateTel(String schoolCorporateTel) {
         this.schoolCorporateTel = schoolCorporateTel;
     }
 
@@ -254,38 +252,4 @@ public class School implements UserDetails {
         this.schoolIntroduction = schoolIntroduction == null ? null : schoolIntroduction.trim();
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
-    @Override
-    public String getPassword() {
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return String.valueOf(schoolId);
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return schoolEnable == 1;
-    }
 }

@@ -65,8 +65,11 @@ public class AdminController {
     }
 
     @PostMapping("/login")
-    public String login(int username, String password){
-        if (adminService.loginById(username,password)){
+    public String login(@RequestBody Map map){
+        String username = (String) map.get("username");
+        String password = (String) map.get("password");
+        logger.info(username+password);
+        if (adminService.loginById(Integer.parseInt(username),password)){
             return jwtTokenUtil.generateToken(userDetailsService.loadUserByUsername(String.valueOf(username),"Administrator"),"Administrator");
         }
         return JSON.toJSONString(ResultUtil.failure(408,"登录失败"));

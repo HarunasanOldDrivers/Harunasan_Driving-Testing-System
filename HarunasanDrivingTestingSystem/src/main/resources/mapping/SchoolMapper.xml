@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.cqnu.harunasandrivingtestingsystem.entity.School">
     <id column="school_id" jdbcType="INTEGER" property="schoolId" />
     <result column="school_corporate_name" jdbcType="VARCHAR" property="schoolCorporateName" />
-    <result column="school_corporate_tel" jdbcType="INTEGER" property="schoolCorporateTel" />
+    <result column="school_corporate_tel" jdbcType="VARCHAR" property="schoolCorporateTel" />
     <result column="school_password" jdbcType="VARCHAR" property="schoolPassword" />
     <result column="school_email" jdbcType="VARCHAR" property="schoolEmail" />
     <result column="school_name" jdbcType="VARCHAR" property="schoolName" />
@@ -67,7 +67,7 @@
       school_start_time, school_pass_time, school_public_praise, 
       school_reg_date, school_enable, school_introduction
       )
-    values (#{schoolId,jdbcType=INTEGER}, #{schoolCorporateName,jdbcType=VARCHAR}, #{schoolCorporateTel,jdbcType=INTEGER}, 
+    values (#{schoolId,jdbcType=INTEGER}, #{schoolCorporateName,jdbcType=VARCHAR}, #{schoolCorporateTel,jdbcType=VARCHAR},
       #{schoolPassword,jdbcType=VARCHAR}, #{schoolEmail,jdbcType=VARCHAR}, #{schoolName,jdbcType=VARCHAR}, 
       #{schoolCompanyName,jdbcType=VARCHAR}, #{schoolAuthenticationStatus,jdbcType=TINYINT}, 
       #{schoolCardId,jdbcType=VARCHAR}, #{schoolEnrollTelphone,jdbcType=VARCHAR}, #{schoolStartPrice,jdbcType=INTEGER}, 
@@ -162,7 +162,7 @@
         #{schoolCorporateName,jdbcType=VARCHAR},
       </if>
       <if test="schoolCorporateTel != null">
-        #{schoolCorporateTel,jdbcType=INTEGER},
+        #{schoolCorporateTel,jdbcType=VARCHAR},
       </if>
       <if test="schoolPassword != null">
         #{schoolPassword,jdbcType=VARCHAR},
@@ -236,7 +236,7 @@
         school_corporate_name = #{schoolCorporateName,jdbcType=VARCHAR},
       </if>
       <if test="schoolCorporateTel != null">
-        school_corporate_tel = #{schoolCorporateTel,jdbcType=INTEGER},
+        school_corporate_tel = #{schoolCorporateTel,jdbcType=VARCHAR},
       </if>
       <if test="schoolPassword != null">
         school_password = #{schoolPassword,jdbcType=VARCHAR},
@@ -307,7 +307,7 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.School">
     update hodts_db.school
     set school_corporate_name = #{schoolCorporateName,jdbcType=VARCHAR},
-      school_corporate_tel = #{schoolCorporateTel,jdbcType=INTEGER},
+      school_corporate_tel = #{schoolCorporateTel,jdbcType=VARCHAR},
       school_password = #{schoolPassword,jdbcType=VARCHAR},
       school_email = #{schoolEmail,jdbcType=VARCHAR},
       school_name = #{schoolName,jdbcType=VARCHAR},
@@ -334,7 +334,7 @@
   <update id="updateByPrimaryKey" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.School">
     update hodts_db..school
     set school_corporate_name = #{schoolCorporateName,jdbcType=VARCHAR},
-      school_corporate_tel = #{schoolCorporateTel,jdbcType=INTEGER},
+      school_corporate_tel = #{schoolCorporateTel,jdbcType=VARCHAR},
       school_password = #{schoolPassword,jdbcType=VARCHAR},
       school_email = #{schoolEmail,jdbcType=VARCHAR},
       school_name = #{schoolName,jdbcType=VARCHAR},

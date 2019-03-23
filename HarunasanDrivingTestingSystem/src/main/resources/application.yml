@@ -78,6 +78,11 @@ jwt:
     refresh: /auth/refresh  #刷新token地址
     register: /auth/register  #注册的地址
 
+oss:
+  ossEndpoint: https://oss-cn-shenzhen.aliyuncs.com
+  ossAccessId: LTAIKF2nFJq1tfp8
+  ossAccessKey: 2w1aeb21vzgtHb5wBD6V2YOWX9djXD
+  bucket: hsdts
 mybatis:
   mapper-locations: classpath:mapping/*.xml
   type-aliases-package: com.cqnu.harunasandrivingtestingsystem.entity

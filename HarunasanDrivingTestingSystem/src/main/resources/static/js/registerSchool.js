@@ -67,6 +67,34 @@ $(document).ready(function () {
         DetailInfo.hide(300);
     });
 
+    $("#GetTelCode").click(function () {
+        checkBaseInfo();
+        if ($("#InputEmailDiv").hasClass("has-success")  && $("#InputSchoolNameDiv").has("has-success") && $("#InputPasswordDiv").has("has-success") &&
+            $("#InputPasswordAgainDiv").hasClass("has-success") &&  $("#InputChargerTelDiv").has("has-success")
+        ) {
+            $.ajax({
+                type:"get",
+                dataType:"json",
+                url:"api/user/sendSMS",
+                data:{telephone:$("#InputChargerTel").val()},
+                success:function (result) {
+                    if (result.result === 0){
+                        createAlert(0,"验证码已成功发送到您手机")
+                    }else {
+                        createAlert(1,result.errmsg);
+                    }
+                },
+                error :function () {
+                    var BtnGetCodeFalseTip =  $("#BtnGetCodeFalseTip");
+                    BtnGetCodeFalseTip.html("验证码错误，请重新输入");
+                    BtnGetCodeFalseTip.removeClass("hidden");
+                }
+            })
+        }else {
+            createAlert(1,"请填写基本信息")
+        }
+    })
+
     //点击第三张表格上一页，显示第二张表格
     $("#CertificationPreBtn").click(function () {
         CertificationInfo.hide(300);
@@ -76,14 +104,14 @@ $(document).ready(function () {
     //点击第三页提交,查看数据
     $("#CertificationSubmit").click(function () {
     //            首先要判断图片代码
-        $.ajax({
-            type:"post",
-            dataType:"json",
-            url:"/api/school/signUp",
-            date:{
-
-            }
-        })
+    //     $.ajax({
+    //         type:"post",
+    //         dataType:"json",
+    //         url:"/api/school/signUp",
+    //         date:{
+    //
+    //         }
+    //     })
     });
 
     //验证基本信息页完整性
@@ -472,10 +500,26 @@ $(document).ready(function () {
             return false;
         }
     }
-    
-    function validateCorporateIDimage() {
-       var InputCorporateId =  $("#InputCorporateId");
-        alert(InputCorporateId.val());
+
+
+    //创建Alert
+    function createAlert(type,mesg) {
+        var alert;
+        // type ===1 创建危险框
+        if(type === 1){
+            alert = $(" <div class=\"alert alert-danger alert-dismissible col-lg-10 col-lg-offset-1 text-center\" style=\"font-size: 25px;\" id=\"dangerWarning\" role=\"alert\">\n" +
+                "        <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n" +
+                "    </div> ");
+        }else if(type ===0){
+            // type===0 创建成功狂
+            alert = $(" <div class=\"alert alert-success alert-dismissible col-lg-10 col-lg-offset-1 text-center\" style=\"font-size: 25px;\" id=\"dangerWarning\" role=\"alert\">\n" +
+                "        <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n" +
+                "    </div> ");
+        }
+        // alertDiv.append(newDom);
+        var alertDiv = $("#alertDiv");
+        alert.append(mesg);
+        alert.insertAfter(alertDiv);
     }
 
 })

@@ -41,6 +41,7 @@
 <body>
 
     <div id="nav"></div>
+    <div id="alertDiv"></div>
 
     <div class="container">
         <div class="page-header">
@@ -71,7 +72,7 @@
                 <div class="col-md-10 col-md-offset-1 has-feedback" id="InputEmailDiv"   >
                     <label class="col-md-3 col-md-offset-2 control-label" for="InputEmail">账号/邮箱</label>
                     <div class="col-md-3" data-toggle="tooltip" title="此邮箱号将作为您的登录账号使用"  data-placement="right">
-                        <input class="form-control" name="InputNumber" type="email" placeholder="Account/Email" id="InputEmail">
+                        <input class="form-control" name="InputEmail" type="email" placeholder="Account/Email" id="InputEmail">
                         <!--错误或者正确时显示图标-->
                         <span id="InputEmailGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
                         <span id="InputEmailGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
@@ -84,7 +85,7 @@
                 <div class="col-md-10 col-md-offset-1 has-feedback" id="InputSchoolNameDiv">
                     <label class="col-md-3 col-md-offset-2 control-label" for="InputSchoolName">驾校名称</label>
                     <div class="col-md-3" data-toggle="tooltip" title="请填写您的驾校全称"  data-placement="right">
-                        <input class="form-control" name="InputPassword" type="text" placeholder="School Name" id="InputSchoolName">
+                        <input class="form-control" name="InputSchoolName" type="text" placeholder="School Name" id="InputSchoolName">
                         <span id="InputSchoolNameGlyTrue" class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>
                         <span id="InputSchoolNameGlyFalse" class="glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>
                         <span id="InputSchoolNameFalseTips" style="color: #bd2a31;" class="hidden"></span>
@@ -148,11 +149,11 @@
                 <div class="col-md-10 col-md-offset-1 has-feedback" id="InputTelCodeDiv">
                     <label class="col-md-3 col-md-offset-2 control-label" for="InputTelCode">手机验证码</label>
                     <div class="col-md-3">
-                        <input type="text" name="InputNumber" placeholder="Verification Code" class="form-control" id="InputTelCode">
+                        <input type="text" name="InputTelCode" placeholder="Verification Code" class="form-control" id="InputTelCode">
                         <span id="InputTelCodeFalseTip" style="color: #bd2a31;" class="hidden"></span>
                     </div>
                     <!--<a href="" class="btn btn-primary btn-sm">验证码</a>-->
-                    <button class="btn btn-info btn-sm">获取验证码</button>
+                    <button class="btn btn-info btn-sm" type="button" id="GetTelCode">获取验证码</button>
                 </div>
             </div>
 

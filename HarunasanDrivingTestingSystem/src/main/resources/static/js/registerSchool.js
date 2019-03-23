@@ -104,6 +104,15 @@ $(document).ready(function () {
     //点击第三页提交,查看数据
     $("#CertificationSubmit").click(function () {
     //            首先要判断图片代码
+        $.ajax({
+            type:"post",
+            dataType:"json",
+            url:"/api/school/signUp",
+            date:{
+
+            }
+        })
+    //            首先要判断图片代码
     //     $.ajax({
     //         type:"post",
     //         dataType:"json",

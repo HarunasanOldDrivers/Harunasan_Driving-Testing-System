@@ -1,6 +1,6 @@
 $(document).ready(function () {
     //改变导航页面可选择状态
-    $("#nav").load("nav.html",function () {
+    $("#nav").load("nav",function () {
         //在载入完成之后改变导航栏状态
         $("#mainpage").removeClass("active");
         $("#register").addClass("active");
@@ -19,14 +19,13 @@ $(document).ready(function () {
     //首先将表格设置为不可见，在加载完成后设置为可见，以回避城市联动栏过长的bug
     DetailInfo.css("visibility","visible");
 
-    //点击第一张表格下一页，显示第二张表格(检查每个DIV是否有has-success属性) ?? 验证码方面填上手机验证码判断
+    //点击第一张表格下一页，显示第二张表格(检查每个DIV是否有has-success属性)
     $("#BaseInfoNextBtn").click(function () {
         var checkBoxAcceptLaw = $("#checkBoxAcceptLaw");
         var checkBoxAcceptLawFalseTips = $("#checkBoxAcceptLawFalseTips");
         checkBaseInfo();
         //服务条款勾选验证
         if(!checkBoxAcceptLaw.is(':checked')){
-
             checkBoxAcceptLawFalseTips.removeClass("hidden");
             checkBoxAcceptLawFalseTips.html("请接受我们的服务条款");
 
@@ -112,15 +111,7 @@ $(document).ready(function () {
 
             }
         })
-    //            首先要判断图片代码
-    //     $.ajax({
-    //         type:"post",
-    //         dataType:"json",
-    //         url:"/api/school/signUp",
-    //         date:{
-    //
-    //         }
-    //     })
+
     });
 
     //验证基本信息页完整性

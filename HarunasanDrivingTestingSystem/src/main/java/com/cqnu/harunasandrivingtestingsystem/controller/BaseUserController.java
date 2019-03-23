@@ -145,7 +145,7 @@ public class BaseUserController {
         Map<String, String> map = new HashMap<String, String>(16);
         if (baseUserService.loginByTelephone(username,password)){
             map.put("token",jwtTokenUtil.generateToken(userDetailsService.loadUserByUsername(String.valueOf(baseUserService.getIdByTelephone(username)),"User"),"User"));
-            map.put("nickname:",baseUserService.getNickNameByTelephone(username));
+            map.put("nickname",baseUserService.getNickNameByTelephone(username));
             return JSON.toJSONString(map);
         }
         return JSON.toJSONString(ResultUtil.failure(408,"登录失败"));

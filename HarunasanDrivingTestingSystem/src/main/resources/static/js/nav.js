@@ -4,8 +4,11 @@ $(document).ready(function () {
     // alert($.cookie("Authorization").val());
     //加载的时候判断是否有cookie的登录信息，如果有，显示用户名密码，如果没有，显示登录/注册
     if($.cookie("Authorization")){
-    $(".UserNameAndLogoff").show();
-    $(".loginIn").hide();}
+        var username = $.cookie("UserName");
+        $("#AUserName").html(username);
+        $(".UserNameAndLogoff").show();
+        $(".loginIn").hide();
+    }
     else {
         $(".loginIn").show();
         $(".UserNameAndLogoff").hide();
@@ -34,12 +37,12 @@ $(document).ready(function () {
                     alert(result.msg + "  用户名/密码错误" );
                 }else{
                     alert("登录成功！");
-                    alert(result.token);
+                    //把token和用户名放入cookie
                     $.cookie("Authorization",result.token);
+                    $.cookie("UserName",result.nickname);
                     $(".UserNameAndLogoff").show();
                     $(".loginIn").hide();
-                    // $("#modelLoginClose").click();
-                    // $('#login').modal('hide');
+                    $("#AUserName").html(result.nickname);
                     $('#login').modal('hide');
                     $('.modal-backdrop').remove();
                 }
@@ -56,13 +59,15 @@ $(document).ready(function () {
     $("#AUserLogoff").click(function () {
         //本地删除Authorization
         $.cookie('Authorization',null,{expires:-1});
+        $.cookie('UserName',null,{expires:-1});
+        $("#AUserName").html("");
         createAlert(0,"您已经成功退出登录");
         alert("您已经成功注销");
 
         $(".loginIn").show();
         $(".UserNameAndLogoff").hide();
         //跳转回主页面
-        // window.location.href="index";
+        window.location.href="index";
     })
 
     //创建Alert

@@ -1,9 +1,7 @@
 package com.cqnu.harunasandrivingtestingsystem.service;
 
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +14,15 @@ import java.util.List;
  **/
 public interface ISchoolService {
 
-    String login(String username, String password);
+    boolean loginByEmail(String email, String password);
+
+    Integer getIdByEmail(String email);
+
+    String getSchoolNameByEmail(String email);
+
+    String verifyCode(String telephone);
+
+    boolean verification(String telephone, String verifyCode);
 
     List<String> uploadImage(MultipartFile[] files);
 

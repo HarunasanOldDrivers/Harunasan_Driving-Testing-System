@@ -33,5 +33,6 @@ public interface IBaseUserService {
 
     User getProfile(int id);
 
+    String getNickNameByTelephone(String telephone);
 
 }

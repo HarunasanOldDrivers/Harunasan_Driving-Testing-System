@@ -17,5 +17,7 @@ public interface SchoolMapper {
 
     int updateByPrimaryKey(School record);
 
-    int selectIdByTelephone(String telephone);
+    School selectIdByEmail(String telephone);
+
+    String selectSchoolNameByEmail(String email);
 }

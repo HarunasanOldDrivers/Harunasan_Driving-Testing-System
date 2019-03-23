@@ -10,16 +10,16 @@ import com.cqnu.harunasandrivingtestingsystem.utils.UrlUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -43,16 +43,48 @@ public class SchoolServiceImpl implements ISchoolService {
     @Resource
     private SchoolMapper schoolMapper;
 
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+
     @Override
-    public String login(String telephone, String password) {
-        int schoolId = schoolMapper.selectIdByTelephone(telephone);
-        if (schoolId == 0){
-            return null;
+    public boolean loginByEmail(String email, String password) {
+        School school = schoolMapper.selectIdByEmail(email);
+        if (school == null){
+            return false;
         }
-        password = Password2Hash.sha256CryptWithSalt(password, telephone);
+        if (school.getSchoolPassword().equals(password = Password2Hash.sha256CryptWithSalt(password, email))){
+            return true;
+        }
+        return false;
+    }
 
+    @Override
+    public Integer getIdByEmail(String email){
+        School school = schoolMapper.selectIdByEmail(email);
+        if (school == null){
+            logger.warn("School not Find");
+            throw new UsernameNotFoundException(String.format("No school found with email '%s'.", email));
+        }
 
-        return null;
+        return school.getSchoolId();
+    }
+
+    @Override
+    public String getSchoolNameByEmail(String email){
+        return schoolMapper.selectSchoolNameByEmail(email);
+    }
+
+    @Override
+    public String verifyCode(String telephone) {
+        String verifyCode = String.valueOf((new Random()).nextInt(899999) + 100000);
+        stringRedisTemplate.opsForValue().set("telephone:" + telephone, verifyCode,5, TimeUnit.MINUTES);
+        logger.info("verifyCode: " + verifyCode);
+        return verifyCode;
+    }
+
+    @Override
+    public boolean verification(String telephone, String verifyCode) {
+        return verifyCode.equals(stringRedisTemplate.opsForValue().get("telephone:" + telephone));
     }
 
     @Override

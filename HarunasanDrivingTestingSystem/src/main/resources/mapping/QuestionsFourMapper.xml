@@ -24,15 +24,15 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from hodts_db..questions_four
+    from hodts_db.questions_four
     where qo_Id = #{qoId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from hodts_db..questions_four
+    delete from hodts_db.questions_four
     where qo_Id = #{qoId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.QuestionsFour">
-    insert into hodts_db..questions_four (qo_Id, qo_type, qo_title, 
+    insert into hodts_db.questions_four (qo_Id, qo_type, qo_title, 
       qo_option_a, qo_option_b, qo_option_c, 
       qo_option_d, qo_answer, qo_video, 
       qo_image, qo_description, qo_difficulty, 
@@ -44,7 +44,7 @@
       #{qoKnowledge,jdbcType=VARCHAR}, #{qoChapter,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.QuestionsFour">
-    insert into hodts_db..questions_four
+    insert into hodts_db.questions_four
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="qoId != null">
         qo_Id,
@@ -135,7 +135,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.QuestionsFour">
-    update hodts_db..questions_four
+    update hodts_db.questions_four
     <set>
       <if test="qoType != null">
         qo_type = #{qoType,jdbcType=VARCHAR},
@@ -180,7 +180,7 @@
     where qo_Id = #{qoId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.QuestionsFour">
-    update hodts_db..questions_four
+    update hodts_db.questions_four
     set qo_type = #{qoType,jdbcType=VARCHAR},
       qo_title = #{qoTitle,jdbcType=VARCHAR},
       qo_option_a = #{qoOptionA,jdbcType=VARCHAR},
@@ -196,4 +196,201 @@
       qo_chapter = #{qoChapter,jdbcType=VARCHAR}
     where qo_Id = #{qoId,jdbcType=INTEGER}
   </update>
+
+
+  <select id="selectByRandom"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.questions_four
+    GROUP BY RAND() LIMIT 1
+  </select>
+  <select id="selectByOrderWithChapter"
+          resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.questions_four
+    WHERE qo_chapter = #{qoChapter,jdbcType=VARCHAR}
+    order by questions_four.qo_Id asc
+    LIMIT #{qoId,jdbcType=INTEGER}, 1
+  </select>
+  <select id="selectByRandomWithChapter" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.questions_four
+    WHERE qo_chapter = #{qoChapter,jdbcType=VARCHAR}
+    GROUP BY RAND() LIMIT 1
+  </select>
+  <select id="selectByOrderWithDifficulty"
+          resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.questions_four
+    WHERE qo_difficulty = #{qoDifficulty,jdbcType=INTEGER}
+    order by questions_four.qo_Id asc
+    LIMIT #{qoId,jdbcType=INTEGER}, 1
+  </select>
+  <select id="selectByRandomWithDifficulty" parameterType="java.lang.Integer"
+          resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.questions_four
+    WHERE qo_difficulty = #{qoDifficulty,jdbcType=VARCHAR}
+    GROUP BY RAND() LIMIT 1
+  </select>
+  <select id="selectByOrderWithKnowledge"
+          resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.questions_four
+    WHERE qo_knowledge = #{qoKnowledge,jdbcType=VARCHAR}
+    order by questions_four.qo_Id asc
+    LIMIT #{qoId,jdbcType=INTEGER}, 1
+  </select>
+  <select id="selectByRandomWithKnowledge" parameterType="java.lang.String"
+          resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.questions_four
+    WHERE qo_knowledge = #{qoKnowledge,jdbcType=VARCHAR}
+    GROUP BY RAND() LIMIT 1
+  </select>
+  <select id="selectByOrderWithType" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.questions_four
+    WHERE qo_type = #{qoType,jdbcType=VARCHAR}
+    order by questions_four.qo_Id asc
+    LIMIT #{qoId,jdbcType=INTEGER}, 1
+  </select>
+  <select id="selectByRandomWithType" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.questions_four
+    WHERE qo_type = #{qoType,jdbcType=VARCHAR}
+    GROUP BY RAND() LIMIT 1
+  </select>
+  <select id="selectByOrderWithImage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.questions_four
+    WHERE qo_image is not null
+    or qo_video is not null
+    order by questions_four.qo_Id asc
+    LIMIT #{qoId,jdbcType=INTEGER}, 1
+  </select>
+  <select id="selectByRandomWithImage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.questions_four
+    WHERE qo_image is not null
+    or qo_video is not null
+    GROUP BY RAND() LIMIT 1
+  </select>
+  <select id="selectByOrderWithWord" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.questions_four
+    WHERE  qo_image is null
+    AND qo_video is null
+    order by questions_four.qo_Id asc
+    LIMIT #{qoId,jdbcType=INTEGER}, 1
+  </select>
+  <select id="selectByRandomWithWord" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.questions_four
+    WHERE  qo_image is null
+    AND qo_video is null
+    GROUP BY RAND() LIMIT 1
+  </select>
+
+  <select id="getCount" resultType="java.lang.Integer">
+    select count(*)
+    from hodts_db.questions_four
+
+  </select>
+  <select id="getCountByChapter" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select count(*)
+    from hodts_db.questions_four
+    where qo_chapter = #{qoChapter,jdbcType=VARCHAR}
+  </select>
+  <select id="getCountByDifficulty" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select count(*)
+    from hodts_db.questions_four
+    where qo_difficulty = #{qoDifficulty,jdbcType=INTEGER}
+  </select>
+  <select id="getCountByKnowledge" parameterType="java.lang.String"  resultType="java.lang.Integer">
+    select count(*)
+    from hodts_db.questions_four
+    where qo_knowledge = #{qoKnowledge,jdbcType=VARCHAR}
+  </select>
+  <select id="getCountByType" resultType="java.lang.Integer">
+    select count(*)
+    from hodts_db.questions_four
+    where qo_type = #{qoType,jdbcType=VARCHAR}
+  </select>
+  <select id="getCountByImage" resultType="java.lang.Integer">
+    select count(*)
+    from hodts_db.questions_four
+    where qo_image is not null
+    or qo_video is not null
+  </select>
+  <select id="getCountByWord" resultType="java.lang.Integer">
+    select count(*)
+    from hodts_db.questions_four
+    where qo_image is null
+    AND qo_video is null
+  </select>
+  <select id="getAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.questions_four
+  </select>
+  <select id="getPaper" resultMap="BaseResultMap">
+    (SELECT
+    <include refid="Base_Column_List" />
+    from questions_four WHERE qo_chapter = '交通事故救护及常见危化品处置常识' ORDER BY RAND() LIMIT 14)
+    union
+    (select
+    <include refid="Base_Column_List" />
+    from questions_four where qo_chapter = '安全行车常识' ORDER BY RAND() LIMIT 14)
+    union
+    (select
+    <include refid="Base_Column_List" />
+    from questions_four where qo_chapter = '常见交通标志、标线和交通手势辨识' ORDER BY RAND() LIMIT 14)
+    union
+    (select
+    <include refid="Base_Column_List" />
+    from questions_four where qo_chapter = '恶劣气候和复杂道路条件下驾驶常识' ORDER BY RAND() LIMIT 15)
+    union
+    (select
+    <include refid="Base_Column_List" />
+    from questions_four where qo_chapter = '紧急情况下避险常识' ORDER BY RAND() LIMIT 15)
+    union
+    (select
+    <include refid="Base_Column_List" />
+    from questions_four where qo_chapter = '违法行为综合判断与案例分析' ORDER BY RAND() LIMIT 14)
+    union
+    (select
+    <include refid="Base_Column_List" />
+    from questions_four where qo_chapter = '驾驶职业道德和文明驾驶常识' ORDER BY RAND() LIMIT 14) order by RAND();
+
+  </select>
+  <select id="getOrderMistake"  resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM questions_four qf, mistakes_collection_four mf
+    where mf.questions_id = qf.qo_Id
+    and mf.user_id = #{userId,jdbcType=INTEGER}
+    order by mf.questions_id asc
+    limit #{id,jdbcType=INTEGER},1;
+  </select>
+  <select id="getRandomMistake" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM questions_four qf, mistakes_collection_four mf
+    where mf.questions_id = qf.qo_Id
+    and mf.user_id = #{userId,jdbcType=INTEGER}
+    order by rand() limit 1;
+  </select>
 </mapper>

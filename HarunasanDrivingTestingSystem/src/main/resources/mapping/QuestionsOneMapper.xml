@@ -208,7 +208,7 @@
     <include refid="Base_Column_List" />
     from hodts_db.questions_one
     WHERE qo_chapter = #{qoChapter,jdbcType=VARCHAR}
-    order by questions_one.qo_Id desc
+    order by questions_one.qo_Id asc
     LIMIT #{qoId,jdbcType=INTEGER}, 1
   </select>
   <select id="selectByRandomWithChapter" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -224,7 +224,7 @@
     <include refid="Base_Column_List" />
     from hodts_db.questions_one
     WHERE qo_difficulty = #{qoDifficulty,jdbcType=INTEGER}
-    order by questions_one.qo_Id desc
+    order by questions_one.qo_Id asc
     LIMIT #{qoId,jdbcType=INTEGER}, 1
   </select>
   <select id="selectByRandomWithDifficulty" parameterType="java.lang.Integer"
@@ -241,7 +241,7 @@
     <include refid="Base_Column_List" />
     from hodts_db.questions_one
     WHERE qo_knowledge = #{qoKnowledge,jdbcType=VARCHAR}
-    order by questions_one.qo_Id desc
+    order by questions_one.qo_Id asc
     LIMIT #{qoId,jdbcType=INTEGER}, 1
   </select>
   <select id="selectByRandomWithKnowledge" parameterType="java.lang.String"
@@ -257,7 +257,7 @@
     <include refid="Base_Column_List" />
     from hodts_db.questions_one
     WHERE qo_type = #{qoType,jdbcType=VARCHAR}
-    order by questions_one.qo_Id desc
+    order by questions_one.qo_Id asc
     LIMIT #{qoId,jdbcType=INTEGER}, 1
   </select>
   <select id="selectByRandomWithType" resultMap="BaseResultMap">
@@ -272,7 +272,7 @@
     <include refid="Base_Column_List" />
     from hodts_db.questions_one
     WHERE qo_image is not null
-    order by questions_one.qo_Id desc
+    order by questions_one.qo_Id asc
     LIMIT #{qoId,jdbcType=INTEGER}, 1
   </select>
   <select id="selectByRandomWithImage" resultMap="BaseResultMap">
@@ -288,7 +288,7 @@
     from hodts_db.questions_one
     WHERE  qo_image is null
     AND qo_video is null
-    order by questions_one.qo_Id desc
+    order by questions_one.qo_Id asc
     LIMIT #{qoId,jdbcType=INTEGER}, 1
   </select>
   <select id="selectByRandomWithWord" resultMap="BaseResultMap">
@@ -358,5 +358,21 @@
     <include refid="Base_Column_List" />
     from questions_one where qo_chapter = '道路交通安全法律、法规和规章' ORDER BY RAND() LIMIT 25) order by RAND();
     </select>
-
+  <select id="getOrderMistake"  resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM questions_one qo, mistakes_collection_one mo
+    where mo.questions_id = qo.qo_Id
+    and mo.user_id = #{userId,jdbcType=INTEGER}
+    order by mo.questions_id asc
+    limit #{id,jdbcType=INTEGER},1;
+  </select>
+  <select id="getRandomMistake" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM questions_one qo, mistakes_collection_one mo
+    where mo.questions_id = qo.qo_Id
+    and mo.user_id = #{userId,jdbcType=INTEGER}
+    order by rand() limit 1;
+  </select>
 </mapper>

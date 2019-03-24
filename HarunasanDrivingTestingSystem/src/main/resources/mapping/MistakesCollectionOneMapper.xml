@@ -7,8 +7,28 @@
     <result column="questions_id" jdbcType="INTEGER" property="questionsId" />
     <result column="wrong_answer" jdbcType="VARCHAR" property="wrongAnswer" />
   </resultMap>
+  <resultMap id="QuestionsOneResultMap" type="com.cqnu.harunasandrivingtestingsystem.entity.QuestionsOne">
+    <id column="qo_Id" jdbcType="INTEGER" property="qoId" />
+    <result column="qo_type" jdbcType="VARCHAR" property="qoType" />
+    <result column="qo_title" jdbcType="VARCHAR" property="qoTitle" />
+    <result column="qo_option_a" jdbcType="VARCHAR" property="qoOptionA" />
+    <result column="qo_option_b" jdbcType="VARCHAR" property="qoOptionB" />
+    <result column="qo_option_c" jdbcType="VARCHAR" property="qoOptionC" />
+    <result column="qo_option_d" jdbcType="VARCHAR" property="qoOptionD" />
+    <result column="qo_answer" jdbcType="VARCHAR" property="qoAnswer" />
+    <result column="qo_video" jdbcType="VARCHAR" property="qoVideo" />
+    <result column="qo_image" jdbcType="VARCHAR" property="qoImage" />
+    <result column="qo_description" jdbcType="VARCHAR" property="qoDescription" />
+    <result column="qo_difficulty" jdbcType="INTEGER" property="qoDifficulty" />
+    <result column="qo_knowledge" jdbcType="VARCHAR" property="qoKnowledge" />
+    <result column="qo_chapter" jdbcType="VARCHAR" property="qoChapter" />
+  </resultMap>
   <sql id="Base_Column_List">
     mistakes_id, user_id, questions_id, wrong_answer
+  </sql>
+  <sql id="QuestionsOne_Column_List">
+    qo_Id, qo_type, qo_title, qo_option_a, qo_option_b, qo_option_c, qo_option_d, qo_answer,
+    qo_video, qo_image, qo_description, qo_difficulty, qo_knowledge, qo_chapter
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -24,6 +44,11 @@
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from hodts_db.mistakes_collection_one
     where mistakes_id = #{mistakesId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByUserIdAndQuestionId">
+    delete from hodts_db.mistakes_collection_one
+    where user_id =  #{userId,jdbcType=INTEGER}
+    and questions_id = #{questionsId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.MistakesCollectionOne">
     insert into hodts_db.mistakes_collection_one (mistakes_id, user_id, questions_id, 

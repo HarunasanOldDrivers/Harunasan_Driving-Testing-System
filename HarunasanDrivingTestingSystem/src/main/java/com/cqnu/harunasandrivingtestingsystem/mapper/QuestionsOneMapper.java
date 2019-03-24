@@ -21,6 +21,10 @@ public interface QuestionsOneMapper {
 
     int updateByPrimaryKey(QuestionsOne record);
 
+    /**
+     * 获取试卷
+     * @return
+     */
     List<QuestionsOne> getPaper();
 
     /**
@@ -169,4 +173,7 @@ public interface QuestionsOneMapper {
      */
     QuestionsOne selectByRandomWithWord();
 
+    QuestionsOne getOrderMistake(@Param("id") Integer id, @Param("userId") Integer userId);
+
+    QuestionsOne getRandomMistake(Integer userId);
 }

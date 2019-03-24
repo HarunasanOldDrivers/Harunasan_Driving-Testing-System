@@ -1,6 +1,7 @@
 package com.cqnu.harunasandrivingtestingsystem.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.cqnu.harunasandrivingtestingsystem.entity.Enroll;
 import com.cqnu.harunasandrivingtestingsystem.entity.Result;
 import com.cqnu.harunasandrivingtestingsystem.entity.School;
 import com.cqnu.harunasandrivingtestingsystem.security.JwtTokenUtil;
@@ -12,12 +13,14 @@ import com.github.qcloudsms.SmsSingleSenderResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.time.LocalDate;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -51,6 +54,15 @@ public class SchoolController {
     @Resource
     private UserDetailsServiceImpl userDetailsService;
 
+    @Autowired
+    private HttpServletRequest request;
+
+    /**
+     * json web token 在请求头的名字
+     */
+    @Value("${jwt.header}")
+    private String tokenHeader;
+
     /**
      *
      * @param email
@@ -65,8 +77,8 @@ public class SchoolController {
             map.put("schoolName",schoolService.getSchoolNameByEmail(email));
             return JSON.toJSONString(map);
         }
-        return JSON.toJSONString(ResultUtil.failure(408,"登录失败"));
-    }
+
+        return JSON.toJSONString(ResultUtil.failure(408,"登录失败"));    }
 
     /**
      * 验证验证码
@@ -158,5 +170,16 @@ public class SchoolController {
         return ResultUtil.failure(603,"注册失败");
     }
 
+    @GetMapping("/profile")
+    @PreAuthorize("hasRole('School')")
+    public School getProfile(){
+        String authToken = request.getHeader(this.tokenHeader);
+        String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
+        return schoolService.getProfile(Integer.valueOf(username));
+    }
 
+//    @GetMapping("/getEnroll")
+//    public List<Enroll> getEnroll(){
+//
+//    }
 }

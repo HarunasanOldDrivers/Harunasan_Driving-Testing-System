@@ -35,4 +35,5 @@ public interface IBaseUserService {
 
     String getNickNameByTelephone(String telephone);
 
+    boolean enroll(Integer username, Integer courseId);
 }

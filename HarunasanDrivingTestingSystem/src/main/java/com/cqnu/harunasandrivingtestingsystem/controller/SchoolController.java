@@ -119,6 +119,7 @@ public class SchoolController {
      * @param detailLocation    驾校详细地址
      * @param files 上传文件
      * @return  code : 600 参数错误
+     *          code : 601 驾校已存在
      *          code : 200 注册成功
      *          code : 603 注册失败
      */
@@ -142,6 +143,10 @@ public class SchoolController {
         }
         if (files.length != 3){
             return ResultUtil.failure(600,"文件上传失败");
+        }
+        String schoolNameDB = schoolService.getSchoolNameByEmail(email);
+        if (StringUtils.isEmpty(schoolNameDB) && schoolName.equals(schoolNameDB)){
+            return ResultUtil.failure(601, "驾校已存在");
         }
         List<String> filesList = schoolService.uploadImage(files);
 

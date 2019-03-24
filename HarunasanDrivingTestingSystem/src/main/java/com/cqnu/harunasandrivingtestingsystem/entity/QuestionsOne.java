@@ -18,7 +18,6 @@ public class QuestionsOne extends Questions{
 
     private String qoOptionD;
 
-    @JsonIgnore
     private String qoAnswer;
 
     private String qoVideo;

@@ -1,11 +1,14 @@
 package com.cqnu.harunasandrivingtestingsystem.service.impl;
 
+import com.cqnu.harunasandrivingtestingsystem.entity.MistakesCollectionOne;
 import com.cqnu.harunasandrivingtestingsystem.entity.QuestionsOne;
+import com.cqnu.harunasandrivingtestingsystem.mapper.MistakesCollectionOneMapper;
 import com.cqnu.harunasandrivingtestingsystem.mapper.QuestionsOneMapper;
 import com.cqnu.harunasandrivingtestingsystem.service.IQuestionsService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author LiAixing
@@ -19,6 +22,14 @@ public class QuestionsOneServiceImpl implements IQuestionsService {
 
     @Resource
     private QuestionsOneMapper questionsOneMapper;
+
+    @Resource
+    private MistakesCollectionOneMapper mistakesCollectionOneMapper;
+
+    @Override
+    public List<QuestionsOne> getQuestions(){
+        return questionsOneMapper.getAll();
+    }
 
     @Override
     public QuestionsOne orderTrain(int id) {
@@ -140,5 +151,19 @@ public class QuestionsOneServiceImpl implements IQuestionsService {
         return questionsOne.getQoAnswer();
     }
 
+    @Override
+    public int addMistake(Integer username, Integer qoid){
+        MistakesCollectionOne mistakesCollectionOne = new MistakesCollectionOne();
+        mistakesCollectionOne.setUserId(username);
+        mistakesCollectionOne.setQuestionsId(qoid);
+        if(username.equals(mistakesCollectionOneMapper.selectUserIdByQoId(qoid))){
+            return 2;
+        }
+        return mistakesCollectionOneMapper.insertSelective(mistakesCollectionOne);
+    }
 
+    @Override
+    public List<QuestionsOne> getPaper(){
+        return questionsOneMapper.getPaper();
+    }
 }

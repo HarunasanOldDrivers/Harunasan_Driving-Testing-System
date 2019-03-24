@@ -1,8 +1,9 @@
 package com.cqnu.harunasandrivingtestingsystem.service;
 
 import com.cqnu.harunasandrivingtestingsystem.entity.Questions;
-import com.cqnu.harunasandrivingtestingsystem.entity.Questions;
 import com.cqnu.harunasandrivingtestingsystem.entity.QuestionsOne;
+
+import java.util.List;
 
 /**
  * @author LiAixing
@@ -12,6 +13,12 @@ import com.cqnu.harunasandrivingtestingsystem.entity.QuestionsOne;
  * @date 2019/3/15 1:43
  **/
 public interface IQuestionsService {
+
+    /**
+     * 获取所有题目
+     * @return
+     */
+    List<QuestionsOne> getQuestions();
 
     /**
      * 普通顺序练习
@@ -165,4 +172,8 @@ public interface IQuestionsService {
      * @return
      */
     String judge(int id, String answer);
+
+    int addMistake(Integer username, Integer qoid);
+
+    List<QuestionsOne> getPaper();
 }

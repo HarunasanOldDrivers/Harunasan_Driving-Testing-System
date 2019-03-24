@@ -2,18 +2,19 @@ package com.cqnu.harunasandrivingtestingsystem.controller;
 
 import com.cqnu.harunasandrivingtestingsystem.entity.QuestionsOne;
 import com.cqnu.harunasandrivingtestingsystem.entity.Result;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.PageInfo;
 import com.cqnu.harunasandrivingtestingsystem.security.JwtTokenUtil;
 import com.cqnu.harunasandrivingtestingsystem.service.impl.QuestionsFourServiceImpl;
 import com.cqnu.harunasandrivingtestingsystem.service.impl.QuestionsOneServiceImpl;
 import com.cqnu.harunasandrivingtestingsystem.utils.ResultUtil;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -78,17 +79,17 @@ public class TrainOneController {
     }
 
     @GetMapping("/orderDifficulty")
-    public QuestionsOne orderDifficulty(int id, int difficulty) {
+    public QuestionsOne orderDifficulty(Integer id, Integer difficulty) {
         return questionsOneService.orderTrainByDifficulty(id, difficulty);
     }
 
     @GetMapping("/randomDifficulty")
-    public QuestionsOne randomDifficulty(int difficulty) {
+    public QuestionsOne randomDifficulty(Integer difficulty) {
         return questionsOneService.randomTrainByDifficulty(difficulty);
     }
 
     @GetMapping("/orderKnowledge")
-    public QuestionsOne orderKnowledge(int id,String knowledge) throws UnsupportedEncodingException {
+    public QuestionsOne orderKnowledge(Integer id,String knowledge) throws UnsupportedEncodingException {
         return questionsOneService.orderTrainByKnowledge(id,URLDecoder.decode(knowledge,"UTF-8"));
     }
 
@@ -97,8 +98,15 @@ public class TrainOneController {
         return questionsOneService.randomTrainByKnowledge(URLDecoder.decode(knowledge,"UTF-8"));
     }
 
+    /**
+     *
+     * @param id 顺序id
+     * @param type  judge,single,multi
+     * @return
+     * @throws UnsupportedEncodingException
+     */
     @GetMapping("/orderType")
-    public QuestionsOne orderType(int id,String type) throws UnsupportedEncodingException {
+    public QuestionsOne orderType(Integer id,String type) throws UnsupportedEncodingException {
         return questionsOneService.orderTrainByType(id,URLDecoder.decode(type,"UTF-8"));
     }
 
@@ -108,7 +116,7 @@ public class TrainOneController {
     }
 
     @GetMapping("/orderImage")
-    public QuestionsOne orderImage(int id) {
+    public QuestionsOne orderImage(Integer id) {
         return questionsOneService.orderTrainByImage(id);
     }
 
@@ -118,7 +126,7 @@ public class TrainOneController {
     }
 
     @GetMapping("/orderWord")
-    public QuestionsOne orderWord(int id) {
+    public QuestionsOne orderWord(Integer id) {
         return questionsOneService.orderTrainByWord(id);
     }
 
@@ -164,9 +172,12 @@ public class TrainOneController {
     }
 
     @PostMapping("/judgeSingle")
-    public Result judgeSingle(int qoId, String answer){
+    public Result judgeSingle(Integer qoId, String answer){
         String authToken = request.getHeader(this.tokenHeader);
         String username = this.tokenUtils.getUsernameFromToken(authToken);
+        if (StringUtils.isEmpty(authToken) || StringUtils.isEmpty(username)){
+            return ResultUtil.failure(510,"请登录后操作");
+        }
         logger.info("autoToken: " + authToken + "username: " + username);
         String end = questionsOneService.judge(qoId,answer);
         if (STATUS_JUDGE_TRUE.equals(end)){
@@ -180,6 +191,34 @@ public class TrainOneController {
 
     }
 
+    @GetMapping("/questions")
+    public PageInfo<QuestionsOne> getQuestions(@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10") int pageSize){
+        PageHelper.startPage(pageNo,pageSize);
+        PageInfo<QuestionsOne> pageInfo = new PageInfo<>(questionsOneService.getQuestions());
+        return pageInfo;
+    }
 
+    /**
+     *
+     * @param id 题目id
+     * @return  code: 200   成功
+     *          code: 510   请登录
+     *          code: 511   错题已存在
+     *          code: 512   插入错题集失败
+     */
+    @PostMapping("/addMistake")
+    public Result addMistake(Integer id){
+        String authToken = request.getHeader(this.tokenHeader);
+        String username = this.tokenUtils.getUsernameFromToken(authToken);
+        if (StringUtils.isEmpty(authToken) || StringUtils.isEmpty(username)){
+            return ResultUtil.failure(510,"请登录后操作");
+        }
+        int result = questionsOneService.addMistake(Integer.valueOf(username),id);
+        switch (result){
+            case 1: return ResultUtil.success();
+            case 2: return ResultUtil.failure(511,"错题已存在");
+            default: return ResultUtil.failure(512,"插入错题集失败");
+        }
+    }
 
 }

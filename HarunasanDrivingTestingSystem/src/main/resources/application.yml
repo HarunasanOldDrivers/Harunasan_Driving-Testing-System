@@ -78,13 +78,24 @@ jwt:
     refresh: /auth/refresh  #刷新token地址
     register: /auth/register  #注册的地址
 
+# OSS 相关参数
 oss:
   ossEndpoint: https://oss-cn-shenzhen.aliyuncs.com
   ossAccessId: LTAIKF2nFJq1tfp8
   ossAccessKey: 2w1aeb21vzgtHb5wBD6V2YOWX9djXD
   bucket: hsdts
+
+# mybatis 相关参数
 mybatis:
+  # Mapper.xml所在的位置
   mapper-locations: classpath:mapping/*.xml
+  # entity扫描的包名
   type-aliases-package: com.cqnu.harunasandrivingtestingsystem.entity
 
 
+# pagehelper分页插件配置
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  params: count=countSql
+  support-methods-arguments: true

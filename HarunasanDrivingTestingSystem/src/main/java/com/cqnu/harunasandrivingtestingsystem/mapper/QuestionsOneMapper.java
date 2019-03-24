@@ -5,6 +5,8 @@ import com.cqnu.harunasandrivingtestingsystem.entity.QuestionsOne;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface QuestionsOneMapper {
     int deleteByPrimaryKey(Integer qoId);
@@ -19,7 +21,13 @@ public interface QuestionsOneMapper {
 
     int updateByPrimaryKey(QuestionsOne record);
 
+    List<QuestionsOne> getPaper();
 
+    /**
+     * 获取所有题目
+     * @return
+     */
+    List<QuestionsOne> getAll();
 
     /**
      * 获取题目总数

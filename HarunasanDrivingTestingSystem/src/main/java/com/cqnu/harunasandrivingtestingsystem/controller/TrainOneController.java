@@ -79,17 +79,17 @@ public class TrainOneController {
     }
 
     @GetMapping("/orderDifficulty")
-    public QuestionsOne orderDifficulty(int id, int difficulty) {
+    public QuestionsOne orderDifficulty(Integer id, Integer difficulty) {
         return questionsOneService.orderTrainByDifficulty(id, difficulty);
     }
 
     @GetMapping("/randomDifficulty")
-    public QuestionsOne randomDifficulty(int difficulty) {
+    public QuestionsOne randomDifficulty(Integer difficulty) {
         return questionsOneService.randomTrainByDifficulty(difficulty);
     }
 
     @GetMapping("/orderKnowledge")
-    public QuestionsOne orderKnowledge(int id,String knowledge) throws UnsupportedEncodingException {
+    public QuestionsOne orderKnowledge(Integer id,String knowledge) throws UnsupportedEncodingException {
         return questionsOneService.orderTrainByKnowledge(id,URLDecoder.decode(knowledge,"UTF-8"));
     }
 
@@ -98,8 +98,15 @@ public class TrainOneController {
         return questionsOneService.randomTrainByKnowledge(URLDecoder.decode(knowledge,"UTF-8"));
     }
 
+    /**
+     *
+     * @param id 顺序id
+     * @param type  judge,single,multi
+     * @return
+     * @throws UnsupportedEncodingException
+     */
     @GetMapping("/orderType")
-    public QuestionsOne orderType(int id,String type) throws UnsupportedEncodingException {
+    public QuestionsOne orderType(Integer id,String type) throws UnsupportedEncodingException {
         return questionsOneService.orderTrainByType(id,URLDecoder.decode(type,"UTF-8"));
     }
 
@@ -109,7 +116,7 @@ public class TrainOneController {
     }
 
     @GetMapping("/orderImage")
-    public QuestionsOne orderImage(int id) {
+    public QuestionsOne orderImage(Integer id) {
         return questionsOneService.orderTrainByImage(id);
     }
 
@@ -119,7 +126,7 @@ public class TrainOneController {
     }
 
     @GetMapping("/orderWord")
-    public QuestionsOne orderWord(int id) {
+    public QuestionsOne orderWord(Integer id) {
         return questionsOneService.orderTrainByWord(id);
     }
 
@@ -165,7 +172,7 @@ public class TrainOneController {
     }
 
     @PostMapping("/judgeSingle")
-    public Result judgeSingle(int qoId, String answer){
+    public Result judgeSingle(Integer qoId, String answer){
         String authToken = request.getHeader(this.tokenHeader);
         String username = this.tokenUtils.getUsernameFromToken(authToken);
         if (StringUtils.isEmpty(authToken) || StringUtils.isEmpty(username)){
@@ -191,6 +198,14 @@ public class TrainOneController {
         return pageInfo;
     }
 
+    /**
+     *
+     * @param id 题目id
+     * @return  code: 200   成功
+     *          code: 510   请登录
+     *          code: 511   错题已存在
+     *          code: 512   插入错题集失败
+     */
     @PostMapping("/addMistake")
     public Result addMistake(Integer id){
         String authToken = request.getHeader(this.tokenHeader);
@@ -202,7 +217,7 @@ public class TrainOneController {
         switch (result){
             case 1: return ResultUtil.success();
             case 2: return ResultUtil.failure(511,"错题已存在");
-            default: return ResultUtil.failure(510,"插入错题集失败");
+            default: return ResultUtil.failure(512,"插入错题集失败");
         }
     }
 

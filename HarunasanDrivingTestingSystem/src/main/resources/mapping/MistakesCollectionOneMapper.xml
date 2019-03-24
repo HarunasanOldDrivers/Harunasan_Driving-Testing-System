@@ -16,6 +16,11 @@
     from hodts_db.mistakes_collection_one
     where mistakes_id = #{mistakesId,jdbcType=INTEGER}
   </select>
+  <select id="selectUserIdByQoId" resultType="java.lang.Integer">
+    select user_id
+    from hodts_db.mistakes_collection_one
+    where questions_id = #{questionsId,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from hodts_db.mistakes_collection_one
     where mistakes_id = #{mistakesId,jdbcType=INTEGER}

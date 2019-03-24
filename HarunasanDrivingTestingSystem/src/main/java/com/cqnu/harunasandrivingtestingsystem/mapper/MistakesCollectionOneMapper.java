@@ -11,6 +11,8 @@ public interface MistakesCollectionOneMapper {
 
     MistakesCollectionOne selectByPrimaryKey(Integer mistakesId);
 
+    Integer selectUserIdByQoId(Integer questionsOneId);
+
     int updateByPrimaryKeySelective(MistakesCollectionOne record);
 
     int updateByPrimaryKey(MistakesCollectionOne record);

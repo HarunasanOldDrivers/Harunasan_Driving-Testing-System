@@ -336,5 +336,27 @@
     where qo_image is null
     AND qo_video is null
   </select>
+  <select id="getAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.questions_one
+  </select>
+  <select id="getPaper" resultMap="BaseResultMap">
+    (SELECT
+    <include refid="Base_Column_List" />
+    from questions_one WHERE qo_chapter = '交通信号' ORDER BY RAND() LIMIT 25)
+    union
+    (select
+    <include refid="Base_Column_List" />
+    from questions_one where qo_chapter = '安全行车、文明驾驶基础知识' ORDER BY RAND() LIMIT 25)
+    union
+    (select
+    <include refid="Base_Column_List" />
+    from questions_one where qo_chapter = '机动车驾驶操作相关基础知识' ORDER BY RAND() LIMIT 25)
+    union
+    (select
+    <include refid="Base_Column_List" />
+    from questions_one where qo_chapter = '道路交通安全法律、法规和规章' ORDER BY RAND() LIMIT 25) order by RAND();
+    </select>
 
 </mapper>

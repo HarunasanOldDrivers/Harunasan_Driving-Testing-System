@@ -1,8 +1,11 @@
 package com.cqnu.harunasandrivingtestingsystem.service.impl;
 
 import com.cqnu.harunasandrivingtestingsystem.entity.QuestionsFour;
+import com.cqnu.harunasandrivingtestingsystem.entity.QuestionsOne;
 import com.cqnu.harunasandrivingtestingsystem.service.IQuestionsService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author LiAixing
@@ -13,6 +16,11 @@ import org.springframework.stereotype.Service;
  **/
 @Service
 public class QuestionsFourServiceImpl implements IQuestionsService {
+    @Override
+    public List<QuestionsOne> getQuestions() {
+        return null;
+    }
+
     @Override
     public QuestionsFour orderTrain(int id) {
         return null;
@@ -120,6 +128,16 @@ public class QuestionsFourServiceImpl implements IQuestionsService {
 
     @Override
     public String judge(int id, String answer) {
+        return null;
+    }
+
+    @Override
+    public int addMistake(Integer username, Integer qoid) {
+        return 0;
+    }
+
+    @Override
+    public List<QuestionsOne> getPaper() {
         return null;
     }
 }

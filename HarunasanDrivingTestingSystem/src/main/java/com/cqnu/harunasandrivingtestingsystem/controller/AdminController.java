@@ -65,14 +65,24 @@ public class AdminController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody Map map){
+    public String login(@RequestBody Map map) {
+        Map<String, String> map2 = new HashMap<String, String>(16);
         String username = (String) map.get("username");
         String password = (String) map.get("password");
-        logger.info(username+password);
-        if (adminService.loginById(Integer.parseInt(username),password)){
-            return jwtTokenUtil.generateToken(userDetailsService.loadUserByUsername(String.valueOf(username),"Administrator"),"Administrator");
+        logger.info(username + password);
+        if (adminService.loginById(Integer.parseInt(username), password)) {
+            map2.put("token", jwtTokenUtil.generateToken(userDetailsService.loadUserByUsername(String.valueOf(username), "Administrator"), "Administrator"));
+            return JSON.toJSONString(map2);
         }
-        return JSON.toJSONString(ResultUtil.failure(408,"登录失败"));
+            return JSON.toJSONString(ResultUtil.failure(408, "登录失败"));
+    }
+
+//    @GetMapping("/info")
+//    public
+
+    @PostMapping("/auditing")
+    public Result auditing(){
+        return ResultUtil.success();
     }
 
 

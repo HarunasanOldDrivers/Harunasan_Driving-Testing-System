@@ -269,6 +269,12 @@ public class TrainOneController {
         return questionsService.deleteMistake(Integer.valueOf(username),id) == 1?ResultUtil.success():ResultUtil.failure(513,"删除错题失败");
     }
 
+    /**
+     * 获取错题集
+     * @param pageNo    当前分页
+     * @param pageSize  分页大小
+     * @return
+     */
     @GetMapping("/mistakes")
     @PreAuthorize("hasRole('User')")
     public PageInfo<QuestionsOne> getmistakes(@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "5") int pageSize){

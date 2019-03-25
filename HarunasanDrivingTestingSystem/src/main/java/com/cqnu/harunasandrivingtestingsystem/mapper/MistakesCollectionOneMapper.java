@@ -18,6 +18,8 @@ public interface MistakesCollectionOneMapper {
 
     Integer selectUserIdByQoId(Integer questionsOneId);
 
+    Integer selectUserIdByQoIdAndUserId(@Param("questionsOneId") Integer questionsOneId, @Param("userId") Integer userId);
+
     int updateByPrimaryKeySelective(MistakesCollectionOne record);
 
     int updateByPrimaryKey(MistakesCollectionOne record);

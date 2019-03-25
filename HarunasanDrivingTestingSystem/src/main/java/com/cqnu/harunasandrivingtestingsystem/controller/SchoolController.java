@@ -171,16 +171,28 @@ public class SchoolController {
         return ResultUtil.failure(603,"注册失败");
     }
 
+    /**
+     * 获取驾校信息
+     * @return
+     */
     @GetMapping("/profile")
     @PreAuthorize("hasRole('School')")
-    public School getProfile(){
+    public Result getProfile(){
         String authToken = request.getHeader(this.tokenHeader);
         String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
-        return schoolService.getProfile(Integer.valueOf(username));
+        return ResultUtil.success(schoolService.getProfile(Integer.valueOf(username)));
     }
 
 //    @GetMapping("/getEnroll")
 //    public List<Enroll> getEnroll(){
 //
 //    }
+
+    @PostMapping("addCourse")
+    @PreAuthorize("hasRole('School')")
+    public Result addCourse(String courseName, String describe, Integer price){
+        String authToken = request.getHeader(this.tokenHeader);
+        String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
+        return schoolService.addCourse(Integer.valueOf(username),courseName,describe,price)? ResultUtil.success() : ResultUtil.failure(604,"添加课程失败");
+    }
 }

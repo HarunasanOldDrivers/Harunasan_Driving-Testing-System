@@ -11,6 +11,8 @@ public class Course {
 
     private Integer coursePrice;
 
+    private Integer courseIsEnable;
+
     public Integer getCourseId() {
         return courseId;
     }
@@ -49,5 +51,13 @@ public class Course {
 
     public void setCoursePrice(Integer coursePrice) {
         this.coursePrice = coursePrice;
+    }
+
+    public Integer getCourseIsEnable() {
+        return courseIsEnable;
+    }
+
+    public void setCourseIsEnable(Integer courseIsEnable) {
+        this.courseIsEnable = courseIsEnable;
     }
 }

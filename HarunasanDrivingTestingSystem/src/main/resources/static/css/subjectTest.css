@@ -1,0 +1,49 @@
+#remainTime{
+    color: #ce0f0d;
+}
+
+.UlQuestions{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.UlQuestions a:hover{
+    text-decoration: none;
+}
+
+.UlQuestions a:active{
+    text-decoration: none;
+}
+
+.UlQuestions a:visited{
+    text-decoration: none;
+}
+
+.UlQuestions a:link{
+   text-decoration: none;
+}
+
+.LiSingleQuestion{
+    background: rgba(255, 135, 124, 0.64);
+    color: #ffffff;
+    font-weight: bold;
+    width: 50px;
+    height: 50px;
+    display: block;
+    float: left;
+    text-align: center;
+    border:1px solid #b14600;
+
+    vertical-align: center;
+    line-height: 50px;
+    font-size: 20px;
+}
+
+.LiSingleQuestion:hover{
+    background: #ff3669;
+}
+
+.LiSingleQuestion:active{
+    background: #ff3669;
+}

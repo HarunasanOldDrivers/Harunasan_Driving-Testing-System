@@ -1,0 +1,13 @@
+.ulSectionPracticeTitle{
+    font-size: 20px;
+    color: #6e6e6e;
+}
+
+.totalQuestion{
+    font-size: 13px;
+    color: #979797;
+}
+
+.ulSectionPracticeTitle li{
+    padding-top: 10px;
+}

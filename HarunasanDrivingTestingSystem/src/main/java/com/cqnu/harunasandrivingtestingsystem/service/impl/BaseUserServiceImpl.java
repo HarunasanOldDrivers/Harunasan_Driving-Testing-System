@@ -1,6 +1,8 @@
 package com.cqnu.harunasandrivingtestingsystem.service.impl;
 
+import com.cqnu.harunasandrivingtestingsystem.entity.Enroll;
 import com.cqnu.harunasandrivingtestingsystem.entity.User;
+import com.cqnu.harunasandrivingtestingsystem.mapper.EnrollMapper;
 import com.cqnu.harunasandrivingtestingsystem.mapper.UserMapper;
 import com.cqnu.harunasandrivingtestingsystem.service.IBaseUserService;
 import com.cqnu.harunasandrivingtestingsystem.utils.Password2Hash;
@@ -13,7 +15,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -38,6 +42,8 @@ public class BaseUserServiceImpl implements IBaseUserService {
     @Resource
     private UserMapper userMapper;
 
+    @Resource
+    private EnrollMapper enrollMapper;
 
 
     @Override
@@ -120,6 +126,15 @@ public class BaseUserServiceImpl implements IBaseUserService {
     @Override
     public String getNickNameByTelephone(String telephone) {
         return userMapper.selectByTelphone(telephone).getUserNickname();
+    }
+
+    @Override
+    public boolean enroll(Integer username, Integer courseId){
+        Enroll enroll = new Enroll();
+        enroll.setUserId(username);
+        enroll.setCourseId(courseId);
+        enroll.setEnrollDateTime(new Date());
+        return enrollMapper.insertSelective(enroll) == 1;
     }
 
 }

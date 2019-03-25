@@ -1,10 +1,14 @@
 package com.cqnu.harunasandrivingtestingsystem.service.impl;
 
+import com.cqnu.harunasandrivingtestingsystem.entity.MistakesCollectionFour;
 import com.cqnu.harunasandrivingtestingsystem.entity.QuestionsFour;
-import com.cqnu.harunasandrivingtestingsystem.entity.QuestionsOne;
+import com.cqnu.harunasandrivingtestingsystem.mapper.MistakesCollectionFourMapper;
+import com.cqnu.harunasandrivingtestingsystem.mapper.QuestionsFourMapper;
 import com.cqnu.harunasandrivingtestingsystem.service.IQuestionsService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -16,128 +20,168 @@ import java.util.List;
  **/
 @Service
 public class QuestionsFourServiceImpl implements IQuestionsService {
-    @Override
-    public List<QuestionsOne> getQuestions() {
-        return null;
+
+    @Resource
+    private QuestionsFourMapper questionsFourMapper;
+
+    @Resource
+    private MistakesCollectionFourMapper mistakesCollectionFourMapper;
+
+    /**
+     * 获取所有题目
+     * @return
+     */
+    public List<QuestionsFour> getQuestions(){
+        return questionsFourMapper.getAll();
     }
 
     @Override
-    public QuestionsFour orderTrain(int id) {
-        return null;
+    public QuestionsFour orderTrain(Integer id) {
+        return questionsFourMapper.selectByPrimaryKey(id);
     }
 
     @Override
     public QuestionsFour randomTrain() {
-        return null;
+        return questionsFourMapper.selectByRandom();
     }
 
     @Override
-    public QuestionsFour orderTrainByChapter(int id, String chapter) {
-        return null;
+    public QuestionsFour orderTrainByChapter(Integer id, String chapter) {
+        return questionsFourMapper.selectByOrderWithChapter(id , chapter);
     }
 
     @Override
     public QuestionsFour randomTrainByChapter(String chapter) {
-        return null;
+        return questionsFourMapper.selectByRandomWithChapter(chapter);
     }
 
     @Override
-    public QuestionsFour orderTrainByDifficulty(int id, int difficulty) {
-        return null;
+    public QuestionsFour orderTrainByDifficulty(Integer id, Integer difficulty) {
+        return questionsFourMapper.selectByOrderWithDifficulty(id,difficulty);
     }
 
     @Override
-    public QuestionsFour randomTrainByDifficulty(int difficulty) {
-        return null;
+    public QuestionsFour randomTrainByDifficulty(Integer difficulty) {
+        return questionsFourMapper.selectByRandomWithDifficulty(difficulty);
     }
 
     @Override
-    public QuestionsFour orderTrainByKnowledge(int id, String knowledge) {
-        return null;
+    public QuestionsFour orderTrainByKnowledge(Integer id, String knowledge) {
+        return questionsFourMapper.selectByOrderWithKnowledge(id,knowledge);
     }
 
     @Override
     public QuestionsFour randomTrainByKnowledge(String knowledge) {
-        return null;
+        return questionsFourMapper.selectByRandomWithKnowledge(knowledge);
     }
 
     @Override
-    public QuestionsFour orderTrainByType(int id, String type) {
-        return null;
+    public QuestionsFour orderTrainByType(Integer id, String type) {
+        return questionsFourMapper.selectByOrderWithType(id, type);
     }
 
     @Override
     public QuestionsFour randomTrainByType(String type) {
-        return null;
+        return questionsFourMapper.selectByRandomWithType(type);
     }
 
     @Override
-    public QuestionsFour orderTrainByImage(int id) {
-        return null;
+    public QuestionsFour orderTrainByImage(Integer id) {
+        return questionsFourMapper.selectByOrderWithImage(id);
     }
 
     @Override
     public QuestionsFour randomTrainByImage() {
-        return null;
+        return questionsFourMapper.selectByRandomWithImage();
     }
 
     @Override
-    public QuestionsFour orderTrainByWord(int id) {
-        return null;
+    public QuestionsFour orderTrainByWord(Integer id) {
+        return questionsFourMapper.selectByOrderWithWord(id);
     }
 
     @Override
     public QuestionsFour randomTrainByWord() {
-        return null;
+        return questionsFourMapper.selectByRandomWithWord();
     }
 
     @Override
     public int getCount() {
-        return 0;
+        return questionsFourMapper.getCount();
     }
 
     @Override
     public int getCountByChapter(String chapter) {
-        return 0;
+        return questionsFourMapper.getCountByChapter(chapter);
     }
 
     @Override
     public int getCountByDifficulty(Integer difficulty) {
-        return 0;
+        return questionsFourMapper.getCountByDifficulty(difficulty);
     }
 
     @Override
     public int getCountByKnowledge(String knowledge) {
-        return 0;
+        return questionsFourMapper.getCountByKnowledge(knowledge);
     }
 
     @Override
     public int getCountByType(String type) {
-        return 0;
+        return questionsFourMapper.getCountByType(type);
     }
 
     @Override
     public int getCountByImage() {
-        return 0;
+        return questionsFourMapper.getCountByImage();
     }
 
     @Override
     public int getCountByWord() {
-        return 0;
+        return questionsFourMapper.getCountByWord();
     }
 
     @Override
-    public String judge(int id, String answer) {
-        return null;
+    public String judge(Integer id, String answer) {
+        if (answer == null){
+            return "false";
+        }
+        QuestionsFour questionsOne = questionsFourMapper.selectByPrimaryKey(id);
+        if (questionsOne == null){
+            return "false";
+        }
+        if (answer.equals(questionsOne.getQoAnswer())){
+            return "true";
+        }
+        return questionsOne.getQoAnswer();
     }
 
     @Override
-    public int addMistake(Integer username, Integer qoid) {
-        return 0;
+    public int addMistake(Integer username, Integer qoid){
+        MistakesCollectionFour mistakesCollectionFour = new MistakesCollectionFour();
+        mistakesCollectionFour.setUserId(username);
+        mistakesCollectionFour.setQuestionsId(qoid);
+        if(username.equals(mistakesCollectionFourMapper.selectUserIdByQoId(qoid))){
+            return 2;
+        }
+        return mistakesCollectionFourMapper.insertSelective(mistakesCollectionFour);
     }
 
     @Override
-    public List<QuestionsOne> getPaper() {
-        return null;
+    public int deleteMistake(Integer username, Integer qoId){
+        return mistakesCollectionFourMapper.deleteByUserIdAndQuestionId(username, qoId);
+    }
+
+    @Override
+    public QuestionsFour orderMistake(@RequestParam(defaultValue = "1") Integer id, Integer username){
+        return questionsFourMapper.getOrderMistake(id, username);
+    }
+
+    @Override
+    public QuestionsFour randomMistake(Integer username){
+        return questionsFourMapper.getRandomMistake(username);
+    }
+
+    public List<QuestionsFour> getPaper(){
+        return questionsFourMapper.getPaper();
     }
 }

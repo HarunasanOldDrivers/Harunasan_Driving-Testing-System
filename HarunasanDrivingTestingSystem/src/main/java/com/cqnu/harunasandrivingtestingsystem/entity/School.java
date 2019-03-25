@@ -1,5 +1,6 @@
 package com.cqnu.harunasandrivingtestingsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -18,6 +19,7 @@ public class School{
 
     private String schoolCorporateTel;
 
+    @JsonIgnore
     private String schoolPassword;
 
     private String schoolEmail;

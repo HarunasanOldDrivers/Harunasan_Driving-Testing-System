@@ -6,6 +6,7 @@ import com.cqnu.harunasandrivingtestingsystem.mapper.MistakesCollectionOneMapper
 import com.cqnu.harunasandrivingtestingsystem.mapper.QuestionsOneMapper;
 import com.cqnu.harunasandrivingtestingsystem.service.IQuestionsService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -26,13 +27,16 @@ public class QuestionsOneServiceImpl implements IQuestionsService {
     @Resource
     private MistakesCollectionOneMapper mistakesCollectionOneMapper;
 
-    @Override
+    /**
+     * 获取所有题目
+     * @return
+     */
     public List<QuestionsOne> getQuestions(){
         return questionsOneMapper.getAll();
     }
 
     @Override
-    public QuestionsOne orderTrain(int id) {
+    public QuestionsOne orderTrain(Integer id) {
         return questionsOneMapper.selectByPrimaryKey(id);
     }
 
@@ -42,7 +46,7 @@ public class QuestionsOneServiceImpl implements IQuestionsService {
     }
 
     @Override
-    public QuestionsOne orderTrainByChapter(int id, String chapter) {
+    public QuestionsOne orderTrainByChapter(Integer id, String chapter) {
         return questionsOneMapper.selectByOrderWithChapter(id , chapter);
     }
 
@@ -52,17 +56,17 @@ public class QuestionsOneServiceImpl implements IQuestionsService {
     }
 
     @Override
-    public QuestionsOne orderTrainByDifficulty(int id, int difficulty) {
+    public QuestionsOne orderTrainByDifficulty(Integer id, Integer difficulty) {
         return questionsOneMapper.selectByOrderWithDifficulty(id,difficulty);
     }
 
     @Override
-    public QuestionsOne randomTrainByDifficulty(int difficulty) {
+    public QuestionsOne randomTrainByDifficulty(Integer difficulty) {
         return questionsOneMapper.selectByRandomWithDifficulty(difficulty);
     }
 
     @Override
-    public QuestionsOne orderTrainByKnowledge(int id, String knowledge) {
+    public QuestionsOne orderTrainByKnowledge(Integer id, String knowledge) {
         return questionsOneMapper.selectByOrderWithKnowledge(id,knowledge);
     }
 
@@ -72,7 +76,7 @@ public class QuestionsOneServiceImpl implements IQuestionsService {
     }
 
     @Override
-    public QuestionsOne orderTrainByType(int id, String type) {
+    public QuestionsOne orderTrainByType(Integer id, String type) {
         return questionsOneMapper.selectByOrderWithType(id, type);
     }
 
@@ -82,7 +86,7 @@ public class QuestionsOneServiceImpl implements IQuestionsService {
     }
 
     @Override
-    public QuestionsOne orderTrainByImage(int id) {
+    public QuestionsOne orderTrainByImage(Integer id) {
         return questionsOneMapper.selectByOrderWithImage(id);
     }
 
@@ -92,7 +96,7 @@ public class QuestionsOneServiceImpl implements IQuestionsService {
     }
 
     @Override
-    public QuestionsOne orderTrainByWord(int id) {
+    public QuestionsOne orderTrainByWord(Integer id) {
         return questionsOneMapper.selectByOrderWithWord(id);
     }
 
@@ -137,7 +141,7 @@ public class QuestionsOneServiceImpl implements IQuestionsService {
     }
 
     @Override
-    public String judge(int id, String answer) {
+    public String judge(Integer id, String answer) {
         if (answer == null){
             return "false";
         }
@@ -163,6 +167,20 @@ public class QuestionsOneServiceImpl implements IQuestionsService {
     }
 
     @Override
+    public int deleteMistake(Integer username, Integer qoId){
+        return mistakesCollectionOneMapper.deleteByUserIdAndQuestionId(username, qoId);
+    }
+
+    @Override
+    public QuestionsOne orderMistake(@RequestParam(defaultValue = "1") Integer id, Integer username){
+        return questionsOneMapper.getOrderMistake(id, username);
+    }
+
+    @Override
+    public QuestionsOne randomMistake(Integer username){
+        return questionsOneMapper.getRandomMistake(username);
+    }
+
     public List<QuestionsOne> getPaper(){
         return questionsOneMapper.getPaper();
     }

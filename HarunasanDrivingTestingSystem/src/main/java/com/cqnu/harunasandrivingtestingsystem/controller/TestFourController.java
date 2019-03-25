@@ -1,21 +1,15 @@
 package com.cqnu.harunasandrivingtestingsystem.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.alibaba.fastjson.support.config.FastJsonConfig;
-import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.cqnu.harunasandrivingtestingsystem.entity.QuestionsFour;
 import com.cqnu.harunasandrivingtestingsystem.entity.QuestionsOne;
 import com.cqnu.harunasandrivingtestingsystem.entity.Result;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.WrongQuestion;
 import com.cqnu.harunasandrivingtestingsystem.security.JwtTokenUtil;
-import com.cqnu.harunasandrivingtestingsystem.service.impl.QuestionsOneServiceImpl;
+import com.cqnu.harunasandrivingtestingsystem.service.impl.QuestionsFourServiceImpl;
 import com.cqnu.harunasandrivingtestingsystem.utils.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author LiAixing
@@ -33,23 +26,12 @@ import java.util.Map;
  * @date 2019/3/14 3:11
  **/
 @RestController
-@RequestMapping("/api/test/one")
-public class TestOneController {
-
-
-//    @Bean
-//    public HttpMessageConverters fastJsonHttpMessageConverters() {
-//        FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
-//        FastJsonConfig fastJsonConfig = new FastJsonConfig();
-//        fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat);
-//        fastConverter.setFastJsonConfig(fastJsonConfig);
-//        HttpMessageConverter<?> converter = fastConverter;
-//        return new HttpMessageConverters(converter);
-//    }
+@RequestMapping("/api/test/four")
+public class TestFourController {
 
 
     @Resource
-    private QuestionsOneServiceImpl questionsService;
+    private QuestionsFourServiceImpl questionsService;
 
     /**
      * http请求
@@ -74,7 +56,7 @@ public class TestOneController {
      * @return
      */
     @GetMapping("/getPaper")
-    public List<QuestionsOne> getPaper(){
+    public List<QuestionsFour> getPaper(){
         return questionsService.getPaper();
     }
 

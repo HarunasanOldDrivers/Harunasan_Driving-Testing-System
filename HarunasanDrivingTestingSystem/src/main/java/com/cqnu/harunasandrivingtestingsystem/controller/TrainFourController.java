@@ -1,11 +1,11 @@
 package com.cqnu.harunasandrivingtestingsystem.controller;
 
 import com.cqnu.harunasandrivingtestingsystem.exception.GlobalException;
-import com.cqnu.harunasandrivingtestingsystem.entity.QuestionsOne;
+import com.cqnu.harunasandrivingtestingsystem.entity.QuestionsFour;
 import com.cqnu.harunasandrivingtestingsystem.entity.Result;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.PageInfo;
 import com.cqnu.harunasandrivingtestingsystem.security.JwtTokenUtil;
-import com.cqnu.harunasandrivingtestingsystem.service.impl.QuestionsOneServiceImpl;
+import com.cqnu.harunasandrivingtestingsystem.service.impl.QuestionsFourServiceImpl;
 import com.cqnu.harunasandrivingtestingsystem.utils.ResultUtil;
 import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
@@ -30,16 +30,16 @@ import java.net.URLDecoder;
  **/
 
 @RestController
-@RequestMapping("/api/train/one")
-public class TrainOneController {
+@RequestMapping("/api/train/four")
+public class TrainFourController {
 
-    private Logger logger = LoggerFactory.getLogger(TrainOneController.class);
+    private Logger logger = LoggerFactory.getLogger(TrainFourController.class);
 
     private final String STATUS_JUDGE_TRUE = "true";
     private final String STATUS_JUDGE_FALSE = "false";
 
     @Resource
-    private QuestionsOneServiceImpl questionsService;
+    private QuestionsFourServiceImpl questionsService;
 
     @Autowired
     private HttpServletRequest request;
@@ -58,40 +58,40 @@ public class TrainOneController {
 
 
     @GetMapping("/random")
-    public QuestionsOne randomTrain(){
+    public QuestionsFour randomTrain(){
         return questionsService.randomTrain();
     }
 
     @GetMapping("/order")
-    public QuestionsOne orderTrain(int id) {  return questionsService.orderTrain(id);}
+    public QuestionsFour orderTrain(int id) {  return questionsService.orderTrain(id);}
 
     @GetMapping("/orderChapter")
-    public QuestionsOne orderChapter(int id, String chapter) throws UnsupportedEncodingException {
+    public QuestionsFour orderChapter(int id, String chapter) throws UnsupportedEncodingException {
         return questionsService.orderTrainByChapter(id, URLDecoder.decode(chapter,"UTF-8"));
     }
 
     @GetMapping("/randomChapter")
-    public QuestionsOne randomChapter(String chapter) throws UnsupportedEncodingException {
+    public QuestionsFour randomChapter(String chapter) throws UnsupportedEncodingException {
         return questionsService.randomTrainByChapter(URLDecoder.decode(chapter,"UTF-8"));
     }
 
     @GetMapping("/orderDifficulty")
-    public QuestionsOne orderDifficulty(Integer id, Integer difficulty) {
+    public QuestionsFour orderDifficulty(Integer id, Integer difficulty) {
         return questionsService.orderTrainByDifficulty(id, difficulty);
     }
 
     @GetMapping("/randomDifficulty")
-    public QuestionsOne randomDifficulty(Integer difficulty) {
+    public QuestionsFour randomDifficulty(Integer difficulty) {
         return questionsService.randomTrainByDifficulty(difficulty);
     }
 
     @GetMapping("/orderKnowledge")
-    public QuestionsOne orderKnowledge(Integer id,String knowledge) throws UnsupportedEncodingException {
+    public QuestionsFour orderKnowledge(Integer id,String knowledge) throws UnsupportedEncodingException {
         return questionsService.orderTrainByKnowledge(id,URLDecoder.decode(knowledge,"UTF-8"));
     }
 
     @GetMapping("/randomKnowledge")
-    public QuestionsOne randomKnowledge(String knowledge) throws UnsupportedEncodingException {
+    public QuestionsFour randomKnowledge(String knowledge) throws UnsupportedEncodingException {
         return questionsService.randomTrainByKnowledge(URLDecoder.decode(knowledge,"UTF-8"));
     }
 
@@ -103,32 +103,32 @@ public class TrainOneController {
      * @throws UnsupportedEncodingException
      */
     @GetMapping("/orderType")
-    public QuestionsOne orderType(Integer id,String type) throws UnsupportedEncodingException {
+    public QuestionsFour orderType(Integer id,String type) throws UnsupportedEncodingException {
         return questionsService.orderTrainByType(id,URLDecoder.decode(type,"UTF-8"));
     }
 
     @GetMapping("/randomType")
-    public QuestionsOne randomType(String type) throws UnsupportedEncodingException {
+    public QuestionsFour randomType(String type) throws UnsupportedEncodingException {
         return questionsService.randomTrainByType(URLDecoder.decode(type,"UTF-8"));
     }
 
     @GetMapping("/orderImage")
-    public QuestionsOne orderImage(Integer id) {
+    public QuestionsFour orderImage(Integer id) {
         return questionsService.orderTrainByImage(id);
     }
 
     @GetMapping("/randomImage")
-    public QuestionsOne randomImage()  {
+    public QuestionsFour randomImage()  {
         return questionsService.randomTrainByImage();
     }
 
     @GetMapping("/orderWord")
-    public QuestionsOne orderWord(Integer id) {
+    public QuestionsFour orderWord(Integer id) {
         return questionsService.orderTrainByWord(id);
     }
 
     @GetMapping("/randomWord")
-    public QuestionsOne randomWord()  {
+    public QuestionsFour randomWord()  {
         return questionsService.randomTrainByWord();
     }
 
@@ -189,9 +189,9 @@ public class TrainOneController {
     }
 
     @GetMapping("/questions")
-    public PageInfo<QuestionsOne> getQuestions(@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10") int pageSize){
+    public PageInfo<QuestionsFour> getQuestions(@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10") int pageSize){
         PageHelper.startPage(pageNo,pageSize);
-        PageInfo<QuestionsOne> pageInfo = new PageInfo<>(questionsService.getQuestions());
+        PageInfo<QuestionsFour> pageInfo = new PageInfo<>(questionsService.getQuestions());
         return pageInfo;
     }
 
@@ -226,7 +226,7 @@ public class TrainOneController {
      */
     @PreAuthorize("hasRole('User')")
     @GetMapping("/getOrderMistake")
-    public QuestionsOne getOrderMistake(@RequestParam(defaultValue = "1") Integer id){
+    public QuestionsFour getOrderMistake(@RequestParam(defaultValue = "1") Integer id){
         String authToken = request.getHeader(this.tokenHeader);
         String username = this.tokenUtils.getUsernameFromToken(authToken);
         if (StringUtils.isEmpty(authToken) || StringUtils.isEmpty(username)){
@@ -241,7 +241,7 @@ public class TrainOneController {
      */
     @PreAuthorize("hasRole('User')")
     @GetMapping("/getRandomMistake")
-    public QuestionsOne getRandomMistake(){
+    public QuestionsFour getRandomMistake(){
         String authToken = request.getHeader(this.tokenHeader);
         String username = this.tokenUtils.getUsernameFromToken(authToken);
         if (StringUtils.isEmpty(authToken) || StringUtils.isEmpty(username)){
@@ -257,7 +257,7 @@ public class TrainOneController {
      *          code: 510 请登录后操作
      *          code: 513 删除错题失败
      */
-    @PreAuthorize("hasRole('User')")
+    @PreAuthorize("hasAnyRole('User')")
     @PostMapping("/deleteMistake")
     public Result deleteMistake(Integer id){
         String authToken = request.getHeader(this.tokenHeader);

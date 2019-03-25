@@ -1,8 +1,11 @@
 package com.cqnu.harunasandrivingtestingsystem.mapper;
 
 import com.cqnu.harunasandrivingtestingsystem.entity.MistakesCollectionOne;
+import com.cqnu.harunasandrivingtestingsystem.entity.QuestionsOne;
+import org.apache.ibatis.annotations.Param;
 
 public interface MistakesCollectionOneMapper {
+
     int deleteByPrimaryKey(Integer mistakesId);
 
     int insert(MistakesCollectionOne record);
@@ -16,4 +19,6 @@ public interface MistakesCollectionOneMapper {
     int updateByPrimaryKeySelective(MistakesCollectionOne record);
 
     int updateByPrimaryKey(MistakesCollectionOne record);
+
+    int deleteByUserIdAndQuestionId(@Param("userId") Integer userId, @Param("questionsId") Integer questionsId);
 }

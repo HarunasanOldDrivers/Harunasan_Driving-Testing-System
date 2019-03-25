@@ -1,5 +1,6 @@
 package com.cqnu.harunasandrivingtestingsystem.service;
 
+import com.cqnu.harunasandrivingtestingsystem.entity.School;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
@@ -29,4 +30,6 @@ public interface ISchoolService {
     int signUp(String email, String schoolName, String password, String enrollTelephone,
                String companyName, String corporateName, String corporateTelephone, String socialCreditCode, Date startDate,
                String district, String detailLocation,List<String> files);
+
+    School getProfile(Integer username);
 }

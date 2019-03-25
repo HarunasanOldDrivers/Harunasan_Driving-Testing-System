@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -185,6 +186,7 @@ public class BaseUserController {
      * @return
      */
     @PostMapping("/alterPassword")
+    @PreAuthorize("hasRole('User')")
     public Result alterPassword(String oldPassword, String newPassword){
         String authToken = request.getHeader(this.tokenHeader);
         String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
@@ -205,6 +207,7 @@ public class BaseUserController {
      * @return
      */
     @PostMapping("/forgotPassword")
+    @PreAuthorize("hasRole('User')")
     public Result forgotPassword(String newPassword){
         String authToken = request.getHeader(this.tokenHeader);
         String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
@@ -216,17 +219,27 @@ public class BaseUserController {
         }
     }
 
-    @GetMapping("/getEnroll")
+//    @GetMapping("/getEnroll")
 //    public
 
-
-
-    @PreAuthorize("hasAnyAuthority('ORIGIN')")
-    @PostMapping("/db")
-    public void db() throws FileNotFoundException {
-//        json2DB.add2DB(json2DB.readFile("classpath:json/DataSubject1.json"));
-        json2DB.add2DB2(json2DB.readFile("classpath:json/DataSubject4.json"));
+    @PostMapping("/enroll")
+    @PreAuthorize("hasRole('User')")
+    public Result enroll(Integer courseId){
+        String authToken = request.getHeader(this.tokenHeader);
+        String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
+        if (StringUtils.isEmpty(authToken) || StringUtils.isEmpty(username)){
+            return ResultUtil.failure(510,"未登录");
+        }
+        return baseUserService.enroll(Integer.valueOf(username), courseId)?ResultUtil.success():ResultUtil.failure(620,"报名失败");
     }
+
+
+//    @PreAuthorize("hasAnyAuthority('ORIGIN')")
+//    @PostMapping("/db")
+//    public void db() throws FileNotFoundException {
+//        json2DB.add2DB(json2DB.readFile("classpath:json/DataSubject1.json"));
+//        json2DB.add2DB2(json2DB.readFile("classpath:json/DataSubject4.json"));
+//    }
 
 
 }

@@ -143,4 +143,9 @@ public class SchoolServiceImpl implements ISchoolService {
 
         return schoolMapper.insertSelective(school);
     }
+
+    @Override
+    public School getProfile(Integer username){
+        return schoolMapper.selectByPrimaryKey(username);
+    }
 }

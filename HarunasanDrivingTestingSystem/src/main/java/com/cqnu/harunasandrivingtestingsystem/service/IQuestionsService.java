@@ -2,6 +2,7 @@ package com.cqnu.harunasandrivingtestingsystem.service;
 
 import com.cqnu.harunasandrivingtestingsystem.entity.Questions;
 import com.cqnu.harunasandrivingtestingsystem.entity.QuestionsOne;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -14,17 +15,12 @@ import java.util.List;
  **/
 public interface IQuestionsService {
 
-    /**
-     * 获取所有题目
-     * @return
-     */
-    List<QuestionsOne> getQuestions();
 
     /**
      * 普通顺序练习
      * @return Questions
      */
-    Questions orderTrain(int id);
+    Questions orderTrain(Integer id);
 
     /**
      * 普通随机练习
@@ -38,7 +34,7 @@ public interface IQuestionsService {
      * @param chapter  章节名
      * @return Questions
      */
-    Questions orderTrainByChapter(int id, String chapter);
+    Questions orderTrainByChapter(Integer id, String chapter);
 
     /**
      * 按章节随机练习
@@ -54,14 +50,14 @@ public interface IQuestionsService {
      * @param difficulty 难度
      * @return Questions
      */
-    Questions orderTrainByDifficulty(int id, int difficulty);
+    Questions orderTrainByDifficulty(Integer id, Integer difficulty);
 
     /**
      * 按难度随机练习
      * @param difficulty 难度
      * @return Questions
      */
-    Questions randomTrainByDifficulty(int difficulty);
+    Questions randomTrainByDifficulty(Integer difficulty);
 
     /**
      * 按知识点顺序练习
@@ -69,7 +65,7 @@ public interface IQuestionsService {
      * @param knowledge 知识点
      * @return Questions
      */
-    Questions orderTrainByKnowledge(int id, String knowledge);
+    Questions orderTrainByKnowledge(Integer id, String knowledge);
 
     /**
      * 按知识点随机练习
@@ -84,7 +80,7 @@ public interface IQuestionsService {
      * @param type 类型
      * @return Questions
      */
-    Questions orderTrainByType(int id, String type);
+    Questions orderTrainByType(Integer id, String type);
 
     /**
      * 按类型随机练习
@@ -98,7 +94,7 @@ public interface IQuestionsService {
      * @param id 题号
      * @return Questions
      */
-    Questions orderTrainByImage(int id);
+    Questions orderTrainByImage(Integer id);
 
     /**
      * 图片题随机练习
@@ -111,7 +107,7 @@ public interface IQuestionsService {
      * @param id 题号
      * @return Questions
      */
-    Questions orderTrainByWord(int id);
+    Questions orderTrainByWord(Integer id);
 
     /**
      * 文字题随机练习
@@ -171,9 +167,14 @@ public interface IQuestionsService {
      * @param answer
      * @return
      */
-    String judge(int id, String answer);
+    String judge(Integer id, String answer);
 
     int addMistake(Integer username, Integer qoid);
 
-    List<QuestionsOne> getPaper();
+    int deleteMistake(Integer username, Integer qoId);
+
+    Questions orderMistake(@RequestParam(defaultValue = "1") Integer id, Integer username);
+
+    Questions randomMistake(Integer username);
+
 }

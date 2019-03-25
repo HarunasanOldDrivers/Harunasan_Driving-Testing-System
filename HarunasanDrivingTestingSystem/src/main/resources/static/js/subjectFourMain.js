@@ -1,0 +1,167 @@
+$(document).ready(function () {
+    //切换专项练习/章节练习 Tab页
+    var BtnSpecialPractice = $("#BtnSpecialPractice");
+    var BtnSectionPractice = $("#BtnSectionPractice");
+
+    BtnSpecialPractice.click(function () {
+        BtnSpecialPractice.addClass("active");
+        BtnSectionPractice.removeClass("active");
+        $("#DivSectionPractice").hide(300);
+        $("#DivSpecialPractice").show(300);
+    })
+    BtnSectionPractice.click(function () {
+        BtnSectionPractice.addClass("active");
+        BtnSpecialPractice.removeClass("active");
+        $("#DivSectionPractice").show(300);
+        $("#DivSpecialPractice").hide(300);
+    })
+
+    //设置题目难度各种评分
+    $("#schoolScore1").lqScore({
+        $tipEle: $("#schoolScoretips1"),
+        score: 1,
+        tips:""
+        //如果需要设置后还能评分，请添加[isReScore:true]属性
+    });
+    $("#schoolScore2").lqScore({
+        $tipEle: $("#schoolScoretips2"),
+        score: 2,
+        tips:""
+        //如果需要设置后还能评分，请添加[isReScore:true]属性
+    });
+    $("#schoolScore3").lqScore({
+        $tipEle: $("#schoolScoretips3"),
+        score: 3,
+        tips:""
+        //如果需要设置后还能评分，请添加[isReScore:true]属性
+    });
+    $("#schoolScore4").lqScore({
+        $tipEle: $("#schoolScoretips4"),
+        score: 4,
+        tips:""
+        //如果需要设置后还能评分，请添加[isReScore:true]属性
+    });
+    $("#schoolScore5").lqScore({
+        $tipEle: $("#schoolScoretips5"),
+        score: 5,
+        tips:""
+        //如果需要设置后还能评分，请添加[isReScore:true]属性
+    });
+
+    //读取题目数量
+    $.ajax({
+        type:"get",
+        url:"/api/train/four/getCountByChapter",
+        data:{
+            'chapter':"交通事故救护及常见危化品处置常识",
+        },
+        dataType:"json",
+        success:function (result) {
+            $("#subjectFourChapterOneCount").html("(共" + result + "题)");
+        }
+    });
+    $.ajax({
+        type:"get",
+        url:"/api/train/four/getCountByChapter",
+        data:{
+            'chapter':"安全行车常识",
+        },
+        dataType:"json",
+        success:function (result) {
+            $("#subjectFourChapterTwoCount").html("(共" + result + "题)");
+        }
+    });
+    $.ajax({
+        type:"get",
+        url:"/api/train/four/getCountByChapter",
+        data:{
+            'chapter':"常见交通标志、标线和交通手势辨识",
+        },
+        dataType:"json",
+        success:function (result) {
+            $("#subjectFourChapterThreeCount").html("(共" + result + "题)");
+        }
+    });
+    $.ajax({
+        type:"get",
+        url:"/api/train/four/getCountByChapter",
+        data:{
+            'chapter':"恶劣气候和复杂道路条件下驾驶常识",
+        },
+        dataType:"json",
+        success:function (result) {
+            $("#subjectFourChapterFourCount").html("(共" + result + "题)");
+        }
+    });
+    $.ajax({
+        type:"get",
+        url:"/api/train/four/getCountByChapter",
+        data:{
+            'chapter':"紧急情况下避险常识",
+        },
+        dataType:"json",
+        success:function (result) {
+            $("#subjectFourChapterFiveCount").html("(共" + result + "题)");
+        }
+    });
+    $.ajax({
+        type:"get",
+        url:"/api/train/four/getCountByChapter",
+        data:{
+            'chapter':"违法行为综合判断与案例分析",
+        },
+        dataType:"json",
+        success:function (result) {
+            $("#subjectFourChapterSixCount").html("(共" + result + "题)");
+        }
+    });
+    $.ajax({
+        type:"get",
+        url:"/api/train/four/getCountByChapter",
+        data:{
+            'chapter':"驾驶职业道德和文明驾驶常识",
+        },
+        dataType:"json",
+        success:function (result) {
+            $("#subjectFourChapterSevenCount").html("(共" + result + "题)");
+        }
+    });
+    $.ajax({
+        type:"get",
+        url:"/api/train/four/getCount",
+        dataType:"json",
+        success:function (result) {
+            $("#ChapterFourTotalCount").html("(共" + result + "题)");
+        }
+    });
+
+    //点击题目title，获取顺序练习
+    $(".subjectOneTitles").click(function () {
+        var rawtype = $(this).children('span').text();
+        var address = "/subjectOne/practice?model=sequence&chapter=" + rawtype;
+        address = encodeURI(encodeURI(address));
+        window.location.href = address;
+    })
+    //获取所有顺序练习button里面的题目
+    $(".btnSequencePractices").click(function () {
+        var rawtype = $(this).parent().parent().children("a").children((":first")).text();
+        var address = "/subjectOne/practice?model=sequence&chapter=" + rawtype;
+        address = encodeURI(encodeURI(address));
+        window.location.href = address;
+
+    })
+    //章节练习的随机练习
+    $(".btnRandomPractices").click(function () {
+        var rawtype = $(this).parent().parent().children("a").children((":first")).text();
+        var address = "/subjectOne/practice?model=random&chapter=" + rawtype;
+        address = encodeURI(encodeURI(address));
+        window.location.href = address;
+    })
+    //科目一顺序练习
+    $("#BtnSequencePractice").click(function () {
+        var address = "/subjectOne/practice?model=sequence&chapter=null"
+        address = encodeURI(encodeURI(address));
+        window.location.href = address;
+    })
+
+});

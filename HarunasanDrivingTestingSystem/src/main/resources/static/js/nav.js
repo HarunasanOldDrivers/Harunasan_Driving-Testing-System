@@ -43,8 +43,8 @@ $(document).ready(function () {
                 }else{
                     alert("登录成功！");
                     //把token和用户名放入cookie
-                    $.cookie("Authorization",result.token);
-                    $.cookie("UserName",result.nickname);
+                    $.cookie("Authorization",result.token,{ expires:1,path:'*',domain:'localhost'});
+                    $.cookie("UserName",result.nickname,{ expires:1,path:'* `',domain:'localhost'});
                     $(".UserNameAndLogoff").show();
                     $(".loginIn").hide();
                     $("#AUserName").html(result.nickname);
@@ -75,8 +75,8 @@ $(document).ready(function () {
                 }else{
                     alert("登录成功！");
                     //把token和用户名放入cookie
-                    $.cookie("AuthorizationSchool",result.token);
-                    $.cookie("schoolName",result.schoolName);
+                    $.cookie("AuthorizationSchool",result.token,{expires:1,path:'*',domain:'localhost'});
+                    $.cookie("schoolName",result.schoolName,{expires:1,path:'*',domain:'localhost'});
                     $(".UserNameAndLogoff").show();
                     $(".loginIn").hide();
                     $("#AUserName").html(result.schoolName);
@@ -94,10 +94,10 @@ $(document).ready(function () {
     //注销按钮点击之后自己删cookies里面的Authorization
     $("#AUserLogoff").click(function () {
         //本地删除Authorization
-        $.cookie('Authorization',null,{expires:-1});
-        $.cookie('UserName',null,{expires:-1});
-        $.cookie('AuthorizationSchool',null,{expires:-1});
-        $.cookie('schoolName',null,{expires:-1});
+        $.cookie('Authorization',null,{expires:-1,path:'*',domain:'localhost'});
+        $.cookie('UserName',null,{expires:-1,path:'*',domain:'localhost'});
+        $.cookie('AuthorizationSchool',null,{expires:-1,path:'*',domain:'localhost'});
+        $.cookie('schoolName',null,{expires:-1,path:'*',domain:'localhost'});
         $("#AUserName").html("");
         createAlert(0,"您已经成功退出登录");
         alert("您已经成功注销");

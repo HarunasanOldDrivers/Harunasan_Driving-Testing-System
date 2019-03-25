@@ -5,6 +5,670 @@ $(document).ready(function () {
     //解码当前处于哪个章节
     var chapter = getQueryString('chapter');
     chapter = decodeURI(chapter);
+    var model = getQueryString("model");
+    if(model ==="sequence" && chapter === "null"){
+        //刷新第一道题
+        $.ajax({
+            type:"get",
+            url:"/api/train/one/order",
+            data:{
+                'id':Currentid
+            },
+            dataType:"json",
+            success:function (result) {
+                $("#breadcrumbChapter2").html("科目一顺序练习");
+                $("#SpanQuestionId").html(result.qoId + "：" );
+                $("#SpanQuestionTitle").html(result.qoTitle);
+                $("#LiAnswers1").html(result.qoOptionA);
+                $("#LiAnswers2").html(result.qoOptionB);
+                $("#qoDescription").html(result.qoDescription);
+                $("#QoRightAnswer").html(result.qoAnswer);
+                $("#qoDifficulties").html(result.qoDifficultty);
+                if((result.qoType  ==='judge')){
+                    $("#qoType").html("判断题")
+                }else if((result.qoType === 'single')){
+                    $("#qoType").html("单选题")
+                }else {
+                    $("#qoType").html("多选题")
+                }
+                //如果有CD选项
+                if (result.qoOptionC !== null){
+                    $("#LiAnswers3").html(result.qoOptionC);
+                }else {
+                    $("#BtnConfirmAnswerC").hide();
+                }
+                if(result.qoOptionD !==null) {
+                    $("#LiAnswers4").html(result.qoOptionD);
+                }else {
+                    $("#BtnConfirmAnswerD").hide();
+                }
+                //如果有图片
+                if(result.qoImage !==null){
+                    $("#qoimage").attr("src",result.qoImage)
+                }
+                //如果有视频
+                if(result.qoImage !==null){
+                    $("#qoimage").attr("src",result.qoImage)
+                }
+            },
+            error:function () {
+                $("#SpanQuestionId").html("");
+                $("#SpanQuestionTitle").html("");
+                alert("没有题了呢，点击上一题/下一题，或者试试其他练习吧~");
+                if(Currentid < 2){
+                    Currentid++
+                }else {
+                    Currentid--
+                }
+            }
+        });
+        //点击下一题发送Ajax请求
+        $("#BtnNextQuestion").click(function () {
+            //发送请求之前，清空答题版所有的CSS样式
+            Currentid++;
+            var SpanRightOrWrongTips = $("#SpanRightOrWrongTips");
+            var QoRightAnswer = $("#QoRightAnswer");
+            var qoDescription = $("#qoDescription");
+            var DivAnswers = $("#DivAnswers");
+            var LiAnswers1 = $("#LiAnswers1");
+            var LiAnswers2 = $("#LiAnswers2");
+            var LiAnswers3 = $("#LiAnswers3");
+            var LiAnswers4 = $("#LiAnswers4");
+            var qoimage = $("#qoimage");
+            $("#BtnConfirmAnswerC").show();
+            $("#BtnConfirmAnswerD").show();
+            var SpanUserChoose = $("#SpanUserChoose");
+            qoDescription.css("display","none");
+            DivAnswers.css("visibility","hidden");
+            qoimage.attr("src","");
+            SpanUserChoose.removeClass("text-success text-danger").text("");
+            QoRightAnswer.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            SpanRightOrWrongTips.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            LiAnswers1.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            LiAnswers2.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            LiAnswers3.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            LiAnswers4.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            $.ajax({
+                type:"get",
+                url:"/api/train/one/order",
+                data:{
+                    'id':Currentid
+                },
+                dataType:"json",
+                success:function (result) {
+                    $("#breadcrumbChapter2").html("科目一顺序练习");
+                    $("#SpanQuestionId").html(result.qoId + "：" );
+                    $("#SpanQuestionTitle").html(result.qoTitle);
+                    $("#LiAnswers1").html(result.qoOptionA);
+                    $("#LiAnswers2").html(result.qoOptionB);
+                    $("#qoDescription").html(result.qoDescription);
+                    $("#QoRightAnswer").html(result.qoAnswer);
+                    $("#qoDifficulties").html(result.qoDifficultty);
+                    if((result.qoType  ==='judge')){
+                        $("#qoType").html("判断题")
+                    }else if((result.qoType === 'single')){
+                        $("#qoType").html("单选题")
+                    }else {
+                        $("#qoType").html("多选题")
+                    }
+                    //如果有CD选项
+                    if (result.qoOptionC !== null){
+                        $("#LiAnswers3").html(result.qoOptionC);
+                    }else {
+                        $("#BtnConfirmAnswerC").hide();
+                    }
+                    if(result.qoOptionD !==null) {
+                        $("#LiAnswers4").html(result.qoOptionD);
+                    }else {
+                        $("#BtnConfirmAnswerD").hide();
+                    }
+                    //如果有图片
+                    if(result.qoImage !==null){
+                        $("#qoimage").attr("src",result.qoImage)
+                    }
+                    //如果有视频
+                    if(result.qoImage !==null){
+                        $("#qoimage").attr("src",result.qoImage)
+                    }
+                },
+                error:function () {
+                    $("#SpanQuestionId").html("");
+                    $("#SpanQuestionTitle").html("");
+                    alert("没有题了呢，点击上一题/下一题，或者试试其他练习吧~");
+                    if(Currentid < 2){
+                        Currentid++
+                    }else {
+                        Currentid--
+                    }
+                }
+            });
+        });
+        //点击上一题发送Ajax请求
+        $("#BtnPreQuestion").click(function () {
+            //发送请求之前，清空答题版所有的CSS样式
+            Currentid--;
+            var SpanRightOrWrongTips = $("#SpanRightOrWrongTips");
+            var QoRightAnswer = $("#QoRightAnswer");
+            var qoDescription = $("#qoDescription");
+            var DivAnswers = $("#DivAnswers");
+            var LiAnswers1 = $("#LiAnswers1");
+            var LiAnswers2 = $("#LiAnswers2");
+            var LiAnswers3 = $("#LiAnswers3");
+            var LiAnswers4 = $("#LiAnswers4");
+            var qoimage = $("#qoimage");
+            $("#BtnConfirmAnswerC").show();
+            $("#BtnConfirmAnswerD").show();
+            var SpanUserChoose = $("#SpanUserChoose");
+            qoDescription.css("display","none");
+            DivAnswers.css("visibility","hidden");
+            qoimage.attr("src","");
+            SpanUserChoose.removeClass("text-success text-danger").text("");
+            QoRightAnswer.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            SpanRightOrWrongTips.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            LiAnswers1.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            LiAnswers2.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            LiAnswers3.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            LiAnswers4.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            $.ajax({
+                type:"get",
+                url:"/api/train/one/order",
+                data:{
+                    'id':Currentid
+                },
+                dataType:"json",
+                success:function (result) {
+                    $("#breadcrumbChapter2").html("科目一顺序练习");
+                    $("#SpanQuestionId").html(result.qoId + "：");
+                    $("#SpanQuestionTitle").html(result.qoTitle);
+                    $("#LiAnswers1").html(result.qoOptionA);
+                    $("#LiAnswers2").html(result.qoOptionB);
+                    $("#qoDescription").html(result.qoDescription);
+                    $("#QoRightAnswer").html(result.qoAnswer);
+                    $("#qoDifficulties").html(result.qoDifficultty);
+                    if((result.qoType  ==='judge')){
+                        $("#qoType").html("判断题")
+                    }else if((result.qoType === 'single')){
+                        $("#qoType").html("单选题")
+                    }else {
+                        $("#qoType").html("多选题")
+                    }
+                    //如果有CD选项
+                    if (result.qoOptionC !== null){
+                        $("#LiAnswers3").html(result.qoOptionC);
+                    }else {
+                        $("#BtnConfirmAnswerC").hide();
+                    }
+                    if(result.qoOptionD !==null) {
+                        $("#LiAnswers4").html(result.qoOptionD);
+                    }else {
+                        $("#BtnConfirmAnswerD").hide();
+                    }
+                    //如果有图片
+                    if(result.qoImage !==null){
+                        $("#qoimage").attr("src",result.qoImage)
+                    }
+                    //如果有视频
+                    if(result.qoImage !==null){
+                        $("#qoimage").attr("src",result.qoImage)
+                    }
+                },
+                error:function () {
+                    $("#SpanQuestionId").html("");
+                    $("#SpanQuestionTitle").html("");
+                    alert("没有题了呢，点击上一题/下一题，或者试试其他练习吧~");
+                    if(Currentid < 2){
+                        Currentid++
+                    }else {
+                        Currentid--
+                    }
+                }
+            });
+        })
+    }
+    else if(model ==="random" && chapter !== null){
+        //刷新第一道题
+        $.ajax({
+            type:"get",
+            url:"/api/train/one/randomChapter",
+            data:{
+                'chapter':chapter
+            },
+            dataType:"json",
+            success:function (result) {
+                $("#breadcrumbChapter").html(chapter + " (随机练习)");
+                $("#SpanQuestionId").html(result.qoId + "：" );
+                $("#SpanQuestionTitle").html(result.qoTitle);
+                $("#LiAnswers1").html(result.qoOptionA);
+                $("#LiAnswers2").html(result.qoOptionB);
+                $("#qoDescription").html(result.qoDescription);
+                $("#QoRightAnswer").html(result.qoAnswer);
+                $("#qoDifficulties").html(result.qoDifficultty);
+                if((result.qoType  ==='judge')){
+                    $("#qoType").html("判断题")
+                }else if((result.qoType === 'single')){
+                    $("#qoType").html("单选题")
+                }else {
+                    $("#qoType").html("多选题")
+                }
+                //如果有CD选项
+                if (result.qoOptionC !== null){
+                    $("#LiAnswers3").html(result.qoOptionC);
+                }else {
+                    $("#BtnConfirmAnswerC").hide();
+                }
+                if(result.qoOptionD !==null) {
+                    $("#LiAnswers4").html(result.qoOptionD);
+                }else {
+                    $("#BtnConfirmAnswerD").hide();
+                }
+                //如果有图片
+                if(result.qoImage !==null){
+                    $("#qoimage").attr("src",result.qoImage)
+                }
+                //如果有视频
+                if(result.qoImage !==null){
+                    $("#qoimage").attr("src",result.qoImage)
+                }
+            },
+            error:function () {
+                $("#SpanQuestionId").html("");
+                $("#SpanQuestionTitle").html("");
+                alert("没有题了呢，点击上一题/下一题，或者试试其他练习吧~");
+                if(Currentid < 2){
+                    Currentid++
+                }else {
+                    Currentid--
+                }
+            }
+        });
+        //点击下一题发送Ajax请求
+        $("#BtnNextQuestion").click(function () {
+            //发送请求之前，清空答题版所有的CSS样式
+            Currentid++;
+            var SpanRightOrWrongTips = $("#SpanRightOrWrongTips");
+            var QoRightAnswer = $("#QoRightAnswer");
+            var qoDescription = $("#qoDescription");
+            var DivAnswers = $("#DivAnswers");
+            var LiAnswers1 = $("#LiAnswers1");
+            var LiAnswers2 = $("#LiAnswers2");
+            var LiAnswers3 = $("#LiAnswers3");
+            var LiAnswers4 = $("#LiAnswers4");
+            var qoimage = $("#qoimage");
+            $("#BtnConfirmAnswerC").show();
+            $("#BtnConfirmAnswerD").show();
+            var SpanUserChoose = $("#SpanUserChoose");
+            qoDescription.css("display","none");
+            DivAnswers.css("visibility","hidden");
+            qoimage.attr("src","");
+            SpanUserChoose.removeClass("text-success text-danger").text("");
+            QoRightAnswer.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            SpanRightOrWrongTips.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            LiAnswers1.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            LiAnswers2.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            LiAnswers3.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            LiAnswers4.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            $.ajax({
+                type:"get",
+                url:"/api/train/one/randomChapter",
+                data:{
+                    'chapter':chapter
+                },
+                dataType:"json",
+                success:function (result) {
+                    $("#breadcrumbChapter2").html("科目一顺序练习");
+                    $("#SpanQuestionId").html(result.qoId + "：" );
+                    $("#SpanQuestionTitle").html(result.qoTitle);
+                    $("#LiAnswers1").html(result.qoOptionA);
+                    $("#LiAnswers2").html(result.qoOptionB);
+                    $("#qoDescription").html(result.qoDescription);
+                    $("#QoRightAnswer").html(result.qoAnswer);
+                    $("#qoDifficulties").html(result.qoDifficultty);
+                    if((result.qoType  ==='judge')){
+                        $("#qoType").html("判断题")
+                    }else if((result.qoType === 'single')){
+                        $("#qoType").html("单选题")
+                    }else {
+                        $("#qoType").html("多选题")
+                    }
+                    //如果有CD选项
+                    if (result.qoOptionC !== null){
+                        $("#LiAnswers3").html(result.qoOptionC);
+                    }else {
+                        $("#BtnConfirmAnswerC").hide();
+                    }
+                    if(result.qoOptionD !==null) {
+                        $("#LiAnswers4").html(result.qoOptionD);
+                    }else {
+                        $("#BtnConfirmAnswerD").hide();
+                    }
+                    //如果有图片
+                    if(result.qoImage !==null){
+                        $("#qoimage").attr("src",result.qoImage)
+                    }
+                    //如果有视频
+                    if(result.qoImage !==null){
+                        $("#qoimage").attr("src",result.qoImage)
+                    }
+                },
+                error:function () {
+                    $("#SpanQuestionId").html("");
+                    $("#SpanQuestionTitle").html("");
+                    alert("没有题了呢，点击上一题/下一题，或者试试其他练习吧~");
+                    if(Currentid < 2){
+                        Currentid++
+                    }else {
+                        Currentid--
+                    }
+                }
+            });
+        });
+        //点击上一题发送Ajax请求
+        $("#BtnPreQuestion").click(function () {
+            //发送请求之前，清空答题版所有的CSS样式
+            var SpanRightOrWrongTips = $("#SpanRightOrWrongTips");
+            var QoRightAnswer = $("#QoRightAnswer");
+            var qoDescription = $("#qoDescription");
+            var DivAnswers = $("#DivAnswers");
+            var LiAnswers1 = $("#LiAnswers1");
+            var LiAnswers2 = $("#LiAnswers2");
+            var LiAnswers3 = $("#LiAnswers3");
+            var LiAnswers4 = $("#LiAnswers4");
+            var qoimage = $("#qoimage");
+            $("#BtnConfirmAnswerC").show();
+            $("#BtnConfirmAnswerD").show();
+            var SpanUserChoose = $("#SpanUserChoose");
+            qoDescription.css("display","none");
+            DivAnswers.css("visibility","hidden");
+            qoimage.attr("src","");
+            SpanUserChoose.removeClass("text-success text-danger").text("");
+            QoRightAnswer.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            SpanRightOrWrongTips.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            LiAnswers1.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            LiAnswers2.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            LiAnswers3.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            LiAnswers4.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            $.ajax({
+                type:"get",
+                url:"/api/train/one/randomChapter",
+                data:{
+                    'chapter':chapter
+                },
+                dataType:"json",
+                success:function (result) {
+                    $("#breadcrumbChapter2").html("科目一顺序练习");
+                    $("#SpanQuestionId").html(result.qoId + "：");
+                    $("#SpanQuestionTitle").html(result.qoTitle);
+                    $("#LiAnswers1").html(result.qoOptionA);
+                    $("#LiAnswers2").html(result.qoOptionB);
+                    $("#qoDescription").html(result.qoDescription);
+                    $("#QoRightAnswer").html(result.qoAnswer);
+                    $("#qoDifficulties").html(result.qoDifficultty);
+                    if((result.qoType  ==='judge')){
+                        $("#qoType").html("判断题")
+                    }else if((result.qoType === 'single')){
+                        $("#qoType").html("单选题")
+                    }else {
+                        $("#qoType").html("多选题")
+                    }
+                    //如果有CD选项
+                    if (result.qoOptionC !== null){
+                        $("#LiAnswers3").html(result.qoOptionC);
+                    }else {
+                        $("#BtnConfirmAnswerC").hide();
+                    }
+                    if(result.qoOptionD !==null) {
+                        $("#LiAnswers4").html(result.qoOptionD);
+                    }else {
+                        $("#BtnConfirmAnswerD").hide();
+                    }
+                    //如果有图片
+                    if(result.qoImage !==null){
+                        $("#qoimage").attr("src",result.qoImage)
+                    }
+                    //如果有视频
+                    if(result.qoImage !==null){
+                        $("#qoimage").attr("src",result.qoImage)
+                    }
+                },
+                error:function () {
+                    $("#SpanQuestionId").html("");
+                    $("#SpanQuestionTitle").html("");
+                    alert("没有题了呢，点击上一题/下一题，或者试试其他练习吧~");
+                    if(Currentid < 2){
+                        Currentid++
+                    }else {
+                        Currentid--
+                    }
+                }
+            });
+        })
+    }
+    else if(model === "sequence" && chapter !== null) {
+        //刷新第一道题
+        $.ajax({
+            type:"get",
+            url:"/api/train/one/orderChapter",
+            data:{
+                'id':Currentid,
+                'chapter':chapter
+            },
+            dataType:"json",
+            success:function (result) {
+                $("#breadcrumbChapter").html(chapter + " (顺序练习)");
+                $("#SpanQuestionId").html(result.qoId + "：" );
+                $("#SpanQuestionTitle").html(result.qoTitle);
+                $("#LiAnswers1").html(result.qoOptionA);
+                $("#LiAnswers2").html(result.qoOptionB);
+                $("#qoDescription").html(result.qoDescription);
+                $("#QoRightAnswer").html(result.qoAnswer);
+                $("#qoDifficulties").html(result.qoDifficultty);
+                if((result.qoType  ==='judge')){
+                    $("#qoType").html("判断题")
+                }else if((result.qoType === 'single')){
+                    $("#qoType").html("单选题")
+                }else {
+                    $("#qoType").html("多选题")
+                }
+                //如果有CD选项
+                if (result.qoOptionC !== null){
+                    $("#LiAnswers3").html(result.qoOptionC);
+                }else {
+                    $("#BtnConfirmAnswerC").hide();
+                }
+                if(result.qoOptionD !==null) {
+                    $("#LiAnswers4").html(result.qoOptionD);
+                }else {
+                    $("#BtnConfirmAnswerD").hide();
+                }
+                //如果有图片
+                if(result.qoImage !==null){
+                    $("#qoimage").attr("src",result.qoImage)
+                }
+                //如果有视频
+                if(result.qoImage !==null){
+                    $("#qoimage").attr("src",result.qoImage)
+                }
+            },
+            error:function () {
+                $("#SpanQuestionId").html("");
+                $("#SpanQuestionTitle").html("");
+                alert("没有题了呢，点击上一题/下一题，或者试试其他练习吧~");
+                if(Currentid < 2){
+                    Currentid++
+                }else {
+                    Currentid--
+                }
+            }
+        });
+        //点击下一题发送Ajax请求
+        $("#BtnNextQuestion").click(function () {
+            //发送请求之前，清空答题版所有的CSS样式
+            Currentid++;
+            var SpanRightOrWrongTips = $("#SpanRightOrWrongTips");
+            var QoRightAnswer = $("#QoRightAnswer");
+            var qoDescription = $("#qoDescription");
+            var DivAnswers = $("#DivAnswers");
+            var LiAnswers1 = $("#LiAnswers1");
+            var LiAnswers2 = $("#LiAnswers2");
+            var LiAnswers3 = $("#LiAnswers3");
+            var LiAnswers4 = $("#LiAnswers4");
+            var qoimage = $("#qoimage");
+            $("#BtnConfirmAnswerC").show();
+            $("#BtnConfirmAnswerD").show();
+            var SpanUserChoose = $("#SpanUserChoose");
+            qoDescription.css("display","none");
+            DivAnswers.css("visibility","hidden");
+            qoimage.attr("src","");
+            SpanUserChoose.removeClass("text-success text-danger").text("");
+            QoRightAnswer.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            SpanRightOrWrongTips.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            LiAnswers1.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            LiAnswers2.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            LiAnswers3.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            LiAnswers4.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            $.ajax({
+                type:"get",
+                url:"/api/train/one/orderChapter",
+                data:{
+                    'id':Currentid,
+                    'chapter':chapter
+                },
+                dataType:"json",
+                success:function (result) {
+                    $("#breadcrumbChapter").html(chapter + " (顺序练习)");
+                    $("#SpanQuestionId").html(result.qoId + "：" );
+                    $("#SpanQuestionTitle").html(result.qoTitle);
+                    $("#LiAnswers1").html(result.qoOptionA);
+                    $("#LiAnswers2").html(result.qoOptionB);
+                    $("#qoDescription").html(result.qoDescription);
+                    $("#QoRightAnswer").html(result.qoAnswer);
+                    $("#qoDifficulties").html(result.qoDifficultty);
+                    if((result.qoType  ==='judge')){
+                        $("#qoType").html("判断题")
+                    }else if((result.qoType === 'single')){
+                        $("#qoType").html("单选题")
+                    }else {
+                        $("#qoType").html("多选题")
+                    }
+                    //如果有CD选项
+                    if (result.qoOptionC !== null){
+                        $("#LiAnswers3").html(result.qoOptionC);
+                    }else {
+                        $("#BtnConfirmAnswerC").hide();
+                    }
+                    if(result.qoOptionD !==null) {
+                        $("#LiAnswers4").html(result.qoOptionD);
+                    }else {
+                        $("#BtnConfirmAnswerD").hide();
+                    }
+                    //如果有图片
+                    if(result.qoImage !==null){
+                        $("#qoimage").attr("src",result.qoImage)
+                    }
+                    //如果有视频
+                    if(result.qoImage !==null){
+                        $("#qoimage").attr("src",result.qoImage)
+                    }
+                },
+                error:function () {
+                    $("#SpanQuestionId").html("");
+                    $("#SpanQuestionTitle").html("");
+                    alert("没有题了呢，点击上一题/下一题，或者试试其他练习吧~");
+                    if(Currentid < 2){
+                        Currentid++
+                    }else {
+                        Currentid--
+                    }
+                    console.log(Currentid);
+                }
+            });
+        });
+        //点击上一题发送Ajax请求
+        $("#BtnPreQuestion").click(function () {
+            //发送请求之前，清空答题版所有的CSS样式
+            Currentid--;
+            var SpanRightOrWrongTips = $("#SpanRightOrWrongTips");
+            var QoRightAnswer = $("#QoRightAnswer");
+            var qoDescription = $("#qoDescription");
+            var DivAnswers = $("#DivAnswers");
+            var LiAnswers1 = $("#LiAnswers1");
+            var LiAnswers2 = $("#LiAnswers2");
+            var LiAnswers3 = $("#LiAnswers3");
+            var LiAnswers4 = $("#LiAnswers4");
+            var qoimage = $("#qoimage");
+            $("#BtnConfirmAnswerC").show();
+            $("#BtnConfirmAnswerD").show();
+            var SpanUserChoose = $("#SpanUserChoose");
+            qoDescription.css("display","none");
+            DivAnswers.css("visibility","hidden");
+            qoimage.attr("src","");
+            SpanUserChoose.removeClass("text-success text-danger").text("");
+            QoRightAnswer.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            SpanRightOrWrongTips.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            LiAnswers1.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            LiAnswers2.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            LiAnswers3.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            LiAnswers4.removeClass("text-success text-danger").css("font-weight","normal").text("");
+            $.ajax({
+                type:"get",
+                url:"/api/train/one/orderChapter",
+                data:{
+                    'id':Currentid,
+                    'chapter':chapter
+                },
+                dataType:"json",
+                success:function (result) {
+                    $("#breadcrumbChapter").html(chapter + " (顺序练习)");
+                    $("#SpanQuestionId").html(result.qoId + "：");
+                    $("#SpanQuestionTitle").html(result.qoTitle);
+                    $("#LiAnswers1").html(result.qoOptionA);
+                    $("#LiAnswers2").html(result.qoOptionB);
+                    $("#qoDescription").html(result.qoDescription);
+                    $("#QoRightAnswer").html(result.qoAnswer);
+                    $("#qoDifficulties").html(result.qoDifficultty);
+                    if((result.qoType  ==='judge')){
+                        $("#qoType").html("判断题")
+                    }else if((result.qoType === 'single')){
+                        $("#qoType").html("单选题")
+                    }else {
+                        $("#qoType").html("多选题")
+                    }
+                    //如果有CD选项
+                    if (result.qoOptionC !== null){
+                        $("#LiAnswers3").html(result.qoOptionC);
+                    }else {
+                        $("#BtnConfirmAnswerC").hide();
+                    }
+                    if(result.qoOptionD !==null) {
+                        $("#LiAnswers4").html(result.qoOptionD);
+                    }else {
+                        $("#BtnConfirmAnswerD").hide();
+                    }
+                    //如果有图片
+                    if(result.qoImage !==null){
+                        $("#qoimage").attr("src",result.qoImage)
+                    }
+                    //如果有视频
+                    if(result.qoImage !==null){
+                        $("#qoimage").attr("src",result.qoImage)
+                    }
+                },
+                error:function () {
+                    $("#SpanQuestionId").html("");
+                    $("#SpanQuestionTitle").html("");
+                    alert("没有题了呢，点击上一题/下一题，或者试试其他练习吧~");
+                    if(Currentid < 2){
+                        Currentid++
+                    }else {
+                        Currentid--
+                    }
+                }
+            });
+        })
+    }else {
+        alert("请选择一种类型进行练习哟");
+    }
+
     function getQueryString(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
         var r = window.location.search.substr(1).match(reg);
@@ -14,60 +678,7 @@ $(document).ready(function () {
             return null;
         }
     }
-    //刷新第一道题
-    $.ajax({
-        type:"get",
-        url:"/api/train/one/orderChapter",
-        data:{
-            'id':Currentid,
-            'chapter':chapter
-        },
-        dataType:"json",
-        success:function (result) {
-            $("#breadcrumbChapter").html(chapter);
-            $("#SpanQuestionId").html(result.qoId );
-            $("#SpanQuestionTitle").html(result.qoTitle);
-            $("#LiAnswers1").html(result.qoOptionA);
-            $("#LiAnswers2").html(result.qoOptionB);
-            $("#qoDescription").html(result.qoDescription);
-            $("#QoRightAnswer").html(result.qoAnswer);
-            $("#qoDifficulties").html(result.qoDifficultty);
-            if((result.qoType  ==='judge')){
-                $("#qoType").html("判断题")
-            }else if((result.qoType === 'single')){
-                $("#qoType").html("单选题")
-            }else {
-                $("#qoType").html("多选题")
-            }
-            //如果有CD选项
-            if (result.qoOptionC !== null){
-                $("#LiAnswers3").html(result.qoOptionC);
-            }else {
-                $("#BtnConfirmAnswerC").hide();
-            }
-            if(result.qoOptionD !==null) {
-                $("#LiAnswers4").html(result.qoOptionD);
-            }else {
-                $("#BtnConfirmAnswerD").hide();
-            }
-            //如果有图片
-            if(result.qoImage !==null){
-                $("#qoimage").attr("src",result.qoImage)
-            }
-            //如果有视频
-            if(result.qoImage !==null){
-                $("#qoimage").attr("src",result.qoImage)
-            }
-        },
-        error:function () {
-            alert("没有题了呢，点击上一题/下一题，或者试试其他练习吧~");
-            if(Currentid < 2){
-                Currentid++
-            }else {
-                Currentid--
-            }
-        }
-    });
+
     //点击查看解析按钮，显示答案以及解析
     $("#BtnShowDescription").click(function () {
         $("#qoDescription").css("display","block");
@@ -127,175 +738,16 @@ $(document).ready(function () {
                 case ("D"):LiAnswers4.addClass("text-danger").css("font-weight","bold") ;break;
             }
         }
-    })
-    //点击下一题发送Ajax请求
-    $("#BtnNextQuestion").click(function () {
-        //发送请求之前，清空答题版所有的CSS样式
-        Currentid++;
-        var SpanRightOrWrongTips = $("#SpanRightOrWrongTips");
-        var QoRightAnswer = $("#QoRightAnswer");
-        var qoDescription = $("#qoDescription");
-        var DivAnswers = $("#DivAnswers");
-        var LiAnswers1 = $("#LiAnswers1");
-        var LiAnswers2 = $("#LiAnswers2");
-        var LiAnswers3 = $("#LiAnswers3");
-        var LiAnswers4 = $("#LiAnswers4");
-        var qoimage = $("#qoimage");
-        $("#BtnConfirmAnswerC").show();
-        $("#BtnConfirmAnswerD").show();
-        var SpanUserChoose = $("#SpanUserChoose");
-        qoDescription.css("display","none");
-        DivAnswers.css("visibility","hidden");
-        qoimage.attr("src","");
-        SpanUserChoose.removeClass("text-success text-danger").text("");
-        QoRightAnswer.removeClass("text-success text-danger").css("font-weight","normal").text("");
-        SpanRightOrWrongTips.removeClass("text-success text-danger").css("font-weight","normal").text("");
-        LiAnswers1.removeClass("text-success text-danger").css("font-weight","normal").text("");
-        LiAnswers2.removeClass("text-success text-danger").css("font-weight","normal").text("");
-        LiAnswers3.removeClass("text-success text-danger").css("font-weight","normal").text("");
-        LiAnswers4.removeClass("text-success text-danger").css("font-weight","normal").text("");
-        $.ajax({
-            type:"get",
-            url:"/api/train/one/orderChapter",
-            data:{
-                'id':Currentid,
-                'chapter':chapter
-            },
-            dataType:"json",
-            success:function (result) {
-                $("#breadcrumbChapter").html(chapter);
-                $("#SpanQuestionId").html(result.qoId );
-                $("#SpanQuestionTitle").html(result.qoTitle);
-                $("#LiAnswers1").html(result.qoOptionA);
-                $("#LiAnswers2").html(result.qoOptionB);
-                $("#qoDescription").html(result.qoDescription);
-                $("#QoRightAnswer").html(result.qoAnswer);
-                $("#qoDifficulties").html(result.qoDifficultty);
-                if((result.qoType  ==='judge')){
-                    $("#qoType").html("判断题")
-                }else if((result.qoType === 'single')){
-                    $("#qoType").html("单选题")
-                }else {
-                    $("#qoType").html("多选题")
-                }
-                //如果有CD选项
-                if (result.qoOptionC !== null){
-                    $("#LiAnswers3").html(result.qoOptionC);
-                }else {
-                    $("#BtnConfirmAnswerC").hide();
-                }
-                if(result.qoOptionD !==null) {
-                    $("#LiAnswers4").html(result.qoOptionD);
-                }else {
-                    $("#BtnConfirmAnswerD").hide();
-                }
-                //如果有图片
-                if(result.qoImage !==null){
-                    $("#qoimage").attr("src",result.qoImage)
-                }
-                //如果有视频
-                if(result.qoImage !==null){
-                    $("#qoimage").attr("src",result.qoImage)
-                }
-            },
-            error:function () {
-                alert("没有题了呢，点击上一题/下一题，或者试试其他练习吧~");
-                if(Currentid < 2){
-                    Currentid++
-                }else {
-                    Currentid--
-                }
-                console.log(Currentid);
-            }
-        });
-    })
-    //点击上一题发送Ajax请求
-    $("#BtnPreQuestion").click(function () {
-        //发送请求之前，清空答题版所有的CSS样式
-        Currentid--;
-        var SpanRightOrWrongTips = $("#SpanRightOrWrongTips");
-        var QoRightAnswer = $("#QoRightAnswer");
-        var qoDescription = $("#qoDescription");
-        var DivAnswers = $("#DivAnswers");
-        var LiAnswers1 = $("#LiAnswers1");
-        var LiAnswers2 = $("#LiAnswers2");
-        var LiAnswers3 = $("#LiAnswers3");
-        var LiAnswers4 = $("#LiAnswers4");
-        var qoimage = $("#qoimage");
-        $("#BtnConfirmAnswerC").show();
-        $("#BtnConfirmAnswerD").show();
-        var SpanUserChoose = $("#SpanUserChoose");
-        qoDescription.css("display","none");
-        DivAnswers.css("visibility","hidden");
-        qoimage.attr("src","");
-        SpanUserChoose.removeClass("text-success text-danger").text("");
-        QoRightAnswer.removeClass("text-success text-danger").css("font-weight","normal").text("");
-        SpanRightOrWrongTips.removeClass("text-success text-danger").css("font-weight","normal").text("");
-        LiAnswers1.removeClass("text-success text-danger").css("font-weight","normal").text("");
-        LiAnswers2.removeClass("text-success text-danger").css("font-weight","normal").text("");
-        LiAnswers3.removeClass("text-success text-danger").css("font-weight","normal").text("");
-        LiAnswers4.removeClass("text-success text-danger").css("font-weight","normal").text("");
-        $.ajax({
-            type:"get",
-            url:"/api/train/one/orderChapter",
-            data:{
-                'id':Currentid,
-                'chapter':chapter
-            },
-            dataType:"json",
-            success:function (result) {
-                $("#breadcrumbChapter").html(chapter);
-                $("#SpanQuestionId").html(result.qoId);
-                $("#SpanQuestionTitle").html(result.qoTitle);
-                $("#LiAnswers1").html(result.qoOptionA);
-                $("#LiAnswers2").html(result.qoOptionB);
-                $("#qoDescription").html(result.qoDescription);
-                $("#QoRightAnswer").html(result.qoAnswer);
-                $("#qoDifficulties").html(result.qoDifficultty);
-                if((result.qoType  ==='judge')){
-                    $("#qoType").html("判断题")
-                }else if((result.qoType === 'single')){
-                    $("#qoType").html("单选题")
-                }else {
-                    $("#qoType").html("多选题")
-                }
-                //如果有CD选项
-                if (result.qoOptionC !== null){
-                    $("#LiAnswers3").html(result.qoOptionC);
-                }else {
-                    $("#BtnConfirmAnswerC").hide();
-                }
-                if(result.qoOptionD !==null) {
-                    $("#LiAnswers4").html(result.qoOptionD);
-                }else {
-                    $("#BtnConfirmAnswerD").hide();
-                }
-                //如果有图片
-                if(result.qoImage !==null){
-                    $("#qoimage").attr("src",result.qoImage)
-                }
-                //如果有视频
-                if(result.qoImage !==null){
-                    $("#qoimage").attr("src",result.qoImage)
-                }
-            },
-            error:function () {
-                alert("没有题了呢，点击上一题/下一题，或者试试其他练习吧~");
-                if(Currentid < 2){
-                    Currentid++
-                }else {
-                    Currentid--
-                }
-            }
-        });
-    })
-
+    });
+    //点击加入错题集
     $("#BtnAddWrongList").click(function () {
-        var CurrentQuestionId = Number($("#SpanQuestionId").text());
+        var CurrentQuestionId = $("#SpanQuestionId").text();
+        //清除数字后面的冒号
+        CurrentQuestionId = CurrentQuestionId.substring(0,CurrentQuestionId.length-1);
         $.ajax({
             type:"post",
             url:"/api/train/one/addMistake",
-            data:{ 'id':CurrentQuestionId,},
+            data:{ 'id':CurrentQuestionId},
             dataType:"json",
             beforeSend: function (XMLHttpRequest) {
                 var Authorization = $.cookie('Authorization');
@@ -310,16 +762,15 @@ $(document).ready(function () {
                     createAlert(1,"插入错题失败")
                 }else if(result.code ===200){
                     createAlert(0,"成功加入错题集 点击<strong>查看错题集</strong>进行查看哦")
-                }else{
-                    alert("与服务器似乎断开链接，请检查您的网络");
+                }else if(result.code === 401){
+                    alert("请登录/重新登录后操作");
                 }
             },
             error:function (result) {
                 alert("与服务器似乎断开链接，请检查您的网络");
             }
         });
-    })
-
+    });
     function createAlert(type,mesg) {
         var alert;
         // type ===1 创建危险框

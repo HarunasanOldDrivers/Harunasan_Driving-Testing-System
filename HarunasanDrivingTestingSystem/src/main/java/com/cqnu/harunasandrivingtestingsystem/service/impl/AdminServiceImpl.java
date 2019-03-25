@@ -64,5 +64,8 @@ public class AdminServiceImpl implements IAdminService {
         return false;
     }
 
-
+    @Override
+    public Administrator getInfo(Integer username){
+        return administratorMapper.selectByPrimaryKey(username);
+    };
 }

@@ -70,15 +70,16 @@ public class SchoolController {
      * @return
      */
     @PostMapping("/login")
-    public String login(String email, String password){
+    public Result login(String email, String password){
         Map<String, String> map = new HashMap<String, String>(16);
         if (schoolService.loginByEmail(email,password)){
             map.put("token",jwtTokenUtil.generateToken(userDetailsService.loadUserByUsername(String.valueOf(schoolService.getIdByEmail(email)),"School"),"School"));
             map.put("schoolName",schoolService.getSchoolNameByEmail(email));
-            return JSON.toJSONString(map);
+            return ResultUtil.success(map);
         }
 
-        return JSON.toJSONString(ResultUtil.failure(408,"登录失败"));    }
+        return ResultUtil.failure(408,"登录失败");
+    }
 
     /**
      * 验证验证码

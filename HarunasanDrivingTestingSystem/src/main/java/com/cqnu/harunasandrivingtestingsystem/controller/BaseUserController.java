@@ -138,14 +138,14 @@ public class BaseUserController {
      * @return  登录成功后返回token
      */
     @PostMapping("/login")
-    public String login(String username,String password){
+    public Result login(String username,String password){
         Map<String, String> map = new HashMap<String, String>(16);
         if (baseUserService.loginByTelephone(username,password)){
             map.put("token",jwtTokenUtil.generateToken(userDetailsService.loadUserByUsername(String.valueOf(baseUserService.getIdByTelephone(username)),"User"),"User"));
             map.put("nickname",baseUserService.getNickNameByTelephone(username));
-            return JSON.toJSONString(map);
+            return ResultUtil.success(map);
         }
-        return JSON.toJSONString(ResultUtil.failure(408,"登录失败"));
+        return ResultUtil.failure(408,"登录失败");
     }
 
 

@@ -61,8 +61,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/**").permitAll()
-//                .antMatchers("/druid/**").hasRole("Admin_root")
-                .antMatchers("/druid/**").permitAll()
+                .antMatchers("/druid/**").hasAuthority("druid")
+//                .antMatchers("/druid/**").permitAll()
                 .antMatchers("/api/**").permitAll()
                 // 把不需要认证的接口暴露出去。登录，刷新token，
                 .antMatchers("/auth/**").permitAll()

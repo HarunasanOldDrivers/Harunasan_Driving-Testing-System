@@ -2,6 +2,8 @@ package com.cqnu.harunasandrivingtestingsystem.mapper;
 
 import com.cqnu.harunasandrivingtestingsystem.entity.News;
 
+import java.util.List;
+
 public interface NewsMapper {
     int deleteByPrimaryKey(Integer newsId);
 

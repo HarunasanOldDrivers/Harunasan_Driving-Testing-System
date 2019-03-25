@@ -1,5 +1,6 @@
 package com.cqnu.harunasandrivingtestingsystem.controller;
 
+import com.cqnu.harunasandrivingtestingsystem.entity.MistakesCollectionOne;
 import com.cqnu.harunasandrivingtestingsystem.exception.GlobalException;
 import com.cqnu.harunasandrivingtestingsystem.entity.QuestionsOne;
 import com.cqnu.harunasandrivingtestingsystem.entity.Result;
@@ -266,5 +267,18 @@ public class TrainOneController {
             return ResultUtil.failure(510,"请登录后操作");
         }
         return questionsService.deleteMistake(Integer.valueOf(username),id) == 1?ResultUtil.success():ResultUtil.failure(513,"删除错题失败");
+    }
+
+    @GetMapping("/mistakes")
+    @PreAuthorize("hasRole('User')")
+    public PageInfo<QuestionsOne> getmistakes(@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "5") int pageSize){
+        String authToken = request.getHeader(this.tokenHeader);
+        String username = this.tokenUtils.getUsernameFromToken(authToken);
+        if (StringUtils.isEmpty(authToken) || StringUtils.isEmpty(username)){
+            throw new GlobalException("510","请登录后操作");
+        }
+        PageHelper.startPage(pageNo,pageSize);
+        PageInfo<QuestionsOne> pageInfo = new PageInfo<>(questionsService.getMistakes(Integer.valueOf(username)));
+        return pageInfo;
     }
 }

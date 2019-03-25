@@ -132,9 +132,99 @@ $(document).ready(function () {
         dataType:"json",
         success:function (result) {
             $("#ChapterFourTotalCount").html("(共" + result + "题)");
+            $("#Diffcult_total").html("(共" + result + "题)");
+            $("#Type_total").html("(共" + result + "题)");
+        }
+    });
+    $.ajax({
+        type:"get",
+        url:"/api/train/four/getCountByDifficulty",
+        data:{
+            'difficulty':"1",
+        },
+        dataType:"json",
+        success:function (result) {
+            $("#Diffcult_1").html("(共" + result + "题)");
+        }
+    });
+    $.ajax({
+        type:"get",
+        url:"/api/train/four/getCountByType",
+        data:{
+            type:"single"
+        },
+        dataType:"json",
+        success:function (result) {
+            $("#SpanTypeCountSingle").html("(共" + result + "题)");
+        }
+    });
+    $.ajax({
+        type:"get",
+        url:"/api/train/four/getCountByType",
+        data:{
+            type:"multi"
+        },
+        dataType:"json",
+        success:function (result) {
+            $("#SpanTypeCountMulti").html("(共" + result + "题)");
+        }
+    });
+    $.ajax({
+        type:"get",
+        url:"/api/train/four/getCountByType",
+        data:{
+            type:"judge"
+        },
+        dataType:"json",
+        success:function (result) {
+            $("#SpanTypeCountJudge").html("(共" + result + "题)");
+        }
+    });
+    $.ajax({
+        type:"get",
+        url:"/api/train/four/getCountByDifficulty",
+        data:{
+            'difficulty':"2",
+        },
+        dataType:"json",
+        success:function (result) {
+            $("#Diffcult_2").html("(共" + result + "题)");
+        }
+    });
+    $.ajax({
+        type:"get",
+        url:"/api/train/four/getCountByDifficulty",
+        data:{
+            'difficulty':"3",
+        },
+        dataType:"json",
+        success:function (result) {
+            $("#Diffcult_3").html("(共" + result + "题)");
+        }
+    });
+    $.ajax({
+        type:"get",
+        url:"/api/train/four/getCountByDifficulty",
+        data:{
+            'difficulty':"4",
+        },
+        dataType:"json",
+        success:function (result) {
+            $("#Diffcult_4").html("(共" + result + "题)");
         }
     });
 
+    $.ajax({
+        type:"get",
+        url:"/api/train/four/getCountByDifficulty",
+        data:{
+            'difficulty':"5",
+        },
+        dataType:"json",
+        success:function (result) {
+            $("#Diffcult_5").html("(共" + result + "题)");
+        }
+    });
     //点击题目title，获取顺序练习
     $(".subjectOneTitles").click(function () {
         var rawtype = $(this).children('span').text();

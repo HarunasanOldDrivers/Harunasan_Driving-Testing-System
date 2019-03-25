@@ -97,49 +97,54 @@
     <div class="container col-md-10 col-md-offset-1" id="DivSpecialPractice" style="margin-top: 20px;" >
         <div class="panel panel-default">
             <div class="page-header" >
-                <h2 class="col-md-offset-1">按难易程度<small>(共324题)</small></h2>
+                <h2 class="col-md-offset-1">按难易程度<small id="Diffcult_total">(共324题)</small></h2>
             </div>
             <!--按照难易程度进行分类-->
             <div class="panel-body" >
                 <div class="text-center" >
                     <div class="radio" style="float:left;margin-top: -5px">
                         <label>
-                            <input type="radio" name="RadioQuestionDifficulties" checked>
+                            <input type="radio" value="1" name="RadioQuestionDifficulties" checked>
                             简单题
                             <div id="schoolScore1" style="float:right;margin-top: -5px;margin-right: 10px"></div>
                         </label>
+                        <p class="totalQuestion" id="Diffcult_1"></p>
                     </div>
 
                     <div class="radio" style="float: left;"  >
                         <label >
-                            <input type="radio" name="RadioQuestionDifficulties" >
+                            <input type="radio" value="2"  name="RadioQuestionDifficulties" >
                             容易题
                             <div id="schoolScore2" style="float:right;margin-top: -5px;margin-right: 10px"></div>
                         </label>
+                        <p class="totalQuestion" id="Diffcult_2"></p>
                     </div>
 
                     <div class="radio " style="float: left;">
                         <label style=" padding-top: 0px">
-                            <input type="radio" name="RadioQuestionDifficulties" >
+                            <input type="radio" value="3"  name="RadioQuestionDifficulties" >
                             一般题
                             <div id="schoolScore3" style="float:right;margin-top: -5px;margin-right: 10px"></div>
                         </label>
+                        <p class="totalQuestion" id="Diffcult_3"></p>
                     </div>
 
                     <div class="radio" style="float:left;">
                         <label style=" padding-top: 0px">
-                            <input type="radio" name="RadioQuestionDifficulties" >
+                            <input type="radio" value="4" name="RadioQuestionDifficulties" >
                             易错题
                             <div id="schoolScore4" style="float:right;margin-top: -5px;margin-right: 10px"></div>
                         </label>
+                        <p class="totalQuestion" id="Diffcult_4"></p>
                     </div>
 
                     <div class="radio" style="float:left">
                         <label style=" padding-top: 0px">
-                            <input type="radio" name="RadioQuestionDifficulties" >
+                            <input type="radio" value="5" name="RadioQuestionDifficulties" >
                             困难题
                             <div id="schoolScore5" style="float:right;margin-top: -5px;margin-right: 10px"></div>
                         </label>
+                        <p class="totalQuestion" id="Diffcult_5"></p>
                     </div>
 
                     <div class="btn-group" role="group" style="margin-top: 20px">
@@ -149,7 +154,7 @@
                 </div>
             </div>
             <div class="page-header">
-                <h2 class="col-md-offset-1">按试题类型类型<small>(共324题)</small></h2>
+                <h2 class="col-md-offset-1">按试题类型类型<small id="Type_total"></small></h2>
             </div>
             <!--按试题类型进行分类-->
             <div class="panel-body">
@@ -159,13 +164,15 @@
                             <input type="radio" name="RadioQuestionTypes" checked>
                             单选题
                         </label>
+                        <p class="totalQuestion" id="SpanTypeCountSingle"></p>
                     </div>
 
                     <div class="radio col-md-2" style="float: left;" >
                         <label >
                             <input type="radio" name="RadioQuestionTypes" >
-                            单选题
+                            多选题
                         </label>
+                        <p class="totalQuestion" id="SpanTypeCountMulti"></p>
                     </div>
 
                     <div class="radio col-md-2" style="float: left;" >
@@ -173,6 +180,7 @@
                             <input type="radio" name="RadioQuestionTypes" >
                             判断题
                         </label>
+                        <p class="totalQuestion" id="SpanTypeCountJudge"></p>
                     </div>
                 </div>
 

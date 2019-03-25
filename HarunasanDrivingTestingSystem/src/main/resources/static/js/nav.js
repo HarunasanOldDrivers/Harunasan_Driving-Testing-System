@@ -40,16 +40,18 @@ $(document).ready(function () {
             success:function (result) {
                 if (result.code === 408){
                     alert(result.msg + "  用户名/密码错误" );
-                }else{
+                }else if(result.code === 200){
                     alert("登录成功！");
                     //把token和用户名放入cookie
                     $.cookie("Authorization",result.token,{ expires:1,path:'*',domain:'localhost'});
-                    $.cookie("UserName",result.nickname,{ expires:1,path:'* `',domain:'localhost'});
+                    $.cookie("UserName",result.nickname,{ expires:1,path:'* ',domain:'localhost'});
                     $(".UserNameAndLogoff").show();
                     $(".loginIn").hide();
                     $("#AUserName").html(result.nickname);
                     $('#login').modal('hide');
                     $('.modal-backdrop').remove();
+                }else{
+                    alert("登录失败,用户名/密码错误");
                 }
             },
             error :function (result) {

@@ -99,9 +99,88 @@ $(document).ready(function () {
         dataType:"json",
         success:function (result) {
             $("#ChapterOneTotalCount").html("(共" + result + "题)");
+            $("#SpanDifficultiesCount").html("(共" + result + "题)");
+            $("#SpanTypeCount").html("(共" + result + "题)");
         }
     });
-
+    $.ajax({
+        type:"get",
+        url:"/api/train/one/getCountByDifficulty",
+        data:{
+            difficulty:1
+        },
+        dataType:"json",
+        success:function (result) {
+            $("#SpanDifficultyCountOne").html("(共" + result + "题)");
+        }
+    });
+    $.ajax({
+        type:"get",
+        url:"/api/train/one/getCountByDifficulty",
+        data:{
+            difficulty:2
+        },
+        dataType:"json",
+        success:function (result) {
+            $("#SpanDifficultyCountTwo").html("(共" + result + "题)");
+        }
+    });
+    $.ajax({
+        type:"get",
+        url:"/api/train/one/getCountByDifficulty",
+        data:{
+            difficulty:3
+        },
+        dataType:"json",
+        success:function (result) {
+            $("#SpanDifficultyCountThree").html("(共" + result + "题)");
+        }
+    });
+    $.ajax({
+        type:"get",
+        url:"/api/train/one/getCountByDifficulty",
+        data:{
+            difficulty:4
+        },
+        dataType:"json",
+        success:function (result) {
+            $("#SpanDifficultyCountFour").html("(共" + result + "题)");
+        }
+    });
+    $.ajax({
+        type:"get",
+        url:"/api/train/one/getCountByDifficulty",
+        data:{
+            difficulty:5
+        },
+        dataType:"json",
+        success:function (result) {
+            $("#SpanDifficultyCountFive").html("(共" + result + "题)");
+        }
+    });
+    $.ajax({
+        type:"get",
+        url:"/api/train/one/getCountByType",
+        data:{
+            type:"judge"
+        },
+        dataType:"json",
+        success:function (result) {
+            $("#SpanTypeCountJudge").html("(共" + result + "题)");
+        }
+    });
+    $.ajax({
+        type:"get",
+        url:"/api/train/one/getCountByType",
+        data:{
+            type:"single"
+        },
+        dataType:"json",
+        success:function (result) {
+            $("#SpanTypeCountSelect").html("(共" + result + "题)");
+        }
+    });
+    
     //点击题目title，获取顺序练习
     $(".subjectOneTitles").click(function () {
         var rawtype = $(this).children('span').text();
@@ -129,6 +208,47 @@ $(document).ready(function () {
         var address = "/subjectOne/practice?model=sequence&chapter=null"
         address = encodeURI(encodeURI(address));
         window.location.href = address;
+    });
+    //科目一按照难度顺序练习
+    $("#BtnDifficultiesSequencePractice").click(function () {
+        var difficulites = $('input[name="RadioQuestionDifficulties"]:checked').val();
+        var address = "/subjectOne/practice?model=orderDifficulty&chapter=null&difficulites=" + difficulites;
+        address = encodeURI(encodeURI(address));
+        window.location.href = address;
     })
+    //科目一按照难度随机练习
+    $("#BtnDifficultiesRandomPractice").click(function () {
+        var difficulites = $('input[name="RadioQuestionDifficulties"]:checked').val();
+        var address = "/subjectOne/practice?model=randomDifficulty&chapter=null&difficulites=" + difficulites;
+        address = encodeURI(encodeURI(address));
+        window.location.href = address;
+    })
+    //科目一按照类型(单选/判断)顺序练习
+    $("#BtnTypesSequencePractice").click(function () {
+        var type = $('input[name="RadioQuestionTypes"]:checked').val();
+        if(type === "judge"){
+            var address = "/subjectOne/practice?model=sequenceJudge&chapter=null&difficulites=null";
+            address = encodeURI(encodeURI(address));
+            window.location.href = address;
+        }else if(type === "single"){
+            var address = "/subjectOne/practice?model=sequenceSingle&chapter=null&difficulites=null";
+            address = encodeURI(encodeURI(address));
+            window.location.href = address;
+        }
 
+    })
+    //科目一按照类型(单选/判断)随机练习
+    $("#BtnTypesRandomPractice").click(function () {
+        var type = $('input[name="RadioQuestionTypes"]:checked').val();
+        if(type === "judge"){
+            var address = "/subjectOne/practice?model=randomJudge&chapter=null&difficulites=null";
+            address = encodeURI(encodeURI(address));
+            window.location.href = address;
+        }else if(type === "single"){
+            var address = "/subjectOne/practice?model=randomSingle&chapter=null&difficulites=null";
+            address = encodeURI(encodeURI(address));
+            window.location.href = address;
+        }
+
+    })
 });

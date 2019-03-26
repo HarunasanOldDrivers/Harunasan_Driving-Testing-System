@@ -176,4 +176,6 @@ public interface QuestionsOneMapper {
     QuestionsOne getOrderMistake(@Param("id") Integer id, @Param("userId") Integer userId);
 
     QuestionsOne getRandomMistake(Integer userId);
+
+    List<QuestionsOne> getAllMistakes(Integer userId);
 }

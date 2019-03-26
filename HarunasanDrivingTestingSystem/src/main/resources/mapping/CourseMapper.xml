@@ -7,28 +7,37 @@
     <result column="course_describe" jdbcType="VARCHAR" property="courseDescribe" />
     <result column="course_name" jdbcType="VARCHAR" property="courseName" />
     <result column="course_price" jdbcType="INTEGER" property="coursePrice" />
+    <result column="course_is_enable" jdbcType="INTEGER" property="courseIsEnable" />
   </resultMap>
   <sql id="Base_Column_List">
-    course_id, school_id, course_describe, course_name, course_price
+    course_id, school_id, course_describe, course_name, course_price, course_is_enable
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from hodts_db..course
+    from hodts_db.course
     where course_id = #{courseId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from hodts_db..course
+   <select id="selectBySchoolIdOrderByPrice"  parameterType="java.lang.Integer"
+            resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.course
+    where school_id = #{schoolId,jdbcType=INTEGER}
+    order by course_price limit 1;
+   </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hodts_db.course
     where course_id = #{courseId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.Course">
-    insert into hodts_db..course (course_id, school_id, course_describe, 
-      course_name, course_price)
+    insert into hodts_db.course (course_id, school_id, course_describe, 
+      course_name, course_price, course_is_enable)
     values (#{courseId,jdbcType=INTEGER}, #{schoolId,jdbcType=INTEGER}, #{courseDescribe,jdbcType=VARCHAR}, 
-      #{courseName,jdbcType=VARCHAR}, #{coursePrice,jdbcType=INTEGER})
+      #{courseName,jdbcType=VARCHAR}, #{coursePrice,jdbcType=INTEGER}, #{courseIsEnable,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.Course">
-    insert into hodts_db..course
+    insert into hodts_db.course
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="courseId != null">
         course_id,
@@ -44,6 +53,9 @@
       </if>
       <if test="coursePrice != null">
         course_price,
+      </if>
+      <if test="courseIsEnable != null">
+        course_is_enable,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -62,10 +74,13 @@
       <if test="coursePrice != null">
         #{coursePrice,jdbcType=INTEGER},
       </if>
+      <if test="courseIsEnable != null">
+        #{courseIsEnable,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.Course">
-    update hodts_db..course
+    update hodts_db.course
     <set>
       <if test="schoolId != null">
         school_id = #{schoolId,jdbcType=INTEGER},
@@ -79,15 +94,19 @@
       <if test="coursePrice != null">
         course_price = #{coursePrice,jdbcType=INTEGER},
       </if>
+      <if test="coursePrice != null">
+        course_is_enable =  #{courseIsEnable,jdbcType=INTEGER},
+      </if>
     </set>
     where course_id = #{courseId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.Course">
-    update hodts_db..course
+    update hodts_db.course
     set school_id = #{schoolId,jdbcType=INTEGER},
       course_describe = #{courseDescribe,jdbcType=VARCHAR},
       course_name = #{courseName,jdbcType=VARCHAR},
-      course_price = #{coursePrice,jdbcType=INTEGER}
+      course_price = #{coursePrice,jdbcType=INTEGER},
+      course_is_enable =  #{courseIsEnable,jdbcType=INTEGER}
     where course_id = #{courseId,jdbcType=INTEGER}
   </update>
 </mapper>

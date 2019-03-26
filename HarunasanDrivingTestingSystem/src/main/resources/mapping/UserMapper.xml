@@ -9,7 +9,7 @@
     <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
     <result column="user_enroll_time" jdbcType="DATE" property="userEnrollTime" />
     <result column="user_normal_position" jdbcType="VARCHAR" property="userNormalPosition" />
-    <result column="user_reg_date" jdbcType="DATE" property="userRegDate" />
+    <result column="user_reg_date" jdbcType="TIMESTAMP" property="userRegDate" />
     <result column="user_enable" jdbcType="INTEGER" property="userEnable" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -96,7 +96,7 @@
         #{userNormalPosition,jdbcType=VARCHAR},
       </if>
       <if test="userRegDate != null">
-        #{userRegDate,jdbcType=DATE},
+        #{userRegDate,jdbcType=TIMESTAMP},
       </if>
       <if test="userEnable != null">
         #{userEnable,jdbcType=INTEGER},
@@ -125,7 +125,7 @@
         user_normal_position = #{userNormalPosition,jdbcType=VARCHAR},
       </if>
       <if test="userRegDate != null">
-        user_reg_date = #{userRegDate,jdbcType=DATE},
+        user_reg_date = #{userRegDate,jdbcType=TIMESTAMP},
       </if>
       <if test="userEnable != null">
         user_enable = #{userEnable,jdbcType=INTEGER},

@@ -1,6 +1,8 @@
 package com.cqnu.harunasandrivingtestingsystem.service.impl;
 
+import com.cqnu.harunasandrivingtestingsystem.entity.Course;
 import com.cqnu.harunasandrivingtestingsystem.entity.School;
+import com.cqnu.harunasandrivingtestingsystem.mapper.CourseMapper;
 import com.cqnu.harunasandrivingtestingsystem.mapper.SchoolMapper;
 import com.cqnu.harunasandrivingtestingsystem.service.ISchoolService;
 import com.cqnu.harunasandrivingtestingsystem.utils.FileUtil;
@@ -42,6 +44,9 @@ public class SchoolServiceImpl implements ISchoolService {
 
     @Resource
     private SchoolMapper schoolMapper;
+
+    @Resource
+    private CourseMapper courseMapper;
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
@@ -147,5 +152,21 @@ public class SchoolServiceImpl implements ISchoolService {
     @Override
     public School getProfile(Integer username){
         return schoolMapper.selectByPrimaryKey(username);
+    }
+
+    @Override
+    public boolean addCourse(Integer username, String courseName, String courseDescribe, Integer price){
+        Course course = new Course();
+        course.setCourseName(courseName);
+        course.setCourseDescribe(courseDescribe);
+        course.setSchoolId(username);
+        course.setCoursePrice(price);
+        if( 1 == courseMapper.insertSelective(course)){
+            School school = schoolMapper.selectByPrimaryKey(username);
+            school.setSchoolStartPrice(courseMapper.selectBySchoolIdOrderByPrice(username).getCoursePrice());
+            schoolMapper.updateByPrimaryKeySelective(school);
+            return true;
+        }
+        return false;
     }
 }

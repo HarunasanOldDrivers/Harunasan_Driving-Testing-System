@@ -62,6 +62,16 @@ public class School{
 
     private String schoolIntroduction;
 
+    private String schoolIcon;
+
+    public String getSchoolIcon() {
+        return schoolIcon;
+    }
+
+    public void setSchoolIcon(String schoolIcon) {
+        this.schoolIcon = schoolIcon;
+    }
+
     public Integer getSchoolId() {
         return schoolId;
     }

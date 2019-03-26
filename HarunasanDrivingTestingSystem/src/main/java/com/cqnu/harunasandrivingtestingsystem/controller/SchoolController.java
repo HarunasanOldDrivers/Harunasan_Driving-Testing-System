@@ -70,15 +70,16 @@ public class SchoolController {
      * @return
      */
     @PostMapping("/login")
-    public String login(String email, String password){
+    public Result login(String email, String password){
         Map<String, String> map = new HashMap<String, String>(16);
         if (schoolService.loginByEmail(email,password)){
             map.put("token",jwtTokenUtil.generateToken(userDetailsService.loadUserByUsername(String.valueOf(schoolService.getIdByEmail(email)),"School"),"School"));
             map.put("schoolName",schoolService.getSchoolNameByEmail(email));
-            return JSON.toJSONString(map);
+            return ResultUtil.success(map);
         }
 
-        return JSON.toJSONString(ResultUtil.failure(408,"登录失败"));    }
+        return ResultUtil.failure(408,"登录失败");
+    }
 
     /**
      * 验证验证码
@@ -170,16 +171,28 @@ public class SchoolController {
         return ResultUtil.failure(603,"注册失败");
     }
 
+    /**
+     * 获取驾校信息
+     * @return
+     */
     @GetMapping("/profile")
     @PreAuthorize("hasRole('School')")
-    public School getProfile(){
+    public Result getProfile(){
         String authToken = request.getHeader(this.tokenHeader);
         String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
-        return schoolService.getProfile(Integer.valueOf(username));
+        return ResultUtil.success(schoolService.getProfile(Integer.valueOf(username)));
     }
 
 //    @GetMapping("/getEnroll")
 //    public List<Enroll> getEnroll(){
 //
 //    }
+
+    @PostMapping("addCourse")
+    @PreAuthorize("hasRole('School')")
+    public Result addCourse(String courseName, String describe, Integer price){
+        String authToken = request.getHeader(this.tokenHeader);
+        String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
+        return schoolService.addCourse(Integer.valueOf(username),courseName,describe,price)? ResultUtil.success() : ResultUtil.failure(604,"添加课程失败");
+    }
 }

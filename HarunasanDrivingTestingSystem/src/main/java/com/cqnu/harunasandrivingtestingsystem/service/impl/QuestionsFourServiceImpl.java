@@ -156,11 +156,11 @@ public class QuestionsFourServiceImpl implements IQuestionsService {
     }
 
     @Override
-    public int addMistake(Integer username, Integer qoid){
+    public int addMistake(Integer username, Integer qoId){
         MistakesCollectionFour mistakesCollectionFour = new MistakesCollectionFour();
         mistakesCollectionFour.setUserId(username);
-        mistakesCollectionFour.setQuestionsId(qoid);
-        if(username.equals(mistakesCollectionFourMapper.selectUserIdByQoId(qoid))){
+        mistakesCollectionFour.setQuestionsId(qoId);
+        if(mistakesCollectionFourMapper.selectUserIdByQoIdAndUserId(qoId,username) != null){
             return 2;
         }
         return mistakesCollectionFourMapper.insertSelective(mistakesCollectionFour);

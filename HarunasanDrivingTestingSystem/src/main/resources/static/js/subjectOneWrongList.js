@@ -1158,6 +1158,81 @@ $(document).ready(function () {
             }
         }
     })
+    //第一题删除
+    $("#BtnRemoveOne").click(function () {
+        var CurrentQuestionId = $("#SpanQuestionId").text();
+        //清除数字后面的冒号
+        CurrentQuestionId = CurrentQuestionId.substring(0,CurrentQuestionId.length-1);
+        $.ajax({
+            type:"post",
+            url:"/api/train/one/deleteMistake",
+            dataType:'json',
+            data:{
+                id:CurrentQuestionId,
+            },
+            beforeSend: function (XMLHttpRequest) {
+                var Authorization = $.cookie('Authorization');
+                XMLHttpRequest.setRequestHeader("Authorization", Authorization);
+            },
+            success:function (result) {
+                alert("删除成功");
+                window.location.href="../subjectOne/wrongList";
+            },
+            error:function () {
+                alert("网络好像开了小差了呢~删除没有成功呢");
+            }
+        });
+    })
+    //第二题删除
+    $("#BtnRemoveTwo").click(function () {
+        var CurrentQuestionId = $("#SpanQuestionIdTwo").text();
+        //清除数字后面的冒号
+        CurrentQuestionId = CurrentQuestionId.substring(0,CurrentQuestionId.length-1);
+        $.ajax({
+            type:"post",
+            url:"/api/train/one/deleteMistake",
+            dataType:'json',
+            data:{
+                id:CurrentQuestionId,
+            },
+            beforeSend: function (XMLHttpRequest) {
+                var Authorization = $.cookie('Authorization');
+                XMLHttpRequest.setRequestHeader("Authorization", Authorization);
+            },
+            success:function (result) {
+                alert("删除成功");
+                window.location.href="../subjectOne/wrongList";
+            },
+            error:function () {
+                alert("网络好像开了小差了呢~删除没有成功呢");
+            }
+        });
+    })
+    //第三题删除
+    $("#BtnRemoveThree").click(function () {
+        var CurrentQuestionId = $("#SpanQuestionIdThree").text();
+        //清除数字后面的冒号
+        CurrentQuestionId = CurrentQuestionId.substring(0,CurrentQuestionId.length-1);
+        $.ajax({
+            type:"post",
+            url:"/api/train/one/deleteMistake",
+            dataType:'json',
+            data:{
+                id:CurrentQuestionId,
+            },
+            beforeSend: function (XMLHttpRequest) {
+                var Authorization = $.cookie('Authorization');
+                XMLHttpRequest.setRequestHeader("Authorization", Authorization);
+            },
+            success:function (result) {
+                alert("删除成功");
+                window.location.href="../subjectOne/wrongList";
+            },
+            error:function () {
+                alert("网络好像开了小差了呢~删除没有成功呢");
+            }
+        });
+    })
 
 
 

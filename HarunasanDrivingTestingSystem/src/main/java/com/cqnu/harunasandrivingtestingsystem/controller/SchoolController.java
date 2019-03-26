@@ -1,14 +1,19 @@
 package com.cqnu.harunasandrivingtestingsystem.controller;
 
-import com.alibaba.fastjson.JSON;
+import com.cqnu.harunasandrivingtestingsystem.entity.Course;
 import com.cqnu.harunasandrivingtestingsystem.entity.Enroll;
 import com.cqnu.harunasandrivingtestingsystem.entity.Result;
-import com.cqnu.harunasandrivingtestingsystem.entity.School;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.CourseVO;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.EnrollVO;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.PageInfo;
+import com.cqnu.harunasandrivingtestingsystem.exception.GlobalException;
 import com.cqnu.harunasandrivingtestingsystem.security.JwtTokenUtil;
 import com.cqnu.harunasandrivingtestingsystem.security.UserDetailsServiceImpl;
-import com.cqnu.harunasandrivingtestingsystem.service.impl.SchoolServiceImpl;
+import com.cqnu.harunasandrivingtestingsystem.service.ICourseService;
+import com.cqnu.harunasandrivingtestingsystem.service.ISchoolService;
 import com.cqnu.harunasandrivingtestingsystem.utils.ResultUtil;
 import com.cqnu.harunasandrivingtestingsystem.utils.SendSMS;
+import com.github.pagehelper.PageHelper;
 import com.github.qcloudsms.SmsSingleSenderResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,10 +26,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 /**
  * @author LiAixing
@@ -43,7 +49,10 @@ public class SchoolController {
     private SendSMS sendSMS;
 
     @Resource
-    private SchoolServiceImpl schoolService;
+    private ISchoolService schoolService;
+
+    @Autowired
+    private ICourseService courseService;
 
     /**
      * 辅助操作 token 的工具类
@@ -65,9 +74,10 @@ public class SchoolController {
 
     /**
      *
-     * @param email
-     * @param password
-     * @return
+     * @param email 登录邮箱
+     * @param password  登录密码
+     * @return  code: 200 成功  返回token
+     *          code: 408 失败
      */
     @PostMapping("/login")
     public Result login(String email, String password){
@@ -97,7 +107,7 @@ public class SchoolController {
 
     /**
      * 发送验证码
-     * @param telephone
+     * @param telephone 接收验证码的手机号
      * @return 响应参数
      *     "result": 0,   错误码，0 表示成功(计费依据)，非 0 表示失败
      *     "errmsg": "OK",  错误消息，result 非 0 时的具体错误信息
@@ -107,14 +117,12 @@ public class SchoolController {
      */
     @GetMapping("/sendSMS")
     public SmsSingleSenderResult sendSMS(String telephone){
-        Map map = new HashMap(16);
         // 根据手机号生成验证码并添加到缓存
         String verifyCode = schoolService.verifyCode(telephone);
         // 向目标手机号发送验证码短信
-        SmsSingleSenderResult result = sendSMS.sendSMS(telephone, verifyCode);
-        // 发送成功
 
-        return result;
+        // 发送成功
+        return sendSMS.sendSMS(telephone, verifyCode);
     }
 
     /**
@@ -183,16 +191,108 @@ public class SchoolController {
         return ResultUtil.success(schoolService.getProfile(Integer.valueOf(username)));
     }
 
-//    @GetMapping("/getEnroll")
-//    public List<Enroll> getEnroll(){
-//
-//    }
 
-    @PostMapping("addCourse")
+    /**
+     * 添加课程
+     * @param courseName    课程名称
+     * @param describe  课程描述
+     * @param price 课程价格
+     * @return  code: 200 成功
+     *          code: 604 添加课程失败
+     */
+    @PostMapping("/addCourse")
     @PreAuthorize("hasRole('School')")
     public Result addCourse(String courseName, String describe, Integer price){
         String authToken = request.getHeader(this.tokenHeader);
         String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
-        return schoolService.addCourse(Integer.valueOf(username),courseName,describe,price)? ResultUtil.success() : ResultUtil.failure(604,"添加课程失败");
+        return courseService.addCourse(Integer.valueOf(username),courseName,describe,price)
+                ? ResultUtil.success()
+                : ResultUtil.failure(604,"添加课程失败");
+    }
+
+    /**
+     * 下架课程
+     * @param courseId  课程Id
+     * @return  code: 200 成功
+     *          code: 620 查无此课
+     *          code: 621 下架课程失败
+     */
+    @PostMapping("/closeCourse")
+    @PreAuthorize("hasAnyRole('School')")
+    public Result closeCourse(Integer courseId){
+        String authToken = request.getHeader(this.tokenHeader);
+        String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
+        if (courseService.findCourse(courseId) == null | !Integer.valueOf(username).equals(courseService.findCourse(courseId).getSchoolId())){
+            return ResultUtil.failure(620,"查无此课");
+        }
+        return courseService.closeCourse(courseId)?ResultUtil.success():ResultUtil.failure(621,"下架课程失败");
+    }
+
+    /**
+     * 获取课程列表
+     * @param pageNo  当前页码
+     * @param pageSize  分页大小
+     * @return
+     */
+    @GetMapping("/getCourse")
+    @PreAuthorize("hasAnyRole('School')")
+    public PageInfo<CourseVO> getCourse(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "5") Integer pageSize){
+        String authToken = request.getHeader(this.tokenHeader);
+        String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
+        PageHelper.startPage(pageNo,pageSize);
+        PageInfo<CourseVO> courses = new PageInfo<>(courseService.getCourse(Integer.valueOf(username)));
+        return courses;
+    }
+
+    /**
+     * 查找报名
+     * @param pageNo    当前页
+     * @param pageSize  分页大小
+     * @param studentName   学生姓名
+     * @param enrollDate    报名时间
+     * @param courseId  课程Id
+     * @return  PageInfo<Enroll>
+     *          code : 600 参数错误
+     */
+    @GetMapping("/selectEnroll")
+    @PreAuthorize("hasAnyRole('School')")
+    public PageInfo<Enroll> selectEnroll(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "5") Integer pageSize,
+                                        String studentName, String enrollDate, Integer courseId){
+        String authToken = request.getHeader(this.tokenHeader);
+        String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
+        if (courseId == null){
+            throw new GlobalException("600", "参数错误");
+        }
+        LocalDateTime localDateTimeBefore;
+        LocalDateTime localDateTimeAfter;
+        if (StringUtils.isEmpty(enrollDate)){
+            localDateTimeBefore = LocalDateTime.of(2000,1,1,0,0,0);
+            localDateTimeAfter = LocalDateTime.of(3000,1,1,0,0,0);
+        } else {
+            LocalDate localDate = LocalDate.parse(enrollDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            localDateTimeBefore = localDate.atTime(0, 0, 0);
+            localDateTimeAfter = localDateTimeBefore.plusDays(1);
+        }
+        PageHelper.startPage(pageNo, pageSize);
+        return new PageInfo<>(schoolService.selectEnroll(studentName,localDateTimeBefore, localDateTimeAfter, courseId));
+    }
+
+    /**
+     * 获取课程名称
+     * @return  { "courseId" : courseId, "courseName" : courseName}
+     */
+    @GetMapping("/courseName")
+    @PreAuthorize("hasAnyRole('School')")
+    public Result getCourseName(){
+        String authToken = request.getHeader(this.tokenHeader);
+        String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
+        List<Map> list = new ArrayList<>(10);
+        for (CourseVO course : courseService.getCourse(Integer.valueOf(username))){
+            Map map = new HashMap(16);
+            map.put("courseId", course.getCourseId());
+            map.put("courseName", course.getCourseName());
+            list.add(map);
+        }
+        return ResultUtil.success(list);
     }
 }

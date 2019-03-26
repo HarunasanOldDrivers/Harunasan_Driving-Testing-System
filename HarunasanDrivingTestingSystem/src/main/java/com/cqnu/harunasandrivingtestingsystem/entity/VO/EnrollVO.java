@@ -3,9 +3,9 @@ package com.cqnu.harunasandrivingtestingsystem.entity.VO;
 /**
  * @author LiAixing
  * @version 1.0
- * @className SchoolInfo
+ * @className EnrollVO
  * @description TODO
- * @date 2019/3/26 3:15
+ * @date 2019/3/27 0:54
  **/
-public class SchoolInfo{
+public class EnrollVO {
 }

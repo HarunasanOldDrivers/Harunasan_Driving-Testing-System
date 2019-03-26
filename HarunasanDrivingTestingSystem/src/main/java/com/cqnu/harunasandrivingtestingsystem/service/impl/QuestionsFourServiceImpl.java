@@ -184,4 +184,6 @@ public class QuestionsFourServiceImpl implements IQuestionsService {
     public List<QuestionsFour> getPaper(){
         return questionsFourMapper.getPaper();
     }
+
+    public List<QuestionsFour>  getMistakes(Integer username){return questionsFourMapper.getAllMistakes(username);}
 }

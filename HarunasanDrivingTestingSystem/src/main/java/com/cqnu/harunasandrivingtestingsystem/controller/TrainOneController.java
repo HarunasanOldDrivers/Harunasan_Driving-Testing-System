@@ -277,7 +277,7 @@ public class TrainOneController {
      */
     @GetMapping("/mistakes")
     @PreAuthorize("hasRole('User')")
-    public PageInfo<QuestionsOne> getMistakes(@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "5") int pageSize){
+    public PageInfo<QuestionsOne> getMistakes(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "3") Integer pageSize){
         String authToken = request.getHeader(this.tokenHeader);
         String username = this.tokenUtils.getUsernameFromToken(authToken);
         if (StringUtils.isEmpty(authToken) || StringUtils.isEmpty(username)){

@@ -1,7 +1,9 @@
 package com.cqnu.harunasandrivingtestingsystem.service.impl;
 
+import com.cqnu.harunasandrivingtestingsystem.entity.Course;
 import com.cqnu.harunasandrivingtestingsystem.entity.Enroll;
 import com.cqnu.harunasandrivingtestingsystem.entity.User;
+import com.cqnu.harunasandrivingtestingsystem.mapper.CourseMapper;
 import com.cqnu.harunasandrivingtestingsystem.mapper.EnrollMapper;
 import com.cqnu.harunasandrivingtestingsystem.mapper.UserMapper;
 import com.cqnu.harunasandrivingtestingsystem.service.IBaseUserService;
@@ -45,6 +47,8 @@ public class BaseUserServiceImpl implements IBaseUserService {
     @Resource
     private EnrollMapper enrollMapper;
 
+    @Resource
+    private CourseMapper courseMapper;
 
     @Override
     public int signUp(String telephone, String nickname, String password, String email) {
@@ -131,11 +135,11 @@ public class BaseUserServiceImpl implements IBaseUserService {
     }
 
     @Override
-    public boolean enroll(Integer username, Integer courseId){
-        Enroll enroll = new Enroll();
-        enroll.setUserId(username);
-        enroll.setCourseId(courseId);
-        enroll.setEnrollDateTime(new Date());
+    public boolean enroll(Integer userId, Integer courseId, String username, String telephone){
+        if(courseMapper.selectByPrimaryKey(courseId).getCourseIsEnable() == 0 || enrollMapper.selectByUserIdAndCourseId(userId, courseId) != null){
+            return false;
+        }
+        Enroll enroll = new Enroll(courseId, userId, LocalDateTime.now(), username, telephone);
         return enrollMapper.insertSelective(enroll) == 1;
     }
 

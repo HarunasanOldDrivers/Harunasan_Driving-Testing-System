@@ -35,5 +35,5 @@ public interface IBaseUserService {
 
     String getNickNameByTelephone(String telephone);
 
-    boolean enroll(Integer username, Integer courseId);
+    boolean enroll(Integer userId, Integer courseId, String username, String telephone);
 }

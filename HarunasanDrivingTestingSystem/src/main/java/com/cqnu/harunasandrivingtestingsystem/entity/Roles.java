@@ -1,11 +1,18 @@
 package com.cqnu.harunasandrivingtestingsystem.entity;
 
+
 public class Roles {
     private Integer id;
 
     private String name;
 
     private String alias;
+
+    public Roles(Integer id, String name, String alias) {
+        this.id = id;
+        this.name = name;
+        this.alias = alias;
+    }
 
     public Integer getId() {
         return id;

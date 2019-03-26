@@ -173,14 +173,21 @@ public interface QuestionsFourMapper {
      * 顺序获取错题
      * @param id    题目id
      * @param userId    用户id
-     * @return
+     * @return QuestionsFour
      */
     QuestionsFour getOrderMistake(@Param("id") Integer id, @Param("userId") Integer userId);
 
     /**
      * 随机获取错题   
      * @param userId    题目id
-     * @return
+     * @return QuestionsFour
      */
     QuestionsFour getRandomMistake(Integer userId);
+
+    /**
+     * 错题
+     * @param userId    用户Id
+     * @return List<QuestionsFour>
+     */
+    List<QuestionsFour> getAllMistakes(Integer userId);
 }

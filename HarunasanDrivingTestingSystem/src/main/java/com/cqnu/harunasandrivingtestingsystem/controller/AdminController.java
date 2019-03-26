@@ -1,7 +1,11 @@
 package com.cqnu.harunasandrivingtestingsystem.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.cqnu.harunasandrivingtestingsystem.entity.Administrator;
 import com.cqnu.harunasandrivingtestingsystem.entity.Result;
+import com.cqnu.harunasandrivingtestingsystem.entity.Roles;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.AdminFE;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.MenuFE;
 import com.cqnu.harunasandrivingtestingsystem.security.JwtTokenUtil;
 import com.cqnu.harunasandrivingtestingsystem.security.UserDetailsServiceImpl;
 import com.cqnu.harunasandrivingtestingsystem.service.IAdminService;
@@ -20,7 +24,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author LiAixing
@@ -98,7 +104,17 @@ public class AdminController {
         if (StringUtils.isEmpty(authToken) || StringUtils.isEmpty(username)){
             return ResultUtil.failure(510,"未登录");
         }
-        return ResultUtil.success(adminService.getInfo(Integer.valueOf(username)));
+        Administrator administrator = adminService.getInfo(Integer.valueOf(username));
+        AdminFE adminFE = new AdminFE(administrator.getId(),null,administrator.getAdminName(),administrator.getAdminPhone());
+        Set<MenuFE> menus = new HashSet<MenuFE>();
+        Set<Roles> roles = new HashSet<Roles>();
+        roles.add(new Roles(1,"测试","test"));
+        menus.add(new MenuFE(10,"pre","测试"));
+        adminFE.setMenus(menus);
+        adminFE.setRoles(roles);
+        logger.info("menus:" + String.valueOf(menus.isEmpty()));
+        logger.info("roles:" + String.valueOf(roles.isEmpty()));
+        return ResultUtil.success(adminFE);
     }
 
     @PostMapping("/audit")

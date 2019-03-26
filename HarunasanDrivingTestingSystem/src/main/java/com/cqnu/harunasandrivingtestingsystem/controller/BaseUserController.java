@@ -220,13 +220,17 @@ public class BaseUserController {
 
     @PostMapping("/enroll")
     @PreAuthorize("hasRole('User')")
-    public Result enroll(Integer courseId){
+    public Result enroll(Integer courseId, String username, String telephone){
         String authToken = request.getHeader(this.tokenHeader);
-        String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
-        if (StringUtils.isEmpty(authToken) || StringUtils.isEmpty(username)){
+        String userId = this.jwtTokenUtil.getUsernameFromToken(authToken);
+        if (StringUtils.isEmpty(authToken) || StringUtils.isEmpty(userId)){
             return ResultUtil.failure(510,"未登录");
         }
-        return baseUserService.enroll(Integer.valueOf(username), courseId)?ResultUtil.success():ResultUtil.failure(620,"报名失败");
+        if (courseId == null || StringUtils.isEmpty(username) || StringUtils.isEmpty(telephone)){
+            return ResultUtil.failure(600,"参数错误");
+        }
+        return baseUserService.enroll(Integer.valueOf(userId), courseId, username, telephone)
+                ? ResultUtil.success() : ResultUtil.failure(620,"报名失败");
     }
 
 

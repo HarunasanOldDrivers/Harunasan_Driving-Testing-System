@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="z-8">
+    <title>科目四练习/考试</title>
+    <script src="../js/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script src="../js/bootstrap.min.js" type="text/javascript"></script>
+    <!--引入此页面CSS样式-->
+    <link href="../css/subjectOne.css" rel="stylesheet">
+    <script src="../js/subjectFourMain.js" type="text/javascript"></script>
+    <!--评分JS-->
+    <script src="../js/lq-score.js" type="text/javascript"></script>
+    <link href="../css/lq-score.css" rel="stylesheet">
+    <style>
+        body{
+            padding-top: 50px;
+        }
+    </style>
+</head>
+<body>
+<div id="nav"></div>
+<div class="container">
+    <div class="page-header">
+        <h1 class="text-center">科目四练习/考试</h1>
+    </div>
+    <!--选择题目按钮组-->
+    <div class="container text-center" >
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-primary active " id="BtnSectionPractice">章节练习</button>
+            <button type="button" class="btn btn-primary " id="BtnSpecialPractice">专项练习</button>
+            <button type="button" class="btn btn-primary" id="BtnSequencePractice">顺序练习</button>
+        </div>
+        <button class="btn btn-success col-md-offset-1">仿真考试</button>
+        <button class="btn btn-info ">查看错题集</button>
+    </div>
+
+    <div class="container col-md-10 col-md-offset-1" id="DivSectionPractice" style="margin-top: 20px;" >
+        <div class="panel panel-default">
+            <div class="page-header">
+                <h2 class="col-md-offset-1">科目四小车章节练习<small id= "ChapterFourTotalCount"></small></h2>
+            </div>
+            <div class="panel-body">
+                <!--选择章节练习模式-->
+                <div class="choosePracticeModel" id="choosePracticeModel">
+                    <!--章节练习List-->
+                    <div class="col-md-12">
+                        <ol class="ulSectionPracticeTitle" style="list-style: none">
+                            <li><a href="#" class="col-md-6 subjectOneTitles"><span>交通事故救护及常见危化品处置常识</span><small class="totalQuestion" ><span id="subjectFourChapterOneCount"></span></small></a>
+                                <div class="btn-group col-md-5 col-md-offset-1" role="group">
+                                    <button type="button" class="col-md-6 btn btn-default btnSequencePractices" id="sequencePractice1">顺序练习</button>
+                                    <button type="button" class="col-md-6 btn btn-default btnRandomPractices">随机练习</button>
+                                </div>
+                            </li>
+                            <li><a href="#" class="col-md-6 subjectOneTitles"><span>安全行车常识</span><small class="totalQuestion"><span id="subjectFourChapterTwoCount"></span></small></a>
+                                <div class="btn-group col-md-5 col-md-offset-1" role="group">
+                                    <button type="button" class="col-md-6 btn btn-default btnSequencePractices">顺序练习</button>
+                                    <button type="button" class="col-md-6 btn btn-default btnRandomPractices" >随机练习</button>
+                                </div>
+                            </li>
+                            <li><a href="#" class="col-md-6 subjectOneTitles"><span>常见交通标志、标线和交通手势辨识</span><small class="totalQuestion"><span id="subjectFourChapterThreeCount"></span></small></a>
+                                <div class="btn-group col-md-5 col-md-offset-1" role="group">
+                                    <button type="button" class="col-md-6 btn btn-default btnSequencePractices">顺序练习</button>
+                                    <button type="button" class="col-md-6 btn btn-default btnRandomPractices">随机练习</button>
+                                </div>
+                            </li>
+                            <li><a href="#" class="col-md-6 subjectOneTitles"><span>恶劣气候和复杂道路条件下驾驶常识</span><small class="totalQuestion"><span id="subjectFourChapterFourCount"></span></small></a>
+                                <div class="btn-group col-md-5 col-md-offset-1" role="group">
+                                    <button type="button" class="col-md-6 btn btn-default btnSequencePractices">顺序练习</button>
+                                    <button type="button" class="col-md-6 btn btn-default btnRandomPractices">随机练习</button>
+                                </div>
+                            </li>
+                            <li><a href="#" class="col-md-6 subjectOneTitles"><span>紧急情况下避险常识</span><small class="totalQuestion"><span id="subjectFourChapterFiveCount"></span></small></a>
+                                <div class="btn-group col-md-5 col-md-offset-1" role="group">
+                                    <button type="button" class="col-md-6 btn btn-default btnSequencePractices">顺序练习</button>
+                                    <button type="button" class="col-md-6 btn btn-default btnndomPractices">随机练习</button>
+                                </div>
+                            </li>
+                            <li><a href="#" class="col-md-6 subjectOneTRaitles"><span>违法行为综合判断与案例分析</span><small class="totalQuestion"><span id="subjectFourChapterSixCount"></span></small></a>
+                                <div class="btn-group col-md-5 col-md-offset-1" role="group">
+                                    <button type="button" class="col-md-6 btn btn-default btnSequencePractices">顺序练习</button>
+                                    <button type="button" class="col-md-6 btn btn-default btnRandomPractices">随机练习</button>
+                                </div>
+                            </li>
+                            <li><a href="#" class="col-md-6 subjectOneTitles"><span>驾驶职业道德和文明驾驶常识</span><small class="totalQuestion"><span id="subjectFourChapterSevenCount"></span></small></a>
+                                <div class="btn-group col-md-5 col-md-offset-1" role="group">
+                                    <button type="button" class="col-md-6 btn btn-default btnSequencePractices">顺序练习</button>
+                                    <button type="button" class="col-md-6 btn btn-default btnRandomPractices">随机练习</button>
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container col-md-10 col-md-offset-1" id="DivSpecialPractice" style="margin-top: 20px;" >
+        <div class="panel panel-default">
+            <div class="page-header" >
+                <h2 class="col-md-offset-1">按难易程度<small id="Diffcult_total">(共324题)</small></h2>
+            </div>
+            <!--按照难易程度进行分类-->
+            <div class="panel-body" >
+                <div class="text-center" >
+                    <div class="radio" style="float:left;margin-top: -5px">
+                        <label>
+                            <input type="radio" value="1" name="RadioQuestionDifficulties" checked>
+                            简单题
+                            <div id="schoolScore1" style="float:right;margin-top: -5px;margin-right: 10px"></div>
+                        </label>
+                        <p class="totalQuestion" id="Diffcult_1"></p>
+                    </div>
+
+                    <div class="radio" style="float: left;"  >
+                        <label >
+                            <input type="radio" value="2"  name="RadioQuestionDifficulties" >
+                            容易题
+                            <div id="schoolScore2" style="float:right;margin-top: -5px;margin-right: 10px"></div>
+                        </label>
+                        <p class="totalQuestion" id="Diffcult_2"></p>
+                    </div>
+
+                    <div class="radio " style="float: left;">
+                        <label style=" padding-top: 0px">
+                            <input type="radio" value="3"  name="RadioQuestionDifficulties" >
+                            一般题
+                            <div id="schoolScore3" style="float:right;margin-top: -5px;margin-right: 10px"></div>
+                        </label>
+                        <p class="totalQuestion" id="Diffcult_3"></p>
+                    </div>
+
+                    <div class="radio" style="float:left;">
+                        <label style=" padding-top: 0px">
+                            <input type="radio" value="4" name="RadioQuestionDifficulties" >
+                            易错题
+                            <div id="schoolScore4" style="float:right;margin-top: -5px;margin-right: 10px"></div>
+                        </label>
+                        <p class="totalQuestion" id="Diffcult_4"></p>
+                    </div>
+
+                    <div class="radio" style="float:left">
+                        <label style=" padding-top: 0px">
+                            <input type="radio" value="5" name="RadioQuestionDifficulties" >
+                            困难题
+                            <div id="schoolScore5" style="float:right;margin-top: -5px;margin-right: 10px"></div>
+                        </label>
+                        <p class="totalQuestion" id="Diffcult_5"></p>
+                    </div>
+
+                    <div class="btn-group" role="group" style="margin-top: 20px">
+                        <button type="button" class="btn btn-default"  id="BtnDifficultiesSequencePractice">顺序出题练习</button>
+                        <button type="button" class="btn btn-default" id="BtnDifficultiesRandomPractice">随机出题练习</button>
+                    </div>
+                </div>
+            </div>
+            <div class="page-header">
+                <h2 class="col-md-offset-1">按试题类型类型<small id="Type_total"></small></h2>
+            </div>
+            <!--按试题类型进行分类-->
+            <div class="panel-body">
+                <div class="text-center" >
+                    <div class="radio col-md-2 col-md-offset-3" style="float:left;margin-top: -5px">
+                        <label>
+                            <input type="radio" name="RadioQuestionTypes" checked>
+                            单选题
+                        </label>
+                        <p class="totalQuestion" id="SpanTypeCountSingle"></p>
+                    </div>
+
+                    <div class="radio col-md-2" style="float: left;" >
+                        <label >
+                            <input type="radio" name="RadioQuestionTypes" >
+                            多选题
+                        </label>
+                        <p class="totalQuestion" id="SpanTypeCountMulti"></p>
+                    </div>
+
+                    <div class="radio col-md-2" style="float: left;" >
+                        <label >
+                            <input type="radio" name="RadioQuestionTypes" >
+                            判断题
+                        </label>
+                        <p class="totalQuestion" id="SpanTypeCountJudge"></p>
+                    </div>
+                </div>
+
+                <div class="btn-group text-center" role="group" style="margin-top: 20px;margin-left: 335px">
+                    <button style="" type="button" class="btn btn-default" id="BtnTypesSequencePractice">顺序出题练习</button>
+                    <button type="button" class="btn btn-default" id="BtnTypesRandomPractice">随机出题练习</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#nav").load("../nav",function () {
+            // 在载入完成之后改变状态
+            $("#mainpage").removeClass("active");
+            $("#subjectOne").addClass("active");
+        });
+    });
+
+    $("#DivSpecialPractice").hide();
+
+</script>
+</body>
+</html>

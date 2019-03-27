@@ -4,7 +4,7 @@ import com.cqnu.harunasandrivingtestingsystem.entity.Administrator;
 import com.cqnu.harunasandrivingtestingsystem.entity.Roles;
 
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author LiAixing
@@ -24,9 +24,9 @@ public class AdminFE {
 
     private String telephone;
 
-    private Set<Roles> roles;
+    private List<Roles> roles;
 
-    private Set<MenuFE> menus;
+    private List<MenuFE> menus;
 
     public Administrator toSysAdmin() {
         Administrator administrator = new Administrator();
@@ -36,7 +36,7 @@ public class AdminFE {
         return administrator;
     }
 
-    public AdminFE(Integer uid, String avatar, String nickname, String telephone, Set<Roles> roles, Set<MenuFE> menus) {
+    public AdminFE(Integer uid, String avatar, String nickname, String telephone, List<Roles> roles, List<MenuFE> menus) {
         this.uid = uid;
         this.avatar = avatar;
         this.nickname = nickname;
@@ -84,19 +84,19 @@ public class AdminFE {
         this.telephone = telephone;
     }
 
-    public Set<Roles> getRoles() {
+    public List<Roles> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Roles> roles) {
+    public void setRoles(List<Roles> roles) {
         this.roles = roles;
     }
 
-    public Set<MenuFE> getMenus() {
+    public List<MenuFE> getMenus() {
         return menus;
     }
 
-    public void setMenus(Set<MenuFE> menus) {
+    public void setMenus(List<MenuFE> menus) {
         this.menus = menus;
     }
 }

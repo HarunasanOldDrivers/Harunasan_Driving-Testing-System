@@ -80,7 +80,7 @@ public class TestOneController {
 
     /**
      * 批量插入错题集
-     * @param ids  错题List (json数组)
+     * @param ids  错题List (json数组)  example [{"id":10},{"id":999}]
      * @return  code: 200 成功
      *          code: 510 未登录
      */

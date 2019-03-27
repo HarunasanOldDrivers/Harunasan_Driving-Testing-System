@@ -21,4 +21,6 @@ public interface CourseMapper {
     Course selectBySchoolIdOrderByPrice(Integer schoolId);
 
     List<Course> selectBySchoolId(Integer schoolId);
+
+    List<Course> selectAll();
 }

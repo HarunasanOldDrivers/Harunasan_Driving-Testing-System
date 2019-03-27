@@ -1,6 +1,8 @@
 package com.cqnu.harunasandrivingtestingsystem.service;
 
 import com.cqnu.harunasandrivingtestingsystem.entity.School;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.CourseVO;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.SchoolVO;
 
 import java.util.List;
 
@@ -15,4 +17,8 @@ public interface INewsService {
 
 
     List<School> searchSchool(String schoolName, String area, Integer minPrice, Integer maxPrice);
+
+    SchoolVO getSchool(Integer schoolId);
+
+    List<CourseVO> getRecommend();
 }

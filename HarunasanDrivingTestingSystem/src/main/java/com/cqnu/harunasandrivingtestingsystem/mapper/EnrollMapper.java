@@ -31,4 +31,6 @@ public interface EnrollMapper {
     List<Enroll> selectAll(@Param("studentName") String studentName,
                            @Param("enrollDateBefore") LocalDateTime enrollDateBefore,
                            @Param("enrollDateAfter") LocalDateTime enrollDateAfter);
+
+    List<Enroll> selectByStudentId(Integer userId);
 }

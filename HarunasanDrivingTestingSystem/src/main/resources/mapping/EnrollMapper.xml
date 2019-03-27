@@ -50,6 +50,13 @@
     and enroll_date_time >= #{enrollDateBefore,jdbcType=DATE}
     order by enroll_date_time desc
   </select>
+  <select id="selectByStudentId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.enroll
+    where user_id = #{userId,jdbcType=INTEGER}
+    order by enroll_date_time
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from hodts_db.enroll
     where enroll_id = #{enrollId,jdbcType=INTEGER}

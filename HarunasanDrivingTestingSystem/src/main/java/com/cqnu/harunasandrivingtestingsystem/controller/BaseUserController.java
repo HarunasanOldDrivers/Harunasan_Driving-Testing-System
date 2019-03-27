@@ -202,9 +202,13 @@ public class BaseUserController {
      */
     @PostMapping("/alterPassword")
     @PreAuthorize("hasRole('User')")
-    public Result alterPassword(String oldPassword, String newPassword){
+    public Result alterPassword(String oldPassword, String newPassword ,String verifyCode){
         String authToken = request.getHeader(this.tokenHeader);
         String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
+        User user = baseUserService.getProfile(Integer.valueOf(username));
+        if(validate(user.getUserTelphone(),verifyCode).getCode() == 408){
+            return ResultUtil.failure(408, "验证码错误或失效");
+        }
         if (baseUserService.oldPasswordIsCorrect(Integer.parseInt(username),oldPassword)){
             return ResultUtil.failure(408,"密码不正确");
         }

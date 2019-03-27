@@ -104,16 +104,7 @@ public class AdminController {
         if (StringUtils.isEmpty(authToken) || StringUtils.isEmpty(username)){
             return ResultUtil.failure(510,"未登录");
         }
-        Administrator administrator = adminService.getInfo(Integer.valueOf(username));
-        AdminFE adminFE = new AdminFE(administrator.getId(),null,administrator.getAdminName(),administrator.getAdminPhone());
-        Set<MenuFE> menus = new HashSet<MenuFE>();
-        Set<Roles> roles = new HashSet<Roles>();
-        roles.add(new Roles(1,"测试","test"));
-        menus.add(new MenuFE(10,"pre","测试"));
-        adminFE.setMenus(menus);
-        adminFE.setRoles(roles);
-        logger.info("menus:" + String.valueOf(menus.isEmpty()));
-        logger.info("roles:" + String.valueOf(roles.isEmpty()));
+        AdminFE adminFE = adminService.getInfo(Integer.valueOf(username));
         return ResultUtil.success(adminFE);
     }
 

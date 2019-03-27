@@ -2146,7 +2146,8 @@ $(document).ready(function () {
     //查看错题集
     $("#SearchWrongList").click(function () {
         window.location.href="../subjectOne/wrongList";
-    })
+    });
+
     function createAlert(type,mesg) {
         var alert;
         // type ===1 创建危险框

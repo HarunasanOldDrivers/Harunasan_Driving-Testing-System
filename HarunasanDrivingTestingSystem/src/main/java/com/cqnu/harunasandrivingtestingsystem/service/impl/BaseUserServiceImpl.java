@@ -2,9 +2,12 @@ package com.cqnu.harunasandrivingtestingsystem.service.impl;
 
 import com.cqnu.harunasandrivingtestingsystem.entity.Course;
 import com.cqnu.harunasandrivingtestingsystem.entity.Enroll;
+import com.cqnu.harunasandrivingtestingsystem.entity.School;
 import com.cqnu.harunasandrivingtestingsystem.entity.User;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.EnrollVO;
 import com.cqnu.harunasandrivingtestingsystem.mapper.CourseMapper;
 import com.cqnu.harunasandrivingtestingsystem.mapper.EnrollMapper;
+import com.cqnu.harunasandrivingtestingsystem.mapper.SchoolMapper;
 import com.cqnu.harunasandrivingtestingsystem.mapper.UserMapper;
 import com.cqnu.harunasandrivingtestingsystem.service.IBaseUserService;
 import com.cqnu.harunasandrivingtestingsystem.utils.Password2Hash;
@@ -19,7 +22,9 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -49,6 +54,9 @@ public class BaseUserServiceImpl implements IBaseUserService {
 
     @Resource
     private CourseMapper courseMapper;
+
+    @Resource
+    private SchoolMapper schoolMapper;
 
     @Override
     public int signUp(String telephone, String nickname, String password, String email) {
@@ -107,7 +115,7 @@ public class BaseUserServiceImpl implements IBaseUserService {
     }
 
     @Override
-    public boolean oldPasswordIsCorrect(int id, String oldPassword) {
+    public boolean oldPasswordIsCorrect(Integer id, String oldPassword) {
         User user = userMapper.selectByPrimaryKey(id);
         if (user == null){
             logger.info("User not find");
@@ -117,7 +125,7 @@ public class BaseUserServiceImpl implements IBaseUserService {
     }
 
     @Override
-    public int alterPassword(int id, String newPassword) {
+    public int alterPassword(Integer id, String newPassword) {
         User user = userMapper.selectByPrimaryKey(id);
         user.setUserId(id);
         user.setUserPassword(Password2Hash.sha256CryptWithSalt(newPassword, String.valueOf(user.getUserRegDate())));
@@ -125,7 +133,7 @@ public class BaseUserServiceImpl implements IBaseUserService {
     }
 
     @Override
-    public User getProfile(int id) {
+    public User getProfile(Integer id) {
         return userMapper.selectByPrimaryKey(id);
     }
 
@@ -143,4 +151,25 @@ public class BaseUserServiceImpl implements IBaseUserService {
         return enrollMapper.insertSelective(enroll) == 1;
     }
 
+    @Override
+    public List<EnrollVO> getEnroll(Integer username){
+        List<Enroll> enrollList = enrollMapper.selectByStudentId(username);
+        List<EnrollVO> enrollVOList = new ArrayList<>();
+        for (Enroll enroll : enrollList){
+            EnrollVO enrollVO = new EnrollVO();
+            Course course = courseMapper.selectByPrimaryKey(enroll.getCourseId());
+            School school = schoolMapper.selectByPrimaryKey(course.getSchoolId());
+            enrollVO.setCourseId(enroll.getCourseId());
+            enrollVO.setEnrollId(enroll.getEnrollId());
+            enrollVO.setCourseDescribe(course.getCourseDescribe());
+            enrollVO.setCourseName(course.getCourseName());
+            enrollVO.setCoursePrice(course.getCoursePrice());
+            enrollVO.setSchoolId(course.getSchoolId());
+            enrollVO.setSchoolName(school.getSchoolName());
+            enrollVO.setSchoolAddress(school.getSchoolArea() + " " + school.getSchoolDetailAddress());
+            enrollVO.setSchoolTel(school.getSchoolEnrollTelphone());
+            enrollVOList.add(enrollVO);
+        }
+        return enrollVOList;
+    }
 }

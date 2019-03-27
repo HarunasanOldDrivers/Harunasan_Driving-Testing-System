@@ -24,9 +24,24 @@ public interface ICourseService {
      */
     boolean addCourse(Integer username, String courseName, String courseDescribe, Integer price);
 
+    /**
+     * 下架课程
+     * @param courseId  课程ID
+     * @return
+     */
     boolean closeCourse(Integer courseId);
 
+    /**
+     * 搜索课程
+     * @param courseId 课程Id
+     * @return
+     */
     Course findCourse(Integer courseId);
 
+    /**
+     * 获取课程列表( 驾校
+     * @param username  驾校ID
+     * @return
+     */
     List<CourseVO> getCourse(Integer username);
 }

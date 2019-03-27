@@ -1,7 +1,13 @@
 package com.cqnu.harunasandrivingtestingsystem.service.impl;
 
 import com.cqnu.harunasandrivingtestingsystem.entity.Administrator;
+import com.cqnu.harunasandrivingtestingsystem.entity.Permissions;
+import com.cqnu.harunasandrivingtestingsystem.entity.Roles;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.AdminFE;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.MenuFE;
 import com.cqnu.harunasandrivingtestingsystem.mapper.AdministratorMapper;
+import com.cqnu.harunasandrivingtestingsystem.mapper.PermissionsMapper;
+import com.cqnu.harunasandrivingtestingsystem.mapper.RolesMapper;
 import com.cqnu.harunasandrivingtestingsystem.service.IAdminService;
 import com.cqnu.harunasandrivingtestingsystem.utils.Password2Hash;
 import org.slf4j.Logger;
@@ -10,6 +16,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author LiAixing
@@ -25,7 +33,13 @@ public class AdminServiceImpl implements IAdminService {
 
 
     @Resource
-    AdministratorMapper administratorMapper;
+    private AdministratorMapper administratorMapper;
+
+    @Resource
+    private PermissionsMapper permissionsMapper;
+
+    @Resource
+    private RolesMapper rolesMapper;
 
     @Override
     public int createAdmin(String name, String password, String phone) {
@@ -65,7 +79,24 @@ public class AdminServiceImpl implements IAdminService {
     }
 
     @Override
-    public Administrator getInfo(Integer username){
-        return administratorMapper.selectByPrimaryKey(username);
+    public AdminFE getInfo(Integer username){
+        Administrator administrator = administratorMapper.selectByPrimaryKey(username);
+        List<Permissions> permissionsList = permissionsMapper.selectByAdministratorId(username);
+        List<Roles> rolesList = rolesMapper.selectByAdministratorId(username);
+        AdminFE adminFE = new AdminFE(administrator.getId(),null, administrator.getAdminName(), administrator.getAdminPhone());
+        List<MenuFE> menus = new ArrayList<>();
+        for (Permissions permissions : permissionsList){
+            if (permissions.getAlias().startsWith("Admin:")){
+                continue;
+            }
+            MenuFE menuFE = new MenuFE(permissions.getId(),permissions.getAlias(),permissions.getName());
+            menus.add(menuFE);
+        }
+        adminFE.setMenus(menus);
+        adminFE.setRoles(rolesList);
+        logger.info("menus:" + String.valueOf(menus.isEmpty()));
+        logger.info("roles:" + String.valueOf(rolesList.isEmpty()));
+
+        return adminFE;
     };
 }

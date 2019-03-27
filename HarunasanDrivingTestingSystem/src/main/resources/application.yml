@@ -85,6 +85,7 @@ oss:
   ossAccessId: LTAIKF2nFJq1tfp8
   ossAccessKey: 2w1aeb21vzgtHb5wBD6V2YOWX9djXD
   bucket: hsdts
+  cachePath: D:\newproject\HarunasanDrivingTestingSystem\src\main\resources\upload
 
 # mybatis 相关参数
 mybatis:

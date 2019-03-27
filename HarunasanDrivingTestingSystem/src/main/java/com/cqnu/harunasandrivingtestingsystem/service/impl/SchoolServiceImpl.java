@@ -16,6 +16,7 @@ import com.cqnu.harunasandrivingtestingsystem.utils.UrlUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,9 @@ import java.util.stream.Collectors;
 public class SchoolServiceImpl implements ISchoolService {
 
     Logger logger = LoggerFactory.getLogger(SchoolServiceImpl.class);
+
+    @Value("${oss.cachePath}")
+    private String cachePath;
 
     @Autowired
     private PostObject postObject;
@@ -102,7 +106,7 @@ public class SchoolServiceImpl implements ISchoolService {
 
     @Override
     public List<String> uploadImage(MultipartFile[] files) {
-        String filePath = "D:\\文档\\毕设\\Harunasan_Driving-Testing-System\\HarunasanDrivingTestingSystem\\src\\main\\resources\\upload\\";
+        String filePath = cachePath;
         String fileName = "";
         List<String> urlList = new ArrayList<>();
 

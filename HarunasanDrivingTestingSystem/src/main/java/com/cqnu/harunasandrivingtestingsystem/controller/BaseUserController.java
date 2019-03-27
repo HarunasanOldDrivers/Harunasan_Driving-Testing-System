@@ -3,10 +3,14 @@ package com.cqnu.harunasandrivingtestingsystem.controller;
 import com.alibaba.fastjson.JSON;
 import com.cqnu.harunasandrivingtestingsystem.entity.Result;
 import com.cqnu.harunasandrivingtestingsystem.entity.User;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.CourseVO;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.EnrollVO;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.PageInfo;
 import com.cqnu.harunasandrivingtestingsystem.security.JwtTokenUtil;
 import com.cqnu.harunasandrivingtestingsystem.security.UserDetailsServiceImpl;
 import com.cqnu.harunasandrivingtestingsystem.service.IBaseUserService;
 import com.cqnu.harunasandrivingtestingsystem.utils.*;
+import com.github.pagehelper.PageHelper;
 import com.github.qcloudsms.SmsSingleSenderResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -166,6 +170,21 @@ public class BaseUserController {
     }
 
     /**
+     * 获取报名课程
+     * @param pageNo  当前页
+     * @param pageSize  分页大小
+     * @return
+     */
+    @GetMapping("/courses")
+    @PreAuthorize("hasRole('User')")
+    public PageInfo<EnrollVO> getCourses(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize){
+        String authToken = request.getHeader(this.tokenHeader);
+        String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
+        PageHelper.startPage(pageNo,pageSize);
+        return new PageInfo<>(baseUserService.getEnroll(Integer.parseInt(username)));
+    }
+
+    /**
      * 验证验证码
      * @param telephone 手机号
      * @param verifyCode 验证码
@@ -187,9 +206,13 @@ public class BaseUserController {
      */
     @PostMapping("/alterPassword")
     @PreAuthorize("hasRole('User')")
-    public Result alterPassword(String oldPassword, String newPassword){
+    public Result alterPassword(String oldPassword, String newPassword ,String verifyCode){
         String authToken = request.getHeader(this.tokenHeader);
         String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
+        User user = baseUserService.getProfile(Integer.valueOf(username));
+        if(validate(user.getUserTelphone(),verifyCode).getCode() == 408){
+            return ResultUtil.failure(408, "验证码错误或失效");
+        }
         if (baseUserService.oldPasswordIsCorrect(Integer.parseInt(username),oldPassword)){
             return ResultUtil.failure(408,"密码不正确");
         }

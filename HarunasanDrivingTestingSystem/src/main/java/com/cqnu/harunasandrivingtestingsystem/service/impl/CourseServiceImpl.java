@@ -70,9 +70,10 @@ public class CourseServiceImpl implements ICourseService {
     @Override
     public List<CourseVO> getCourse(Integer username){
         List<Course> list = courseMapper.selectBySchoolId(username);
+        School school = schoolMapper.selectByPrimaryKey(username);
         List<CourseVO> result = new ArrayList<CourseVO>();
         for (Course item : list){
-            result.add(new CourseVO(item.getCourseId(), item.getSchoolId(), item.getCourseDescribe(),
+            result.add(new CourseVO(item.getCourseId(), item.getSchoolId(), school.getSchoolName(), item.getCourseDescribe(),
                     item.getCourseName(),enrollMapper.selectCountByCourseId(item.getCourseId())));
         }
         return result;

@@ -13,6 +13,8 @@ public class CourseVO {
 
     private Integer schoolId;
 
+    private String schoolName;
+
     private String courseDescribe;
 
     private String courseName;
@@ -21,9 +23,10 @@ public class CourseVO {
 
     public CourseVO(){}
 
-    public CourseVO(Integer courseId, Integer schoolId, String courseDescribe, String courseName, Integer count) {
+    public CourseVO(Integer courseId, Integer schoolId, String schoolName, String courseDescribe, String courseName, Integer count) {
         this.courseId = courseId;
         this.schoolId = schoolId;
+        this.schoolName = schoolName;
         this.courseDescribe = courseDescribe;
         this.courseName = courseName;
         this.count = count;
@@ -67,5 +70,13 @@ public class CourseVO {
 
     public void setCount(Integer count) {
         this.count = count;
+    }
+
+    public String getSchoolName() {
+        return schoolName;
+    }
+
+    public void setSchoolName(String schoolName) {
+        this.schoolName = schoolName;
     }
 }

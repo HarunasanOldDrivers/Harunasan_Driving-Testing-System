@@ -8,7 +8,6 @@ import com.cqnu.harunasandrivingtestingsystem.mapper.CourseMapper;
 import com.cqnu.harunasandrivingtestingsystem.mapper.EnrollMapper;
 import com.cqnu.harunasandrivingtestingsystem.mapper.SchoolMapper;
 import com.cqnu.harunasandrivingtestingsystem.service.INewsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -67,7 +66,7 @@ public class NewsServiceImpl implements INewsService {
         for (Course course: courses){
             School school = schoolMapper.selectByPrimaryKey(course.getSchoolId());
             CourseVO courseVO = new CourseVO(course.getCourseId(), course.getSchoolId(), school.getSchoolName(), course.getCourseDescribe(),
-                    course.getCourseName(),enrollMapper.selectCountByCourseId(course.getCourseId()));
+                    course.getCourseName(),enrollMapper.selectCountByCourseId(course.getCourseId()), course.getCoursePrice());
             courseVOS.add(courseVO);
         }
         return courseVOS;

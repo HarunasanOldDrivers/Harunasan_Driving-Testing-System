@@ -74,7 +74,7 @@ public class CourseServiceImpl implements ICourseService {
         List<CourseVO> result = new ArrayList<CourseVO>();
         for (Course item : list){
             result.add(new CourseVO(item.getCourseId(), item.getSchoolId(), school.getSchoolName(), item.getCourseDescribe(),
-                    item.getCourseName(),enrollMapper.selectCountByCourseId(item.getCourseId())));
+                    item.getCourseName(),enrollMapper.selectCountByCourseId(item.getCourseId()), item.getCoursePrice()));
         }
         return result;
     }

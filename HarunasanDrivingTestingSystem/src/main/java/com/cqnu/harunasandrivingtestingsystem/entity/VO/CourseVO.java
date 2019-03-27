@@ -21,15 +21,18 @@ public class CourseVO {
 
     private Integer count;
 
+    private Integer coursePrice;
+
     public CourseVO(){}
 
-    public CourseVO(Integer courseId, Integer schoolId, String schoolName, String courseDescribe, String courseName, Integer count) {
+    public CourseVO(Integer courseId, Integer schoolId, String schoolName, String courseDescribe, String courseName, Integer count, Integer coursePrice) {
         this.courseId = courseId;
         this.schoolId = schoolId;
         this.schoolName = schoolName;
         this.courseDescribe = courseDescribe;
         this.courseName = courseName;
         this.count = count;
+        this.coursePrice = coursePrice;
     }
 
     public Integer getCourseId() {
@@ -78,5 +81,13 @@ public class CourseVO {
 
     public void setSchoolName(String schoolName) {
         this.schoolName = schoolName;
+    }
+
+    public Integer getCoursePrice() {
+        return coursePrice;
+    }
+
+    public void setCoursePrice(Integer coursePrice) {
+        this.coursePrice = coursePrice;
     }
 }

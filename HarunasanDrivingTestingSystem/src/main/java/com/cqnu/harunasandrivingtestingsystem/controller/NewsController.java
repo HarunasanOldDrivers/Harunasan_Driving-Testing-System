@@ -72,7 +72,6 @@ public class NewsController {
      */
     @GetMapping("/recommend")
     public PageInfo<CourseVO> getRecommend(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize){
-        PageHelper.startPage(pageNo, pageSize);
-        return new PageInfo<>(newsService.getRecommend());
+        return newsService.getRecommend(pageNo,pageSize);
     }
 }

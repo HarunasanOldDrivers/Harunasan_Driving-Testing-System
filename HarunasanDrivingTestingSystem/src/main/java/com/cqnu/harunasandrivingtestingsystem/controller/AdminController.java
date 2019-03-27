@@ -1,22 +1,32 @@
 package com.cqnu.harunasandrivingtestingsystem.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.cqnu.harunasandrivingtestingsystem.entity.Administrator;
 import com.cqnu.harunasandrivingtestingsystem.entity.Result;
+import com.cqnu.harunasandrivingtestingsystem.entity.Roles;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.AdminFE;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.MenuFE;
 import com.cqnu.harunasandrivingtestingsystem.security.JwtTokenUtil;
 import com.cqnu.harunasandrivingtestingsystem.security.UserDetailsServiceImpl;
 import com.cqnu.harunasandrivingtestingsystem.service.IAdminService;
+import com.cqnu.harunasandrivingtestingsystem.utils.Json2DB;
 import com.cqnu.harunasandrivingtestingsystem.utils.ResultUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author LiAixing
@@ -38,23 +48,34 @@ public class AdminController {
     @Resource
     private UserDetailsServiceImpl userDetailsService;
 
+    /**
+     * 辅助操作 token 的工具类
+     */
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
+    @Autowired
+    private Json2DB json2DB;
+
+    @Autowired
+    private HttpServletRequest request;
+
+    /**
+     * json web token 在请求头的名字
+     */
+    @Value("${jwt.admin_header}")
+    private String tokenHeader;
+
     @PostMapping("/createAdmin")
     @PreAuthorize("hasAuthority('Admin:Create')")
-    public Map createAdmin(String name, String password, String phone){
-        Map map = new HashMap();
-        int result = 0;
+    public Result createAdmin(String name, String password, String phone){
         try {
             logger.info("New Administrator:" + URLDecoder.decode(name,"UTF-8"));
-            result = adminService.createAdmin(URLDecoder.decode(name,"UTF-8"),password,phone);
-
+            adminService.createAdmin(URLDecoder.decode(name,"UTF-8"),password,phone);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        map.put("result",result);
-        return null;
+        return ResultUtil.success();
     }
 
     @PostMapping("/banAdmin/{id}")
@@ -65,23 +86,31 @@ public class AdminController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody Map map) {
+    public Result login(@RequestBody Map map) {
         Map<String, String> map2 = new HashMap<String, String>(16);
         String username = (String) map.get("username");
         String password = (String) map.get("password");
-        logger.info(username + password);
         if (adminService.loginById(Integer.parseInt(username), password)) {
-            map2.put("token", jwtTokenUtil.generateToken(userDetailsService.loadUserByUsername(String.valueOf(username), "Administrator"), "Administrator"));
-            return JSON.toJSONString(map2);
+            return ResultUtil.success(jwtTokenUtil.generateToken(userDetailsService.loadUserByUsername(String.valueOf(username), "Administrator"), "Administrator"));
         }
-            return JSON.toJSONString(ResultUtil.failure(408, "登录失败"));
+            return ResultUtil.failure(408,"登录失败");
     }
 
-//    @GetMapping("/info")
-//    public
+    @GetMapping("/info")
+    @PreAuthorize("hasAuthority('Admin:Base')")
+    public  Result getInfo(){
+        String authToken = request.getHeader(this.tokenHeader);
+        String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
+        if (StringUtils.isEmpty(authToken) || StringUtils.isEmpty(username)){
+            return ResultUtil.failure(510,"未登录");
+        }
+        AdminFE adminFE = adminService.getInfo(Integer.valueOf(username));
+        return ResultUtil.success(adminFE);
+    }
 
-    @PostMapping("/auditing")
-    public Result auditing(){
+    @PostMapping("/audit")
+    @PreAuthorize("hasAuthority('Admin:Audit')")
+    public Result audit(){
         return ResultUtil.success();
     }
 

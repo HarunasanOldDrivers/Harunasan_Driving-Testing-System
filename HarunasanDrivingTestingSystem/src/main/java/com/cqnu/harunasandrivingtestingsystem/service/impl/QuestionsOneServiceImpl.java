@@ -156,11 +156,11 @@ public class QuestionsOneServiceImpl implements IQuestionsService {
     }
 
     @Override
-    public int addMistake(Integer username, Integer qoid){
+    public int addMistake(Integer username, Integer qoId){
         MistakesCollectionOne mistakesCollectionOne = new MistakesCollectionOne();
         mistakesCollectionOne.setUserId(username);
-        mistakesCollectionOne.setQuestionsId(qoid);
-        if(username.equals(mistakesCollectionOneMapper.selectUserIdByQoId(qoid))){
+        mistakesCollectionOne.setQuestionsId(qoId);
+        if(mistakesCollectionOneMapper.selectUserIdByQoIdAndUserId(qoId,username) != null){
             return 2;
         }
         return mistakesCollectionOneMapper.insertSelective(mistakesCollectionOne);
@@ -184,4 +184,6 @@ public class QuestionsOneServiceImpl implements IQuestionsService {
     public List<QuestionsOne> getPaper(){
         return questionsOneMapper.getPaper();
     }
+
+    public List<QuestionsOne>  getMistakes(Integer username){return questionsOneMapper.getAllMistakes(username);}
 }

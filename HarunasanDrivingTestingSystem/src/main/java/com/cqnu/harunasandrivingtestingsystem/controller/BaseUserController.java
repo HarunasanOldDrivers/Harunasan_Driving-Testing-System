@@ -3,10 +3,14 @@ package com.cqnu.harunasandrivingtestingsystem.controller;
 import com.alibaba.fastjson.JSON;
 import com.cqnu.harunasandrivingtestingsystem.entity.Result;
 import com.cqnu.harunasandrivingtestingsystem.entity.User;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.CourseVO;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.EnrollVO;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.PageInfo;
 import com.cqnu.harunasandrivingtestingsystem.security.JwtTokenUtil;
 import com.cqnu.harunasandrivingtestingsystem.security.UserDetailsServiceImpl;
 import com.cqnu.harunasandrivingtestingsystem.service.IBaseUserService;
 import com.cqnu.harunasandrivingtestingsystem.utils.*;
+import com.github.pagehelper.PageHelper;
 import com.github.qcloudsms.SmsSingleSenderResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -142,14 +146,14 @@ public class BaseUserController {
      * @return  登录成功后返回token
      */
     @PostMapping("/login")
-    public String login(String username,String password){
+    public Result login(String username,String password){
         Map<String, String> map = new HashMap<String, String>(16);
         if (baseUserService.loginByTelephone(username,password)){
             map.put("token",jwtTokenUtil.generateToken(userDetailsService.loadUserByUsername(String.valueOf(baseUserService.getIdByTelephone(username)),"User"),"User"));
             map.put("nickname",baseUserService.getNickNameByTelephone(username));
-            return JSON.toJSONString(map);
+            return ResultUtil.success(map);
         }
-        return JSON.toJSONString(ResultUtil.failure(408,"登录失败"));
+        return ResultUtil.failure(408,"登录失败");
     }
 
 
@@ -163,6 +167,21 @@ public class BaseUserController {
         String authToken = request.getHeader(this.tokenHeader);
         String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
         return baseUserService.getProfile(Integer.parseInt(username));
+    }
+
+    /**
+     * 获取报名课程
+     * @param pageNo  当前页
+     * @param pageSize  分页大小
+     * @return
+     */
+    @GetMapping("/courses")
+    @PreAuthorize("hasRole('User')")
+    public PageInfo<EnrollVO> getCourses(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize){
+        String authToken = request.getHeader(this.tokenHeader);
+        String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
+        PageHelper.startPage(pageNo,pageSize);
+        return new PageInfo<>(baseUserService.getEnroll(Integer.parseInt(username)));
     }
 
     /**
@@ -187,9 +206,13 @@ public class BaseUserController {
      */
     @PostMapping("/alterPassword")
     @PreAuthorize("hasRole('User')")
-    public Result alterPassword(String oldPassword, String newPassword){
+    public Result alterPassword(String oldPassword, String newPassword ,String verifyCode){
         String authToken = request.getHeader(this.tokenHeader);
         String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
+        User user = baseUserService.getProfile(Integer.valueOf(username));
+        if(validate(user.getUserTelphone(),verifyCode).getCode() == 408){
+            return ResultUtil.failure(408, "验证码错误或失效");
+        }
         if (baseUserService.oldPasswordIsCorrect(Integer.parseInt(username),oldPassword)){
             return ResultUtil.failure(408,"密码不正确");
         }
@@ -224,13 +247,17 @@ public class BaseUserController {
 
     @PostMapping("/enroll")
     @PreAuthorize("hasRole('User')")
-    public Result enroll(Integer courseId){
+    public Result enroll(Integer courseId, String username, String telephone){
         String authToken = request.getHeader(this.tokenHeader);
-        String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
-        if (StringUtils.isEmpty(authToken) || StringUtils.isEmpty(username)){
+        String userId = this.jwtTokenUtil.getUsernameFromToken(authToken);
+        if (StringUtils.isEmpty(authToken) || StringUtils.isEmpty(userId)){
             return ResultUtil.failure(510,"未登录");
         }
-        return baseUserService.enroll(Integer.valueOf(username), courseId)?ResultUtil.success():ResultUtil.failure(620,"报名失败");
+        if (courseId == null || StringUtils.isEmpty(username) || StringUtils.isEmpty(telephone)){
+            return ResultUtil.failure(600,"参数错误");
+        }
+        return baseUserService.enroll(Integer.valueOf(userId), courseId, username, telephone)
+                ? ResultUtil.success() : ResultUtil.failure(620,"报名失败");
     }
 
 

@@ -25,6 +25,9 @@ public class UrlUtil {
     @Value("${oss.bucket}")
     private String bucketName;
 
+    @Value("${oss.cachePath}")
+    private String cachePath;
+
     public String getUrl(String fileName){
 
         String url = "";
@@ -40,8 +43,7 @@ public class UrlUtil {
     public List<String> getUrls(List<String> paths){
         List<String> urlList = new ArrayList<>();
 
-//        String filePath = "D:\\文档\\毕设\\Harunasan_Driving-Testing-System\\HarunasanDrivingTestingSystem\\src\\main\\resources\\upload\\";
-        String filePath = "D:\\newproject\\HarunasanDrivingTestingSystem\\src\\main\\resources\\upload";
+        String filePath = cachePath;
         String fileName = "";
         String url = "";
 

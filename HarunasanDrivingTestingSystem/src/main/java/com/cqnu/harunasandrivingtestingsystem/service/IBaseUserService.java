@@ -1,6 +1,9 @@
 package com.cqnu.harunasandrivingtestingsystem.service;
 
 import com.cqnu.harunasandrivingtestingsystem.entity.User;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.EnrollVO;
+
+import java.util.List;
 
 /**
  * @author LiAixing
@@ -27,13 +30,15 @@ public interface IBaseUserService {
 
     boolean telephoneHaveExist(String telephone);
 
-    boolean oldPasswordIsCorrect(int id,String oldPassword);
+    boolean oldPasswordIsCorrect(Integer id,String oldPassword);
 
-    int alterPassword(int id, String newPassword);
+    int alterPassword(Integer id, String newPassword);
 
-    User getProfile(int id);
+    User getProfile(Integer id);
 
     String getNickNameByTelephone(String telephone);
 
-    boolean enroll(Integer username, Integer courseId);
+    boolean enroll(Integer userId, Integer courseId, String username, String telephone);
+
+    List<EnrollVO> getEnroll(Integer username);
 }

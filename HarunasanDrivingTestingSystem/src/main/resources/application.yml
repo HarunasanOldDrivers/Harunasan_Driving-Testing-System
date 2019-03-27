@@ -69,6 +69,7 @@ server:
 jwt:
   # 存放Token的Header Key
   header: Authorization
+  admin_header: X-Auth
   #jwt的秘钥key "Harunasan" SHA256
   secret: 3f3a6639098c6afc5055260a411c283e3990e58424efd3be42a70c089c7dae98
   #token有效时间（毫秒）
@@ -84,6 +85,7 @@ oss:
   ossAccessId: LTAIKF2nFJq1tfp8
   ossAccessKey: 2w1aeb21vzgtHb5wBD6V2YOWX9djXD
   bucket: hsdts
+  cachePath: D:\newproject\HarunasanDrivingTestingSystem\src\main\resources\upload
 
 # mybatis 相关参数
 mybatis:

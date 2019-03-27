@@ -375,4 +375,11 @@
     and mo.user_id = #{userId,jdbcType=INTEGER}
     order by rand() limit 1;
   </select>
+  <select id="getAllMistakes" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.questions_one qo,mistakes_collection_one mo
+    where mo.questions_id = qo.qo_Id
+    and mo.user_id = #{userId,jdbcType=INTEGER}
+  </select>
 </mapper>

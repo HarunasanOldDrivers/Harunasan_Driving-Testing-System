@@ -251,4 +251,18 @@ $(document).ready(function () {
         }
 
     })
+
+    //展示错题集
+    $("#ShowTheWrongList").click(function () {
+        if($.cookie("Authorization")){
+        window.location.href="../subjectOne/wrongList";
+        }else {
+            alert("请先登录");
+        }
+    })
+
+    //开始考试
+    $("#StartSubjectOneTest").click(function () {
+        window.location.href="../subjectOne/test";
+    })
 });

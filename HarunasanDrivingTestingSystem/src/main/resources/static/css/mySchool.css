@@ -1,0 +1,53 @@
+body{
+    padding-top: 50px;
+}
+
+.ck-editor__editable {
+    min-height: 20em;
+}
+
+.schoolIntroductionEditor{
+    display:none;
+}
+
+.currentClassesDiv{
+    margin-top: 200px;
+}
+.currentClasses tbody tr th:first-child{
+    color: #3250b1;
+}
+
+.currentClasses tbody tr th:nth-child(2){
+    color: #ce3e00;
+    font-weight: normal;
+}
+
+.currentClasses tbody tr th:nth-child(3){
+    color: #ce0f0d;
+    font-weight: normal;
+}
+
+.currentClasses tbody tr th:nth-child(4){
+    color: #e18f42;
+    font-weight: normal;
+}
+
+/*查询学员CSS*/
+.selectStudentTable tbody tr th:nth-child(1){
+    color: #3250b1;
+}
+
+.selectStudentTable tbody tr th:nth-child(2){
+    color: #ce2908;
+    font-weight: normal;
+}
+
+.selectStudentTable tbody tr th:nth-child(3){
+    color: #ce3e00;
+    font-weight: normal;
+}
+
+.selectStudentTable tbody tr th:nth-child(4){
+    color: #136e20;
+    font-weight: normal;
+}

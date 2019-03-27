@@ -1,6 +1,7 @@
 package com.cqnu.harunasandrivingtestingsystem.entity;
 
 public class Course {
+
     private Integer courseId;
 
     private Integer schoolId;
@@ -10,6 +11,8 @@ public class Course {
     private String courseName;
 
     private Integer coursePrice;
+
+    private Integer courseIsEnable;
 
     public Integer getCourseId() {
         return courseId;
@@ -49,5 +52,13 @@ public class Course {
 
     public void setCoursePrice(Integer coursePrice) {
         this.coursePrice = coursePrice;
+    }
+
+    public Integer getCourseIsEnable() {
+        return courseIsEnable;
+    }
+
+    public void setCourseIsEnable(Integer courseIsEnable) {
+        this.courseIsEnable = courseIsEnable;
     }
 }

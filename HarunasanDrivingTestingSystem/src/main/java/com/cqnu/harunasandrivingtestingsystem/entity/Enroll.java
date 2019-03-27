@@ -1,5 +1,6 @@
 package com.cqnu.harunasandrivingtestingsystem.entity;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Enroll {
@@ -9,7 +10,22 @@ public class Enroll {
 
     private Integer userId;
 
-    private Date enrollDateTime;
+    private LocalDateTime enrollDateTime;
+
+    private String userName;
+
+    private String userTelephone;
+
+    public Enroll() {
+    }
+
+    public Enroll(Integer courseId, Integer userId, LocalDateTime enrollDateTime, String userName, String userTelephone) {
+        this.courseId = courseId;
+        this.userId = userId;
+        this.enrollDateTime = enrollDateTime;
+        this.userName = userName;
+        this.userTelephone = userTelephone;
+    }
 
     public Integer getEnrollId() {
         return enrollId;
@@ -35,11 +51,27 @@ public class Enroll {
         this.userId = userId;
     }
 
-    public Date getEnrollDateTime() {
+    public LocalDateTime getEnrollDateTime() {
         return enrollDateTime;
     }
 
-    public void setEnrollDateTime(Date enrollDateTime) {
+    public void setEnrollDateTime(LocalDateTime enrollDateTime) {
         this.enrollDateTime = enrollDateTime;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserTelephone() {
+        return userTelephone;
+    }
+
+    public void setUserTelephone(String userTelephone) {
+        this.userTelephone = userTelephone;
     }
 }

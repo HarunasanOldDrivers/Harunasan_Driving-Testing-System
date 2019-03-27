@@ -40,17 +40,17 @@ $(document).ready(function () {
             success:function (result) {
                 if (result.code === 408){
                     alert(result.msg + "  用户名/密码错误" );
-                }else if(result.code === 200){
+                }else if (result.code === 200) {
                     alert("登录成功！");
                     //把token和用户名放入cookie
-                    $.cookie("Authorization",result.token,{ expires:1,path:'*',domain:'localhost'});
-                    $.cookie("UserName",result.nickname,{ expires:1,path:'* ',domain:'localhost'});
+                    $.cookie("Authorization",result.data.token,{ expires:1,path:'*',domain:'localhost'});
+                    $.cookie("UserName",result.data.nickname,{ expires:1,path:'* ',domain:'localhost'});
                     $(".UserNameAndLogoff").show();
                     $(".loginIn").hide();
-                    $("#AUserName").html(result.nickname);
+                    $("#AUserName").html(result.data.nickname);
                     $('#login').modal('hide');
                     $('.modal-backdrop').remove();
-                }else{
+                } else{
                     alert("登录失败,用户名/密码错误");
                 }
             },
@@ -60,7 +60,8 @@ $(document).ready(function () {
         })
 
 
-    })
+    });
+    //点击驾校登录发送Ajax请求
     BtnSchoolUserLogin.click(function () {
        var inputSchoolEmail = $("#inputSchoolEmail");
        var inputSchoolPassword = $("#inputSchoolPassword");
@@ -74,16 +75,18 @@ $(document).ready(function () {
             success:function (result) {
                 if (result.code === 408){
                     alert(result.msg + "  用户名/密码错误" );
-                }else{
+                }else if (result.code === 200) {
                     alert("登录成功！");
                     //把token和用户名放入cookie
-                    $.cookie("AuthorizationSchool",result.token,{expires:1,path:'*',domain:'localhost'});
-                    $.cookie("schoolName",result.schoolName,{expires:1,path:'*',domain:'localhost'});
+                    $.cookie("AuthorizationSchool",result.data.token,{ expires:1,path:'*',domain:'localhost'});
+                    $.cookie("schoolName",result.data.schoolName,{ expires:1,path:'* ',domain:'localhost'});
                     $(".UserNameAndLogoff").show();
                     $(".loginIn").hide();
-                    $("#AUserName").html(result.schoolName);
+                    $("#AUserName").html(result.data.schoolName);
                     $('#login').modal('hide');
                     $('.modal-backdrop').remove();
+                } else{
+                    alert("登录失败,用户名/密码错误");
                 }
             },
             error :function (result) {
@@ -108,6 +111,16 @@ $(document).ready(function () {
         $(".UserNameAndLogoff").hide();
         //跳转回主页面
         window.location.href="/index";
+    })
+
+    //点击用户名判断
+    $("#AUserName").click(function () {
+        if($.cookie("schoolName")){
+            window.location.href="/school/profile"
+        }else if($.cookie("UserName")){
+            alert("普通用户登录")
+        }
+
     })
 
     //创建Alert

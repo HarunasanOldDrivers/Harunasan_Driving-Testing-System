@@ -4,12 +4,7 @@ package com.cqnu.harunasandrivingtestingsystem.index.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.boot.SpringApplication;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Map;
 
 @Controller
 public class IndexController {
@@ -45,20 +40,36 @@ public class IndexController {
         return "subjectOneMain";
     }
 
+    @RequestMapping(value = "/subjectOne/test")
+    public String subjectOneTest(){
+        return "subjectOneTest";
+    }
+
     @RequestMapping(value = "/subjectOne/practice")
     public String subjectOnepractice(Model model, @RequestParam(value = "chapter",required = true) String chapter ){
         model.addAttribute("chapter",chapter);
         return "subjectPractice";
     }
 
+    @RequestMapping(value = "/subjectOne/wrongList")
+    public String subjectOnewrongList(){
+        return "subjectOneWrongList";
+    }
+
     @RequestMapping(value = "/subjectFour")
     public String subjectFourMain(){
         return "subjectFourMain";
     }
-
     @RequestMapping(value = "/subjectFour/practice")
     public String subjectFourPractice(Model model, @RequestParam(value = "chapter",required = true) String chapter ){
         model.addAttribute("chapter",chapter);
         return "subjectFourPractice";}
+
+
+    @RequestMapping(value = "/school/profile")
+    public String schoolProfile(){ return "mySchoolBaseInfo";}
+
+    @RequestMapping(value = "/school/classes")
+    public String schoolClasses(){ return "mySchoolEdit";}
 
 }

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>我的驾校</title>
+    <script src="../js/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script src="../js/bootstrap.min.js" type="text/javascript"></script>
+    <link rel="stylesheet"  href="../css/bootstrap.min.css" />
+    <!--评分JS-->
+    <link rel="stylesheet" href="../css/lq-score.css" />
+    <script src="../js/lq-score.min.js" type="text/javascript"></script>
+    <!--引入富文本编辑器ckEditor-->
+    <!--<script src="ckeditor5-build-classic/ckeditor.js"></script>-->
+    <!--引入本页面自定义CSS,JS-->
+    <link rel="stylesheet" href="../css/mySchool.css" >
+    <script src="../js/mySchoolEdit.js" type="text/javascript"></script>
+    <!--引入cookies-->
+    <script src="../js/jquery.cookie.js" type="text/javascript"></script>
+    <style>
+        body{
+            padding-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="nav"></div>
+
+<div class="container">
+    <div class="page-header">
+        <h1 class="text-center">我的驾校</h1>
+        <h4 class="text-center">您发布的驾校、课程信息都将经过我们审核</h4>
+    </div>
+
+    <div class="col-md-12">
+        <div class="container-fluid">
+            <div class="row">
+                <!--左边导航栏-->
+                <div class="col-md-2">
+                    <a href="#" class="nav nav-pills list-group-item"><span class="glyphicon glyphicon-home"></span>&nbsp;驾校基本信息
+                    </a>
+                    <a href="#" class="nav nav-pills list-group-item">
+                        <!-- 小图标样式设置 -->
+                        <span class="glyphicon glyphicon-search" aria-hidden="true">
+                    </span>&nbsp;报名学员查询</a>
+                    <a href="#" class="list-group-item active">
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true">
+                    </span>&nbsp;编辑驾校课程</a>
+                </div>
+                <!--编辑驾校课程-->
+                <div class="col-md-10" >
+                    <ol class="breadcrumb">
+                        <li class="active">我的驾校
+                        </li>
+                        <li class="active">发布驾校课程
+                        </li>
+                    </ol>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            编辑驾校课程
+                        </div>
+                        <div class="panel-body">
+                            <div class="page-header">
+                                <h3 class="text-center">已发布课程</h3>
+                            </div>
+                            <div style="margin-left:  50px">
+                                <button class="btn btn-success" data-toggle="modal" data-target="#registerModal" id="BtnEnroll">添加课程</button>
+                            </div>
+                            <!--弹出模态框 展示添加课程信息-->
+                            <div class="modal fade" id="registerModal" tabindex="-1" role="dialog">
+                                <div class="modal-dialog modal-sm" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title">请填写以下信息</h4>
+                                        </div>
+                                        <!--弹出模态框，用户填写报名信息-->
+                                        <div class="modal-body">
+                                            <form id="registerClassForm">
+                                                <div class="form-group">
+                                                    <label for="InputClassName" style="border:1px solid white">课程名称：</label>
+                                                    <input type="text" class="form-control" id="InputClassName" placeholder="class name"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>价格:</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">￥</span>
+                                                        <input type="text" name="" oninput="value=value.replace(/[^\d]/g,'')" class="form-control" id="InputClassPrice" placeholder="price">
+                                                        <span class="input-group-addon">元</span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" >
+                                                    <!--<label for="exampleInputPassword1">课程描述：</label>-->
+                                                    <label for="ClassIntroductionTextarea" >课程描述：
+                                                        <textarea style="font-weight: normal;margin-top: 10px" rows="3" class="col-md-12"  id="ClassIntroductionTextarea"></textarea>
+                                                    </label>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                                            <button type="submit" id="registerBtn" class="btn btn-success">发布课程</button>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div><!-- /.modal -->
+
+                            <!--课程展示Table-->
+                            <table class="table table-striped currentClasses table-hover" style="margin-top: 20px">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">课程名称</th>
+                                        <th class="text-center">课程描述</th>
+                                        <th class="text-center">驾校价格</th>
+                                        <th class="text-center">报名人数</th>
+                                    </tr>
+                                </thead>
+                                <tbody >
+                                <!--<tr th:each="classes:${classes}">-->
+                                    <!--<th class="text-center">C1商务课</th>-->
+                                    <!--<th class="col-md-3">本班为普通商务班，上课周期比较灵活，学生可以自由选择上课时间，非常适合上班族</th>-->
+                                    <!--<th class="text-center">1200元</th>-->
+                                    <!--<th class="text-center"><span>3</span>人</th>-->
+                                    <!--<th><button class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal" id="btnDelete">删除</button>-->
+                                    <!--</th>-->
+                                <!--</tr>-->
+                                <tr>
+                                    <th class="text-center"></th>
+                                    <th class="col-md-3"></th>
+                                    <th class="text-center"></th>
+                                    <th class="text-center"><span></span></th>
+                                    <th><button class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal" id="btnDelete">删除</button>
+                                    </th>
+                                </tr>
+
+
+                                <!--<tr id="TrClasses">-->
+                                    <!--<th class="text-center"></th>-->
+                                    <!--<th class="col-md-3"></th>-->
+                                    <!--<th class="text-center"></th>-->
+                                    <!--<th class="text-center"><span></span></th>-->
+                                    <!--<th><button class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal" id="btnDelete">删除</button>-->
+                                    <!--</th>-->
+                                <!--</tr>-->
+                                </tbody>
+                            </table>
+
+                            <!--弹出模态框 确定是否要删除课程-->
+                            <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog">
+                                <div class="modal-dialog modal-sm" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title">您确认要删除该课程吗？</h4>
+                                        </div>
+                                        <!--弹出模态框，用户填写报名信息-->
+                                        <div class="modal-body">
+                                            <h5>请注意：</h5>
+                                            <p>1、删除该课程后，学员将不能再进行对该课程的报名。</p>
+                                            <p>2、已经报名的学员信息依旧可以在“报名学员查询”中查询</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                            <button type="submit" id="deleteModel" class="btn btn-danger">确定删除</button>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div><!-- /.modal -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#nav").load("../nav",function () {
+            // 在载入完成之后改变状态
+            $("#mainpage").removeClass("active");
+            $("#schoolCommend").addClass("active");
+        });
+    })
+</script>
+</body>
+</html>

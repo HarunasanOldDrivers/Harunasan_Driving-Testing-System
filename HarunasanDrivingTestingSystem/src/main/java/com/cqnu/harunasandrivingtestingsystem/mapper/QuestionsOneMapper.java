@@ -173,7 +173,25 @@ public interface QuestionsOneMapper {
      */
     QuestionsOne selectByRandomWithWord();
 
+    /**
+     * 顺序获取错题
+     * @param id    题目id
+     * @param userId    用户id
+     * @return QuestionsOne
+     */
     QuestionsOne getOrderMistake(@Param("id") Integer id, @Param("userId") Integer userId);
 
+    /**
+     * 随机获取错题
+     * @param userId    题目id
+     * @return QuestionsOne
+     */
     QuestionsOne getRandomMistake(Integer userId);
+
+    /**
+     * 获取错题
+     * @param userId    用户Id
+     * @return  List<QuestionsOne>
+     */
+    List<QuestionsOne> getAllMistakes(Integer userId);
 }

@@ -60,7 +60,14 @@ public class IndexController {
     public String subjectFourMain(){
         return "subjectFourMain";
     }
+
     @RequestMapping(value = "/subjectFourPractice")
     public String subjectFourPractice(){ return "subjectFourPractice";}
+
+    @RequestMapping(value = "/school/profile")
+    public String schoolProfile(){ return "mySchoolBaseInfo";}
+
+    @RequestMapping(value = "/school/classes")
+    public String schoolClasses(){ return "mySchoolEdit";}
 
 }

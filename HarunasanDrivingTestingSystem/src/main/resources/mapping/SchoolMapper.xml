@@ -69,8 +69,8 @@
     from hodts_db.school
     where INSTR(school_name, #{schoolName,jdbcType=VARCHAR} )>0
     and INSTR(school_area, #{area,jdbcType=VARCHAR} )>0
-    and school_start_price > #{minPrice,jdbcType=INTEGER}
-    and #{maxPrice,jdbcType=INTEGER} > school_start_price
+    and school_start_price >= #{minPrice,jdbcType=INTEGER}
+    and #{maxPrice,jdbcType=INTEGER} >= school_start_price
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from hodts_db.school

@@ -1,6 +1,7 @@
 package com.cqnu.harunasandrivingtestingsystem.entity;
 
 public class Course {
+
     private Integer courseId;
 
     private Integer schoolId;

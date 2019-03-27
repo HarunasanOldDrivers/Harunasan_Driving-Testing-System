@@ -28,6 +28,7 @@ import java.util.Map;
 public class JwtTokenUtil implements Serializable {
 
     private final static Logger logger = LoggerFactory.getLogger(JwtTokenUtil.class);
+    private static final long serialVersionUID = -4548195274835702945L;
 
     @Value("${jwt.secret}")
     private String secret;

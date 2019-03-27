@@ -13,55 +13,130 @@ import java.util.Date;
 
 public class School{
 
+    /**
+     * 驾校Id
+     */
     private Integer schoolId;
 
+    /**
+     * 公司法人姓名
+     */
     private String schoolCorporateName;
 
+    /**
+     * 公司法人电话
+     */
     private String schoolCorporateTel;
 
+    /**
+     * 密码
+     */
     @JsonIgnore
     private String schoolPassword;
 
+    /**
+     * 驾校邮箱
+     */
     private String schoolEmail;
 
+    /**
+     * 驾校名称
+     */
     private String schoolName;
 
+    /**
+     * 驾校公司名称
+     */
     private String schoolCompanyName;
 
+    /**
+     * 驾校认证状态
+     */
     private Byte schoolAuthenticationStatus;
 
+    /**
+     * 法人身份证图片
+     */
     private String schoolCardId;
 
+    /**
+     * 报名电话
+     */
     private String schoolEnrollTelphone;
 
+    /**
+     * 起始价
+     */
     private Integer schoolStartPrice;
 
+    /**
+     * 营业执照
+     */
     private String schoolBusinessLicense;
 
+    /**
+     * 驾校信息管理授权书
+     */
     private String schoolCertificationLicense;
 
+    /**
+     * 社会信用代码
+     */
     private String schoolSocialCreditCode;
 
+    /**
+     * 所属省
+     */
     private String schoolProvince;
 
+    /**
+     * 所在城市
+     */
     private String schoolCity;
 
+    /**
+     * 所在地区
+     */
     private String schoolArea;
 
+    /**
+     * 详细地址
+     */
     private String schoolDetailAddress;
 
+    /**
+     * 驾校创建时间
+     */
     private Date schoolStartTime;
 
+    /**
+     * 审核通过时间
+     */
     private Date schoolPassTime;
 
+    /**
+     * 口碑
+     */
     private Double schoolPublicPraise;
 
+    /**
+     * 账号注册时间
+     */
     private Date schoolRegDate;
 
+    /**
+     * 账号状态
+     */
     private Integer schoolEnable;
 
+    /**
+     * 驾校描述
+     */
     private String schoolIntroduction;
 
+    /**
+     * 首页图片
+     */
     private String schoolIcon;
 
     public String getSchoolIcon() {

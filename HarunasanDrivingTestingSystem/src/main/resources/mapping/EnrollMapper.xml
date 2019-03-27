@@ -6,9 +6,11 @@
     <result column="course_id" jdbcType="INTEGER" property="courseId" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="enroll_date_time" jdbcType="TIMESTAMP" property="enrollDateTime" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_telephone" jdbcType="VARCHAR" property="userTelephone" />
   </resultMap>
   <sql id="Base_Column_List">
-    enroll_id, course_id, user_id, enroll_date_time
+    enroll_id, course_id, user_id, enroll_date_time, user_name, user_telephone
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -16,15 +18,47 @@
     from hodts_db.enroll
     where enroll_id = #{enrollId,jdbcType=INTEGER}
   </select>
+  <select id="selectCountByCourseId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select count(*)
+    from hodts_db.enroll
+    where course_id = #{courseId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUserIdAndCourseId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.enroll
+    where user_id = #{userId,jdbcType=INTEGER}
+    AND course_id = #{courseId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByStudentNameAndEnrollDateAndCourseName"
+          resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.enroll
+    where INSTR(user_name, #{studentName,jdbcType=VARCHAR} )>0
+    and course_id = #{courseId,jdbcType=VARCHAR}
+    and #{enrollDateAfter,jdbcType=DATE} >= enroll_date_time
+    and enroll_date_time >= #{enrollDateBefore,jdbcType=DATE}
+    order by enroll_date_time desc
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.enroll
+    where INSTR(user_name, #{studentName,jdbcType=VARCHAR} )>0
+    and #{enrollDateAfter,jdbcType=DATE} >= enroll_date_time
+    and enroll_date_time >= #{enrollDateBefore,jdbcType=DATE}
+    order by enroll_date_time desc
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from hodts_db.enroll
     where enroll_id = #{enrollId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.Enroll">
     insert into hodts_db.enroll (enroll_id, course_id, user_id, 
-      enroll_date_time)
+      enroll_date_time, user_name, user_telephone)
     values (#{enrollId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
-      #{enrollDateTime,jdbcType=TIMESTAMP})
+      #{enrollDateTime,jdbcType=TIMESTAMP}, #{userName,jdbcType=VARCHAR}, #{userTelephone,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.Enroll">
     insert into hodts_db.enroll
@@ -41,6 +75,12 @@
       <if test="enrollDateTime != null">
         enroll_date_time,
       </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userTelephone != null">
+        user_telephone,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="enrollId != null">
@@ -54,6 +94,12 @@
       </if>
       <if test="enrollDateTime != null">
         #{enrollDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userTelephone != null">
+        #{userTelephone,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -69,6 +115,12 @@
       <if test="enrollDateTime != null">
         enroll_date_time = #{enrollDateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userTelephone != null">
+        user_telephone = #{userTelephone,jdbcType=VARCHAR},
+      </if>
     </set>
     where enroll_id = #{enrollId,jdbcType=INTEGER}
   </update>
@@ -76,7 +128,9 @@
     update hodts_db.enroll
     set course_id = #{courseId,jdbcType=INTEGER},
       user_id = #{userId,jdbcType=INTEGER},
-      enroll_date_time = #{enrollDateTime,jdbcType=TIMESTAMP}
+      enroll_date_time = #{enrollDateTime,jdbcType=TIMESTAMP},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_telephone = #{userTelephone,jdbcType=VARCHAR}
     where enroll_id = #{enrollId,jdbcType=INTEGER}
   </update>
 </mapper>

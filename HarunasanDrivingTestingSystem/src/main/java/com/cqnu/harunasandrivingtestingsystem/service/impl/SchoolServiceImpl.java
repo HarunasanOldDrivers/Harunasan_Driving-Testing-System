@@ -1,8 +1,12 @@
 package com.cqnu.harunasandrivingtestingsystem.service.impl;
 
 import com.cqnu.harunasandrivingtestingsystem.entity.Course;
+import com.cqnu.harunasandrivingtestingsystem.entity.Enroll;
 import com.cqnu.harunasandrivingtestingsystem.entity.School;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.CourseVO;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.SchoolVO;
 import com.cqnu.harunasandrivingtestingsystem.mapper.CourseMapper;
+import com.cqnu.harunasandrivingtestingsystem.mapper.EnrollMapper;
 import com.cqnu.harunasandrivingtestingsystem.mapper.SchoolMapper;
 import com.cqnu.harunasandrivingtestingsystem.service.ISchoolService;
 import com.cqnu.harunasandrivingtestingsystem.utils.FileUtil;
@@ -20,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -44,6 +49,9 @@ public class SchoolServiceImpl implements ISchoolService {
 
     @Resource
     private SchoolMapper schoolMapper;
+
+    @Resource
+    private EnrollMapper enrollMapper;
 
     @Resource
     private CourseMapper courseMapper;
@@ -94,15 +102,14 @@ public class SchoolServiceImpl implements ISchoolService {
 
     @Override
     public List<String> uploadImage(MultipartFile[] files) {
-//        String filePath = "D:\\文档\\毕设\\Harunasan_Driving-Testing-System\\HarunasanDrivingTestingSystem\\src\\main\\resources\\upload\\";
-        String filePath = "D:\\newproject\\HarunasanDrivingTestingSystem\\src\\main\\resources\\upload";
+        String filePath = "D:\\文档\\毕设\\Harunasan_Driving-Testing-System\\HarunasanDrivingTestingSystem\\src\\main\\resources\\upload\\";
         String fileName = "";
         List<String> urlList = new ArrayList<>();
 
         String uploadedFileName = Arrays.stream(files).map(x -> x.getOriginalFilename())
                 .filter(x -> !StringUtils.isEmpty(x)).collect(Collectors.joining(" , "));
         if (StringUtils.isEmpty(uploadedFileName)) {
-            System.out.println("文件上传失败,文件为空");
+            logger.warn("文件上传失败,文件为空");
         }
         List<String> paths = new ArrayList<>();
         try {
@@ -150,23 +157,52 @@ public class SchoolServiceImpl implements ISchoolService {
     }
 
     @Override
-    public School getProfile(Integer username){
-        return schoolMapper.selectByPrimaryKey(username);
+    public SchoolVO getProfile(Integer username){
+        SchoolVO schoolVO = new SchoolVO();
+        School school = schoolMapper.selectByPrimaryKey(username);
+        schoolVO.setSchoolId(school.getSchoolId());
+        schoolVO.setSchoolEnrollTelephone(school.getSchoolEnrollTelphone());
+        schoolVO.setSchoolCorporateName(school.getSchoolCorporateName());
+        schoolVO.setSchoolCorporateTel(school.getSchoolCorporateTel());
+        schoolVO.setSchoolName(school.getSchoolName());
+        schoolVO.setSchoolCompanyName(school.getSchoolCompanyName());
+        schoolVO.setSchoolStartTime(school.getSchoolStartTime());
+        schoolVO.setSchoolPublicPraise(school.getSchoolPublicPraise());
+        schoolVO.setSchoolIntroduction(school.getSchoolIntroduction());
+        schoolVO.setSchoolIcon(school.getSchoolIcon());
+        schoolVO.setAddress(school.getSchoolArea()+" " + school.getSchoolDetailAddress());
+        schoolVO.setSchoolCourses(courseMapper.selectBySchoolId(username));
+        return schoolVO;
     }
 
     @Override
-    public boolean addCourse(Integer username, String courseName, String courseDescribe, Integer price){
-        Course course = new Course();
-        course.setCourseName(courseName);
-        course.setCourseDescribe(courseDescribe);
-        course.setSchoolId(username);
-        course.setCoursePrice(price);
-        if( 1 == courseMapper.insertSelective(course)){
-            School school = schoolMapper.selectByPrimaryKey(username);
-            school.setSchoolStartPrice(courseMapper.selectBySchoolIdOrderByPrice(username).getCoursePrice());
-            schoolMapper.updateByPrimaryKeySelective(school);
-            return true;
-        }
-        return false;
+    public boolean alterTel(Integer schoolId, String newTel){
+        School school = schoolMapper.selectByPrimaryKey(schoolId);
+        school.setSchoolEnrollTelphone(newTel);
+        return schoolMapper.updateByPrimaryKeySelective(school) == 1;
+    }
+
+    @Override
+    public boolean alterDescribe(Integer schoolId, String newDec){
+        School school = schoolMapper.selectByPrimaryKey(schoolId);
+        school.setSchoolIntroduction(newDec);
+        return schoolMapper.updateByPrimaryKeySelective(school) == 1;
+    }
+
+    @Override
+    public boolean alterIcon(Integer schoolId, String fileurl){
+        School school = schoolMapper.selectByPrimaryKey(schoolId);
+        school.setSchoolIcon(fileurl);
+        return schoolMapper.updateByPrimaryKeySelective(school) == 1;
+    }
+
+    @Override
+    public List<Enroll> selectEnroll(String studentName, LocalDateTime timeBefore, LocalDateTime timeAfter, Integer courseId){
+        return enrollMapper.selectByStudentNameAndEnrollDateAndCourseName(studentName, timeBefore, timeAfter, courseId);
+    }
+
+    @Override
+    public List<Enroll> selectAllEnroll(String studentName, LocalDateTime timeBefore, LocalDateTime timeAfter) {
+        return enrollMapper.selectAll(studentName,timeBefore, timeAfter);
     }
 }

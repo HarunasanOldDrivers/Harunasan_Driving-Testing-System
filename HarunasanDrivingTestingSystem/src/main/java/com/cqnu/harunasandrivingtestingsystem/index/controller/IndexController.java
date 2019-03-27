@@ -72,4 +72,7 @@ public class IndexController {
     @RequestMapping(value = "/school/classes")
     public String schoolClasses(){ return "mySchoolEdit";}
 
+    @RequestMapping(value = "/school/student")
+    public String schoolStudent(){ return "mySchoolSelectStudent";}
+
 }

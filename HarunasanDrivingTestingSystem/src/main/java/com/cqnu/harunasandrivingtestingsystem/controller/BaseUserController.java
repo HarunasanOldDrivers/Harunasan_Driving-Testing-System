@@ -38,7 +38,7 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("api/user")
+@RequestMapping("/api/user")
 public class BaseUserController {
 
     Logger logger = LoggerFactory.getLogger(BaseUserController.class);

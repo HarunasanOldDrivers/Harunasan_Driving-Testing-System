@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>科目一考试</title>
+    <script src="../js/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script src="../js/bootstrap.min.js" type="text/javascript"></script>
+    <!--引入本页面js和css-->
+    <link href="../css/subjectTest.css" rel="stylesheet"/>
+    <script src="../js/subjectTest.js" type="text/javascript"></script>
+    <style>
+        body{
+            padding-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="nav"></div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1 class="text-center">科目一练习/考试</h1>
+        </div>
+
+        <div  class=" col-md-12">
+            <!--个人信息-->
+            <div class="col-md-3" >
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">
+                        <h3 class="text-center">考生信息</h3>
+                    </div>
+                    <div class="panel-body">
+                        <h4><strong>科目：</strong>科目一理论</h4>
+                        <h4><strong>考生：</strong><span>秋名山新司机</span></h4>
+                        <h4><strong>考试车型：</strong>C1</h4>
+                        <h4><strong>考试原因：</strong>初次申领</h4>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h3 class="text-center">剩余时间</h3>
+                        <h3 class="text-center" id="remainTime"><strong></strong></h3>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="text-center" id="DivStartTest" >
+                            <button class="btn btn-success btn-lg" id="BtnStartTest">开始考试</button>
+                        </div>
+                        <div class="text-center" id="DivTestingBtns" style="display: none">
+                            <button class="btn btn-danger btn-lg"  id="BtnFinishTest">交卷</button>
+                            <!--交卷弹出模态框确认-->
+                        </div>
+
+                        <!--弹出模态框 确定是否要删除课程-->
+                        <div class="modal fade" id="ModelConfirmFinish" tabindex="-1" role="dialog">
+                            <div class="modal-dialog modal-sm" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">您确认要交卷吗？</h4>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <h4>请注意:</h4>
+                                        <p>1、点击确认交卷之后，所有未答题目都会算作错误。</p>
+                                        <p>2、您可以立即看到您的成绩以及错题</p>
+                                    </div>
+                                    <!--弹出模态框，用户填写报名信息-->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                                        <button type="submit" id="btnModelFinishTest" data-dismiss="modal" class="btn btn-success">确认交卷</button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
+                    </div>
+                </div>
+            </div>
+
+            <!--题目区域-->
+            <div class="col-md-9">
+                <ol class="breadcrumb">
+                    <li class="active"><a href="/subjectOne">科目一练习</a></li>
+                    <li class="active" id="breadcrumbChapter2">模拟考试</li>
+                    <li class="active" id="breadcrumbChapter"><a href="#"></a></li>
+                </ol>
+
+                <div class="panel panel-default" id="DivQuestionArea" >
+                    <div class="panel-heading">
+                        <h3 class="text-center">题目信息</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="page-header Question" id="DivQuestionTitle" >
+                            <h3><span id="SpanQuestionId"></span><span id="SpanQuestionTitle">&nbsp;&nbsp;</span></h3>
+                        </div>
+
+                        <div class="DivAnswersOptions col-md-8">
+                            <ul class="UlAnsers col-md-12" style="font-size: 18px; color: #606060; list-style: none;margin:0px;padding:0px;">
+                                <li class="options" id="LiAnswers1"></li>
+                                <li class="options" id="LiAnswers2"></li>
+                                <li class="options" id="LiAnswers3"></li>
+                                <li class="options" id="LiAnswers4"></li>
+                            </ul>
+                        </div>
+
+                        <div class="DivAnswersImage col-md-4">
+                            <img src="" id="qoimage" style="width:100%;height:auto;"/>
+                            <video src="" id="qovideo" style="width:100%;height:auto; display: none"></video>
+                        </div>
+
+                        <div class="col-md-12" style="margin-top: 20px">
+                            <div class="col-md-3 DivAnswers" id="DivAnswers" style="visibility: hidden">
+                                <span style="font-size: 20px">正确答案：</span><span id="QoRightAnswer" style="font-size:25px; color: #16ab33;"></span>
+                                <p style="font-size: 20px">您的选择：<span id="SpanUserChoose" style="font-size: 25px"></span></p>
+                                <p id="SpanRightOrWrongTips" style="font-size:25px;"></p>
+                            </div>
+                            <div class="text-right col-md-9">
+                                <!--<button class="btn btn-default  btn-lg" id="BtnPreQuestion">上一题</button>-->
+                                <button class="btn btn-default  btn-lg btnConfirmAnswer" id="BtnConfirmAnswerA">A</button>
+                                <button class="btn btn-default  btn-lg btnConfirmAnswer" id="BtnConfirmAnswerB">B</button>
+                                <button class="btn btn-default  btn-lg btnConfirmAnswer" id="BtnConfirmAnswerC">C</button>
+                                <button class="btn btn-default  btn-lg btnConfirmAnswer" id="BtnConfirmAnswerD">D</button>
+                                <!--<button class="btn btn-default  btn-lg" id="BtnNextQuestion">下一题</button>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--题号设置-->
+                <div class="panel panel-default" id="DivQuestionsListArea" >
+                    <div class="panel-body" id="DivQuestionsList">
+                        <ul class="UlQuestions" id="UlQuestions">
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="panel panel-default" id="DivResult" style="display: none">
+                    <div class="panel-body">
+                        <h1 class="text-center text-info">您的考试成绩为</h1>
+                        <h2 class="text-center text-success" id="h1TestScore" ><span id="SpanTestScore" >88</span>分</h2>
+                        <h2 class="text-center text-success " id="H2Result">考试结果：<span id="TestResult">失败</span></h2>
+                        <!--<h4 class="text-center text-warning">Tips:如果您已登录，您做错的题目已经自动为您加入到错题集，未完成题目不会加入</h4>-->
+                        <button class="btn btn-success btn-lg  col-md-2 col-md-offset-4" onclick="window.location.href='/subjectOne/test'">重新考试</button>&nbsp;
+                        <!--<button class="btn btn-info btn-lg  col-md-2 " id="ShowTheWrongList">查看错题集</button>-->
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+</body>
+</html>

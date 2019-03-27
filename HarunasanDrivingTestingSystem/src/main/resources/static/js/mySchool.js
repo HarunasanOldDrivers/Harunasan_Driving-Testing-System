@@ -70,7 +70,7 @@ $(document).ready(function () {
                 XMLHttpRequest.setRequestHeader("Authorization", Authorization);
             },
             success:function (result) {
-                alert("success");
+                alert("更改首页图片成功");
             },
             error:function (result) {
                 alert("Ajax出了点错呢")

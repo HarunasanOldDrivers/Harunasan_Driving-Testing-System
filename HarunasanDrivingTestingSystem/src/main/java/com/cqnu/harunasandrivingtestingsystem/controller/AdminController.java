@@ -63,7 +63,7 @@ public class AdminController {
     /**
      * json web token 在请求头的名字
      */
-    @Value("${jwt.header}")
+    @Value("${jwt.admin_header}")
     private String tokenHeader;
 
     @PostMapping("/createAdmin")

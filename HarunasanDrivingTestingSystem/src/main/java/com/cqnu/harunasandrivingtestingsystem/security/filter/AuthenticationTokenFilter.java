@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -33,6 +34,9 @@ public class AuthenticationTokenFilter extends UsernamePasswordAuthenticationFil
     @Value("${jwt.header}")
     private String tokenHeader;
 
+    @Value("${jwt.admin_header}")
+    private String adminTokenHeader;
+
     /**
      * 辅助操作 token 的工具类
      */
@@ -52,6 +56,10 @@ public class AuthenticationTokenFilter extends UsernamePasswordAuthenticationFil
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         // 尝试获取请求头的 token
         String authToken = httpRequest.getHeader(this.tokenHeader);
+        logger.info("authToken：" + authToken);
+        if (StringUtils.isEmpty(authToken)){
+            authToken = httpRequest.getHeader(this.adminTokenHeader);
+        }
         // 尝试拿 token 中的 username
         // 若是没有 token 或者拿 username 时出现异常，那么 username 为 null
         // username 为 userId

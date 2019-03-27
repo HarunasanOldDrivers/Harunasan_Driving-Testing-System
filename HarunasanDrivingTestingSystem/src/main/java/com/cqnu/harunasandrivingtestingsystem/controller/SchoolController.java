@@ -73,7 +73,7 @@ public class SchoolController {
     private String tokenHeader;
 
     /**
-     *
+     * 登录
      * @param email 登录邮箱
      * @param password  登录密码
      * @return  code: 200 成功  返回token
@@ -191,6 +191,63 @@ public class SchoolController {
         return ResultUtil.success(schoolService.getProfile(Integer.valueOf(username)));
     }
 
+    /**
+     * 修改报名电话
+     * @param newTel    新报名电话
+     * @return  code: 200 成功
+     *          code: 605 修改报名电话失败
+     */
+    @PostMapping("/alterTel")
+    @PreAuthorize("hasRole('School')")
+    public Result alterTel(String newTel){
+        String authToken = request.getHeader(this.tokenHeader);
+        String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
+        if (schoolService.alterTel(Integer.valueOf(username), newTel)){
+            return ResultUtil.success();
+        }
+        return ResultUtil.failure(605, "修改报名电话失败");
+    }
+
+    /**
+     * 修改驾校简介
+     * @param newDec  新简介
+     * @return
+     */
+    @PostMapping("/alterDescribe")
+    @PreAuthorize("hasRole('School')")
+    public Result alterDescribe(String newDec){
+        String authToken = request.getHeader(this.tokenHeader);
+        String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
+        if (schoolService.alterDescribe(Integer.valueOf(username), newDec)){
+            return ResultUtil.success();
+        }
+        return ResultUtil.failure(606, "修改报名电话失败");
+    }
+
+    /**
+     * 修改首页图片
+     * @param files 首页图片
+     * @return
+     */
+    @PostMapping("/alterIcon")
+    @PreAuthorize("hasRole('School')")
+    public Result alterIcon(@RequestParam("image") MultipartFile[] files){
+        String authToken = request.getHeader(this.tokenHeader);
+        String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
+        if (files == null || files.length != 1){
+            return ResultUtil.failure(600,"文件上传失败");
+        }
+        List<String> filesList = schoolService.uploadImage(files);
+        if (filesList == null){
+            return ResultUtil.failure(600,"文件上传失败");
+        }
+        logger.warn(filesList.get(0));
+        if (schoolService.alterIcon(Integer.valueOf(username),filesList.get(0))){
+            return ResultUtil.success();
+        }
+        return ResultUtil.failure(607, "修改首页图片失败");
+    }
+
 
     /**
      * 添加课程
@@ -260,9 +317,7 @@ public class SchoolController {
                                         String studentName, String enrollDate, Integer courseId){
         String authToken = request.getHeader(this.tokenHeader);
         String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
-        if (courseId == null){
-            throw new GlobalException("600", "参数错误");
-        }
+
         LocalDateTime localDateTimeBefore;
         LocalDateTime localDateTimeAfter;
         if (StringUtils.isEmpty(enrollDate)){
@@ -272,6 +327,10 @@ public class SchoolController {
             LocalDate localDate = LocalDate.parse(enrollDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             localDateTimeBefore = localDate.atTime(0, 0, 0);
             localDateTimeAfter = localDateTimeBefore.plusDays(1);
+        }
+        if (courseId == null){
+            PageHelper.startPage(pageNo, pageSize);
+            return new PageInfo<>(schoolService.selectAllEnroll(studentName,localDateTimeBefore, localDateTimeAfter));
         }
         PageHelper.startPage(pageNo, pageSize);
         return new PageInfo<>(schoolService.selectEnroll(studentName,localDateTimeBefore, localDateTimeAfter, courseId));

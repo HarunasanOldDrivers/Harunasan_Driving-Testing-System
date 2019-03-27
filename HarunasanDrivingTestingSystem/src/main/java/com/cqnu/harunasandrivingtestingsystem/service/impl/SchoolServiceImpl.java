@@ -109,7 +109,7 @@ public class SchoolServiceImpl implements ISchoolService {
         String uploadedFileName = Arrays.stream(files).map(x -> x.getOriginalFilename())
                 .filter(x -> !StringUtils.isEmpty(x)).collect(Collectors.joining(" , "));
         if (StringUtils.isEmpty(uploadedFileName)) {
-            System.out.println("文件上传失败,文件为空");
+            logger.warn("文件上传失败,文件为空");
         }
         List<String> paths = new ArrayList<>();
         try {
@@ -176,7 +176,33 @@ public class SchoolServiceImpl implements ISchoolService {
     }
 
     @Override
+    public boolean alterTel(Integer schoolId, String newTel){
+        School school = schoolMapper.selectByPrimaryKey(schoolId);
+        school.setSchoolEnrollTelphone(newTel);
+        return schoolMapper.updateByPrimaryKeySelective(school) == 1;
+    }
+
+    @Override
+    public boolean alterDescribe(Integer schoolId, String newDec){
+        School school = schoolMapper.selectByPrimaryKey(schoolId);
+        school.setSchoolIntroduction(newDec);
+        return schoolMapper.updateByPrimaryKeySelective(school) == 1;
+    }
+
+    @Override
+    public boolean alterIcon(Integer schoolId, String fileurl){
+        School school = schoolMapper.selectByPrimaryKey(schoolId);
+        school.setSchoolIcon(fileurl);
+        return schoolMapper.updateByPrimaryKeySelective(school) == 1;
+    }
+
+    @Override
     public List<Enroll> selectEnroll(String studentName, LocalDateTime timeBefore, LocalDateTime timeAfter, Integer courseId){
         return enrollMapper.selectByStudentNameAndEnrollDateAndCourseName(studentName, timeBefore, timeAfter, courseId);
+    }
+
+    @Override
+    public List<Enroll> selectAllEnroll(String studentName, LocalDateTime timeBefore, LocalDateTime timeAfter) {
+        return enrollMapper.selectAll(studentName,timeBefore, timeAfter);
     }
 }

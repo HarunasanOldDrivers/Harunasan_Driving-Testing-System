@@ -27,4 +27,8 @@ public interface EnrollMapper {
                                                                @Param("enrollDateBefore") LocalDateTime enrollDateBefore,
                                                                @Param("enrollDateAfter") LocalDateTime enrollDateAfter,
                                                                @Param("courseId") Integer courseId);
+
+    List<Enroll> selectAll(@Param("studentName") String studentName,
+                           @Param("enrollDateBefore") LocalDateTime enrollDateBefore,
+                           @Param("enrollDateAfter") LocalDateTime enrollDateAfter);
 }

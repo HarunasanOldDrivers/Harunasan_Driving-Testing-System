@@ -39,6 +39,16 @@
     and course_id = #{courseId,jdbcType=VARCHAR}
     and #{enrollDateAfter,jdbcType=DATE} >= enroll_date_time
     and enroll_date_time >= #{enrollDateBefore,jdbcType=DATE}
+    order by enroll_date_time desc
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hodts_db.enroll
+    where INSTR(user_name, #{studentName,jdbcType=VARCHAR} )>0
+    and #{enrollDateAfter,jdbcType=DATE} >= enroll_date_time
+    and enroll_date_time >= #{enrollDateBefore,jdbcType=DATE}
+    order by enroll_date_time desc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from hodts_db.enroll

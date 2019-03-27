@@ -91,6 +91,30 @@ public interface ISchoolService {
     SchoolVO getProfile(Integer username);
 
     /**
+     * 修改报名电话
+     * @param schoolId  驾校Id
+     * @param newTel    新报名电话
+     * @return
+     */
+    boolean alterTel(Integer schoolId, String newTel);
+
+    /**
+     * 修改驾校简介
+     * @param schoolId  驾校Id
+     * @param newDec    新驾校简介
+     * @return
+     */
+    boolean alterDescribe(Integer schoolId, String newDec);
+
+    /**
+     * 修改首页图片
+     * @param schoolId  驾校Id
+     * @param fileurl   图片路径
+     * @return
+     */
+    boolean alterIcon(Integer schoolId, String fileurl);
+
+    /**
      * 查询报名
      * @param studentName   学生姓名
      * @param timeBefore    报名时间左区间
@@ -99,4 +123,13 @@ public interface ISchoolService {
      * @return  List<Enroll>
      */
     List<Enroll> selectEnroll(String studentName, LocalDateTime timeBefore, LocalDateTime timeAfter, Integer courseId);
+
+    /**
+     * 查询报名
+     * @param studentName   学生姓名
+     * @param timeBefore    报名时间左区间
+     * @param timeAfter     报名时间右区间
+     * @return  List<Enroll>
+     */
+    List<Enroll> selectAllEnroll(String studentName, LocalDateTime timeBefore, LocalDateTime timeAfter);
 }

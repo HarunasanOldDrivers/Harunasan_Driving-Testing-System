@@ -66,6 +66,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**").permitAll()
 //                .antMatchers("/druid/**").hasRole("Admin_root")
 //                .antMatchers("/druid/**").permitAll()
+                .antMatchers("/druid/**").hasAuthority("druid")
+//                .antMatchers("/druid/**").permitAll()
                 .antMatchers("/api/**").permitAll()
                 // 把不需要认证的接口暴露出去。登录，刷新token，
                 .antMatchers("/auth/**").permitAll()
@@ -89,10 +91,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         //解决静态资源被拦截的问题
-        web.ignoring().antMatchers("/static/**")
-                .antMatchers("/js/**")
-                .antMatchers("/images/**")
-                .antMatchers("/css/**")
-                .antMatchers("/fonts/**");
+        web.ignoring().antMatchers("/resources/static/**");
+//                .antMatchers("/js/**")
+//                .antMatchers("/images/**")
+//                .antMatchers("/css/**")
+//                .antMatchers("/fonts/**");
     }
 }

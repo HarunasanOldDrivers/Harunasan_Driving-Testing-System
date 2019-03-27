@@ -25,6 +25,7 @@
     <result column="school_public_praise" jdbcType="DOUBLE" property="schoolPublicPraise" />
     <result column="school_reg_date" jdbcType="DATE" property="schoolRegDate" />
     <result column="school_enable" jdbcType="INTEGER" property="schoolEnable" />
+    <result column="school_icon" jdbcType="VARCHAR" property="schoolIcon" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.cqnu.harunasandrivingtestingsystem.entity.School">
     <result column="school_introduction" jdbcType="LONGVARCHAR" property="schoolIntroduction" />
@@ -34,7 +35,7 @@
     school_name, school_company_name, school_authentication_status, school_card_id, school_enroll_telphone, 
     school_start_price, school_business_license, school_certification_license, school_social_credit_code, 
     school_province, school_city, school_area, school_detail_address, school_start_time, 
-    school_pass_time, school_public_praise, school_reg_date, school_enable
+    school_pass_time, school_public_praise, school_reg_date, school_enable, school_icon
   </sql>
   <sql id="Blob_Column_List">
     school_introduction
@@ -60,6 +61,17 @@
     from hodts_db.school
     where school_email = #{schoolEmail,jdbcType=VARCHAR}
   </select>
+  <select id="searchSchools" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from hodts_db.school
+    where INSTR(school_name, #{schoolName,jdbcType=VARCHAR} )>0
+    and INSTR(school_area, #{area,jdbcType=VARCHAR} )>0
+    and school_start_price > #{minPrice,jdbcType=INTEGER}
+    and #{maxPrice,jdbcType=INTEGER} > school_start_price
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from hodts_db.school
     where school_id = #{schoolId,jdbcType=INTEGER}
@@ -73,7 +85,7 @@
       school_social_credit_code, school_province, 
       school_city, school_area, school_detail_address, 
       school_start_time, school_pass_time, school_public_praise, 
-      school_reg_date, school_enable, school_introduction
+      school_reg_date, school_enable, school_introduction, school_icon
       )
     values (#{schoolId,jdbcType=INTEGER}, #{schoolCorporateName,jdbcType=VARCHAR}, #{schoolCorporateTel,jdbcType=VARCHAR},
       #{schoolPassword,jdbcType=VARCHAR}, #{schoolEmail,jdbcType=VARCHAR}, #{schoolName,jdbcType=VARCHAR}, 
@@ -83,7 +95,7 @@
       #{schoolSocialCreditCode,jdbcType=VARCHAR}, #{schoolProvince,jdbcType=VARCHAR}, 
       #{schoolCity,jdbcType=VARCHAR}, #{schoolArea,jdbcType=VARCHAR}, #{schoolDetailAddress,jdbcType=VARCHAR}, 
       #{schoolStartTime,jdbcType=DATE}, #{schoolPassTime,jdbcType=DATE}, #{schoolPublicPraise,jdbcType=DOUBLE}, 
-      #{schoolRegDate,jdbcType=DATE}, #{schoolEnable,jdbcType=INTEGER}, #{schoolIntroduction,jdbcType=LONGVARCHAR}
+      #{schoolRegDate,jdbcType=DATE}, #{schoolEnable,jdbcType=INTEGER}, #{schoolIntroduction,jdbcType=LONGVARCHAR}, #{schoolIcon.jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.School">
@@ -161,6 +173,9 @@
       <if test="schoolIntroduction != null">
         school_introduction,
       </if>
+      <if test="schoolIcon != null">
+        school_icon,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="schoolId != null">
@@ -234,6 +249,9 @@
       </if>
       <if test="schoolIntroduction != null">
         #{schoolIntroduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="schoolIcon != null">
+        #{schoolIcon,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -309,6 +327,9 @@
       <if test="schoolIntroduction != null">
         school_introduction = #{schoolIntroduction,jdbcType=LONGVARCHAR},
       </if>
+      <if test="schoolIcon != null">
+        school_icon = #{schoolIcon,jdbcType=VARCHAR},
+      </if>
     </set>
     where school_id = #{schoolId,jdbcType=INTEGER}
   </update>
@@ -337,6 +358,7 @@
       school_reg_date = #{schoolRegDate,jdbcType=DATE},
       school_enable = #{schoolEnable,jdbcType=INTEGER},
       school_introduction = #{schoolIntroduction,jdbcType=LONGVARCHAR}
+      school_icon = #{schoolIcon,jdbcType=VARCHAR}
     where school_id = #{schoolId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cqnu.harunasandrivingtestingsystem.entity.School">
@@ -363,6 +385,7 @@
       school_public_praise = #{schoolPublicPraise,jdbcType=DOUBLE},
       school_reg_date = #{schoolRegDate,jdbcType=DATE},
       school_enable = #{schoolEnable,jdbcType=INTEGER}
+      school_icon = #{schoolIcon,jdbcType=VARCHAR}
     where school_id = #{schoolId,jdbcType=INTEGER}
   </update>
 </mapper>

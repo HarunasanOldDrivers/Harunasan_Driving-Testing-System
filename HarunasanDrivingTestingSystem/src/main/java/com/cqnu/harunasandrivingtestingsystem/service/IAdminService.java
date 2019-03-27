@@ -1,5 +1,7 @@
 package com.cqnu.harunasandrivingtestingsystem.service;
 
+import com.cqnu.harunasandrivingtestingsystem.entity.Administrator;
+
 /**
  * @author LiAixing
  * @version 1.0
@@ -34,6 +36,8 @@ public interface IAdminService {
     boolean loginById(int id, String password);
 
     boolean loginByTelephone(String telephone, String password);
+
+    Administrator getInfo(Integer username);
 
 
 //    public int updateAdmin()

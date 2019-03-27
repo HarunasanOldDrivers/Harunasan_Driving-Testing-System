@@ -1,6 +1,7 @@
 package com.cqnu.harunasandrivingtestingsystem.mapper;
 
 import com.cqnu.harunasandrivingtestingsystem.entity.Course;
+import org.apache.ibatis.annotations.Param;
 
 public interface CourseMapper {
     int deleteByPrimaryKey(Integer courseId);
@@ -14,4 +15,6 @@ public interface CourseMapper {
     int updateByPrimaryKeySelective(Course record);
 
     int updateByPrimaryKey(Course record);
+
+    Course selectBySchoolIdOrderByPrice(Integer schoolId);
 }

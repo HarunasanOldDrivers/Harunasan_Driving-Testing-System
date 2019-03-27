@@ -4,6 +4,8 @@ import com.cqnu.harunasandrivingtestingsystem.entity.MistakesCollectionOne;
 import com.cqnu.harunasandrivingtestingsystem.entity.QuestionsOne;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface MistakesCollectionOneMapper {
 
     int deleteByPrimaryKey(Integer mistakesId);
@@ -16,9 +18,12 @@ public interface MistakesCollectionOneMapper {
 
     Integer selectUserIdByQoId(Integer questionsOneId);
 
+    Integer selectUserIdByQoIdAndUserId(@Param("questionsOneId") Integer questionsOneId, @Param("userId") Integer userId);
+
     int updateByPrimaryKeySelective(MistakesCollectionOne record);
 
     int updateByPrimaryKey(MistakesCollectionOne record);
 
     int deleteByUserIdAndQuestionId(@Param("userId") Integer userId, @Param("questionsId") Integer questionsId);
+
 }

@@ -15,6 +15,8 @@ public interface MistakesCollectionFourMapper {
 
     Integer selectUserIdByQoId(Integer questionsFourId);
 
+    Integer selectUserIdByQoIdAndUserId(@Param("questionsOneId") Integer questionsOneId, @Param("userId") Integer userId);
+
     int updateByPrimaryKeySelective(MistakesCollectionFour record);
 
     int updateByPrimaryKey(MistakesCollectionFour record);

@@ -51,6 +51,11 @@ public class IndexController {
         return "subjectPractice";
     }
 
+    @RequestMapping(value = "/subjectOne/wrongList")
+    public String subjectOnewrongList(){
+        return "subjectOneWrongList";
+    }
+
     @RequestMapping(value = "/subjectFour")
     public String subjectFourMain(){
         return "subjectFourMain";

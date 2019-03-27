@@ -53,7 +53,8 @@ public class BaseUserServiceImpl implements IBaseUserService {
         user.setUserNickname(nickname);
         user.setUserEmail(email);
         user.setUserPassword(Password2Hash.sha256CryptWithSalt(password, String.valueOf(LocalDateTime.now())));
-        logger.info("password:" + Password2Hash.sha256CryptWithSalt(password, String.valueOf(LocalDateTime.now())));
+        logger.info(String.valueOf(LocalDateTime.now()));
+//        logger.info("password:" + Password2Hash.sha256CryptWithSalt(password, String.valueOf(LocalDateTime.now())));
         user.setUserRegDate(LocalDateTime.now());
         return userMapper.insertSelective(user);
     }
@@ -63,13 +64,14 @@ public class BaseUserServiceImpl implements IBaseUserService {
         User user = userMapper.selectByTelphone(telephone);
         if (user == null){
             logger.info("User not find");
-            throw new UsernameNotFoundException(String.format("No user found with telephone '%s'.", telephone));
+//            throw new UsernameNotFoundException(String.format("No user found with telephone '%s'.", telephone));
+            return false;
         } else if (user.getUserPassword().equals(Password2Hash.sha256CryptWithSalt(password, String.valueOf(user.getUserRegDate())))){
+            logger.info(String.valueOf(user.getUserRegDate()));
             return true;
         } else {
             return false;
         }
-
     }
 
     @Override

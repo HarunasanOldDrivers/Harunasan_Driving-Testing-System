@@ -251,4 +251,8 @@ $(document).ready(function () {
         }
 
     })
+
+    $("#ShowTheWrongList").click(function () {
+        window.location.href="../subjectOne/wrongList";
+    })
 });

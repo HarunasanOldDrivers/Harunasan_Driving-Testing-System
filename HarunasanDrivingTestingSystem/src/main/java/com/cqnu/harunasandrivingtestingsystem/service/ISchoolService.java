@@ -32,4 +32,6 @@ public interface ISchoolService {
                String district, String detailLocation,List<String> files);
 
     School getProfile(Integer username);
+
+    boolean addCourse(Integer username, String courseName, String courseDescribe, Integer price);
 }

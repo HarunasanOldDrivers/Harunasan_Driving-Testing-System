@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>科目一错题集</title>
+    <script src="../js/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script src="../js/bootstrap.min.js" type="text/javascript"></script>
+    <!--&lt;!&ndash;引入此页面CSS样式&ndash;&gt;-->
+    <!--<link href="../css/subjectOne.css" rel="stylesheet">-->
+    <!--<script src="../js/subjectOneMain.js" type="text/javascript"></script>-->
+    <!--评分JS-->
+    <script src="../js/lq-score.js" type="text/javascript"></script>
+    <link href="../css/lq-score.css" rel="stylesheet">
+    <!--引入考试/练习通用页面js和css-->
+    <link href="../css/subjectTest.css" rel="stylesheet"/>
+    <script src="../js/subjectTest.js" type="text/javascript"></script>
+    <!--引入此页面的js-->
+    <script src="../js/subjectOneWrongList.js" type="text/javascript"></script>
+    <script src="../js/jquery.cookie.js" type="text/javascript"></script>
+    <style>
+        body{
+            padding-top: 50px;
+        }
+    </style>
+</head>
+<body>
+<div id="nav"></div>
+<div class="container">
+    <div class="page-header">
+        <h1 class="text-center">科目一错题集</h1>
+    </div>
+    <ol class="breadcrumb">
+        <li class="active"><a href="/subjectOne">科目一练习</a></li>
+        <li class="active" id="breadcrumbChapter2">错题集</li>
+        <li class="active" id="UseridLo"><a href="#"></a></li>
+    </ol>
+
+    <!--第一道题-->
+    <div class="col-md-12">
+        <!--选择题目按钮组-->
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="text-center">题目信息</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="page-header Question" id="DivQuestionTitle">
+                        <h3><span id="SpanQuestionId"></span><span id="SpanQuestionTitle">&nbsp;&nbsp;</span></h3>
+                    </div>
+
+                    <div class="DivAnswersOptions col-md-8">
+                        <ul class="UlAnsers col-md-12" style="font-size: 18px; color: #606060; list-style: none;margin:0px;padding:0px;">
+                            <li class="options" id="LiAnswers1"></li>
+                            <li class="options" id="LiAnswers2"></li>
+                            <li class="options" id="LiAnswers3"></li>
+                            <li class="options" id="LiAnswers4"></li>
+                        </ul>
+                    </div>
+
+                    <div class="DivAnswersImage col-md-4">
+                        <img src="" id="qoimage" style="width:100%;height:auto;"/>
+                        <video src="" id="qovideo" style="width:100%;height:auto; display: none"></video>
+                    </div>
+
+                    <div class="col-md-12" style="margin-top: 20px">
+                        <div class="col-md-3 DivAnswers" id="DivAnswers" style="visibility: hidden">
+                            <span style="font-size: 20px">正确答案：</span><span id="QoRightAnswer" style="font-size:25px; color: #16ab33;"></span>
+                            <p style="font-size: 20px">您的选择：<span id="SpanUserChoose" style="font-size: 25px"></span></p>
+                            <p id="SpanRightOrWrongTips" style="font-size:25px;"></p>
+                        </div>
+                        <div class="text-right col-md-9">
+                            <button class="btn btn-success  btn-lg text-left" id="BtnShowDescription">查看解析</button>
+                            <button class="btn btn-default  btn-lg btnConfirmAnswer" id="BtnConfirmAnswerA">A</button>
+                            <button class="btn btn-default  btn-lg btnConfirmAnswer" id="BtnConfirmAnswerB">B</button>
+                            <button class="btn btn-default  btn-lg btnConfirmAnswer" id="BtnConfirmAnswerC">C</button>
+                            <button class="btn btn-default  btn-lg btnConfirmAnswer" id="BtnConfirmAnswerD">D</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--右边解析区域-->
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h4 class="col-md-12">题目类型：<span id="qoType"></span></h4>
+                    <h4 class="col-md-12">题目难度：<span id="qoDifficulties"></span>星</h4>
+                    &emsp;<button class="btn btn-danger text-right" id="BtnRemoveOne">移除此题</button>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <!--<div class="page-header">-->
+                        <!--<h3>答案解析</h3>-->
+                    <!--</div>-->
+                    <div class="DivDescription">
+                        <textarea name="" id="qoDescription" cols="28" rows="8" style="background: white;display: none" disabled></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--第二道题-->
+    <div class="col-md-12" id="DivTwoQuestion">
+        <!--选择题目按钮组-->
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="text-center">题目信息</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="page-header Question" id="DivQuestionTitleTwo" >
+                        <h3><span id="SpanQuestionIdTwo"></span><span id="SpanQuestionTitleTwo">&nbsp;&nbsp;</span></h3>
+                    </div>
+
+                    <div class="DivAnswersOptions col-md-8">
+                        <ul class="UlAnsers col-md-12" style="font-size: 18px; color: #606060; list-style: none;margin:0px;padding:0px;">
+                            <li class="options" id="LiAnswers1Two"></li>
+                            <li class="options" id="LiAnswers2Two"></li>
+                            <li class="options" id="LiAnswers3Two"></li>
+                            <li class="options" id="LiAnswers4Two"></li>
+                        </ul>
+                    </div>
+
+                    <div class="DivAnswersImage col-md-4">
+                        <img src="" id="qoimageTwo" style="width:100%;height:auto;"/>
+                        <video src="" id="qovideoTwo" style="width:100%;height:auto; display: none"></video>
+                    </div>
+
+                    <div class="col-md-12" style="margin-top: 20px">
+                        <div class="col-md-3 DivAnswers" id="DivAnswersTwo" style="visibility: hidden">
+                            <span style="font-size: 20px">正确答案：</span><span id="QoRightAnswerTwo" style="font-size:25px; color: #16ab33;"></span>
+                            <p style="font-size: 20px">您的选择：<span id="SpanUserChooseTwo" style="font-size: 25px"></span></p>
+                            <p id="SpanRightOrWrongTipsTwo" style="font-size:25px;"></p>
+                        </div>
+                        <div class="text-right col-md-9">
+                            <button class="btn btn-success  btn-lg text-left" id="BtnShowDescriptionTwo">查看解析</button>
+                            <button class="btn btn-default  btn-lg btnConfirmAnswerTwo" id="BtnConfirmAnswerATwo">A</button>
+                            <button class="btn btn-default  btn-lg btnConfirmAnswerTwo" id="BtnConfirmAnswerBTwo">B</button>
+                            <button class="btn btn-default  btn-lg btnConfirmAnswerTwo" id="BtnConfirmAnswerCTwo">C</button>
+                            <button class="btn btn-default  btn-lg btnConfirmAnswerTwo" id="BtnConfirmAnswerDTwo">D</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--右边解析区域-->
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h4 class="col-md-12">题目类型：<span id="qoTypeTwo"></span></h4>
+                    <h4 class="col-md-12">题目难度：<span id="qoDifficultiesTwo"></span>星</h4>
+                    &emsp;<button class="btn btn-danger text-right" id="BtnRemoveTwo">移除此题</button>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="DivDescription">
+                        <textarea name="" id="qoDescriptionTwo" cols="28" rows="8" style="background: white;display: none" disabled></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--第三道题-->
+    <div class="col-md-12" id="DivThreeQuestion">
+        <!--选择题目按钮组-->
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="text-center">题目信息</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="page-header Question" id="DivQuestionTitleThree" >
+                        <h3><span id="SpanQuestionIdThree"></span><span id="SpanQuestionTitleThree">&nbsp;&nbsp;</span></h3>
+                    </div>
+
+                    <div class="DivAnswersOptions col-md-8">
+                        <ul class="UlAnsers col-md-12" style="font-size: 18px; color: #606060; list-style: none;margin:0px;padding:0px;">
+                            <li class="options" id="LiAnswers1Three"></li>
+                            <li class="options" id="LiAnswers2Three"></li>
+                            <li class="options" id="LiAnswers3Three"></li>
+                            <li class="options" id="LiAnswers4Three"></li>
+                        </ul>
+                    </div>
+
+                    <div class="DivAnswersImage col-md-4">
+                        <img src="" id="qoimageThree" style="width:100%;height:auto;"/>
+                        <video src="" id="qovideoThree" style="width:100%;height:auto; display: none"></video>
+                    </div>
+
+                    <div class="col-md-12" style="margin-top: 20px">
+                        <div class="col-md-3 DivAnswers" id="DivAnswersThree" style="visibility: hidden">
+                            <span style="font-size: 20px">正确答案：</span><span id="QoRightAnswerThree" style="font-size:25px; color: #16ab33;"></span>
+                            <p style="font-size: 20px">您的选择：<span id="SpanUserChooseThree" style="font-size: 25px"></span></p>
+                            <p id="SpanRightOrWrongTipsThree" style="font-size:25px;"></p>
+                        </div>
+                        <div class="text-right col-md-9">
+                            <button class="btn btn-success  btn-lg text-left" id="BtnShowDescriptionThree">查看解析</button>
+                            <button class="btn btn-default  btn-lg btnConfirmAnswerThree" id="BtnConfirmAnswerAThree">A</button>
+                            <button class="btn btn-default  btn-lg btnConfirmAnswerThree" id="BtnConfirmAnswerBThree">B</button>
+                            <button class="btn btn-default  btn-lg btnConfirmAnswerThree" id="BtnConfirmAnswerCThree">C</button>
+                            <button class="btn btn-default  btn-lg btnConfirmAnswerThree" id="BtnConfirmAnswerDThree">D</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--右边解析区域-->
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h4 class="col-md-12">题目类型：<span id="qoTypeThree"></span></h4>
+                    <h4 class="col-md-12">题目难度：<span id="qoDifficultiesThree"></span>星</h4>
+                    &emsp;<button class="btn btn-danger text-right" id="BtnRemoveThree">移除此题</button>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="DivDescription">
+                        <textarea name="" id="qoDescriptionThree" cols="28" rows="8" style="background: white;display: none" disabled></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--分页-->
+    <nav aria-label="Page navigation" class="col-md-offset-3">
+        <ul class="pagination pagination-lg" id="Ulpagination" >
+            <li id="LiNavigationFirstWrongLists" value="pre" >
+                <a href="#" aria-label="Previous" >
+                    首页
+                </a>
+            </li>
+                <!--<li><a class="liNavigation" href="javascript:void(0);" >1</a></li>-->
+                <!--<li><a class="liNavigation" href="javascript:void(0);" >2</a></li>-->
+                <!--<li><a class="liNavigation" href="javascript:void(0);" >3</a></li>-->
+                <!--<li><a class="liNavigation" href="javascript:void(0);" >4</a></li>-->
+                <!--<li><a class="liNavigation" href="javascript:void(0);" >5</a></li>-->
+            <li id="NextviousPagination">
+                <a href="#" aria-label="Next" >
+                    尾页
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!--分页插件-->
+    <!--<div>-->
+        <!--<ul id='bp-3-element-lg-test'></ul>-->
+    <!--</div>-->
+
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#nav").load("../nav",function () {
+            // 在载入完成之后改变状态
+            $("#mainpage").removeClass("active");
+            $("#subjectOne").addClass("active");
+        });
+    });
+</script>
+
+</body>
+</html>

@@ -337,14 +337,14 @@ $(document).ready(function () {
             var LiAnswers3 = $("#LiAnswers3");
             var LiAnswers4 = $("#LiAnswers4");
             var qoimage = $("#qoimage");
-            var qovideo = $("qovideo")
+            var qovideo = $("#qovideo")
             $("#BtnConfirmAnswerC").show();
             $("#BtnConfirmAnswerD").show();
             var SpanUserChoose = $("#SpanUserChoose");
             qoDescription.css("display","none");
             DivAnswers.css("visibility","hidden");
             qoimage.attr("src","");
-            qovideo.attr(str,"");
+            qovideo.attr("src","");
             SpanUserChoose.removeClass("text-success text-danger").text("");
             QoRightAnswer.removeClass("text-success text-danger").css("font-weight","normal").text("");
             SpanRightOrWrongTips.removeClass("text-success text-danger").css("font-weight","normal").text("");
@@ -2273,6 +2273,7 @@ $(document).ready(function () {
             dataType:"json",
             success:function (result) {
                 type_btnswich = result.qoType;
+                setTime();
                 $("#breadcrumbChapter").html(chapter + " (随机练习)");
                 $("#SpanQuestionId").html(result.qoId + "：" );
                 $("#SpanQuestionTitle").html(result.qoTitle);
@@ -2281,7 +2282,7 @@ $(document).ready(function () {
                 $("#qoDescription").html(result.qoDescription);
                 $("#QoRightAnswer").html(result.qoAnswer);
                 var r = Math.floor(Math.random()*5 + 1)
-                $("#qoDifficulties").html(r+"星	");
+                $("#qoDifficulties").html(r);
                 if((result.qoType  ==='judge')){
                     $("#qoType").html("判断题")
                 }else if((result.qoType === 'single')){
@@ -2370,7 +2371,7 @@ $(document).ready(function () {
                     $("#qoDescription").html(result.qoDescription);
                     $("#QoRightAnswer").html(result.qoAnswer);
                     var r = Math.floor(Math.random()*5 + 1)
-                    $("#qoDifficulties").html(r+"星	");
+                    $("#qoDifficulties").html(r);
                     if((result.qoType  ==='judge')){
                         $("#qoType").html("判断题")
                     }else if((result.qoType === 'single')){

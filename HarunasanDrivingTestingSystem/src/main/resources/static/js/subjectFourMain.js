@@ -196,7 +196,7 @@ $(document).ready(function () {
         url:"/api/train/four/getCountByDifficulty",
         data:{
             'difficulty':"3",
-        },
+    },
         dataType:"json",
         success:function (result) {
             $("#Diffcult_3").html("(共" + result + "题)");
@@ -226,16 +226,16 @@ $(document).ready(function () {
         }
     });
     //点击题目title，获取顺序练习
-    $(".subjectOneTitles").click(function () {
+    $(".subjectFourTitles").click(function () {
         var rawtype = $(this).children('span').text();
-        var address = "/subjectOne/practice?model=sequence&chapter=" + rawtype;
+        var address = "/subjectFour/practice?model=sequence&chapter=" + rawtype;
         address = encodeURI(encodeURI(address));
         window.location.href = address;
     })
     //获取所有顺序练习button里面的题目
     $(".btnSequencePractices").click(function () {
         var rawtype = $(this).parent().parent().children("a").children((":first")).text();
-        var address = "/subjectOne/practice?model=sequence&chapter=" + rawtype;
+        var address = "/subjectFour/practice?model=sequence&chapter=" + rawtype;
         address = encodeURI(encodeURI(address));
         window.location.href = address;
 
@@ -243,15 +243,65 @@ $(document).ready(function () {
     //章节练习的随机练习
     $(".btnRandomPractices").click(function () {
         var rawtype = $(this).parent().parent().children("a").children((":first")).text();
-        var address = "/subjectOne/practice?model=random&chapter=" + rawtype;
+        var address = "/subjectFour/practice?model=random&chapter=" + rawtype;
         address = encodeURI(encodeURI(address));
         window.location.href = address;
     })
-    //科目一顺序练习
+    //科目四顺序练习
     $("#BtnSequencePractice").click(function () {
-        var address = "/subjectOne/practice?model=sequence&chapter=null"
+        var address = "/subjectFour/practice?model=sequence&chapter=null"
+        address = encodeURI(encodeURI(address));
+         window.location.href = address;
+    })
+    //科目四按照难度顺序练习
+    $("#BtnDifficultiesSequencePractice").click(function () {
+        var difficulites = $('input[name="RadioQuestionDifficulties"]:checked').val();
+        var address = "/subjectFour/practice?model=orderDifficulty&chapter=null&difficulites=" + difficulites;
         address = encodeURI(encodeURI(address));
         window.location.href = address;
+    })
+    //科目四按照难度随机练习
+    $("#BtnDifficultiesRandomPractice").click(function () {
+        var difficulites = $('input[name="RadioQuestionDifficulties"]:checked').val();
+        var address = "/subjectFour/practice?model=randomDifficulty&chapter=null&difficulites=" + difficulites;
+        address = encodeURI(encodeURI(address));
+        window.location.href = address;
+    })
+    //科目四按照类型(单选/判断)顺序练习
+    $("#BtnTypesSequencePractice").click(function () {
+        var type = $('input[name="RadioQuestionTypes"]:checked').val();
+        if(type === "judge"){
+            var address = "/subjectFour/practice?model=sequenceJudge&chapter=null&difficulites=null";
+            address = encodeURI(encodeURI(address));
+            window.location.href = address;
+        }else if(type === "single"){
+            var address = "/subjectFour/practice?model=sequenceSingle&chapter=null&difficulites=null";
+            address = encodeURI(encodeURI(address));
+            window.location.href = address;
+        }else {
+            var address = "/subjectFour/practice?model=sequenceMulti&chapter=null&difficulites=null";
+            address = encodeURI(encodeURI(address));
+            window.location.href = address;
+        }
+
+    })
+    //科目四按照类型(单选/判断)随机练习
+    $("#BtnTypesRandomPractice").click(function () {
+        var type = $('input[name="RadioQuestionTypes"]:checked').val();
+        if(type === "judge"){
+            var address = "/subjectFour/practice?model=randomJudge&chapter=null&difficulites=null";
+            address = encodeURI(encodeURI(address));
+            window.location.href = address;
+        }else if(type === "single"){
+            var address = "/subjectFour/practice?model=randomSingle&chapter=null&difficulites=null";
+            address = encodeURI(encodeURI(address));
+            window.location.href = address;
+        }else {
+            var address = "/subjectFour/practice?model=randomMulti&chapter=null&difficulites=null";
+            address = encodeURI(encodeURI(address));
+            window.location.href = address;
+        }
+
     })
 
 });

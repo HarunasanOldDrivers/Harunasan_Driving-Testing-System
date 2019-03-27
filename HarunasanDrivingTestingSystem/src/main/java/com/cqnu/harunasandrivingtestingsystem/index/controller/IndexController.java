@@ -55,7 +55,10 @@ public class IndexController {
     public String subjectFourMain(){
         return "subjectFourMain";
     }
-    @RequestMapping(value = "/subjectFourPractice")
-    public String subjectFourPractice(){ return "subjectFourPractice";}
+
+    @RequestMapping(value = "/subjectFour/practice")
+    public String subjectFourPractice(Model model, @RequestParam(value = "chapter",required = true) String chapter ){
+        model.addAttribute("chapter",chapter);
+        return "subjectFourPractice";}
 
 }

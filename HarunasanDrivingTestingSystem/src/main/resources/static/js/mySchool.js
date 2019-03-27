@@ -13,10 +13,12 @@ $(document).ready(function () {
             $("#schoolNameSpan").html(result.data.schoolName);
             $("#registerTelSpan").html(result.data.schoolEnrollTelephone);
             $("#CompanyNameSpan").html(result.data.schoolCompanyName);
-            $("#EnbarkTimeSpan").html(result.data.schoolStartTime);
+            $("#EnbarkTimeSpan").html(result.data.schoolStartTime.substring(0,10));
             $("#CorporateNameSpan").html(result.data.schoolCorporateName);
             $("#CorporateNumberSpan").html(result.data.schoolCorporateTel);
             $("#PschoolIntroduction").html(result.data.schoolIntroduction);
+            $("#imgSchoolDefaultimg").attr("src",result.data.schoolIcon);
+
         },
         error:function (result) {
             alert("与服务器似乎断开链接，请检查您的网络");
@@ -26,14 +28,6 @@ $(document).ready(function () {
     //提交修改新的报名电话
     $("#BtnSubmitNewTel").click(function () {
         var newTEL =  $("#InputChargerTel").val();
-        // var reg2 = new RegExp(/^\d{11}$/);
-        // var reg = new RegExp(/^\d{8}$/);
-        // if(!reg.test(newTEL).val()) {
-        //     alert("请输入8位或者11位电话！");
-        // }else if(!reg2.test(newTEL).val()){
-        //     alert("请输入8位或者11位电话！");
-        // }else {
-        //     alert("last Else");
             $.ajax({
                 type: "post",
                 url: "/api/school/alterTel",
@@ -59,6 +53,31 @@ $(document).ready(function () {
 
     })
 
+    //点击提交按钮，更改首页图片
+    $("#AsubmitImage").click(function (){
+        var Inputimages = document.getElementById("Inputimages").files[0];
+        var formdata = new FormData();
+        formdata.append("image",Inputimages);
+        $.ajax({
+            type:"post",
+            url:"/api/school/alterIcon",
+            data:formdata,
+            async:false,
+            processData:false,
+            contentType:false,
+            beforeSend: function (XMLHttpRequest) {
+                var Authorization = $.cookie('AuthorizationSchool');
+                XMLHttpRequest.setRequestHeader("Authorization", Authorization);
+            },
+            success:function (result) {
+                alert("success");
+            },
+            error:function (result) {
+                alert("Ajax出了点错呢")
+                alert("与服务器似乎断开链接，请检查您的网络");
+            }
+        });
+    });
 
 
 

@@ -29,8 +29,8 @@
         <!--题目区域-->
         <div class="col-md-9">
             <ol class="breadcrumb">
-                <li class="active"><a href="/subjectOne">科目四练习</a></li>
-                <li class="active" id="breadcrumbChapter2"><a href="/subjectOne">章节练习</a></li>
+                <li class="active"><a href="/subjectFour">科目四练习</a></li>
+                <li class="active" id="breadcrumbChapter2"><a href="/subjectFour">章节练习</a></li>
                 <li class="active" id="breadcrumbChapter"><a href="#"></a></li>
             </ol>
             <div class="panel panel-default">
@@ -52,8 +52,8 @@
                     </div>
 
                     <div class="DivAnswersImage col-md-4">
-                        <img src="" id="qoimage" style="width:100%;height:auto;"/>
-                        <video src="" id="qovideo" style="width:100%;height:auto; display: none"></video>
+                        <img src="" id="qoimage" style="width:100%;height:auto;display: block"/>
+                        <video src="" id="qovideo" style="width:100%;height:auto; display: none" autoplay="autoplay"></video>
                     </div>
 
                     <div class="col-md-12" style="margin-top: 20px">
@@ -62,14 +62,33 @@
                             <p style="font-size: 20px">您的选择：<span id="SpanUserChoose" style="font-size: 25px"></span></p>
                             <p id="SpanRightOrWrongTips" style="font-size:25px;"></p>
                         </div>
-                        <div class="text-right col-md-9">
+
+                        <div class="text-right col-md-9" >
                             <button class="btn btn-success  btn-lg text-left" id="BtnShowDescription">查看解析</button>
-                            <button class="btn btn-default  btn-lg" id="BtnPreQuestion">上一题</button>
-                            <button class="btn btn-default  btn-lg btnConfirmAnswer" id="BtnConfirmAnswerA">A</button>
-                            <button class="btn btn-default  btn-lg btnConfirmAnswer" id="BtnConfirmAnswerB">B</button>
-                            <button class="btn btn-default  btn-lg btnConfirmAnswer" id="BtnConfirmAnswerC">C</button>
-                            <button class="btn btn-default  btn-lg btnConfirmAnswer" id="BtnConfirmAnswerD">D</button>
-                            <button class="btn btn-default  btn-lg" id="BtnNextQuestion">下一题</button>
+                            <br> </br>
+                            <div id="S_showBtns" style="display: none; ">
+                                <button class="btn btn-default  btn-lg btnConfirmAnswer" id="BtnConfirmAnswerA" >A</button>
+                                <button class="btn btn-default  btn-lg btnConfirmAnswer" id="BtnConfirmAnswerB" >B</button>
+                                <button class="btn btn-default  btn-lg btnConfirmAnswer" id="BtnConfirmAnswerC" >C</button>
+                                <button class="btn btn-default  btn-lg btnConfirmAnswer" id="BtnConfirmAnswerD" >D</button>
+                            </div>
+                            <div id="M_showBtns" style="display: block;">
+                                <label class="labBtn" id="Lab_Ans_A" for="MBtnConfirmAnswerA">A</label>
+                                <label class="labBtn" id="Lab_Ans_B" for="MBtnConfirmAnswerB">B</label>
+                                <label class="labBtn" id="Lab_Ans_C" for="MBtnConfirmAnswerC">C</label>
+                                <label class="labBtn" id="Lab_Ans_D" for="MBtnConfirmAnswerD">D</label>
+                                <div id="M_iptBtns" style="display: none">
+                                    <input name="choBtn" class="iptConfirmAnswer" id="MBtnConfirmAnswerA" type="checkbox" value="A" style="display: none"></input>
+                                    <input name="choBtn" class="iptConfirmAnswer" id="MBtnConfirmAnswerB" type="checkbox" value="B" style="display: none"></input>
+                                    <input name="choBtn" class="iptConfirmAnswer" id="MBtnConfirmAnswerC" type="checkbox" value="C" style="display: none"></input>
+                                    <input name="choBtn" class="iptConfirmAnswer" id="MBtnConfirmAnswerD" type="checkbox" value="D" style="display: none"></input>
+                                </div>
+
+                            </div>
+                            <button class="btn btn -default  btn-lg" id="BtnPreQuestion" style="margin-top: 10px">上一题</button>
+                            <button class="btn btn-default  btn-lg" id="BtnNextQuestion" style="margin-top: 10px">下一题</button>
+                            <br> </br>
+                            <button class="btn btn-default  btn-lg " id="MBtnSubimit" style="display: none">提交答案</button>
                         </div>
                     </div>
                 </div>

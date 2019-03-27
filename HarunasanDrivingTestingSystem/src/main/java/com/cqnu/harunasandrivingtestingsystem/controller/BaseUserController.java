@@ -3,10 +3,14 @@ package com.cqnu.harunasandrivingtestingsystem.controller;
 import com.alibaba.fastjson.JSON;
 import com.cqnu.harunasandrivingtestingsystem.entity.Result;
 import com.cqnu.harunasandrivingtestingsystem.entity.User;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.CourseVO;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.EnrollVO;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.PageInfo;
 import com.cqnu.harunasandrivingtestingsystem.security.JwtTokenUtil;
 import com.cqnu.harunasandrivingtestingsystem.security.UserDetailsServiceImpl;
 import com.cqnu.harunasandrivingtestingsystem.service.IBaseUserService;
 import com.cqnu.harunasandrivingtestingsystem.utils.*;
+import com.github.pagehelper.PageHelper;
 import com.github.qcloudsms.SmsSingleSenderResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -159,6 +163,21 @@ public class BaseUserController {
         String authToken = request.getHeader(this.tokenHeader);
         String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
         return baseUserService.getProfile(Integer.parseInt(username));
+    }
+
+    /**
+     * 获取报名课程
+     * @param pageNo  当前页
+     * @param pageSize  分页大小
+     * @return
+     */
+    @GetMapping("/courses")
+    @PreAuthorize("hasRole('User')")
+    public PageInfo<EnrollVO> getCourses(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize){
+        String authToken = request.getHeader(this.tokenHeader);
+        String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
+        PageHelper.startPage(pageNo,pageSize);
+        return new PageInfo<>(baseUserService.getEnroll(Integer.parseInt(username)));
     }
 
     /**

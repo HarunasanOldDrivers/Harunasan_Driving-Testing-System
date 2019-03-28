@@ -52,7 +52,7 @@
                     <ol class="breadcrumb">
                         <li class="active">我的驾校
                         </li>
-                        <li class="active">发布驾校课程
+                        <li class="active">编辑驾校课程
                         </li>
                     </ol>
 
@@ -116,65 +116,64 @@
                                         <th class="text-center">报名人数</th>
                                     </tr>
                                 </thead>
-                                <tbody >
-                                <!--<tr th:each="classes:${classes}">-->
-                                    <!--<th class="text-center">C1商务课</th>-->
-                                    <!--<th class="col-md-3">本班为普通商务班，上课周期比较灵活，学生可以自由选择上课时间，非常适合上班族</th>-->
-                                    <!--<th class="text-center">1200元</th>-->
-                                    <!--<th class="text-center"><span>3</span>人</th>-->
-                                    <!--<th><button class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal" id="btnDelete">删除</button>-->
-                                    <!--</th>-->
-                                <!--</tr>-->
-                                <tr>
-                                    <th class="text-center"></th>
-                                    <th class="col-md-3"></th>
-                                    <th class="text-center"></th>
-                                    <th class="text-center"><span></span></th>
-                                    <th><button class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal" id="btnDelete">删除</button>
-                                    </th>
-                                </tr>
+                                <!--动态生成表格数据-->
+                                <tbody id="tbodyClasses">
 
-
-                                <!--<tr id="TrClasses">-->
-                                    <!--<th class="text-center"></th>-->
-                                    <!--<th class="col-md-3"></th>-->
-                                    <!--<th class="text-center"></th>-->
-                                    <!--<th class="text-center"><span></span></th>-->
-                                    <!--<th><button class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal" id="btnDelete">删除</button>-->
-                                    <!--</th>-->
-                                <!--</tr>-->
                                 </tbody>
                             </table>
 
-                            <!--弹出模态框 确定是否要删除课程-->
-                            <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog">
-                                <div class="modal-dialog modal-sm" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                            <h4 class="modal-title">您确认要删除该课程吗？</h4>
-                                        </div>
-                                        <!--弹出模态框，用户填写报名信息-->
-                                        <div class="modal-body">
-                                            <h5>请注意：</h5>
-                                            <p>1、删除该课程后，学员将不能再进行对该课程的报名。</p>
-                                            <p>2、已经报名的学员信息依旧可以在“报名学员查询”中查询</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                                            <button type="submit" id="deleteModel" class="btn btn-danger">确定删除</button>
-                                        </div>
-                                    </div><!-- /.modal-content -->
-                                </div><!-- /.modal-dialog -->
-                            </div><!-- /.modal -->
+                            <!--分页-->
+                            <nav aria-label="Page navigation" class="col-md-offset-3">
+                                <ul class="pagination pagination-lg" id="Ulpagination" >
+                                    <li id="LiNavigationFirstWrongLists" value="pre" >
+                                        <a href="#" aria-label="Previous" >
+                                            首页
+                                        </a>
+                                    </li>
+                                    <!--<li><a class="liNavigation" href="javascript:void(0);" >1</a></li>-->
+                                    <!--<li><a class="liNavigation" href="javascript:void(0);" >2</a></li>-->
+                                    <!--<li><a class="liNavigation" href="javascript:void(0);" >3</a></li>-->
+                                    <!--<li><a class="liNavigation" href="javascript:void(0);" >4</a></li>-->
+                                    <!--<li><a class="liNavigation" href="javascript:void(0);" >5</a></li>-->
+                                    <li id="NextviousPagination">
+                                        <a href="#" aria-label="Next" >
+                                            尾页
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
+
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
 
 </div>
+
+<!--弹出模态框 确定是否要删除课程-->
+<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">您确认要删除该课程吗？</h4>
+            </div>
+            <!--弹出模态框，用户填写报名信息-->
+            <div class="modal-body">
+                <h5>请注意：</h5>
+                <p>1、删除该课程后，学员将不能再进行对该课程的报名。</p>
+                <p>2、已经报名的学员信息依旧可以在“报名学员查询”中查询</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="submit" id="BtnDeleteClass" class="btn btn-danger">确定删除</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <script>
     $(document).ready(function () {

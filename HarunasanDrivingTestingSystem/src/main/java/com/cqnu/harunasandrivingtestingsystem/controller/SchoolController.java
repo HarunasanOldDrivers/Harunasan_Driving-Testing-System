@@ -3,6 +3,7 @@ package com.cqnu.harunasandrivingtestingsystem.controller;
 import com.cqnu.harunasandrivingtestingsystem.entity.Enroll;
 import com.cqnu.harunasandrivingtestingsystem.entity.Result;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.CourseVO;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.EnrollSL;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.PageInfo;
 import com.cqnu.harunasandrivingtestingsystem.security.JwtTokenUtil;
 import com.cqnu.harunasandrivingtestingsystem.security.UserDetailsServiceImpl;
@@ -308,8 +309,8 @@ public class SchoolController {
      */
     @GetMapping("/selectEnroll")
     @PreAuthorize("hasAnyRole('School')")
-    public PageInfo<Enroll> selectEnroll(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "5") Integer pageSize,
-                                        String studentName, String enrollDate, Integer courseId){
+    public PageInfo<EnrollSL> selectEnroll(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "5") Integer pageSize,
+                                           String studentName, String enrollDate, Integer courseId){
         String authToken = request.getHeader(this.tokenHeader);
         String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
         logger.warn("studentName: " + studentName + "enrollDate: " + enrollDate + "courseId: " + courseId);
@@ -324,11 +325,9 @@ public class SchoolController {
             localDateTimeAfter = localDateTimeBefore.plusDays(1);
         }
         if (courseId == null){
-            PageHelper.startPage(pageNo, pageSize);
-            return new PageInfo<>(schoolService.selectAllEnroll(studentName,localDateTimeBefore, localDateTimeAfter));
+            return schoolService.selectAllEnroll(studentName,localDateTimeBefore, localDateTimeAfter, pageNo, pageSize);
         }
-        PageHelper.startPage(pageNo,pageSize);
-        return new PageInfo<>(schoolService.selectEnroll(studentName,localDateTimeBefore, localDateTimeAfter, courseId));
+        return schoolService.selectEnroll(studentName,localDateTimeBefore, localDateTimeAfter, courseId, pageNo, pageSize);
     }
 
     /**

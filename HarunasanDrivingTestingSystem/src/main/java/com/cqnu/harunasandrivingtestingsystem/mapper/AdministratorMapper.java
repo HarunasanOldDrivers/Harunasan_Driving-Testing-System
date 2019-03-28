@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface AdministratorMapper {
     int deleteByPrimaryKey(Integer id);
@@ -19,6 +21,6 @@ public interface AdministratorMapper {
 
     int updateByPrimaryKey(Administrator record);
 
-    @Insert({"insert into hodts_db.administrator (Admin_Name, Admin_Password, Admin_Phone) values (#{name} ,#{password},#{phone})"})
-    int create(@Param("name") String name, @Param("password") String password, @Param("phone") String phone);
+    List<Administrator> selectAll();
+
 }

@@ -98,5 +98,12 @@ public class AdminServiceImpl implements IAdminService {
         logger.info("roles:" + String.valueOf(rolesList.isEmpty()));
 
         return adminFE;
-    };
+    }
+
+    @Override
+    public List<Administrator> getList() {
+        return administratorMapper.selectAll();
+    }
+
+    ;
 }

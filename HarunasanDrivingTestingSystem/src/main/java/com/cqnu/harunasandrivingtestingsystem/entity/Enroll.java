@@ -27,6 +27,15 @@ public class Enroll {
         this.userTelephone = userTelephone;
     }
 
+    public Enroll(Integer enrollId, Integer courseId, Integer userId, LocalDateTime enrollDateTime, String userName, String userTelephone) {
+        this.enrollId = enrollId;
+        this.courseId = courseId;
+        this.userId = userId;
+        this.enrollDateTime = enrollDateTime;
+        this.userName = userName;
+        this.userTelephone = userTelephone;
+    }
+
     public Integer getEnrollId() {
         return enrollId;
     }

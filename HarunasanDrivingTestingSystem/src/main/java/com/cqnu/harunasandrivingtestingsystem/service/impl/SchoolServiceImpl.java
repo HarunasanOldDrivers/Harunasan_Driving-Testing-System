@@ -1,10 +1,8 @@
 package com.cqnu.harunasandrivingtestingsystem.service.impl;
 
-import com.cqnu.harunasandrivingtestingsystem.entity.Course;
 import com.cqnu.harunasandrivingtestingsystem.entity.Enroll;
 import com.cqnu.harunasandrivingtestingsystem.entity.School;
-import com.cqnu.harunasandrivingtestingsystem.entity.VO.CourseVO;
-import com.cqnu.harunasandrivingtestingsystem.entity.VO.SchoolVO;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.*;
 import com.cqnu.harunasandrivingtestingsystem.mapper.CourseMapper;
 import com.cqnu.harunasandrivingtestingsystem.mapper.EnrollMapper;
 import com.cqnu.harunasandrivingtestingsystem.mapper.SchoolMapper;
@@ -13,6 +11,8 @@ import com.cqnu.harunasandrivingtestingsystem.utils.FileUtil;
 import com.cqnu.harunasandrivingtestingsystem.utils.Password2Hash;
 import com.cqnu.harunasandrivingtestingsystem.utils.PostObject;
 import com.cqnu.harunasandrivingtestingsystem.utils.UrlUtil;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -201,12 +201,33 @@ public class SchoolServiceImpl implements ISchoolService {
     }
 
     @Override
-    public List<Enroll> selectEnroll(String studentName, LocalDateTime timeBefore, LocalDateTime timeAfter, Integer courseId){
-        return enrollMapper.selectByStudentNameAndEnrollDateAndCourseName(studentName, timeBefore, timeAfter, courseId);
+    public PageInfo<EnrollSL> selectEnroll(String studentName, LocalDateTime timeBefore, LocalDateTime timeAfter, Integer courseId,
+                                           Integer pageNum, Integer pageSize){
+        Page page = PageHelper.startPage(pageNum, pageSize);
+        PageInfo<EnrollSL> pageInfo = new PageInfo(page);
+        List<Enroll> enrollList = enrollMapper.selectByStudentNameAndEnrollDateAndCourseName(studentName,timeBefore, timeAfter, courseId);
+        List<EnrollSL> enrollSLList = new ArrayList<>();
+        for (Enroll enroll: enrollList){
+            EnrollSL enrollSL = new EnrollSL(enroll.getEnrollId(),enroll.getCourseId(),enroll.getUserId(),enroll.getEnrollDateTime(),enroll.getUserName()
+                    ,enroll.getUserTelephone(), courseMapper.selectByPrimaryKey(enroll.getCourseId()).getCourseName());
+            enrollSLList.add(enrollSL);
+        }
+        pageInfo.setList(enrollSLList);
+        return pageInfo;
     }
 
     @Override
-    public List<Enroll> selectAllEnroll(String studentName, LocalDateTime timeBefore, LocalDateTime timeAfter) {
-        return enrollMapper.selectAll(studentName,timeBefore, timeAfter);
+    public PageInfo<EnrollSL> selectAllEnroll(String studentName, LocalDateTime timeBefore, LocalDateTime timeAfter, Integer pageNum, Integer pageSize) {
+        Page page = PageHelper.startPage(pageNum, pageSize);
+        PageInfo<EnrollSL> pageInfo = new PageInfo(page);
+        List<Enroll> enrollList = enrollMapper.selectAll(studentName,timeBefore, timeAfter);
+        List<EnrollSL> enrollSLList = new ArrayList<>();
+        for (Enroll enroll: enrollList){
+            EnrollSL enrollSL = new EnrollSL(enroll.getEnrollId(),enroll.getCourseId(),enroll.getUserId(),enroll.getEnrollDateTime(),enroll.getUserName()
+            ,enroll.getUserTelephone(), courseMapper.selectByPrimaryKey(enroll.getCourseId()).getCourseName());
+            enrollSLList.add(enrollSL);
+        }
+        pageInfo.setList(enrollSLList);
+        return pageInfo;
     }
 }

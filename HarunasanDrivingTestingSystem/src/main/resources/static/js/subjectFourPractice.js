@@ -2767,7 +2767,10 @@ $(document).ready(function () {
             return null;
         }
     }
-
+    //查看错题集
+    $("#SearchWrongList").click(function () {
+        window.location.href="../subjectFour/wrongList";
+    });
     //点击查看解析按钮，显示答案以及解析
     $("#BtnShowDescription").click(function () {
         $("#qoDescription").css("display","block");

@@ -62,7 +62,13 @@ public class CourseServiceImpl implements ICourseService {
             return false;
         }
         course.setCourseIsEnable(0);
-        return courseMapper.updateByPrimaryKeySelective(course) == 1;
+        if (courseMapper.updateByPrimaryKeySelective(course) == 1){
+            School school = schoolMapper.selectByPrimaryKey(course.getSchoolId());
+            school.setSchoolStartPrice(courseMapper.selectBySchoolIdOrderByPrice(course.getSchoolId()).getCoursePrice());
+            schoolMapper.updateByPrimaryKeySelective(school);
+            return true;
+        }
+        return false;
     }
 
     @Override

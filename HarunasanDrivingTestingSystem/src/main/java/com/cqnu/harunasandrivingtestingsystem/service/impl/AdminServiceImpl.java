@@ -4,12 +4,16 @@ import com.cqnu.harunasandrivingtestingsystem.entity.Administrator;
 import com.cqnu.harunasandrivingtestingsystem.entity.Permissions;
 import com.cqnu.harunasandrivingtestingsystem.entity.Roles;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.AdminFE;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.AdminInfo;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.MenuFE;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.PageInfo;
 import com.cqnu.harunasandrivingtestingsystem.mapper.AdministratorMapper;
 import com.cqnu.harunasandrivingtestingsystem.mapper.PermissionsMapper;
 import com.cqnu.harunasandrivingtestingsystem.mapper.RolesMapper;
 import com.cqnu.harunasandrivingtestingsystem.service.IAdminService;
 import com.cqnu.harunasandrivingtestingsystem.utils.Password2Hash;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -101,8 +105,18 @@ public class AdminServiceImpl implements IAdminService {
     }
 
     @Override
-    public List<Administrator> getList() {
-        return administratorMapper.selectAll();
+    public PageInfo<AdminInfo> getList(Integer pageNum, Integer pageSize) {
+        Page page = PageHelper.startPage(pageNum, pageSize);
+        List<Administrator> administratorList = administratorMapper.selectAll();
+        PageInfo<AdminInfo> pageInfo = new PageInfo<>(page);
+        List<AdminInfo> adminInfoList = new ArrayList<>();
+        for (Administrator administrator : administratorList){
+            AdminInfo adminInfo = new AdminInfo(administrator.getId(), administrator.getAdminName(), administrator.getAdminPassword(), administrator.getAdminPhone(), administrator.getEnable(), rolesMapper.selectByAdministratorId(administrator.getId()).get(0).getName());
+            adminInfoList.add(adminInfo);
+        }
+        pageInfo.setList(adminInfoList);
+
+        return  pageInfo;
     }
 
     ;

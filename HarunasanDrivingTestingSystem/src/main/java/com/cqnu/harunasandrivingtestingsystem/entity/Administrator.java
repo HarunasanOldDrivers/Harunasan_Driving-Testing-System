@@ -23,6 +23,17 @@ public class Administrator {
 
     private Integer enable;
 
+    public Administrator() {
+    }
+
+    public Administrator(Integer id, String adminName, String adminPassword, String adminPhone, Integer enable) {
+        this.id = id;
+        this.adminName = adminName;
+        this.adminPassword = adminPassword;
+        this.adminPhone = adminPhone;
+        this.enable = enable;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -1,9 +1,8 @@
 package com.cqnu.harunasandrivingtestingsystem.service;
 
-import com.cqnu.harunasandrivingtestingsystem.entity.Administrator;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.AdminFE;
-
-import java.util.List;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.AdminInfo;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.PageInfo;
 
 /**
  * @author LiAixing
@@ -42,7 +41,7 @@ public interface IAdminService {
 
     AdminFE getInfo(Integer username);
 
-    List<Administrator> getList();
+    PageInfo<AdminInfo> getList(Integer pageNum, Integer pageSize);
 
 
 //    public int updateAdmin()

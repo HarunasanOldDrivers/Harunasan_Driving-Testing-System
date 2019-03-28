@@ -349,31 +349,31 @@
   <select id="getPaper" resultMap="BaseResultMap">
     (SELECT
     <include refid="Base_Column_List" />
-    from questions_four WHERE qo_chapter = '交通事故救护及常见危化品处置常识' ORDER BY RAND() LIMIT 14)
+    from questions_four WHERE qo_chapter = '交通事故救护及常见危化品处置常识' ORDER BY RAND() LIMIT 7)
     union
     (select
     <include refid="Base_Column_List" />
-    from questions_four where qo_chapter = '安全行车常识' ORDER BY RAND() LIMIT 14)
+    from questions_four where qo_chapter = '安全行车常识' ORDER BY RAND() LIMIT 7)
     union
     (select
     <include refid="Base_Column_List" />
-    from questions_four where qo_chapter = '常见交通标志、标线和交通手势辨识' ORDER BY RAND() LIMIT 14)
+    from questions_four where qo_chapter = '常见交通标志、标线和交通手势辨识' ORDER BY RAND() LIMIT 7)
     union
     (select
     <include refid="Base_Column_List" />
-    from questions_four where qo_chapter = '恶劣气候和复杂道路条件下驾驶常识' ORDER BY RAND() LIMIT 15)
+    from questions_four where qo_chapter = '恶劣气候和复杂道路条件下驾驶常识' ORDER BY RAND() LIMIT 7)
     union
     (select
     <include refid="Base_Column_List" />
-    from questions_four where qo_chapter = '紧急情况下避险常识' ORDER BY RAND() LIMIT 15)
+    from questions_four where qo_chapter = '紧急情况下避险常识' ORDER BY RAND() LIMIT 7)
     union
     (select
     <include refid="Base_Column_List" />
-    from questions_four where qo_chapter = '违法行为综合判断与案例分析' ORDER BY RAND() LIMIT 14)
+    from questions_four where qo_chapter = '违法行为综合判断与案例分析' ORDER BY RAND() LIMIT 7)
     union
     (select
     <include refid="Base_Column_List" />
-    from questions_four where qo_chapter = '驾驶职业道德和文明驾驶常识' ORDER BY RAND() LIMIT 14) order by RAND();
+    from questions_four where qo_chapter = '驾驶职业道德和文明驾驶常识' ORDER BY RAND() LIMIT 8) order by RAND();
 
   </select>
   <select id="getOrderMistake"  resultMap="BaseResultMap">

@@ -1,12 +1,10 @@
 package com.cqnu.harunasandrivingtestingsystem.controller;
 
-import com.cqnu.harunasandrivingtestingsystem.entity.Course;
 import com.cqnu.harunasandrivingtestingsystem.entity.Result;
 import com.cqnu.harunasandrivingtestingsystem.entity.School;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.CourseVO;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.PageInfo;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.SchoolVO;
-import com.cqnu.harunasandrivingtestingsystem.exception.GlobalException;
 import com.cqnu.harunasandrivingtestingsystem.service.INewsService;
 import com.cqnu.harunasandrivingtestingsystem.utils.ResultUtil;
 import com.github.pagehelper.PageHelper;
@@ -14,7 +12,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author LiAixing

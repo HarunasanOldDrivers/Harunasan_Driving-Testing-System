@@ -78,15 +78,35 @@ public class NewsController {
         return newsService.getRecommend(pageNo,pageSize);
     }
 
-//    @GetMapping("/abstract")
-//    public PageInfo<News> getAbstract(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize,
-//                                    String type){
-//
-//    }
-//
-//    @GetMapping("/article/{0}")
-//    public News getArticle(@PathVariable Integer id){
-//
-//    }
+    /**
+     * 获取资讯列表
+     * @param pageNo  当前页
+     * @param pageSize  分页大小
+     * @param type 资讯类型 { 0: 学车动态, 1:理论学习, 2:学车视频 }
+     * @return
+     */
+    @GetMapping("/abstract")
+    public PageInfo<News> getAbstract(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize,
+                                    Integer type){
+        PageHelper.startPage(pageNo, pageSize);
+        return new PageInfo<>(newsService.getAbstract(type));
+    }
+
+    /**
+     * 获取资讯详情
+     * @param id  资讯id
+     * @return
+     */
+    @GetMapping("/article/{id}")
+    public Result getArticle(@PathVariable Integer id){
+        if(id == null){
+            return ResultUtil.failure(600,"参数错误");
+        }
+        News news = newsService.getArticle(id);
+        if (news == null){
+            return ResultUtil.failure(660,"查无此文");
+        }
+        return ResultUtil.success(news);
+    }
 
 }

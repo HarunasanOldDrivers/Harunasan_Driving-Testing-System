@@ -1,12 +1,14 @@
 package com.cqnu.harunasandrivingtestingsystem.service.impl;
 
 import com.cqnu.harunasandrivingtestingsystem.entity.Course;
+import com.cqnu.harunasandrivingtestingsystem.entity.News;
 import com.cqnu.harunasandrivingtestingsystem.entity.School;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.CourseVO;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.PageInfo;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.SchoolVO;
 import com.cqnu.harunasandrivingtestingsystem.mapper.CourseMapper;
 import com.cqnu.harunasandrivingtestingsystem.mapper.EnrollMapper;
+import com.cqnu.harunasandrivingtestingsystem.mapper.NewsMapper;
 import com.cqnu.harunasandrivingtestingsystem.mapper.SchoolMapper;
 import com.cqnu.harunasandrivingtestingsystem.service.INewsService;
 import com.github.pagehelper.Page;
@@ -35,6 +37,10 @@ public class NewsServiceImpl implements INewsService {
 
     @Resource
     private EnrollMapper enrollMapper;
+
+    @Resource
+    private NewsMapper newsMapper;
+
     @Override
     public List<School> searchSchool(String schoolName, String area, Integer minPrice, Integer maxPrice){
         return  schoolMapper.searchSchools(schoolName,area,minPrice,maxPrice);
@@ -76,5 +82,19 @@ public class NewsServiceImpl implements INewsService {
         }
         pageInfo.setList(courseVOS);
         return pageInfo;
+    }
+
+    @Override
+    public List<News> getAbstract(Integer type){
+        List<News> newsList = newsMapper.selectByType(type);
+        for (News news : newsList){
+            news.setNewsContent(news.getNewsContent().substring(0,50) + "......");
+        }
+        return newsList;
+    }
+
+    @Override
+    public News getArticle(Integer id){
+        return newsMapper.selectByPrimaryKey(id);
     }
 }

@@ -61,7 +61,14 @@ public class IndexController {
     public String subjectFourPractice(Model model, @RequestParam(value = "chapter",required = true) String chapter ){
         model.addAttribute("chapter",chapter);
         return "subjectFourPractice";}
-
+    @RequestMapping(value = "/subjectFour/wrongList")
+    public String subjectFourwrongList(){
+        return "subjectFourWrongList";
+    }
+    @RequestMapping(value = "/subjectFour/test")
+    public String subjectFourTest(){
+        return "subjectFourTest";
+    }
 
     @RequestMapping(value = "/school/profile")
     public String schoolProfile(){ return "mySchoolBaseInfo";}

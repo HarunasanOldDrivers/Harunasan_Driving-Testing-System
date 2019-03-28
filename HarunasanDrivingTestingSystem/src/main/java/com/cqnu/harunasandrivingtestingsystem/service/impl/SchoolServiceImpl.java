@@ -204,8 +204,8 @@ public class SchoolServiceImpl implements ISchoolService {
     public PageInfo<EnrollSL> selectEnroll(String studentName, LocalDateTime timeBefore, LocalDateTime timeAfter, Integer courseId,
                                            Integer pageNum, Integer pageSize){
         Page page = PageHelper.startPage(pageNum, pageSize);
-        PageInfo<EnrollSL> pageInfo = new PageInfo(page);
         List<Enroll> enrollList = enrollMapper.selectByStudentNameAndEnrollDateAndCourseName(studentName,timeBefore, timeAfter, courseId);
+        PageInfo<EnrollSL> pageInfo = new PageInfo(page);
         List<EnrollSL> enrollSLList = new ArrayList<>();
         for (Enroll enroll: enrollList){
             EnrollSL enrollSL = new EnrollSL(enroll.getEnrollId(),enroll.getCourseId(),enroll.getUserId(),enroll.getEnrollDateTime(),enroll.getUserName()
@@ -219,8 +219,8 @@ public class SchoolServiceImpl implements ISchoolService {
     @Override
     public PageInfo<EnrollSL> selectAllEnroll(String studentName, LocalDateTime timeBefore, LocalDateTime timeAfter, Integer pageNum, Integer pageSize) {
         Page page = PageHelper.startPage(pageNum, pageSize);
-        PageInfo<EnrollSL> pageInfo = new PageInfo(page);
         List<Enroll> enrollList = enrollMapper.selectAll(studentName,timeBefore, timeAfter);
+        PageInfo<EnrollSL> pageInfo = new PageInfo(page);
         List<EnrollSL> enrollSLList = new ArrayList<>();
         for (Enroll enroll: enrollList){
             EnrollSL enrollSL = new EnrollSL(enroll.getEnrollId(),enroll.getCourseId(),enroll.getUserId(),enroll.getEnrollDateTime(),enroll.getUserName()

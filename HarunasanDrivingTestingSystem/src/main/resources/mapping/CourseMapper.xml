@@ -27,6 +27,7 @@
     <include refid="Base_Column_List" />
     from hodts_db.course
     where school_id = #{schoolId,jdbcType=INTEGER}
+    and course_is_enable = 1
     order by course_price limit 1
    </select>
   <select id="selectBySchoolId" parameterType="java.lang.Integer" resultMap="BaseResultMap">

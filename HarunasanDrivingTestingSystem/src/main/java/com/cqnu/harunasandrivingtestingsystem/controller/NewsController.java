@@ -1,5 +1,6 @@
 package com.cqnu.harunasandrivingtestingsystem.controller;
 
+import com.cqnu.harunasandrivingtestingsystem.entity.News;
 import com.cqnu.harunasandrivingtestingsystem.entity.Result;
 import com.cqnu.harunasandrivingtestingsystem.entity.School;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.CourseVO;
@@ -23,6 +24,11 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/api/news")
 public class NewsController {
+
+    private static final String NEWS_TYPE_VIDEO = "video";
+    private static final String NEWS_TYPE_THEORY = "theory";
+    private static final String NEWS_TYPE_TREND = "trend";
+
 
     @Resource
     private INewsService newsService;
@@ -71,4 +77,16 @@ public class NewsController {
     public PageInfo<CourseVO> getRecommend(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize){
         return newsService.getRecommend(pageNo,pageSize);
     }
+
+//    @GetMapping("/abstract")
+//    public PageInfo<News> getAbstract(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize,
+//                                    String type){
+//
+//    }
+//
+//    @GetMapping("/article/{0}")
+//    public News getArticle(@PathVariable Integer id){
+//
+//    }
+
 }

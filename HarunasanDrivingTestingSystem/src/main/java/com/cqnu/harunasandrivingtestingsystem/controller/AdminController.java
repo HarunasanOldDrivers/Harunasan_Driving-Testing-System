@@ -5,6 +5,7 @@ import com.cqnu.harunasandrivingtestingsystem.entity.Administrator;
 import com.cqnu.harunasandrivingtestingsystem.entity.Result;
 import com.cqnu.harunasandrivingtestingsystem.entity.Roles;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.AdminFE;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.AdminInfo;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.MenuFE;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.PageInfo;
 import com.cqnu.harunasandrivingtestingsystem.security.JwtTokenUtil;
@@ -80,9 +81,9 @@ public class AdminController {
         return ResultUtil.success();
     }
 
-    @PostMapping("/banAdmin/{id}")
+    @PostMapping("/banAdmin")
     @PreAuthorize("hasRole('Admin_root')")
-    public Result banAdmin(@PathVariable int id){
+    public Result banAdmin(Integer id, Integer status){
 
         return ResultUtil.success();
     }
@@ -124,8 +125,7 @@ public class AdminController {
      */
     @GetMapping("/list")
     @PreAuthorize("hasRole('Admin_root')")
-    public PageInfo<Administrator> getList(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize){
-        PageHelper.startPage(pageNo, pageSize);
-        return new PageInfo<>(adminService.getList());
+    public PageInfo<AdminInfo> getList(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize){
+        return adminService.getList(pageNo,pageSize);
     }
 }

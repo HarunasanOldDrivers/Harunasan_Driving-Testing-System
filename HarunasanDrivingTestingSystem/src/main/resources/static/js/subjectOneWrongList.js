@@ -807,11 +807,13 @@ $(document).ready(function () {
                 }
             });
         }else {
-            if(LastPageCount === 1){
+            if(LastPageCount === 1 && pageNo !== "尾页"){
+                alert($(this).text());
+                console.log($(this).text());
                 var DivThreeQuestion =$("#DivThreeQuestion");
                 DivThreeQuestion.hide();
                 $(this).siblings().removeClass("active");
-                $(this).next().addClass("active");
+                $(this).addClass("active");
                 //清除CSS样式
                 var SpanRightOrWrongTips = $("#SpanRightOrWrongTips");
                 var QoRightAnswer = $("#QoRightAnswer");
@@ -1005,7 +1007,7 @@ $(document).ready(function () {
                 var DivTwoQuestion =$("#DivTwoQuestion");
                 DivThreeQuestion.hide();
                 $(this).siblings().removeClass("active");
-                $(this).next().addClass("active");
+                $(this).prev().addClass("active");
                 //清除CSS样式
                 var SpanRightOrWrongTips = $("#SpanRightOrWrongTips");
                 var QoRightAnswer = $("#QoRightAnswer");

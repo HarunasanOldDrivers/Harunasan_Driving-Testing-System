@@ -10,6 +10,7 @@ import com.cqnu.harunasandrivingtestingsystem.service.ICourseService;
 import com.cqnu.harunasandrivingtestingsystem.service.ISchoolService;
 import com.cqnu.harunasandrivingtestingsystem.utils.ResultUtil;
 import com.cqnu.harunasandrivingtestingsystem.utils.SendSMS;
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.qcloudsms.SmsSingleSenderResult;
 import org.slf4j.Logger;
@@ -122,7 +123,7 @@ public class SchoolController {
     }
 
     /**
-     *
+     * 驾校注册
      * @param email 邮箱
      * @param schoolName    驾校名称
      * @param password  密码
@@ -292,9 +293,7 @@ public class SchoolController {
     public PageInfo<CourseVO> getCourse(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "5") Integer pageSize){
         String authToken = request.getHeader(this.tokenHeader);
         String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
-        PageHelper.startPage(pageNo,pageSize);
-        PageInfo<CourseVO> courses = new PageInfo<>(courseService.getCourse(Integer.valueOf(username)));
-        return courses;
+        return courseService.getCourse(Integer.valueOf(username), pageNo, pageSize);
     }
 
     /**
@@ -313,7 +312,7 @@ public class SchoolController {
                                         String studentName, String enrollDate, Integer courseId){
         String authToken = request.getHeader(this.tokenHeader);
         String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
-
+        logger.warn("studentName: " + studentName + "enrollDate: " + enrollDate + "courseId: " + courseId);
         LocalDateTime localDateTimeBefore;
         LocalDateTime localDateTimeAfter;
         if (StringUtils.isEmpty(enrollDate)){
@@ -328,7 +327,7 @@ public class SchoolController {
             PageHelper.startPage(pageNo, pageSize);
             return new PageInfo<>(schoolService.selectAllEnroll(studentName,localDateTimeBefore, localDateTimeAfter));
         }
-        PageHelper.startPage(pageNo, pageSize);
+        PageHelper.startPage(pageNo,pageSize);
         return new PageInfo<>(schoolService.selectEnroll(studentName,localDateTimeBefore, localDateTimeAfter, courseId));
     }
 

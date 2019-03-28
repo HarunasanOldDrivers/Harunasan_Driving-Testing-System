@@ -4,7 +4,7 @@ $(document).ready(function () {
     //得到所有课程显示在select框里面
     $.ajax({
         type:"get",
-        url:"/api/school/getCourse",
+        url:"/api/school/courseName",
         dataType:"json",
         data:{
         },
@@ -14,7 +14,7 @@ $(document).ready(function () {
         },
         success:function (result) {
             //得到课程插入到select里面的option去
-            classes = result.list;
+            classes = result.data;
             var InputSelectClasses = $("#InputSelectClasses");
             for (let i = 0 ; i <classes.length ; i++) {
                 var singleOption = $("<option></option>");

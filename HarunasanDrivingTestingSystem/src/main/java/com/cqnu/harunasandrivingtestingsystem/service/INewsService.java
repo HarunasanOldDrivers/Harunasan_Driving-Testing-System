@@ -2,6 +2,7 @@ package com.cqnu.harunasandrivingtestingsystem.service;
 
 import com.cqnu.harunasandrivingtestingsystem.entity.School;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.CourseVO;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.PageInfo;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.SchoolVO;
 
 import java.util.List;
@@ -20,5 +21,5 @@ public interface INewsService {
 
     SchoolVO getSchool(Integer schoolId);
 
-    List<CourseVO> getRecommend();
+    PageInfo<CourseVO> getRecommend(Integer pageNo, Integer pageSize);
 }

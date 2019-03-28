@@ -180,8 +180,7 @@ public class BaseUserController {
     public PageInfo<EnrollVO> getCourses(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize){
         String authToken = request.getHeader(this.tokenHeader);
         String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
-        PageHelper.startPage(pageNo,pageSize);
-        return new PageInfo<>(baseUserService.getEnroll(Integer.parseInt(username)));
+        return baseUserService.getEnroll(Integer.parseInt(username), pageNo, pageSize);
     }
 
     /**

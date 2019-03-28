@@ -99,10 +99,10 @@ $(document).ready(function () {
     //注销按钮点击之后自己删cookies里面的Authorization
     $("#AUserLogoff").click(function () {
         //本地删除Authorization
-        $.cookie('Authorization',null,{expires:-1,path:'*',domain:'localhost'});
-        $.cookie('UserName',null,{expires:-1,path:'*',domain:'localhost'});
-        $.cookie('AuthorizationSchool',null,{expires:-1,path:'*',domain:'localhost'});
-        $.cookie('schoolName',null,{expires:-1,path:'*',domain:'localhost'});
+        $.cookie('Authorization',null,{expires:-1,path:'/',domain:'localhost'});
+        $.cookie('UserName',null,{expires:-1,path:'/',domain:'localhost'});
+        $.cookie('AuthorizationSchool',null,{expires:-1,path:'/',domain:'localhost'});
+        $.cookie('schoolName',null,{expires:-1,path:'/',domain:'localhost'});
         $("#AUserName").html("");
         createAlert(0,"您已经成功退出登录");
         alert("您已经成功注销");

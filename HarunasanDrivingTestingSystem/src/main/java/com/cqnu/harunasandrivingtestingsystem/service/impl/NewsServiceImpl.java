@@ -3,11 +3,14 @@ package com.cqnu.harunasandrivingtestingsystem.service.impl;
 import com.cqnu.harunasandrivingtestingsystem.entity.Course;
 import com.cqnu.harunasandrivingtestingsystem.entity.School;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.CourseVO;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.PageInfo;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.SchoolVO;
 import com.cqnu.harunasandrivingtestingsystem.mapper.CourseMapper;
 import com.cqnu.harunasandrivingtestingsystem.mapper.EnrollMapper;
 import com.cqnu.harunasandrivingtestingsystem.mapper.SchoolMapper;
 import com.cqnu.harunasandrivingtestingsystem.service.INewsService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -60,8 +63,10 @@ public class NewsServiceImpl implements INewsService {
     }
 
     @Override
-    public List<CourseVO> getRecommend() {
+    public PageInfo<CourseVO> getRecommend(Integer pageNo, Integer pageSize) {
+        Page page = PageHelper.startPage(pageNo,pageSize);
         List<Course> courses = courseMapper.selectAll();
+        PageInfo<CourseVO> pageInfo = new PageInfo<>(page);
         List<CourseVO> courseVOS = new ArrayList<>(10);
         for (Course course: courses){
             School school = schoolMapper.selectByPrimaryKey(course.getSchoolId());
@@ -69,6 +74,7 @@ public class NewsServiceImpl implements INewsService {
                     course.getCourseName(),enrollMapper.selectCountByCourseId(course.getCourseId()), course.getCoursePrice());
             courseVOS.add(courseVO);
         }
-        return courseVOS;
+        pageInfo.setList(courseVOS);
+        return pageInfo;
     }
 }

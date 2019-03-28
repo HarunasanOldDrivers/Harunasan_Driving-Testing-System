@@ -2,6 +2,7 @@ package com.cqnu.harunasandrivingtestingsystem.service;
 
 import com.cqnu.harunasandrivingtestingsystem.entity.User;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.EnrollVO;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.PageInfo;
 
 import java.util.List;
 
@@ -40,5 +41,5 @@ public interface IBaseUserService {
 
     boolean enroll(Integer userId, Integer courseId, String username, String telephone);
 
-    List<EnrollVO> getEnroll(Integer username);
+    PageInfo<EnrollVO> getEnroll(Integer username, Integer pageNo, Integer pageSize);
 }

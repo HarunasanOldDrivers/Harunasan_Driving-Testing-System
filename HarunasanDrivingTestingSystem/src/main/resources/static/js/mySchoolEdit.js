@@ -52,6 +52,7 @@ $(document).ready(function () {
                 LiNavigationFirstWrongLists.next().children("a").text(i);
                 LiNavigationFirstWrongLists.next().children("li").addClass("liNavigation");
             }
+            LiNavigationFirstWrongLists.next().addClass("active");
             pageNum = result.pageNum;
             total = result.total;
             pages = result.pages;
@@ -135,8 +136,181 @@ $(document).ready(function () {
                 alert("与服务器似乎断开链接，请检查您的网络");
             }
         });
-    })
+    });
 
+    //点击分页按钮进行分页
+    $("#Ulpagination").on("click","li",function () {
+        var pageNo = $(this).text().trim();
+        // 如果是数字并且不是最后一页，执行跳转
+        if(!isNaN(pageNo) && pageNo !==pages  ){
+            $(this).siblings().removeClass("active");
+            $(this).addClass("active");
+            $.ajax({
+                type: "get",
+                url: "/api/school/getCourse",
+                dataType: 'json',
+                data: {
+                    pageSize: 5,
+                    pageNo: pageNo
+                },
+                beforeSend: function (XMLHttpRequest) {
+                    var Authorization = $.cookie('AuthorizationSchool');
+                    XMLHttpRequest.setRequestHeader("Authorization", Authorization);
+                },
+                success: function (result) {
+                    var tbodyClasses = $("#tbodyClasses");
+                    //首先清空元素下所有字节点
+                    tbodyClasses.empty();
+                    classes = result.list;
+                    //在表格中插入所有数据
+                    for(i=0 ; i < classes.length ; i ++){
+                        var Tr = $("<tr></tr>");
+                        //插入课程名称，生成对应表格
+                        var thClassName= $("<th class=\"text-center\"></th>");
+                        var thClassDetail= $("<th class=\"text-center\"></th>");
+                        var thClassPrice= $("<th class=\"text-center\"></th>");
+                        var thEnrollNumber= $("<th class=\"text-center\"></th>");
+                        var thDeleteBtn = $("<th><button class=\"btn btn-danger\" data-toggle=\"modal\" data-target=\"#DeleteModal\">删除</button></th>")
+                        thClassName.append(classes[i].courseName);
+                        thClassDetail.append(classes[i].courseDescribe);
+                        thClassDetail.addClass("col-md-3");
+                        thClassPrice.append(classes[i].coursePrice);
+                        thEnrollNumber.append(classes[i].count);
+                        //
+                        thDeleteBtn.find("button").text("删除");
+                        thDeleteBtn.find("button").attr("data-whatever",i);
+                        Tr.append(thClassName);
+                        Tr.append(thClassDetail);
+                        Tr.append(thClassPrice);
+                        Tr.append(thEnrollNumber);
+                        Tr.append(thDeleteBtn);
+                        tbodyClasses.append(Tr);
+                    }
+                    // 生成导航页数量
+                    pageNum = result.pageNum;
+                    total = result.total;
+                    pages = result.pages;
+                },
+                error: function () {
+                    $("#SpanQuestionId").html("");
+                    $("#SpanQuestionTitle").html("");
+                    alert("网络好像开了小差了呢~");
+                }
+            });
+        }
+        //如果是数字并且是最后
+        else if(pageNo ==="首页"){
+            $(this).siblings().removeClass("active");
+            $(this).next().addClass("active");
+            $.ajax({
+                type: "get",
+                url: "/api/school/getCourse",
+                dataType: 'json',
+                data: {
+                    pageSize: 5,
+                    pageNo: 1
+                },
+                beforeSend: function (XMLHttpRequest) {
+                    var Authorization = $.cookie('AuthorizationSchool');
+                    XMLHttpRequest.setRequestHeader("Authorization", Authorization);
+                },
+                success: function (result) {
+                    var tbodyClasses = $("#tbodyClasses");
+                    //首先清空元素下所有字节点
+                    tbodyClasses.empty();
+                    classes = result.list;
+                    //在表格中插入所有数据
+                    for(i=0 ; i < classes.length ; i ++){
+                        var Tr = $("<tr></tr>");
+                        //插入课程名称，生成对应表格
+                        var thClassName= $("<th class=\"text-center\"></th>");
+                        var thClassDetail= $("<th class=\"text-center\"></th>");
+                        var thClassPrice= $("<th class=\"text-center\"></th>");
+                        var thEnrollNumber= $("<th class=\"text-center\"></th>");
+                        var thDeleteBtn = $("<th><button class=\"btn btn-danger\" data-toggle=\"modal\" data-target=\"#DeleteModal\">删除</button></th>")
+                        thClassName.append(classes[i].courseName);
+                        thClassDetail.append(classes[i].courseDescribe);
+                        thClassDetail.addClass("col-md-3");
+                        thClassPrice.append(classes[i].coursePrice);
+                        thEnrollNumber.append(classes[i].count);
+                        thDeleteBtn.find("button").text("删除");
+                        thDeleteBtn.find("button").attr("data-whatever",i);
+                        Tr.append(thClassName);
+                        Tr.append(thClassDetail);
+                        Tr.append(thClassPrice);
+                        Tr.append(thEnrollNumber);
+                        Tr.append(thDeleteBtn);
+                        tbodyClasses.append(Tr);
+                    }
+                    pageNum = result.pageNum;
+                    total = result.total;
+                    pages = result.pages;
+                },
+                error: function () {
+                    $("#SpanQuestionId").html("");
+                    $("#SpanQuestionTitle").html("");
+                    alert("网络好像开了小差了呢~");
+                }
+            });
+        }
+        else {
+            $(this).siblings().removeClass("active");
+            $(this).prev().addClass("active");
+                //点击最后一页
+            $.ajax({
+                type: "get",
+                url: "/api/school/getCourse",
+                dataType: 'json',
+                data: {
+                    pageSize: 5,
+                    pageNo: pages
+                },
+                beforeSend: function (XMLHttpRequest) {
+                    var Authorization = $.cookie('AuthorizationSchool');
+                    XMLHttpRequest.setRequestHeader("Authorization", Authorization);
+                },
+                success: function (result) {
+                    var tbodyClasses = $("#tbodyClasses");
+                    //首先清空元素下所有字节点
+                    tbodyClasses.empty();
+                    classes = result.list;
+                    //在表格中插入所有数据
+                    for(i=0 ; i < classes.length ; i ++){
+                        var Tr = $("<tr></tr>");
+                        //插入课程名称，生成对应表格
+                        var thClassName= $("<th class=\"text-center\"></th>");
+                        var thClassDetail= $("<th class=\"text-center\"></th>");
+                        var thClassPrice= $("<th class=\"text-center\"></th>");
+                        var thEnrollNumber= $("<th class=\"text-center\"></th>");
+                        var thDeleteBtn = $("<th><button class=\"btn btn-danger\" data-toggle=\"modal\" data-target=\"#DeleteModal\">删除</button></th>")
+                        thClassName.append(classes[i].courseName);
+                        thClassDetail.append(classes[i].courseDescribe);
+                        thClassDetail.addClass("col-md-3");
+                        thClassPrice.append(classes[i].coursePrice);
+                        thEnrollNumber.append(classes[i].count);
+                        //
+                        thDeleteBtn.find("button").text("删除");
+                        thDeleteBtn.find("button").attr("data-whatever",i);
+                        Tr.append(thClassName);
+                        Tr.append(thClassDetail);
+                        Tr.append(thClassPrice);
+                        Tr.append(thEnrollNumber);
+                        Tr.append(thDeleteBtn);
+                        tbodyClasses.append(Tr);
+                    }
+                    pageNum = result.pageNum;
+                    total = result.total;
+                    pages = result.pages;
+                },
+                error: function () {
+                    $("#SpanQuestionId").html("");
+                    $("#SpanQuestionTitle").html("");
+                    alert("网络好像开了小差了呢~");
+                }
+            });
+            }
+
+    })
 
 
 });

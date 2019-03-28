@@ -2,6 +2,7 @@ package com.cqnu.harunasandrivingtestingsystem.service;
 
 import com.cqnu.harunasandrivingtestingsystem.entity.Course;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.CourseVO;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.PageInfo;
 
 import java.util.List;
 
@@ -37,6 +38,15 @@ public interface ICourseService {
      * @return
      */
     Course findCourse(Integer courseId);
+
+    /**
+     * 获取课程列表( 驾校
+     * @param username  驾校ID
+     * @param pageNo 当前页
+     * @param pageSize 分页大小
+     * @return
+     */
+    PageInfo<CourseVO> getCourse(Integer username, Integer pageNo, Integer pageSize);
 
     /**
      * 获取课程列表( 驾校

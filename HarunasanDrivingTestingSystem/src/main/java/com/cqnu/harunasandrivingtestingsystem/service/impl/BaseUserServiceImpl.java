@@ -4,13 +4,17 @@ import com.cqnu.harunasandrivingtestingsystem.entity.Course;
 import com.cqnu.harunasandrivingtestingsystem.entity.Enroll;
 import com.cqnu.harunasandrivingtestingsystem.entity.School;
 import com.cqnu.harunasandrivingtestingsystem.entity.User;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.CourseVO;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.EnrollVO;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.PageInfo;
 import com.cqnu.harunasandrivingtestingsystem.mapper.CourseMapper;
 import com.cqnu.harunasandrivingtestingsystem.mapper.EnrollMapper;
 import com.cqnu.harunasandrivingtestingsystem.mapper.SchoolMapper;
 import com.cqnu.harunasandrivingtestingsystem.mapper.UserMapper;
 import com.cqnu.harunasandrivingtestingsystem.service.IBaseUserService;
 import com.cqnu.harunasandrivingtestingsystem.utils.Password2Hash;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -152,8 +156,10 @@ public class BaseUserServiceImpl implements IBaseUserService {
     }
 
     @Override
-    public List<EnrollVO> getEnroll(Integer username){
+    public PageInfo<EnrollVO> getEnroll(Integer username, Integer pageNo, Integer pageSize){
+        Page page = PageHelper.startPage(pageNo,pageSize);
         List<Enroll> enrollList = enrollMapper.selectByStudentId(username);
+        PageInfo<EnrollVO> pageInfo = new PageInfo<>(page);
         List<EnrollVO> enrollVOList = new ArrayList<>();
         for (Enroll enroll : enrollList){
             EnrollVO enrollVO = new EnrollVO();
@@ -170,6 +176,7 @@ public class BaseUserServiceImpl implements IBaseUserService {
             enrollVO.setSchoolTel(school.getSchoolEnrollTelphone());
             enrollVOList.add(enrollVO);
         }
-        return enrollVOList;
+        pageInfo.setList(enrollVOList);
+        return pageInfo;
     }
 }

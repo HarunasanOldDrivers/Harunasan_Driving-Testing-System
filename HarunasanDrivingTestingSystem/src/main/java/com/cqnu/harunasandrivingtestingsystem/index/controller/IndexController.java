@@ -68,6 +68,10 @@ public class IndexController {
     public String subjectFourwrongList(){
         return "subjectFourWrongList";
     }
+    @RequestMapping(value = "/subjectFour/test")
+    public String subjectFourTest(){
+        return "subjectFourTest";
+    }
 
     @RequestMapping(value = "/school/profile")
     public String schoolProfile(){ return "mySchoolBaseInfo";}

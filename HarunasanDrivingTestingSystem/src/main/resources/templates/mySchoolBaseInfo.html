@@ -17,7 +17,9 @@
     <link href="../css/bootstrap-fileinput.css" rel="stylesheet">
     <script src="../js/bootstrap-fileinput.js" type="text/javascript"></script>
     <!--引入富文本编辑器ckEditor-->
-    <!--<script src="../ckeditor5-build-classic/ckeditor.js" type="text/javascript"></script>-->
+    <!--<script src="../js/ckeditor5-build-classic/config.js"></script>-->
+    <!--<script src="../js/ckeditor5-build-classic/ckeditor.js" ></script>-->
+    <script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js"></script>
     <style>
         body{
             padding-top: 50px;
@@ -145,14 +147,17 @@
 
                                 <div class="schoolIntroductionDiv col-md-12">
                                     <label for="PschoolIntroduction">驾校简介：</label>
-                                    <a href="#" onclick="modifySchoolIntroduction()" style="color: #5b7aff;">修改</a>
-                                    <p id="PschoolIntroduction">内蒙古巴彦淖尔捷通驾校欢迎您！捷通驾校是后旗捷通驾校的简称，后旗捷通驾校提供专业的学车指导、热情的教练服务，还提供捷通驾校2019科目一考试和捷通驾校一点通2019科目四考试。后旗捷通驾校咨询电话是暂无报名电话或咨询电话，后旗捷通驾校报名电话是暂无报名电话或咨询电话，捷通驾校地址是内蒙古巴彦淖尔市后旗，欢迎您报考后旗捷通驾校。
+                                    <a href="#" onclick="modifySchoolIntroduction1()" style="color: #5b7aff;" >修改</a>
+
+                                    <p id="PschoolIntroduction" style="display: block"></p>
                                         <br>
-                                    <!--<div class="schoolIntroductionEditor">-->
-                                        <!--<textarea class="ck-editor__editable" name="content" id="editor">内蒙古巴彦淖尔捷通驾校欢迎您！捷通驾校是后旗捷通驾校的简称，后旗捷通驾校提供专业的学车指导、热情的教练服务，还提供捷通驾校2019科目一考试和捷通驾校一点通2019科目四考试。后旗捷通驾校咨询电话是暂无报名电话或咨询电话，后旗捷通驾校报名电话是暂无报名电话或咨询电话，捷通驾校地址是内蒙古巴彦淖尔市后旗，欢迎您报考后旗捷通驾校。</textarea>-->
-                                        <!--<button class="btn btn-danger col-md-offset-9" id="cancelEditor">取消</button>-->
-                                        <!--<button class="btn btn-success">确认修改</button>-->
-                                    <!--</div>-->
+                                    <!--内蒙古巴彦淖尔捷通驾校欢迎您！捷通驾校是后旗捷通驾校的简称，后旗捷通驾校提供专业的学车指导、热情的教练服务，还提供捷通驾校2019科目一考试和捷通驾校一点通2019科目四考试。后旗捷通驾校咨询电话是暂无报名电话或咨询电话，后旗捷通驾校报名电话是暂无报名电话或咨询电话，捷通驾校地址是内蒙古巴彦淖尔市后旗，欢迎您报考后旗捷通驾校。-->
+                                    <div id="schoolIntroductionEditor" class="schoolIntroductionEditor" style="display: none">
+
+                                        <textarea class="ck-editor__editable" name="content" id="editor"></textarea>
+                                        <button class="btn btn-danger col-md-offset-9" id="cancelEditor">取消</button>
+                                        <button class="btn btn-success" id="btnConfirm">确认修改</button>
+                                    </div>
                                 </div>
                             </div>
 
@@ -166,6 +171,15 @@
     </div>
 
     <script>
+        let editor;
+        function modifySchoolIntroduction1(){
+            var schoolIntroductionEditor = $(".schoolIntroductionEditor");
+            schoolIntroductionEditor.css("display","block");
+            var PschoolIntroduction = $("#PschoolIntroduction");
+            PschoolIntroduction.css("display","block");
+
+        }
+
     $(document).ready(function () {
 
         $("#nav").load("../nav",function () {
@@ -198,9 +212,13 @@
         //建立富文本编辑器
         // ClassicEditor
         //     .create( document.querySelector( '#editor' ) )
+        //     .then( editor => {
+        //         console.log( editor );
+        //     } )
         //     .catch( error => {
         //         console.error( error );
         //     } );
+
     })
 </script>
 

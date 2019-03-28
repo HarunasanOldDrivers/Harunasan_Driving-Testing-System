@@ -1,5 +1,8 @@
 $(document).ready(function () {
+    let editor;
     var classes;
+    var Str ;
+
     $.ajax({
         type:"get",
         url:"/api/school/profile",
@@ -17,6 +20,7 @@ $(document).ready(function () {
             $("#CorporateNameSpan").html(result.data.schoolCorporateName);
             $("#CorporateNumberSpan").html(result.data.schoolCorporateTel);
             $("#PschoolIntroduction").html(result.data.schoolIntroduction);
+            Str = result.data.schoolIntroduction;
             $("#imgSchoolDefaultimg").attr("src",result.data.schoolIcon);
 
         },
@@ -24,7 +28,84 @@ $(document).ready(function () {
             alert("与服务器似乎断开链接，请检查您的网络");
         }
     });
+    //提交修改信息
 
+    ClassicEditor
+        .create( document.querySelector( '#editor' ) )
+        .then( newEditor => {
+            editor = newEditor;
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
+
+        // Assuming there is a <button id="submit">Submit</button> in your application.
+        document.querySelector( '#btnConfirm' ).addEventListener( 'click', () => {
+        const editorData = editor.getData();
+            $("#schoolIntroductionEditor").css("display","none");
+            $.ajax({
+                type: "post",
+                url: "/api/school/alterDescribe",
+                dataType: "json",
+                data:{
+                    newDec:editorData
+                },
+                beforeSend: function (XMLHttpRequest) {
+                    var Authorization = $.cookie('AuthorizationSchool');
+                    XMLHttpRequest.setRequestHeader("Authorization", Authorization);
+                },
+                success: function (result) {
+                    //     $("#schoolAddressSpan").html(result.data.address);
+                    //      $("#schoolNameSpan").html(result.data.schoolName);
+                    //      $("#registerTelSpan").html(result.data.schoolEnrollTelephone);
+                    //      $("#CompanyNameSpan").html(result.data.schoolCompanyName);
+                    //      $("#EnbarkTimeSpan").html(result.data.schoolStartTime.substring(0, 10));
+                    //      $("#CorporateNameSpan").html(result.data.schoolCorporateName);
+                    //      $("#CorporateNumberSpan").html(result.data.schoolCorporateTel);
+                    //      $("#PschoolIntroduction").text(result.data.schoolIntroduction);
+                    // $("#imgSchoolDefaultimg").attr("src", result.data.schoolIcon);
+                    window.location.href="/school/profile"
+                },
+                error: function (result) {
+                    alert("与服务器似乎断开链接，请检查您的网络");
+                }
+
+            })
+
+        // ...
+    } );
+    // $("#btnConfirm").click(function () {
+    //     var editorData = editor.getData();
+    //     $("#schoolIntroductionEditor").css("display","none");
+    //     $.ajax({
+    //         type: "post",
+    //         url: "/api/school/alterDescribe",
+    //         dataType: "json",
+    //         data:{
+    //             newDec:editorData
+    //         },
+    //         beforeSend: function (XMLHttpRequest) {
+    //             var Authorization = $.cookie('AuthorizationSchool');
+    //             XMLHttpRequest.setRequestHeader("Authorization", Authorization);
+    //         },
+    //         success: function (result) {
+    //        //     $("#schoolAddressSpan").html(result.data.address);
+    //        //      $("#schoolNameSpan").html(result.data.schoolName);
+    //        //      $("#registerTelSpan").html(result.data.schoolEnrollTelephone);
+    //        //      $("#CompanyNameSpan").html(result.data.schoolCompanyName);
+    //        //      $("#EnbarkTimeSpan").html(result.data.schoolStartTime.substring(0, 10));
+    //        //      $("#CorporateNameSpan").html(result.data.schoolCorporateName);
+    //        //      $("#CorporateNumberSpan").html(result.data.schoolCorporateTel);
+    //        //      $("#PschoolIntroduction").text(result.data.schoolIntroduction);
+    //             // $("#imgSchoolDefaultimg").attr("src", result.data.schoolIcon);
+    //             window.location.href="/school/profile"
+    //         },
+    //         error: function (result) {
+    //             alert("与服务器似乎断开链接，请检查您的网络");
+    //         }
+    //
+    //     })
+    // })
     //提交修改新的报名电话
     $("#BtnSubmitNewTel").click(function () {
         var newTEL =  $("#InputChargerTel").val();
@@ -88,12 +169,7 @@ $(document).ready(function () {
         PschoolIntroduction.css("display","block");
     });
 
-    function modifySchoolIntroduction(){
-        var schoolIntroductionEditor = $(".schoolIntroductionEditor");
-        schoolIntroductionEditor.css("display","block");
-        var PschoolIntroduction = $("#PschoolIntroduction");
-        PschoolIntroduction.css("display","none");
-    }
+
 
 
 
@@ -103,4 +179,6 @@ $(document).ready(function () {
         var InputSelectClasses= $("#InputSelectClasses");
         alert("学生名字：" + InputStudentName.val() + "报名时间："+  InputEnrollTime.val() + "课程名称：" + InputSelectClasses.val() );
     })
+
+
 });

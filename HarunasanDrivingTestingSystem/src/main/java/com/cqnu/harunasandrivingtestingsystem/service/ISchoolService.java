@@ -1,8 +1,7 @@
 package com.cqnu.harunasandrivingtestingsystem.service;
 
-import com.cqnu.harunasandrivingtestingsystem.entity.Course;
-import com.cqnu.harunasandrivingtestingsystem.entity.Enroll;
-import com.cqnu.harunasandrivingtestingsystem.entity.School;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.EnrollSL;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.PageInfo;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.SchoolVO;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -122,7 +121,8 @@ public interface ISchoolService {
      * @param courseId      课程Id
      * @return  List<Enroll>
      */
-    List<Enroll> selectEnroll(String studentName, LocalDateTime timeBefore, LocalDateTime timeAfter, Integer courseId);
+    PageInfo<EnrollSL> selectEnroll(String studentName, LocalDateTime timeBefore, LocalDateTime timeAfter,
+                                    Integer courseId, Integer pageNum, Integer pageSize);
 
     /**
      * 查询报名
@@ -131,5 +131,5 @@ public interface ISchoolService {
      * @param timeAfter     报名时间右区间
      * @return  List<Enroll>
      */
-    List<Enroll> selectAllEnroll(String studentName, LocalDateTime timeBefore, LocalDateTime timeAfter);
+    PageInfo<EnrollSL> selectAllEnroll(String studentName, LocalDateTime timeBefore, LocalDateTime timeAfter, Integer pageNum, Integer pageSize);
 }

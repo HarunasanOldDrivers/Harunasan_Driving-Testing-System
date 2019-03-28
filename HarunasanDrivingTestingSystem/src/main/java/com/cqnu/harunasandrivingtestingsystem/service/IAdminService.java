@@ -1,6 +1,9 @@
 package com.cqnu.harunasandrivingtestingsystem.service;
 
+import com.cqnu.harunasandrivingtestingsystem.entity.Administrator;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.AdminFE;
+
+import java.util.List;
 
 /**
  * @author LiAixing
@@ -17,27 +20,29 @@ public interface IAdminService {
      * @param password  密码
      * @param phone 管理员电话号码
      */
-    public int createAdmin(String name, String password, String phone);
+    int createAdmin(String name, String password, String phone);
 
     /**
      * 禁用管理员账号
      * @param id
      * @return
      */
-    public int banAdmin(int id);
+    int banAdmin(int id);
 
     /**
      * 删除管理员账号
      * @param id
      * @return
      */
-    public int deleteAdmin(int id);
+    int deleteAdmin(int id);
 
     boolean loginById(int id, String password);
 
     boolean loginByTelephone(String telephone, String password);
 
     AdminFE getInfo(Integer username);
+
+    List<Administrator> getList();
 
 
 //    public int updateAdmin()

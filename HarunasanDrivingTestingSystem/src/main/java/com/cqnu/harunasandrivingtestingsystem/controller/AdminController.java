@@ -6,11 +6,13 @@ import com.cqnu.harunasandrivingtestingsystem.entity.Result;
 import com.cqnu.harunasandrivingtestingsystem.entity.Roles;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.AdminFE;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.MenuFE;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.PageInfo;
 import com.cqnu.harunasandrivingtestingsystem.security.JwtTokenUtil;
 import com.cqnu.harunasandrivingtestingsystem.security.UserDetailsServiceImpl;
 import com.cqnu.harunasandrivingtestingsystem.service.IAdminService;
 import com.cqnu.harunasandrivingtestingsystem.utils.Json2DB;
 import com.cqnu.harunasandrivingtestingsystem.utils.ResultUtil;
+import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,7 +100,7 @@ public class AdminController {
 
     @GetMapping("/info")
     @PreAuthorize("hasAuthority('Admin:Base')")
-    public  Result getInfo(){
+    public Result getInfo(){
         String authToken = request.getHeader(this.tokenHeader);
         String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
         if (StringUtils.isEmpty(authToken) || StringUtils.isEmpty(username)){
@@ -114,5 +116,16 @@ public class AdminController {
         return ResultUtil.success();
     }
 
-
+    /**
+     * 获取管理员列表
+     * @param pageNo  当前页
+     * @param pageSize  分页大小
+     * @return PageInfo<Administrator>
+     */
+    @GetMapping("/list")
+    @PreAuthorize("hasRole('Admin_root')")
+    public PageInfo<Administrator> getList(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize){
+        PageHelper.startPage(pageNo, pageSize);
+        return new PageInfo<>(adminService.getList());
+    }
 }

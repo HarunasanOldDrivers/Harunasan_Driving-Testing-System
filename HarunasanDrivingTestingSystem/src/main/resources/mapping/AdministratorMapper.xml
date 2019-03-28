@@ -17,7 +17,12 @@
     from hodts_db.administrator
     where Id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="selectAll" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List" />
+      from hodts_db.administrator
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from hodts_db.administrator
     where Id = #{id,jdbcType=INTEGER}
   </delete>

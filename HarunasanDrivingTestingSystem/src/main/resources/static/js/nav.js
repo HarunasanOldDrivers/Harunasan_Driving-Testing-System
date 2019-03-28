@@ -118,7 +118,7 @@ $(document).ready(function () {
         if($.cookie("schoolName")){
             window.location.href="/school/profile"
         }else if($.cookie("UserName")){
-            alert("普通用户登录")
+            window.location.href="/user/profile"
         }
 
     })

@@ -25,10 +25,7 @@ public class IndexController {
     }
 
     @RequestMapping(value = "/register/user")
-    public String user(){
-
-        return "registerUser";
-    }
+    public String user(){ return "registerUser"; }
 
     @RequestMapping(value = "/register/school")
     public String school(){
@@ -74,5 +71,14 @@ public class IndexController {
 
     @RequestMapping(value = "/school/student")
     public String schoolStudent(){ return "mySchoolSelectStudent";}
+
+    @RequestMapping(value = "/user/profile")
+    public String NormalUser(){ return "userBaseInfo";}
+
+    @RequestMapping(value = "/user/enroll")
+    public String userEnroll(){ return "userEnrollClasses";}
+
+    @RequestMapping(value = "/schoolCommend")
+    public String schoolCommend(){ return "schoolCommend";}
 
 }

@@ -88,6 +88,9 @@ public class IndexController {
     @RequestMapping(value = "/schoolCommend")
     public String schoolCommend(){ return "schoolCommend";}
 
+    @RequestMapping(value = "/schoolCommend/detail")
+    public String schoolDetail(){ return "schoolDetails";}
+
     @RequestMapping(value = "/information")
     public String studyInfoList(){ return "studyInfoList";}
 

@@ -4,7 +4,7 @@ $(document).ready(function () {
         type:"get",
         url:"/api/news/search",
         data:{
-            price:"2000-3000",
+            price:"0-2000",
         },
         dataType:"json",
         success:function (result) {

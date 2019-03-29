@@ -76,6 +76,11 @@ public class SchoolServiceImpl implements ISchoolService {
     }
 
     @Override
+    public boolean checkAuditing(String email){
+        return schoolMapper.selectIdByEmail(email).getSchoolAuthenticationStatus() == 1;
+    }
+
+    @Override
     public Integer getIdByEmail(String email){
         School school = schoolMapper.selectIdByEmail(email);
         if (school == null){

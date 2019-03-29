@@ -81,6 +81,9 @@ public class SchoolController {
     public Result login(String email, String password){
         Map<String, String> map = new HashMap<String, String>(16);
         if (schoolService.loginByEmail(email,password)){
+            if (!schoolService.checkAuditing(email)){
+                return ResultUtil.failure(408,"账号正在审核中或未通过审核");
+            }
             map.put("token",jwtTokenUtil.generateToken(userDetailsService.loadUserByUsername(String.valueOf(schoolService.getIdByEmail(email)),"School"),"School"));
             map.put("schoolName",schoolService.getSchoolNameByEmail(email));
             return ResultUtil.success(map);

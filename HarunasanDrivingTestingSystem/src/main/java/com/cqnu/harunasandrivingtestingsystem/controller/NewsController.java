@@ -44,7 +44,9 @@ public class NewsController {
      */
     @GetMapping("/search")
     public PageInfo<School> search(@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "5") int pageSize,
-                                   String schoolName, String area, String price){
+                                   @RequestParam(defaultValue = "") String schoolName,
+                                   @RequestParam(defaultValue = "") String area,
+                                   @RequestParam(defaultValue = "0-10000") String price){
         String []prices = price.split("-");
         PageHelper.startPage(pageNo,pageSize);
         return new PageInfo<>(newsService.searchSchool(schoolName,area,Integer.valueOf(prices[0]),Integer.valueOf(prices[1])));

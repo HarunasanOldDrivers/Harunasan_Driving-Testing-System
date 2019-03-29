@@ -1,15 +1,11 @@
 package com.cqnu.harunasandrivingtestingsystem.service.impl;
 
-import com.cqnu.harunasandrivingtestingsystem.entity.Administrator;
-import com.cqnu.harunasandrivingtestingsystem.entity.Permissions;
-import com.cqnu.harunasandrivingtestingsystem.entity.Roles;
+import com.cqnu.harunasandrivingtestingsystem.entity.*;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.AdminFE;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.AdminInfo;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.MenuFE;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.PageInfo;
-import com.cqnu.harunasandrivingtestingsystem.mapper.AdministratorMapper;
-import com.cqnu.harunasandrivingtestingsystem.mapper.PermissionsMapper;
-import com.cqnu.harunasandrivingtestingsystem.mapper.RolesMapper;
+import com.cqnu.harunasandrivingtestingsystem.mapper.*;
 import com.cqnu.harunasandrivingtestingsystem.service.IAdminService;
 import com.cqnu.harunasandrivingtestingsystem.utils.Password2Hash;
 import com.github.pagehelper.Page;
@@ -44,6 +40,12 @@ public class AdminServiceImpl implements IAdminService {
 
     @Resource
     private RolesMapper rolesMapper;
+
+    @Resource
+    private SchoolMapper schoolMapper;
+
+    @Resource
+    private AdminRolesMapper adminRolesMapper;
 
     @Override
     public int createAdmin(String name, String password, String phone) {
@@ -119,5 +121,49 @@ public class AdminServiceImpl implements IAdminService {
         return  pageInfo;
     }
 
-    ;
+    @Override
+    public boolean audit(Integer schoolId, Integer status){
+        School school = schoolMapper.selectByPrimaryKey(schoolId);
+        if (school == null){
+            logger.warn("School not found: ");
+            throw new UsernameNotFoundException("School not found");
+        }
+        school.setSchoolAuthenticationStatus((byte)status.intValue());
+        return schoolMapper.updateByPrimaryKeySelective(school) == 1;
+    }
+
+    @Override
+    public PageInfo<AdminInfo> search(Integer pageNum, Integer pageSize, String adminName, Integer roleId){
+        Page page = PageHelper.startPage(pageNum, pageSize);
+        List<Administrator> administratorList;
+        if (roleId != null) {
+            administratorList = administratorMapper.selectByRoleAndName(adminName, roleId);
+        }else {
+            administratorList = administratorMapper.selectByName(adminName);
+        }
+        PageInfo<AdminInfo> pageInfo = new PageInfo<>(page);
+        List<AdminInfo> adminInfoList = new ArrayList<>();
+        for (Administrator administrator : administratorList){
+            AdminInfo adminInfo = new AdminInfo(administrator.getId(), administrator.getAdminName(), administrator.getAdminPassword(), administrator.getAdminPhone(), administrator.getEnable(), rolesMapper.selectByAdministratorId(administrator.getId()).get(0).getName());
+            adminInfoList.add(adminInfo);
+        }
+        pageInfo.setList(adminInfoList);
+
+        return  pageInfo;
+    }
+
+    @Override
+    public int updateAdmin(Integer adminId, String adminName, String adminTel, Integer roleId) {
+        Administrator administrator = administratorMapper.selectByPrimaryKey(adminId);
+        AdminRoles adminRoles = adminRolesMapper.selectByAdminId(adminId);
+        logger.warn(String.valueOf(administrator == null));
+        logger.warn(String.valueOf(adminRoles == null));
+        if (administrator == null || adminRoles == null){
+            return 0;
+        }
+        administrator.setAdminName(adminName);
+        administrator.setAdminPhone(adminTel);
+        adminRoles.setRid(roleId);
+        return administratorMapper.updateByPrimaryKeySelective(administrator) + adminRolesMapper.updateByPrimaryKeySelective(adminRoles);
+    }
 }

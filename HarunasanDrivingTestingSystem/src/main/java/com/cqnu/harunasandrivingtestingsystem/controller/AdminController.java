@@ -90,7 +90,6 @@ public class AdminController {
 
     @PostMapping("/login")
     public Result login(@RequestBody Map map) {
-        Map<String, String> map2 = new HashMap<String, String>(16);
         String username = (String) map.get("username");
         String password = (String) map.get("password");
         if (adminService.loginById(Integer.parseInt(username), password)) {
@@ -111,10 +110,26 @@ public class AdminController {
         return ResultUtil.success(adminFE);
     }
 
+    /**
+     * 审核驾校
+     * @param schoolId  驾校Id
+     * @param status  状态码 { 0:未通过, 2:通过}
+     * @return
+     */
     @PostMapping("/audit")
     @PreAuthorize("hasAuthority('Admin:Audit')")
-    public Result audit(){
-        return ResultUtil.success();
+    public Result audit(Integer schoolId, Integer status){
+        if (schoolId == null || status == null){
+            ResultUtil.failure(600,"参数错误");
+        }
+        if ( status != 0 & status != 2 ){
+            ResultUtil.failure(600,"参数错误");
+        }
+        if (adminService.audit(schoolId,status)) {
+            return ResultUtil.success();
+        } else {
+            return ResultUtil.failure(1000,"审核失败");
+        }
     }
 
     /**
@@ -128,4 +143,46 @@ public class AdminController {
     public PageInfo<AdminInfo> getList(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize){
         return adminService.getList(pageNo,pageSize);
     }
+
+    /**
+     * 搜索管理员
+     * @param pageNo  当前页
+     * @param pageSize  分页大小
+     * @param adminName  管理员姓名
+     * @param roleId  角色Id
+     * @return
+     */
+    @GetMapping("/search")
+    @PreAuthorize("hasRole('Admin_root')")
+    public PageInfo<AdminInfo> search(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize,
+                                       String adminName, Integer roleId){
+        if (roleId == null & StringUtils.isEmpty(adminName)){
+            return getList(pageNo,pageSize);
+        }
+        return adminService.search(pageNo,pageSize,adminName,roleId);
+    }
+
+    @PostMapping("/edit")
+    @PreAuthorize("hasRole('Admin_root')")
+    public Result edit(@RequestBody Map map){
+        Integer adminId = (Integer) map.get("adminId");
+        String roleIdCash = (String) map.get("roleId");
+        Integer roleId;
+        if (roleIdCash.length()>1){
+            roleId = null;
+        } else {
+            roleId = Integer.valueOf(roleIdCash);
+        }
+        String adminName = (String) map.get("adminName");
+        String adminTel = (String) map.get("adminTel");
+        logger.warn("adminId"+adminId+"adminName"+adminName+"adminTel"+adminTel+"roleId"+roleId);
+        int result = adminService.updateAdmin(adminId, adminName, adminTel, roleId);
+        logger.warn(String.valueOf(result));
+        if (result == 2){
+            return ResultUtil.success();
+        } else {
+            return ResultUtil.failure(1100,"修改失败");
+        }
+    }
+
 }

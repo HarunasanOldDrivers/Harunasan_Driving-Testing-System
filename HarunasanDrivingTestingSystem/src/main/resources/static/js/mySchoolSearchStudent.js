@@ -24,6 +24,8 @@ $(document).ready(function () {
             //得到课程插入到select里面的option去
             classes = result.data;
             var InputSelectClasses = $("#InputSelectClasses");
+            var singleOptionNull = $("<option></option>");
+            InputSelectClasses.append(singleOptionNull);
             for (let i = 0 ; i <classes.length ; i++) {
                 var singleOption = $("<option></option>");
                 singleOption.append(classes[i].courseName);
@@ -100,7 +102,6 @@ $(document).ready(function () {
                 }
                 //生成分页栏
                 var LiNavigationFirstWrongLists =  $("#LiNavigationFirstWrongLists");
-                console.log(LiNavigationFirstWrongLists);
                 for (var i = result.pages ; i >= 1 ; i--){
                     LiNavigationFirstWrongLists.after("<li></li>");
                     LiNavigationFirstWrongLists.next().append("<a></a>");

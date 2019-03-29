@@ -20,7 +20,7 @@ $(document).ready(function () {
 
     //发送验证码修改密码
     $("#BtnGetCode").click(function () {
-        UserInfo.sendSMS
+        // UserInfo.sendSMS
         $.ajax({
             type:"get",
             url:"/api/user/sendSMS",

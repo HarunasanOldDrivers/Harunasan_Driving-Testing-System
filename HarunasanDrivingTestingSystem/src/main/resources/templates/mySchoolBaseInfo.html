@@ -93,7 +93,7 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="form-group" >
-                                                        <input type="tel" name="InputChargerTel" placeholder="New Telphone" class="form-control" id="InputChargerTel">
+                                                        <input type="text" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();"  name="InputChargerTel" placeholder="New Telphone" class="form-control" id="InputChargerTel">
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">

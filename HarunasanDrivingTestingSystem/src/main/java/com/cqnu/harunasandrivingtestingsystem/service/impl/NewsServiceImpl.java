@@ -29,6 +29,8 @@ import java.util.List;
 @Service
 public class NewsServiceImpl implements INewsService {
 
+    private static final int END_INDEX = 100;
+
     @Resource
     private SchoolMapper schoolMapper;
 
@@ -87,8 +89,16 @@ public class NewsServiceImpl implements INewsService {
     @Override
     public List<News> getAbstract(Integer type){
         List<News> newsList = newsMapper.selectByType(type);
+        if (newsList == null){
+            return null;
+        }
         for (News news : newsList){
-            news.setNewsContent(news.getNewsContent().substring(0,50) + "......");
+            int length = news.getNewsContent().length();
+            if ( length < END_INDEX){
+                news.setNewsContent(news.getNewsContent().substring(0, length) + "......");
+            }else {
+                news.setNewsContent(news.getNewsContent().substring(0, END_INDEX) + "......");
+            }
         }
         return newsList;
     }

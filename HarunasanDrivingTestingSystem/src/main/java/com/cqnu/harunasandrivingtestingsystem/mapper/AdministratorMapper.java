@@ -23,4 +23,8 @@ public interface AdministratorMapper {
 
     List<Administrator> selectAll();
 
+    List<Administrator> selectByRoleAndName(@Param("adminName") String adminName, @Param("roleId") Integer roleId);
+
+    List<Administrator> selectByName(String adminName);
+
 }

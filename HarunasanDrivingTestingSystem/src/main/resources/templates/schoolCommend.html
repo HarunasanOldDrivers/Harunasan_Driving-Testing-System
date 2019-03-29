@@ -46,26 +46,28 @@
                                 <div class="col-md-3">
                                     <label for="InputSchoolName">驾校名称</label><input class="form-control" placeholder="School Name" type="text" id="InputSchoolName">
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-4">
                                     <!--<label for="InputDistrict" style="border: 1px solid red;float: left;">地区查询</label>-->
-                                    <label for="InputDistrict">地区</label><input name="InputDistrict" id="InputDistrict" class="form-control" type="text" data-toggle="city-picker">
+                                    <label for="InputDistrict">地区</label>
+                                    <input name="InputDistrict" id="InputDistrict" class="form-control" type="text" data-toggle="city-picker">
                                 </div>
                                 <div class="col-md-3">
                                     <label for="InputPrice" class="control-label" >价格区间</label>
                                     <div class="">
                                         <select id="InputPrice" name="select" class="selectpicker show-tick form-control" data-actions-box="true">
+                                                <option></option>
                                                 <option value="0-2000">2k以下</option>
-                                            　　<option value="2000-3000">2k-3k</option>
-                                            　　<option value="3000-4000">3k-4k</option>
-                                            　　<option value="4000-5000">4k-5k</option>
-                                            　　<option value="5000-50000">5k以上</option>
+                                            　　<option value="2000-3500">2k-3k5</option>
+                                            　　<option value="3500-5000">3k5-5k</option>
+                                            　　<option value="5000">5k以上</option>
                                         </select>
                                     </div>
                                 </div>
 
-                                <div class="col-md-1">
+                                <div class="row col-md-2 " >
                                     <label for="selectBtn" style="visibility: hidden">label</label>
-                                    <button id="selectBtn" class="btn btn-primary">查询</button>
+                                    <button id="selectBtn" class="btn  btn-primary" style="margin-right: 20px">查询</button>
+
                                 </div>
                             </div>
                         </div>
@@ -95,74 +97,76 @@
             </div>
         </div>
             <!--找到适合你的驾校-->
-        <div class="col-md-4 container">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h3 class="findSchoolHeading"><strong>如何找到合适的驾校?</strong></h3>
-                </div>
-                <br>
-                <div class="panel-body">
-                    <div class="col-md-12">
-                        <div class="col-md-3 col-md-offset-1" style="border-right: 1px solid #d1d1d1">
-                            <span class="glyphicon glyphicon-comment findSchoolGly"></span>
-                        </div>
-                        <div class="col-md-8" >
-                            <span class="findSchoolHeader"><strong>看评价</strong></span>
-                            <br>
-                            <span class="findSchoolContent">通过学员评价看驾校服务</span>
-                        </div>
-                        <br>
+        <div class="col-md-4">
+            <div class="col-md-12 container">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="findSchoolHeading"><strong>如何找到合适的驾校?</strong></h3>
                     </div>
-                    <div class="col-md-12" style="padding-top: 20px">
-                        <div class="col-md-3 col-md-offset-1" style="border-right: 1px solid #d1d1d1">
-                            <span class="glyphicon glyphicon-thumbs-up findSchoolGly"></span>
-                        </div>
-                        <div class="col-md-8" >
-                            <span class="findSchoolHeader"><strong>看口碑</strong></span>
-                            <br>
-                            <span class="findSchoolContent">通过认证等级看驾校信用</span>
-                        </div>
-                        <br>
-                    </div>
-                    <div class="col-md-12" style="padding-top: 20px">
-                        <div class="col-md-3 col-md-offset-1" style="border-right: 1px solid #d1d1d1">
-                            <span class="glyphicon glyphicon-user findSchoolGly"></span>
-                        </div>
-                        <div class="col-md-8" >
-                            <span class="findSchoolHeader"><strong>看师资</strong></span>
-                            <br>
-                            <span class="findSchoolContent">通过明星教练看驾校实力</span>
-                        </div>
-                        <br>
-                    </div>
-                    <div class="col-md-12" style="padding-top: 20px;padding-bottom: 30px">
+                    <br>
+                    <div class="panel-body">
+                        <div class="col-md-12">
                             <div class="col-md-3 col-md-offset-1" style="border-right: 1px solid #d1d1d1">
-                                <span class="glyphicon glyphicon-blackboard findSchoolGly"></span>
+                                <span class="glyphicon glyphicon-comment findSchoolGly"></span>
                             </div>
                             <div class="col-md-8" >
-                                <span class="findSchoolHeader"><strong>看教学</strong></span>
+                                <span class="findSchoolHeader"><strong>看评价</strong></span>
                                 <br>
-                                <span class="findSchoolContent">通过教学视频看教学质量</span>
+                                <span class="findSchoolContent">通过学员评价看驾校服务</span>
                             </div>
                             <br>
                         </div>
+                        <div class="col-md-12" style="padding-top: 20px">
+                            <div class="col-md-3 col-md-offset-1" style="border-right: 1px solid #d1d1d1">
+                                <span class="glyphicon glyphicon-thumbs-up findSchoolGly"></span>
+                            </div>
+                            <div class="col-md-8" >
+                                <span class="findSchoolHeader"><strong>看口碑</strong></span>
+                                <br>
+                                <span class="findSchoolContent">通过认证等级看驾校信用</span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col-md-12" style="padding-top: 20px">
+                            <div class="col-md-3 col-md-offset-1" style="border-right: 1px solid #d1d1d1">
+                                <span class="glyphicon glyphicon-user findSchoolGly"></span>
+                            </div>
+                            <div class="col-md-8" >
+                                <span class="findSchoolHeader"><strong>看师资</strong></span>
+                                <br>
+                                <span class="findSchoolContent">通过明星教练看驾校实力</span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col-md-12" style="padding-top: 20px;padding-bottom: 30px">
+                                <div class="col-md-3 col-md-offset-1" style="border-right: 1px solid #d1d1d1">
+                                    <span class="glyphicon glyphicon-blackboard findSchoolGly"></span>
+                                </div>
+                                <div class="col-md-8" >
+                                    <span class="findSchoolHeader"><strong>看教学</strong></span>
+                                    <br>
+                                    <span class="findSchoolContent">通过教学视频看教学质量</span>
+                                </div>
+                                <br>
+                            </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-4 container">
-            <table class="table table-striped classCommend table-hover">
-                <thead>
-                    <tr>
-                        <th>驾校名称</th>
-                        <th>课程名称</th>
-                        <th>驾校价格</th>
-                    </tr>
-                </thead>
-                <tbody id="tbodyCommend">
-                    <!--动态插入推荐课程-->
-                </tbody>
-            </table>
+            <div class="col-md-12 container">
+                <table class="table table-striped classCommend table-hover">
+                    <thead>
+                        <tr>
+                            <th>驾校名称</th>
+                            <th>课程名称</th>
+                            <th>驾校价格</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyCommend">
+                        <!--动态插入推荐课程-->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 

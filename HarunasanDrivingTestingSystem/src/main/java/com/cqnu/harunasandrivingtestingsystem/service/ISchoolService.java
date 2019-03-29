@@ -26,6 +26,8 @@ public interface ISchoolService {
      */
     boolean loginByEmail(String email, String password);
 
+    boolean checkAuditing(String email);
+
     /**
      * 通过邮箱获取学校id
      * @param email 邮箱

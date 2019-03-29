@@ -258,36 +258,10 @@ $(document).ready(function () {
 
     //生成试卷
     function GenerateResult() {
-        if($.cookie("Authorization")){
-            // $.ajax({
-            //     type:"post",
-            //     url:"/api/test/one/addMultiMistake",
-            //     data: { 'id':CurrentQuestionId
-            //     },
-            //     dataType:"json",
-            //     beforeSend: function (XMLHttpRequest) {
-            //         var Authorization = $.cookie('Authorization');
-            //         XMLHttpRequest.setRequestHeader("Authorization", Authorization);
-            //     },
-            //     success:function (result) {
-            //         if(result.code === 510){
-            //             createAlert(1,"请登录后操作")
-            //         }else if(result.code === 511){
-            //             createAlert(2,"该错题已经存在")
-            //         }else if(result.code === 512){
-            //             createAlert(1,"插入错题失败")
-            //         }else if(result.code ===200){
-            //             createAlert(0,"成功加入错题集 点击<strong>查看错题集</strong>进行查看哦")
-            //         }else if(result.code === 401){
-            //             alert("请登录/重新登录后操作");
-            //         }
-            //     },
-            //     error:function (result) {
-            //         alert("与服务器似乎断开链接，请检查您的网络");
-            //     }
-            // });
-            window.location.href="../subjectOne/wrongList";
-        }
+        // if($.cookie("Authorization")){
+        //
+        //     window.location.href="../subjectOne/wrongList";
+        // }
         $("#DivQuestionArea").hide();
         $("#DivQuestionsListArea").hide();
         $("#DivResult").show();

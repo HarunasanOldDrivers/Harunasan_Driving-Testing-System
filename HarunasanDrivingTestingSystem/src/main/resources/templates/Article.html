@@ -8,6 +8,10 @@
     <link rel="stylesheet"  href="../css/bootstrap.min.css" />
     <!--引入本页面JS-->
     <script src="../js/Article.js" type="text/javascript"></script>
+    <!--引入富文本编辑器ckEditor-->
+    <!--<script src="../js/ckeditor5-build-classic/config.js"></script>-->
+    <!--<script src="../js/ckeditor5-build-classic/ckeditor.js" ></script>-->
+    <script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js"></script>
 </head>
 <body>
 <style>
@@ -34,32 +38,26 @@
     <div class="row" >
         <div style="border-right: 1px solid #d9d9d9;" class="container col-md-8">
             <ol class="breadcrumb">
-                <li><a href="#">驾考资讯</a></li>
-                <li><a href="#">理论学习</a></li>
-                <li class="active"><a href="#">正文</a></li>
+                <li><a href="/information">驾考资讯</a></li>
+                <li class="active">正文</li>
             </ol>
             <!--文章正文-->
             <div class="container col-lg-12" >
-                <h3 class="text-center">2019驾考报名须知，不知道的就麻烦了</h3>
+                <h3 class="text-center" id="text_title"></h3>
                 <br>
-                <span class="author col-lg-6">作者：秋名山管理员</span>
-                <span class="ArticleTime col-lg-6">2019年3月13日  17:54:50</span>
+                <span class="author col-lg-6" id="newsAuthor"></span>
+                <span class="ArticleTime col-lg-6" id="ArticleTime">2019年3月13日  17:54:50</span>
                 <br>
                 <hr style="filter: alpha(opacity=100,finishopacity=0,style=1)" width="100%" color='#987cb9' size=3>
-                <p>&emsp;&emsp;尽管开车经常找不到停车位，还时不时会被堵在路上，但是开车还是有不少好处的，不然为何有那么多人报名驾考呢，2019年了，你是不是该考一本驾照了！</p>
-                <p>&emsp;&emsp;关于报名学车，这里有5点建议送给你：
-                    1、选校擦亮眼睛
-                    尽量听取熟人、朋友的介绍，因为这些驾校可能都比较知名或者是可靠，面对有些驾校的低价学车、包拿驾照，一定要学会辨别，因为后期肯定会有各种收费。</p>
-                <p>&emsp;&emsp;关于报名学车，这里有5点建议送给你：
-                    1、选校擦亮眼睛
-                    尽量听取熟人、朋友的介绍，因为这些驾校可能都比较知名或者是可靠，面对有些驾校的低价学车、包拿驾照，一定要学会辨别，因为后期肯定会有各种收费。
-                </p>
-                <p>&emsp;&emsp;
-                    最好是跟那些口碑好、知名度高的驾校，直接签合同，当面交费拿发票，也可以通过元贝驾考了解驾校点评及排名，还可以资讯报名费用。
-                    2、报名刻不容缓
-                    临到报名交钱了，又在观望——最近手头紧？最近工作忙？最近考试难？
-                    越是拖延、等待，将来你所花费的时间成本、金钱成本越高，考试的项目也更多、难度也更大！
-                </p>
+                <div id="newsDiv">
+                    <p id="PschoolIntroduction"  style="display: block"></p>
+                </div>
+                <div id="schoolIntroductionEditor" class="schoolIntroductionEditor" style="display: none">
+                    <textarea class="ck-editor__editable" name="content" id="editor"></textarea>
+                    <button class="btn btn-danger col-md-offset-9" id="cancelEditor">取消</button>
+                    <button class="btn btn-success" id="btnConfirm">确认修改</button>
+                </div>
+
             </div>
 
         </div>

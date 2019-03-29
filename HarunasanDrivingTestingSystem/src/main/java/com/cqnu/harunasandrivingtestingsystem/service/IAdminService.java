@@ -43,8 +43,12 @@ public interface IAdminService {
 
     PageInfo<AdminInfo> getList(Integer pageNum, Integer pageSize);
 
+    boolean audit(Integer schoolId, Integer status);
 
-//    public int updateAdmin()
+    PageInfo<AdminInfo> search(Integer pageNum, Integer pageSize, String adminName, Integer roleId);
+
+
+    public int updateAdmin(Integer adminId, String adminName, String adminTel, Integer roleId);
 
 
 }

@@ -124,51 +124,51 @@ $(document).ready(function () {
 
     //点击分页按钮进行分页
     $("#Ulpagination").on("click","li",function () {
+        var InputEnrollTime = $("#InputEnrollTime");
+        var InputStudentName = $("#InputStudentName");
+        var InputSelectClasses= $("#InputSelectClasses");
         var pageNo = $(this).text().trim();
+        // alert(pageNo);
         // 如果是数字并且不是最后一页，执行跳转
         if(!isNaN(pageNo) && pageNo !==pages  ){
             $(this).siblings().removeClass("active");
             $(this).addClass("active");
             $.ajax({
                 type: "get",
-                url: "/api/school/getCourse",
+                url: "/api/school/selectEnroll",
                 dataType: 'json',
                 data: {
-                    pageSize: 5,
-                    pageNo: pageNo
+                    studentName:InputStudentName.val(),
+                    enrollDate:InputEnrollTime.val(),
+                    courseId:InputSelectClasses.val(),
+                    pageNo:pageNo,
                 },
                 beforeSend: function (XMLHttpRequest) {
                     var Authorization = $.cookie('AuthorizationSchool');
                     XMLHttpRequest.setRequestHeader("Authorization", Authorization);
                 },
                 success: function (result) {
-                    var tbodyClasses = $("#tbodyClasses");
+                    var tbodyStudent = $("#tbodyStudent");
                     //首先清空元素下所有字节点
-                    tbodyClasses.empty();
-                    classes = result.list;
+                    tbodyStudent.empty();
+                    students = result.list;
                     //在表格中插入所有数据
                     for(i=0 ; i < classes.length ; i ++){
                         var Tr = $("<tr></tr>");
                         //插入课程名称，生成对应表格
-                        var thClassName= $("<th class=\"text-center\"></th>");
-                        var thClassDetail= $("<th class=\"text-center\"></th>");
-                        var thClassPrice= $("<th class=\"text-center\"></th>");
-                        var thEnrollNumber= $("<th class=\"text-center\"></th>");
-                        var thDeleteBtn = $("<th><button class=\"btn btn-danger\" data-toggle=\"modal\" data-target=\"#DeleteModal\">删除</button></th>")
-                        thClassName.append(classes[i].courseName);
-                        thClassDetail.append(classes[i].courseDescribe);
-                        thClassDetail.addClass("col-md-3");
-                        thClassPrice.append(classes[i].coursePrice);
-                        thEnrollNumber.append(classes[i].count);
-                        //
-                        thDeleteBtn.find("button").text("删除");
-                        thDeleteBtn.find("button").attr("data-whatever",i);
+                        var thClassName= $("<th class=\"\"></th>");
+                        var thStudentName= $("<th class=\"\"></th>");
+                        var thStudentTelephone= $("<th class=\"\"></th>");
+                        var thenrollDateTime= $("<th class=\"\"></th>");
+                        thClassName.append(students[i].courseName);
+                        thStudentName.append(students[i].userName);
+                        thStudentTelephone.append(students[i].userTelephone);
+                        thenrollDateTime.append(students[i].enrollDateTime.substring(0,10));
                         Tr.append(thClassName);
-                        Tr.append(thClassDetail);
-                        Tr.append(thClassPrice);
-                        Tr.append(thEnrollNumber);
-                        Tr.append(thDeleteBtn);
-                        tbodyClasses.append(Tr);
+                        Tr.append(thStudentName);
+                        Tr.append(thStudentTelephone);
+                        Tr.append(thenrollDateTime);
+                        tbodyStudent.append(Tr);
                     }
                     // 生成导航页数量
                     pageNum = result.pageNum;
@@ -182,50 +182,48 @@ $(document).ready(function () {
                 }
             });
         }
-        //如果是数字并且是最后
+        //如果是数字并且是第一页
         else if(pageNo ==="首页"){
             $(this).siblings().removeClass("active");
             $(this).next().addClass("active");
             $.ajax({
                 type: "get",
-                url: "/api/school/getCourse",
+                url: "/api/school/selectEnroll",
                 dataType: 'json',
                 data: {
-                    pageSize: 5,
-                    pageNo: 1
+                    studentName:InputStudentName.val(),
+                    enrollDate:InputEnrollTime.val(),
+                    courseId:InputSelectClasses.val(),
+                    pageNo: 1,
                 },
                 beforeSend: function (XMLHttpRequest) {
                     var Authorization = $.cookie('AuthorizationSchool');
                     XMLHttpRequest.setRequestHeader("Authorization", Authorization);
                 },
                 success: function (result) {
-                    var tbodyClasses = $("#tbodyClasses");
+                    var tbodyStudent = $("#tbodyStudent");
                     //首先清空元素下所有字节点
-                    tbodyClasses.empty();
-                    classes = result.list;
+                    tbodyStudent.empty();
+                    students = result.list;
                     //在表格中插入所有数据
-                    for(i=0 ; i < classes.length ; i ++){
+                    for(i=0 ; i < students.length ; i ++){
                         var Tr = $("<tr></tr>");
                         //插入课程名称，生成对应表格
-                        var thClassName= $("<th class=\"text-center\"></th>");
-                        var thClassDetail= $("<th class=\"text-center\"></th>");
-                        var thClassPrice= $("<th class=\"text-center\"></th>");
-                        var thEnrollNumber= $("<th class=\"text-center\"></th>");
-                        var thDeleteBtn = $("<th><button class=\"btn btn-danger\" data-toggle=\"modal\" data-target=\"#DeleteModal\">删除</button></th>")
-                        thClassName.append(classes[i].courseName);
-                        thClassDetail.append(classes[i].courseDescribe);
-                        thClassDetail.addClass("col-md-3");
-                        thClassPrice.append(classes[i].coursePrice);
-                        thEnrollNumber.append(classes[i].count);
-                        thDeleteBtn.find("button").text("删除");
-                        thDeleteBtn.find("button").attr("data-whatever",i);
+                        var thClassName= $("<th class=\"\"></th>");
+                        var thStudentName= $("<th class=\"\"></th>");
+                        var thStudentTelephone= $("<th class=\"\"></th>");
+                        var thenrollDateTime= $("<th class=\"\"></th>");
+                        thClassName.append(students[i].courseName);
+                        thStudentName.append(students[i].userName);
+                        thStudentTelephone.append(students[i].userTelephone);
+                        thenrollDateTime.append(students[i].enrollDateTime.substring(0,10));
                         Tr.append(thClassName);
-                        Tr.append(thClassDetail);
-                        Tr.append(thClassPrice);
-                        Tr.append(thEnrollNumber);
-                        Tr.append(thDeleteBtn);
-                        tbodyClasses.append(Tr);
+                        Tr.append(thStudentName);
+                        Tr.append(thStudentTelephone);
+                        Tr.append(thenrollDateTime);
+                        tbodyStudent.append(Tr);
                     }
+                    // 生成导航页数量
                     pageNum = result.pageNum;
                     total = result.total;
                     pages = result.pages;
@@ -243,45 +241,42 @@ $(document).ready(function () {
             //点击最后一页
             $.ajax({
                 type: "get",
-                url: "/api/school/getCourse",
+                url: "/api/school/selectEnroll",
                 dataType: 'json',
                 data: {
-                    pageSize: 5,
-                    pageNo: pages
+                    studentName:InputStudentName.val(),
+                    enrollDate:InputEnrollTime.val(),
+                    courseId:InputSelectClasses.val(),
+                    pageNo:pages,
                 },
                 beforeSend: function (XMLHttpRequest) {
                     var Authorization = $.cookie('AuthorizationSchool');
                     XMLHttpRequest.setRequestHeader("Authorization", Authorization);
                 },
                 success: function (result) {
-                    var tbodyClasses = $("#tbodyClasses");
+                    var tbodyStudent = $("#tbodyStudent");
                     //首先清空元素下所有字节点
-                    tbodyClasses.empty();
-                    classes = result.list;
+                    tbodyStudent.empty();
+                    students = result.list;
                     //在表格中插入所有数据
-                    for(i=0 ; i < classes.length ; i ++){
+                    for(i=0 ; i < students.length ; i ++){
                         var Tr = $("<tr></tr>");
                         //插入课程名称，生成对应表格
-                        var thClassName= $("<th class=\"text-center\"></th>");
-                        var thClassDetail= $("<th class=\"text-center\"></th>");
-                        var thClassPrice= $("<th class=\"text-center\"></th>");
-                        var thEnrollNumber= $("<th class=\"text-center\"></th>");
-                        var thDeleteBtn = $("<th><button class=\"btn btn-danger\" data-toggle=\"modal\" data-target=\"#DeleteModal\">删除</button></th>")
-                        thClassName.append(classes[i].courseName);
-                        thClassDetail.append(classes[i].courseDescribe);
-                        thClassDetail.addClass("col-md-3");
-                        thClassPrice.append(classes[i].coursePrice);
-                        thEnrollNumber.append(classes[i].count);
-                        //
-                        thDeleteBtn.find("button").text("删除");
-                        thDeleteBtn.find("button").attr("data-whatever",i);
+                        var thClassName= $("<th class=\"\"></th>");
+                        var thStudentName= $("<th class=\"\"></th>");
+                        var thStudentTelephone= $("<th class=\"\"></th>");
+                        var thenrollDateTime= $("<th class=\"\"></th>");
+                        thClassName.append(students[i].courseName);
+                        thStudentName.append(students[i].userName);
+                        thStudentTelephone.append(students[i].userTelephone);
+                        thenrollDateTime.append(students[i].enrollDateTime.substring(0,10));
                         Tr.append(thClassName);
-                        Tr.append(thClassDetail);
-                        Tr.append(thClassPrice);
-                        Tr.append(thEnrollNumber);
-                        Tr.append(thDeleteBtn);
-                        tbodyClasses.append(Tr);
+                        Tr.append(thStudentName);
+                        Tr.append(thStudentTelephone);
+                        Tr.append(thenrollDateTime);
+                        tbodyStudent.append(Tr);
                     }
+                    // 生成导航页数量
                     pageNum = result.pageNum;
                     total = result.total;
                     pages = result.pages;

@@ -20,7 +20,6 @@ $(document).ready(function () {
             $("#CorporateNameSpan").html(result.data.schoolCorporateName);
             $("#CorporateNumberSpan").html(result.data.schoolCorporateTel);
             $("#PschoolIntroduction").html(result.data.schoolIntroduction);
-            Str = result.data.schoolIntroduction;
             $("#imgSchoolDefaultimg").attr("src",result.data.schoolIcon);
 
         },

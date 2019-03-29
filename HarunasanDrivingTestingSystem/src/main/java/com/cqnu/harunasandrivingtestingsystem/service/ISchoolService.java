@@ -1,5 +1,6 @@
 package com.cqnu.harunasandrivingtestingsystem.service;
 
+import com.cqnu.harunasandrivingtestingsystem.entity.School;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.EnrollSL;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.PageInfo;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.SchoolVO;
@@ -27,6 +28,8 @@ public interface ISchoolService {
     boolean loginByEmail(String email, String password);
 
     boolean checkAuditing(String email);
+
+    boolean isEnable(String email);
 
     /**
      * 通过邮箱获取学校id
@@ -134,4 +137,8 @@ public interface ISchoolService {
      * @return  List<Enroll>
      */
     PageInfo<EnrollSL> selectAllEnroll(String studentName, LocalDateTime timeBefore, LocalDateTime timeAfter, Integer pageNum, Integer pageSize);
+
+    List<School> selectAllSchool();
+
+    List<School> selectAuditingSchool();
 }

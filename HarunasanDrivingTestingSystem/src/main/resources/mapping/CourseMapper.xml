@@ -35,18 +35,18 @@
     <include refid="Base_Column_List" />
     from hodts_db.course
     where school_id = #{schoolId,jdbcType=INTEGER}
-    and course_is_enable = 1
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
     select distinct
     course.*
     from course, school, enroll
     where course.school_id = school.school_id
-    order by school_public_praise desc,
+    order by
       (select count(*)
         from enroll
         where enroll.course_id = course.course_id
-        and course.school_id = school.school_id) desc
+        and course.school_id = school.school_id) desc,
+        school_public_praise desc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from hodts_db.course

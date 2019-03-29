@@ -26,4 +26,8 @@ public interface SchoolMapper {
 
     List<School> searchSchools(@Param("schoolName") String school, @Param("area") String area,
                                @Param("minPrice") Integer minPrice, @Param("maxPrice") Integer maxPrice);
+
+    List<School> selectAll();
+
+    List<School> selectAuditing();
 }

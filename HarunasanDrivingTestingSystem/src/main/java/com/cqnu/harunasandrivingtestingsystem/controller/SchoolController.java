@@ -84,6 +84,9 @@ public class SchoolController {
             if (!schoolService.checkAuditing(email)){
                 return ResultUtil.failure(408,"账号正在审核中或未通过审核");
             }
+            if (!schoolService.checkAuditing(email)){
+                return ResultUtil.failure(408,"您的账号已被冻结,请联系管理员");
+            }
             map.put("token",jwtTokenUtil.generateToken(userDetailsService.loadUserByUsername(String.valueOf(schoolService.getIdByEmail(email)),"School"),"School"));
             map.put("schoolName",schoolService.getSchoolNameByEmail(email));
             return ResultUtil.success(map);

@@ -35,18 +35,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/test/one")
 public class TestOneController {
-
-
-//    @Bean
-//    public HttpMessageConverters fastJsonHttpMessageConverters() {
-//        FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
-//        FastJsonConfig fastJsonConfig = new FastJsonConfig();
-//        fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat);
-//        fastConverter.setFastJsonConfig(fastJsonConfig);
-//        HttpMessageConverter<?> converter = fastConverter;
-//        return new HttpMessageConverters(converter);
-//    }
-
+    
 
     @Resource
     private QuestionsOneServiceImpl questionsService;

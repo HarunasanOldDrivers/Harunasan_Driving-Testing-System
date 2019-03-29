@@ -179,4 +179,9 @@ public class BaseUserServiceImpl implements IBaseUserService {
         pageInfo.setList(enrollVOList);
         return pageInfo;
     }
+
+    @Override
+    public List<User> getUserList() {
+        return userMapper.selectAll();
+    }
 }

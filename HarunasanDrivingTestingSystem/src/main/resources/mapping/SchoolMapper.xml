@@ -61,7 +61,7 @@
     from hodts_db.school
     where school_email = #{schoolEmail,jdbcType=VARCHAR}
   </select>
-  <select id="searchSchools" resultMap="BaseResultMap">
+  <select id="searchSchools" resultMap="ResultMapWithBLOBs">
     select
     <include refid="Base_Column_List" />
     ,
@@ -71,6 +71,22 @@
     and INSTR(school_area, #{area,jdbcType=VARCHAR} )>0
     and school_start_price >= #{minPrice,jdbcType=INTEGER}
     and #{maxPrice,jdbcType=INTEGER} >= school_start_price
+  </select>
+    <select id="selectAll" resultMap="ResultMapWithBLOBs">
+      select
+      <include refid="Base_Column_List" />
+      ,
+      <include refid="Blob_Column_List" />
+      from hodts_db.school
+      where not school_authentication_status = 0
+    </select>
+  <select id="selectAuditing" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from hodts_db.school
+    where school_authentication_status = 0
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from hodts_db.school

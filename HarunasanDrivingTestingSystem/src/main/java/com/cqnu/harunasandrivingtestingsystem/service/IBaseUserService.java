@@ -42,4 +42,6 @@ public interface IBaseUserService {
     boolean enroll(Integer userId, Integer courseId, String username, String telephone);
 
     PageInfo<EnrollVO> getEnroll(Integer username, Integer pageNo, Integer pageSize);
+
+    List<User> getUserList();
 }

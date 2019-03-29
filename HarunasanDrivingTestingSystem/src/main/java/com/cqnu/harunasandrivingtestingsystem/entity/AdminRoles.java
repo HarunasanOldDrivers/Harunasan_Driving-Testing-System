@@ -7,6 +7,14 @@ public class AdminRoles {
 
     private Integer rid;
 
+    public AdminRoles() {
+    }
+
+    public AdminRoles(Integer id, Integer rid) {
+        this.id = id;
+        this.rid = rid;
+    }
+
     public Integer getId() {
         return id;
     }

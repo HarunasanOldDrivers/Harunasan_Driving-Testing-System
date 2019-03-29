@@ -145,6 +145,10 @@ public class BaseUserController {
     public Result login(String username,String password){
         Map<String, String> map = new HashMap<String, String>(16);
         if (baseUserService.loginByTelephone(username,password)){
+            User user = baseUserService.getProfile(baseUserService.getIdByTelephone(username));
+            if (user.getUserEnable() != 1){
+                return ResultUtil.failure(1024,"您的账号处于冻结状态，请联系管理员");
+            }
             map.put("token",jwtTokenUtil.generateToken(userDetailsService.loadUserByUsername(String.valueOf(baseUserService.getIdByTelephone(username)),"User"),"User"));
             map.put("nickname",baseUserService.getNickNameByTelephone(username));
             return ResultUtil.success(map);
@@ -226,9 +230,13 @@ public class BaseUserController {
      */
     @PostMapping("/forgotPassword")
     @PreAuthorize("hasRole('User')")
-    public Result forgotPassword(String newPassword){
+    public Result forgotPassword(String newPassword, String verifyCode){
         String authToken = request.getHeader(this.tokenHeader);
         String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
+        User user = baseUserService.getProfile(Integer.valueOf(username));
+        if(validate(user.getUserTelphone(),verifyCode).getCode() == 408){
+            return ResultUtil.failure(408, "验证码错误或失效");
+        }
         int msg = baseUserService.alterPassword(Integer.parseInt(username),username);
         if (msg == 1){
             return ResultUtil.success();

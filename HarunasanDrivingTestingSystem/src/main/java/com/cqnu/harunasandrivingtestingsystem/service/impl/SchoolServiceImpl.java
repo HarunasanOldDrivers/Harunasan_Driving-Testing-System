@@ -81,6 +81,11 @@ public class SchoolServiceImpl implements ISchoolService {
     }
 
     @Override
+    public boolean isEnable(String email) {
+        return schoolMapper.selectIdByEmail(email).getSchoolEnable() == 1;
+    }
+
+    @Override
     public Integer getIdByEmail(String email){
         School school = schoolMapper.selectIdByEmail(email);
         if (school == null){
@@ -234,5 +239,14 @@ public class SchoolServiceImpl implements ISchoolService {
         }
         pageInfo.setList(enrollSLList);
         return pageInfo;
+    }
+
+    @Override
+    public List<School> selectAllSchool(){
+        return schoolMapper.selectAll();
+    }
+    @Override
+    public List<School> selectAuditingSchool(){
+        return schoolMapper.selectAuditing();
     }
 }

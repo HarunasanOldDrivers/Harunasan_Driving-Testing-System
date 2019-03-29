@@ -18,15 +18,16 @@ public interface IAdminService {
      * @param name  管理员姓名
      * @param password  密码
      * @param phone 管理员电话号码
+     * @param role 管理员角色
      */
-    int createAdmin(String name, String password, String phone);
+    int createAdmin(String name, String password, String phone, Integer role);
 
     /**
      * 禁用管理员账号
      * @param id
      * @return
      */
-    int banAdmin(int id);
+    int banAdmin(int id, Integer status);
 
     /**
      * 删除管理员账号
@@ -43,7 +44,7 @@ public interface IAdminService {
 
     PageInfo<AdminInfo> getList(Integer pageNum, Integer pageSize);
 
-    boolean audit(Integer schoolId, Integer status);
+    boolean audit(Integer schoolId, Integer status, String text);
 
     PageInfo<AdminInfo> search(Integer pageNum, Integer pageSize, String adminName, Integer roleId);
 

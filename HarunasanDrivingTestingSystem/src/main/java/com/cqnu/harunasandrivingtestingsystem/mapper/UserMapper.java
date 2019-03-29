@@ -2,6 +2,8 @@ package com.cqnu.harunasandrivingtestingsystem.mapper;
 
 import com.cqnu.harunasandrivingtestingsystem.entity.User;
 
+import java.util.List;
+
 public interface UserMapper {
     int deleteByPrimaryKey(Integer userId);
 
@@ -16,4 +18,6 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     User selectByTelphone(String telphone);
+
+    List<User> selectAll();
 }

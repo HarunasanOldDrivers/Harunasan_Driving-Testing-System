@@ -21,10 +21,25 @@ public interface AdministratorMapper {
 
     int updateByPrimaryKey(Administrator record);
 
+    /**
+     * 查询所有管理员
+     * @return
+     */
     List<Administrator> selectAll();
 
+    /**
+     * 根据管理员姓名和权限id查询管理员
+     * @param adminName 管理员姓名
+     * @param roleId 权限id
+     * @return
+     */
     List<Administrator> selectByRoleAndName(@Param("adminName") String adminName, @Param("roleId") Integer roleId);
 
+    /**
+     * 根据管理员姓名查询
+     * @param adminName 管理员姓名
+     * @return
+     */
     List<Administrator> selectByName(String adminName);
 
 }

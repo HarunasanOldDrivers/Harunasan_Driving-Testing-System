@@ -1,16 +1,15 @@
 package com.cqnu.harunasandrivingtestingsystem.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.cqnu.harunasandrivingtestingsystem.entity.Result;
 import com.cqnu.harunasandrivingtestingsystem.entity.User;
-import com.cqnu.harunasandrivingtestingsystem.entity.VO.CourseVO;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.EnrollVO;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.PageInfo;
 import com.cqnu.harunasandrivingtestingsystem.security.JwtTokenUtil;
 import com.cqnu.harunasandrivingtestingsystem.security.UserDetailsServiceImpl;
 import com.cqnu.harunasandrivingtestingsystem.service.IBaseUserService;
-import com.cqnu.harunasandrivingtestingsystem.utils.*;
-import com.github.pagehelper.PageHelper;
+import com.cqnu.harunasandrivingtestingsystem.utils.Json2DB;
+import com.cqnu.harunasandrivingtestingsystem.utils.ResultUtil;
+import com.cqnu.harunasandrivingtestingsystem.utils.SendSMS;
 import com.github.qcloudsms.SmsSingleSenderResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.HashMap;
@@ -32,7 +30,7 @@ import java.util.Map;
  * @author LiAixing
  * @version 1.0
  * @className BaseUserController
- * @description TODO
+ * @description 用户Controller
  * @date 2019/2/14 19:02
  **/
 
@@ -58,9 +56,9 @@ public class BaseUserController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    @Autowired
-    private Json2DB json2DB;
-
+    /**
+     * 拦截http请求
+     */
     @Autowired
     private HttpServletRequest request;
 
@@ -164,7 +162,9 @@ public class BaseUserController {
     @GetMapping("/profile")
     @PreAuthorize("hasRole('User')")
     public User getProfile(){
+        // 从http请求中获取token
         String authToken = request.getHeader(this.tokenHeader);
+        // 从token中解析用户Id
         String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
         return baseUserService.getProfile(Integer.parseInt(username));
     }
@@ -174,11 +174,14 @@ public class BaseUserController {
      * @param pageNo  当前页
      * @param pageSize  分页大小
      * @return
+     * 需要权限;User
      */
     @GetMapping("/courses")
     @PreAuthorize("hasRole('User')")
     public PageInfo<EnrollVO> getCourses(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize){
+        // 从http请求中获取token
         String authToken = request.getHeader(this.tokenHeader);
+        // 从token中解析用户Id
         String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
         return baseUserService.getEnroll(Integer.parseInt(username), pageNo, pageSize);
     }
@@ -202,11 +205,14 @@ public class BaseUserController {
      * @param oldPassword   旧密码
      * @param newPassword   新密码
      * @return
+     * 需要权限;User
      */
     @PostMapping("/alterPassword")
     @PreAuthorize("hasRole('User')")
     public Result alterPassword(String oldPassword, String newPassword ,String verifyCode){
+        // 从http请求中获取token
         String authToken = request.getHeader(this.tokenHeader);
+        // 从token中解析用户Id
         String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
         User user = baseUserService.getProfile(Integer.valueOf(username));
         if(validate(user.getUserTelphone(),verifyCode).getCode() == 408){
@@ -227,11 +233,14 @@ public class BaseUserController {
      * 忘记密码
      * @param newPassword 新密码
      * @return
+     * 需要权限;User
      */
     @PostMapping("/forgotPassword")
     @PreAuthorize("hasRole('User')")
     public Result forgotPassword(String newPassword, String verifyCode){
+        // 从http请求中获取token
         String authToken = request.getHeader(this.tokenHeader);
+        // 从token中解析用户Id
         String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
         User user = baseUserService.getProfile(Integer.valueOf(username));
         if(validate(user.getUserTelphone(),verifyCode).getCode() == 408){
@@ -245,13 +254,20 @@ public class BaseUserController {
         }
     }
 
-//    @GetMapping("/getEnroll")
-//    public
-
+    /**
+     * 用户报名
+     * @param courseId 课程Id
+     * @param username  报名人姓名
+     * @param telephone  报名人联系电话
+     * @return
+     * 需要权限;User
+     */
     @PostMapping("/enroll")
     @PreAuthorize("hasRole('User')")
     public Result enroll(Integer courseId, String username, String telephone){
+        // 从http请求中获取token
         String authToken = request.getHeader(this.tokenHeader);
+        // 从token中解析用户Id
         String userId = this.jwtTokenUtil.getUsernameFromToken(authToken);
         if (StringUtils.isEmpty(authToken) || StringUtils.isEmpty(userId)){
             return ResultUtil.failure(510,"未登录");
@@ -262,14 +278,5 @@ public class BaseUserController {
         return baseUserService.enroll(Integer.valueOf(userId), courseId, username, telephone)
                 ? ResultUtil.success() : ResultUtil.failure(620,"报名失败");
     }
-
-
-//    @PreAuthorize("hasAnyAuthority('ORIGIN')")
-//    @PostMapping("/db")
-//    public void db() throws FileNotFoundException {
-//        json2DB.add2DB(json2DB.readFile("classpath:json/DataSubject1.json"));
-//        json2DB.add2DB2(json2DB.readFile("classpath:json/DataSubject4.json"));
-//    }
-
 
 }

@@ -27,8 +27,18 @@ public interface ISchoolService {
      */
     boolean loginByEmail(String email, String password);
 
+    /**
+     * 检查驾校是否通过审核
+     * @param email 邮箱
+     * @return
+     */
     boolean checkAuditing(String email);
 
+    /**
+     * 获取驾校账号是否冻结
+     * @param email 邮箱
+     * @return
+     */
     boolean isEnable(String email);
 
     /**
@@ -138,7 +148,15 @@ public interface ISchoolService {
      */
     PageInfo<EnrollSL> selectAllEnroll(String studentName, LocalDateTime timeBefore, LocalDateTime timeAfter, Integer pageNum, Integer pageSize);
 
+    /**
+     * 查询所有驾校
+     * @return
+     */
     List<School> selectAllSchool();
 
+    /**
+     * 查询待审核的驾校
+     * @return
+     */
     List<School> selectAuditingSchool();
 }

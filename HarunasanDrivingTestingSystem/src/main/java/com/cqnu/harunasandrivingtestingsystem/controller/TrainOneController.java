@@ -26,7 +26,7 @@ import java.net.URLDecoder;
  * @author LiAixing
  * @version 1.0
  * @className TrainController
- * @description TODO
+ * @description 科目一练习Controller
  * @date 2019/3/15 1:19
  **/
 
@@ -36,7 +36,10 @@ public class TrainOneController {
 
     private Logger logger = LoggerFactory.getLogger(TrainOneController.class);
 
+    // 常量,正确
     private final String STATUS_JUDGE_TRUE = "true";
+
+    // 常量,错误
     private final String STATUS_JUDGE_FALSE = "false";
 
     @Resource
@@ -58,46 +61,89 @@ public class TrainOneController {
     private JwtTokenUtil tokenUtils;
 
 
+    /**
+     * 随机获取一道题
+     * @return
+     */
     @GetMapping("/random")
     public QuestionsOne randomTrain(){
         return questionsService.randomTrain();
     }
 
+    /**
+     * 顺序获取一道题
+     * @return
+     */
     @GetMapping("/order")
     public QuestionsOne orderTrain(int id) {  return questionsService.orderTrain(id);}
 
+    /**
+     * 按章节顺序获取题目
+     * @param id 序号
+     * @param chapter 章节
+     * @return
+     * @throws UnsupportedEncodingException
+     */
     @GetMapping("/orderChapter")
     public QuestionsOne orderChapter(int id, String chapter) throws UnsupportedEncodingException {
         return questionsService.orderTrainByChapter(id, URLDecoder.decode(chapter,"UTF-8"));
     }
 
+    /**
+     * 按章节随机获取题目
+     * @param chapter 章节
+     * @return
+     * @throws UnsupportedEncodingException
+     */
     @GetMapping("/randomChapter")
     public QuestionsOne randomChapter(String chapter) throws UnsupportedEncodingException {
         return questionsService.randomTrainByChapter(URLDecoder.decode(chapter,"UTF-8"));
     }
 
+    /**
+     * 按难度顺序获取题目
+     * @param id 序号
+     * @param difficulty 难度
+     * @return
+     */
     @GetMapping("/orderDifficulty")
     public QuestionsOne orderDifficulty(Integer id, Integer difficulty) {
         return questionsService.orderTrainByDifficulty(id, difficulty);
     }
 
+    /**
+     * 按难度随机获取题目
+     * @param difficulty 难度
+     * @return
+     */
     @GetMapping("/randomDifficulty")
     public QuestionsOne randomDifficulty(Integer difficulty) {
         return questionsService.randomTrainByDifficulty(difficulty);
     }
 
+    /**
+     * 按知识点顺序获取题目
+     * @param id 序号
+     * @param knowledge 知识点
+     * @return
+     */
     @GetMapping("/orderKnowledge")
     public QuestionsOne orderKnowledge(Integer id,String knowledge) throws UnsupportedEncodingException {
         return questionsService.orderTrainByKnowledge(id,URLDecoder.decode(knowledge,"UTF-8"));
     }
 
+    /**
+     * 按知识点顺序获取题目
+     * @param knowledge 知识点
+     * @return
+     */
     @GetMapping("/randomKnowledge")
     public QuestionsOne randomKnowledge(String knowledge) throws UnsupportedEncodingException {
         return questionsService.randomTrainByKnowledge(URLDecoder.decode(knowledge,"UTF-8"));
     }
 
     /**
-     *
+     * 按类型顺序获取题目
      * @param id 顺序id
      * @param type  judge,single,multi
      * @return
@@ -108,67 +154,128 @@ public class TrainOneController {
         return questionsService.orderTrainByType(id,URLDecoder.decode(type,"UTF-8"));
     }
 
+    /**
+     * 按类型随机获取题目
+     * @param type  judge,single,multi
+     * @return
+     * @throws UnsupportedEncodingException
+     */
     @GetMapping("/randomType")
     public QuestionsOne randomType(String type) throws UnsupportedEncodingException {
         return questionsService.randomTrainByType(URLDecoder.decode(type,"UTF-8"));
     }
 
+    /**
+     * 顺序获取图片题
+     * @param id 序号
+     * @return
+     */
     @GetMapping("/orderImage")
     public QuestionsOne orderImage(Integer id) {
         return questionsService.orderTrainByImage(id);
     }
 
+    /**
+     * 随机获取图片题
+     * @return
+     */
     @GetMapping("/randomImage")
     public QuestionsOne randomImage()  {
         return questionsService.randomTrainByImage();
     }
 
+    /**
+     * 顺序获取文字题
+     * @param id 序号
+     * @return
+     */
     @GetMapping("/orderWord")
     public QuestionsOne orderWord(Integer id) {
         return questionsService.orderTrainByWord(id);
     }
 
+    /**
+     * 随机获取文字题
+     * @return
+     */
     @GetMapping("/randomWord")
     public QuestionsOne randomWord()  {
         return questionsService.randomTrainByWord();
     }
 
+    /**
+     * 题目总数
+     * @return
+     */
     @GetMapping("/getCount")
     public int getCount(){
         return questionsService.getCount();
     }
 
+    /**
+     * 按章节获取题目数
+     * @param chapter 章节
+     * @return
+     */
     @GetMapping("/getCountByChapter")
     public int getCountByChapter(String chapter){
         return questionsService.getCountByChapter(chapter);
     }
 
+    /**
+     * 按难度获取题目数
+     * @param difficulty 难度
+     * @return
+     */
     @GetMapping("/getCountByDifficulty")
     public int getCountByDifficulty(Integer difficulty){
         return questionsService.getCountByDifficulty(difficulty);
     }
 
+    /**
+     * 按知识点获取题目数
+     * @param knowledge 知识点
+     * @return
+     */
     @GetMapping("/getCountByKnowledge")
     public int getCountByKnowledge(String knowledge){
         return questionsService.getCountByKnowledge(knowledge);
     }
 
+    /**
+     * 按类型获取题目数
+     * @param type 类型
+     * @return
+     */
     @GetMapping("/getCountByType")
     public int getCountByType(String type){
         return questionsService.getCountByType(type);
     }
 
+    /**
+     * 获取图片题总数
+     * @return
+     */
     @GetMapping("/getCountByImage")
     public int getCountByImage(){
         return questionsService.getCountByImage();
     }
 
-
+    /**
+     * 获取文字题总数
+     * @return
+     */
     @GetMapping("/getCountByWord")
     public int getCountByWord(){
         return questionsService.getCountByWord();
     }
 
+    /**
+     * 单选判断对错
+     * @param qoId 题目id
+     * @param answer 回答
+     * @return
+     */
     @PostMapping("/judgeSingle")
     public Result judgeSingle(Integer qoId, String answer){
         String authToken = request.getHeader(this.tokenHeader);
@@ -189,6 +296,12 @@ public class TrainOneController {
 
     }
 
+    /**
+     * 获取所有题目
+     * @param pageNo  当前页
+     * @param pageSize  分页大小
+     * @return
+     */
     @GetMapping("/questions")
     public PageInfo<QuestionsOne> getQuestions(@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10") int pageSize){
         PageHelper.startPage(pageNo,pageSize);

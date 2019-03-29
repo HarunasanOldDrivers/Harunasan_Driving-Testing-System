@@ -60,6 +60,7 @@ public class AdminServiceImpl implements IAdminService {
     public int createAdmin(String name, String password, String phone, Integer role) {
         Administrator administrator = new Administrator();
         administrator.setAdminName(name);
+        // 对密码进行加密
         administrator.setAdminPassword(Password2Hash.sha256CryptWithSalt(password,name));
         administrator.setAdminPhone(phone);
         if (administratorMapper.insertSelective(administrator) == 1){
@@ -94,11 +95,6 @@ public class AdminServiceImpl implements IAdminService {
         } else {
             return false;
         }
-    }
-
-    @Override
-    public boolean loginByTelephone(String telephone, String password) {
-        return false;
     }
 
     @Override

@@ -18,13 +18,48 @@ import java.util.List;
 public interface INewsService {
 
 
+    /**
+     * 搜索驾校
+     * @param schoolName 驾校名称
+     * @param area 驾校地区
+     * @param minPrice 驾校最低价格下限
+     * @param maxPrice 驾校最低价格上限
+     * @return
+     */
     List<School> searchSchool(String schoolName, String area, Integer minPrice, Integer maxPrice);
 
+    /**
+     * 获取驾校信息
+     * @param schoolId 驾校Id
+     * @return
+     */
     SchoolVO getSchool(Integer schoolId);
 
+    /**
+     * 课程推荐
+     * @param pageNo 当前页
+     * @param pageSize  分页大小
+     * @return
+     */
     PageInfo<CourseVO> getRecommend(Integer pageNo, Integer pageSize);
 
+    /**
+     * 获取资讯列表
+     * @param type 类型{0,1,2}{学车动态，理论学习，学车视频}
+     * @return
+     */
     List<News> getAbstract(Integer type);
 
+    /**
+     * 获取资讯详情
+     * @param id 资讯id
+     * @return
+     */
     News getArticle(Integer id);
+
+    /**
+     * 获取资讯列表
+     * @return
+     */
+    List<News> getNewsList();
 }

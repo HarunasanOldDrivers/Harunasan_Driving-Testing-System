@@ -18,17 +18,12 @@ import javax.annotation.Resource;
  * @author LiAixing
  * @version 1.0
  * @className NewsController
- * @description TODO
+ * @description 资讯Controller
  * @date 2019/3/23 4:03
  **/
 @RestController
 @RequestMapping("/api/news")
 public class NewsController {
-
-    private static final String NEWS_TYPE_VIDEO = "video";
-    private static final String NEWS_TYPE_THEORY = "theory";
-    private static final String NEWS_TYPE_TREND = "trend";
-
 
     @Resource
     private INewsService newsService;

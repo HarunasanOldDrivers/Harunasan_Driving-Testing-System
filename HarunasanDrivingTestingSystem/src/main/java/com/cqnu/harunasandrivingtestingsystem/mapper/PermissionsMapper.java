@@ -17,9 +17,24 @@ public interface PermissionsMapper {
 
     int updateByPrimaryKey(Permissions record);
 
+    /**
+     * 根据管理员id 查询权限
+     * @param id
+     * @return
+     */
     List<Permissions> selectByAdministratorId(Integer id);
 
+    /**
+     * 根据用户id 查询权限
+     * @param id
+     * @return
+     */
     List<Permissions> selectByUserId(Integer id);
 
+    /**
+     * 根据驾校id 查询权限
+     * @param id
+     * @return
+     */
     List<Permissions> selectBySchoolId(Integer id);
 }

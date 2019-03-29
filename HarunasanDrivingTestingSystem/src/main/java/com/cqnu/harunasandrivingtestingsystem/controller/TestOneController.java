@@ -1,21 +1,13 @@
 package com.cqnu.harunasandrivingtestingsystem.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.alibaba.fastjson.support.config.FastJsonConfig;
-import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.cqnu.harunasandrivingtestingsystem.entity.QuestionsOne;
 import com.cqnu.harunasandrivingtestingsystem.entity.Result;
-import com.cqnu.harunasandrivingtestingsystem.entity.VO.WrongQuestion;
 import com.cqnu.harunasandrivingtestingsystem.security.JwtTokenUtil;
 import com.cqnu.harunasandrivingtestingsystem.service.impl.QuestionsOneServiceImpl;
 import com.cqnu.harunasandrivingtestingsystem.utils.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -23,19 +15,18 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author LiAixing
  * @version 1.0
  * @className TestController
- * @description TODO
+ * @description 科目一模拟考试Controller
  * @date 2019/3/14 3:11
  **/
 @RestController
 @RequestMapping("/api/test/one")
 public class TestOneController {
-    
+
 
     @Resource
     private QuestionsOneServiceImpl questionsService;

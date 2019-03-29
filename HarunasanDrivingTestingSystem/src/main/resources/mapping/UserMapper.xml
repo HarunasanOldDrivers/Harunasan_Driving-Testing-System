@@ -32,7 +32,7 @@
       select
       <include refid="Base_Column_List" />
       from hodts_db.user
-      order by user_reg_date desc
+      order by user_reg_date asc
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from hodts_db.user

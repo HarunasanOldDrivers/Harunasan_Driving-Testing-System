@@ -2,15 +2,14 @@ package com.cqnu.harunasandrivingtestingsystem.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.cqnu.harunasandrivingtestingsystem.entity.*;
-import com.cqnu.harunasandrivingtestingsystem.entity.VO.AdminFE;
-import com.cqnu.harunasandrivingtestingsystem.entity.VO.AdminInfo;
-import com.cqnu.harunasandrivingtestingsystem.entity.VO.MenuFE;
-import com.cqnu.harunasandrivingtestingsystem.entity.VO.PageInfo;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.*;
 import com.cqnu.harunasandrivingtestingsystem.security.JwtTokenUtil;
 import com.cqnu.harunasandrivingtestingsystem.security.UserDetailsServiceImpl;
 import com.cqnu.harunasandrivingtestingsystem.service.IAdminService;
 import com.cqnu.harunasandrivingtestingsystem.service.IBaseUserService;
+import com.cqnu.harunasandrivingtestingsystem.service.INewsService;
 import com.cqnu.harunasandrivingtestingsystem.service.ISchoolService;
+import com.cqnu.harunasandrivingtestingsystem.service.impl.NewsServiceImpl;
 import com.cqnu.harunasandrivingtestingsystem.utils.Json2DB;
 import com.cqnu.harunasandrivingtestingsystem.utils.ResultUtil;
 import com.github.pagehelper.PageHelper;
@@ -32,7 +31,7 @@ import java.util.*;
  * @author LiAixing
  * @version 1.0
  * @className AdminController
- * @description TODO
+ * @description 管理员Controller
  * @date 2019/2/23 3:54
  **/
 
@@ -54,6 +53,9 @@ public class AdminController {
     @Resource
     private UserDetailsServiceImpl userDetailsService;
 
+    @Resource
+    private INewsService newsService;
+
     /**
      * 辅助操作 token 的工具类
      */
@@ -72,6 +74,11 @@ public class AdminController {
     @Value("${jwt.admin_header}")
     private String tokenHeader;
 
+    /**
+     * 创建管理员
+     * @param map  json对象，用map接收
+     * @return
+     */
     @PostMapping("/createAdmin")
     @PreAuthorize("hasAuthority('Admin:Create')")
     public Result createAdmin(@RequestBody Map map){
@@ -84,7 +91,7 @@ public class AdminController {
 
     /**
      * 改变账号状态
-     * @param map
+     * @param map json对象
      * @return
      */
     @PostMapping("/banAdmin")
@@ -100,7 +107,7 @@ public class AdminController {
 
     /**
      * 管理员登录
-     * @param map
+     * @param map json对象
      * @return
      */
     @PostMapping("/login")
@@ -118,7 +125,7 @@ public class AdminController {
      * @return
      */
     @GetMapping("/info")
-    @PreAuthorize("hasAuthority('Admin:Base')")
+    @PreAuthorize("hasAuthority('Admin:root')")
     public Result getInfo(){
         String authToken = request.getHeader(this.tokenHeader);
         String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
@@ -243,4 +250,40 @@ public class AdminController {
         PageHelper.startPage(pageNo,pageSize);
         return new PageInfo<>(baseUserService.getUserList());
     }
+
+    /**
+     * 获取所有文章
+     * @param pageNo 当前页
+     * @param pageSize 分页大小
+     * @return
+     */
+    @GetMapping("/newsList")
+    @PreAuthorize("hasAnyRole('Admin_root','Admin_news')")
+    public PageInfo<News> getNewsList(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize) {
+        PageHelper.startPage(pageNo, pageSize);
+        return new PageInfo<>(newsService.getNewsList());
+    }
+
+    /**
+     * 获取指定文章
+     * @param id 文章id
+     * @return
+     */
+    @GetMapping("/news/{id}")
+    @PreAuthorize("hasAnyRole('Admin_root','Admin_news')")
+    public News getNews(@PathVariable Integer id){
+        return newsService.getArticle(id);
+    }
+
+//    @PostMapping("/createNews")
+//    @PreAuthorize("hasAnyRole('Admin_root','Admin_news')")
+//    public Result createNews(@RequestBody NewsVO newsVO){
+//
+//    }
+//
+//    @PostMapping("/editNews")
+//    @PreAuthorize("hasAnyRole('Admin_root','Admin_news')")
+//    public Result editNews(@RequestBody NewsVO newsVO){
+//
+//    }
 }

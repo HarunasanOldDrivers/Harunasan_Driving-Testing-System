@@ -19,5 +19,16 @@ public interface NewsMapper {
 
     int updateByPrimaryKey(News record);
 
+    /**
+     * 根据类型查询所有资讯
+     * @param type
+     * @return
+     */
     List<News> selectByType(Integer type);
+
+    /**
+     * 查询所有资讯
+     * @return
+     */
+    List<News> selectAll();
 }

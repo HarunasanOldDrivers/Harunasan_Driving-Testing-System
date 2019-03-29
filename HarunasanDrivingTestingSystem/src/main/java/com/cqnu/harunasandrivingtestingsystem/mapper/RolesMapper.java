@@ -17,10 +17,25 @@ public interface RolesMapper {
 
     int updateByPrimaryKey(Roles record);
 
+    /**
+     * 根据管理员id 查询角色
+     * @param id
+     * @return
+     */
     List<Roles> selectByAdministratorId(Integer id);
 
+    /**
+     * 根据用户id 查询角色
+     * @param id
+     * @return
+     */
     List<Roles> selectByUserId(Integer id);
 
+    /**
+     * 根据驾校d 查询角色
+     * @param id
+     * @return
+     */
     List<Roles> selectBySchoolId(Integer id);
 
 }

@@ -20,7 +20,7 @@ import java.io.IOException;
 public class EntryPointUnauthorizedHandler implements AuthenticationEntryPoint {
     /**
      * 未登录或无权限时触发的操作
-     * 返回  {"code":401,"message":"小弟弟，你没有携带 token 或者 token 无效！","data":""}
+     * 返回  {"code":401,"message":"你没有携带 token 或者 token 无效！","data":""}
      * @param httpServletRequest
      * @param httpServletResponse
      * @param e
@@ -33,7 +33,7 @@ public class EntryPointUnauthorizedHandler implements AuthenticationEntryPoint {
         httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.setContentType("application/json");
 
-        httpServletResponse.getWriter().println("{\"code\":401,\"message\":\"小弟弟，你没有携带 token 或者 token 无效！\",\"data\":\"\"}");
+        httpServletResponse.getWriter().println("{\"code\":401,\"message\":\"你没有携带 token 或者 token 无效！\",\"data\":\"\"}");
         httpServletResponse.getWriter().flush();
     }
 }

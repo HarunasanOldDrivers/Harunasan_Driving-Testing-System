@@ -16,14 +16,31 @@ public interface MistakesCollectionOneMapper {
 
     MistakesCollectionOne selectByPrimaryKey(Integer mistakesId);
 
+    /**
+     * 根据题目id查询错题
+     * @param questionsOneId 题目id
+     * @return
+     */
     Integer selectUserIdByQoId(Integer questionsOneId);
 
+    /**
+     * 根据题目id，用户id查询错题
+     * @param questionsOneId 题目id
+     * @param userId 用户id
+     * @return
+     */
     Integer selectUserIdByQoIdAndUserId(@Param("questionsOneId") Integer questionsOneId, @Param("userId") Integer userId);
 
     int updateByPrimaryKeySelective(MistakesCollectionOne record);
 
     int updateByPrimaryKey(MistakesCollectionOne record);
 
+    /**
+     * 根据用户id，题目id 删除错题
+     * @param userId 用户id
+     * @param questionsId 题目id
+     * @return
+     */
     int deleteByUserIdAndQuestionId(@Param("userId") Integer userId, @Param("questionsId") Integer questionsId);
 
 }

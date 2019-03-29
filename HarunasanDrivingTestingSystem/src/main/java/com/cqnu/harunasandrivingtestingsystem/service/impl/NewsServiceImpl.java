@@ -107,4 +107,21 @@ public class NewsServiceImpl implements INewsService {
     public News getArticle(Integer id){
         return newsMapper.selectByPrimaryKey(id);
     }
+
+    @Override
+    public List<News> getNewsList(){
+        List<News> newsList = newsMapper.selectAll();
+        if (newsList == null){
+            return null;
+        }
+        for (News news : newsList){
+            int length = news.getNewsContent().length();
+            if ( length < END_INDEX-90){
+                news.setNewsContent(news.getNewsContent().substring(0, length) + "......");
+            }else {
+                news.setNewsContent(news.getNewsContent().substring(0, END_INDEX-90) + "......");
+            }
+        }
+        return newsList;
+    }
 }

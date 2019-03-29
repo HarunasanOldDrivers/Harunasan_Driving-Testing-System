@@ -36,20 +36,57 @@ public interface IAdminService {
      */
     int deleteAdmin(int id);
 
+    /**
+     * 登录
+     * @param id 管理员Id
+     * @param password 密码
+     * @return
+     */
     boolean loginById(int id, String password);
 
-    boolean loginByTelephone(String telephone, String password);
-
+    /**
+     * 获取管理员信息
+     * @param username 管理员Id
+     * @return
+     */
     AdminFE getInfo(Integer username);
 
+    /**
+     * 获取管理员列表
+     * @param pageNum  当前页
+     * @param pageSize  分页大小
+     * @return
+     */
     PageInfo<AdminInfo> getList(Integer pageNum, Integer pageSize);
 
+    /**
+     * 审核驾校
+     * @param schoolId  驾校Id
+     * @param status  驾校状态(1：审核通过，2：审核未通过)
+     * @param text 未通过原因
+     * @return
+     */
     boolean audit(Integer schoolId, Integer status, String text);
 
+    /**
+     * 搜索管理员
+     * @param pageNum 当前页
+     * @param pageSize 分页大小
+     * @param adminName 管理员姓名
+     * @param roleId 角色Id
+     * @return
+     */
     PageInfo<AdminInfo> search(Integer pageNum, Integer pageSize, String adminName, Integer roleId);
 
-
-    public int updateAdmin(Integer adminId, String adminName, String adminTel, Integer roleId);
+    /**
+     * 修改管理员信息
+     * @param adminId 管理员Id
+     * @param adminName 管理员姓名
+     * @param adminTel 管理员电话
+     * @param roleId 角色id
+     * @return
+     */
+    int updateAdmin(Integer adminId, String adminName, String adminTel, Integer roleId);
 
 
 }

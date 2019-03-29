@@ -1,5 +1,6 @@
 package com.cqnu.harunasandrivingtestingsystem.service;
 
+import com.cqnu.harunasandrivingtestingsystem.entity.News;
 import com.cqnu.harunasandrivingtestingsystem.entity.School;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.CourseVO;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.PageInfo;
@@ -22,4 +23,8 @@ public interface INewsService {
     SchoolVO getSchool(Integer schoolId);
 
     PageInfo<CourseVO> getRecommend(Integer pageNo, Integer pageSize);
+
+    List<News> getAbstract(Integer type);
+
+    News getArticle(Integer id);
 }

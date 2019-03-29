@@ -27,7 +27,15 @@
     from hodts_db.news
     where news_id = #{newsId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="selectByType" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List" />
+      ,
+      <include refid="Blob_Column_List" />
+      from hodts_db.news
+      where news_type = #{newsType,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from hodts_db.news
     where news_id = #{newsId,jdbcType=INTEGER}
   </delete>

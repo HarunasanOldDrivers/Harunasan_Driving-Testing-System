@@ -52,18 +52,87 @@ $(document).ready(function () {
     //提交修改密码
     $("#BtnSubmitNewPassword").click(function () {
         var inputForgetUserAccountTel = $("#inputForgetUserAccountTel");
+        inputForgetUserAccountTel = Number(inputForgetUserAccountTel.val());
         var inputForgetUserPassword = $("#inputForgetUserPassword");
         var inputUserPasswordAgain = $("#inputUserPasswordAgain");
         var inputTelCode = $("#inputTelCode");
-        if (inputForgetUserPassword.val() && inputForgetUserAccountTel.val() && inputUserPasswordAgain.val() && inputTelCode.val() ){
+        if (inputForgetUserPassword.val() && inputForgetUserAccountTel && inputUserPasswordAgain.val() && inputTelCode.val() ){
            if(inputForgetUserPassword.val() === inputUserPasswordAgain.val()){
-               alert("两次密码填写正确");
+               if($("#level").hasClass("pw-medium") || $("#level").hasClass("pw-strong")) {
+                   $.ajax({
+                       type:"post",
+                       url:"/api/user/forgotPassword",
+                       dataType:"json",
+                       data:{
+                           username:inputForgetUserAccountTel,
+                           newPassword:inputForgetUserPassword.val(),
+                           verifyCode:inputTelCode.val()
+                       },
+                       beforeSend: function (XMLHttpRequest) {
+                           var Authorization = $.cookie('Authorization');
+                           XMLHttpRequest.setRequestHeader("Authorization", Authorization);
+                       },
+                       success:function (result) {
+                           if(result.code === 408){
+                               alert(result.msg)
+                           }else if (result.code === 409){
+                               alert(result.msg)
+                           }else{
+                               alert(result.msg)
+                           }
+                       },
+                       error:function (result) {
+                           alert("用户名/手机号输入错误");
+                       }
+                   });
+               }
+               else{
+                   alert("请输入强度为中度以上的密码");
+               }
            }
            else{
                alert("两次输入密码不一致");
            }
-        }else {
+        }
+        else {
             alert("请填写所有信息以及验证码");
+        }
+    });
+
+    //输入密码时实时验证密码强度
+    var inputForgetUserPassword = $("#inputForgetUserPassword");
+    inputForgetUserPassword.keyup(function () {
+        var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
+        var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
+        var enoughRegex = new RegExp("(?=.{6,}).*", "g");
+        var level = $("#level");
+        if (false === enoughRegex.test($(this).val())) {
+            //密码小于六位的时候，密码强度图片都为灰色
+            level.removeClass('pw-weak');
+            level.removeClass('pw-medium');
+            level.removeClass('pw-strong');
+            level.addClass('pw-defule');
+        }
+        else if (strongRegex.test($(this).val())) {
+            level.removeClass('pw-weak');
+            level.removeClass('pw-medium');
+            level.removeClass('pw-strong');
+            level.addClass(' pw-strong');
+            //密码为八位及以上并且字母数字特殊字符三项都包括,强度最强 （大小写字母）
+        }
+        else if (mediumRegex.test($(this).val())) {
+            level.removeClass('pw-weak');
+            level.removeClass('pw-medium');
+            level.removeClass('pw-strong');
+            level.addClass(' pw-medium');
+            //密码为七位及以上并且字母、数字、特殊字符三项中有两项，强度是中等
+        }
+        else {
+            level.removeClass('pw-weak');
+            level.removeClass('pw-medium');
+            level.removeClass('pw-strong');
+            level.addClass('pw-weak');
+            //如果密码为6为及以下，就算字母、数字、特殊字符三项都包括，强度也是弱的
         }
     });
 

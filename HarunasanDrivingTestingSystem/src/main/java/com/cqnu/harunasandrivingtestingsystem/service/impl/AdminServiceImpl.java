@@ -89,7 +89,7 @@ public class AdminServiceImpl implements IAdminService {
         Administrator administrator = administratorMapper.selectByPrimaryKey(id);
         if (administrator == null){
             logger.info("Administrator not find");
-            throw new UsernameNotFoundException(String.format("No administrator found with id '%s'.", id));
+            return false;
         } else if (administrator.getAdminPassword().equals(Password2Hash.sha256CryptWithSalt(password, String.valueOf(administrator.getAdminName())))){
             return true;
         } else {
@@ -176,7 +176,7 @@ public class AdminServiceImpl implements IAdminService {
     }
 
     @Override
-    public int updateAdmin(Integer adminId, String adminName, String adminTel, Integer roleId) {
+    public int updateAdmin(Integer adminId, String adminName, String adminTel, Integer roleId, String newPassword) {
         Administrator administrator = administratorMapper.selectByPrimaryKey(adminId);
         AdminRoles adminRoles = adminRolesMapper.selectByAdminId(adminId);
         logger.warn(String.valueOf(administrator == null));
@@ -186,6 +186,9 @@ public class AdminServiceImpl implements IAdminService {
         }
         administrator.setAdminName(adminName);
         administrator.setAdminPhone(adminTel);
+        if (!StringUtils.isEmpty(newPassword)) {
+            administrator.setAdminPassword(Password2Hash.sha256CryptWithSalt(newPassword, administrator.getAdminName()));
+        }
         adminRoles.setRid(roleId);
         return administratorMapper.updateByPrimaryKeySelective(administrator) + adminRolesMapper.updateByPrimaryKeySelective(adminRoles);
     }

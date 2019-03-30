@@ -86,7 +86,7 @@ public interface IAdminService {
      * @param roleId 角色id
      * @return
      */
-    int updateAdmin(Integer adminId, String adminName, String adminTel, Integer roleId);
+    int updateAdmin(Integer adminId, String adminName, String adminTel, Integer roleId, String newPassword);
 
 
 }

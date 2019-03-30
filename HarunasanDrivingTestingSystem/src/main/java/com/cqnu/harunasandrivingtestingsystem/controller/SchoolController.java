@@ -340,9 +340,9 @@ public class SchoolController {
             localDateTimeAfter = localDateTimeBefore.plusDays(1);
         }
         if (courseId == null){
-            return schoolService.selectAllEnroll(studentName,localDateTimeBefore, localDateTimeAfter, pageNo, pageSize);
+            return schoolService.selectAllEnroll(Integer.valueOf(username),studentName,localDateTimeBefore, localDateTimeAfter, pageNo, pageSize);
         }
-        return schoolService.selectEnroll(studentName,localDateTimeBefore, localDateTimeAfter, courseId, pageNo, pageSize);
+        return schoolService.selectEnroll(Integer.valueOf(username),studentName,localDateTimeBefore, localDateTimeAfter, courseId, pageNo, pageSize);
     }
 
     /**

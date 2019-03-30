@@ -4,6 +4,7 @@ import com.cqnu.harunasandrivingtestingsystem.entity.Course;
 import com.cqnu.harunasandrivingtestingsystem.entity.News;
 import com.cqnu.harunasandrivingtestingsystem.entity.School;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.CourseVO;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.NewsVO;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.PageInfo;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.SchoolVO;
 import com.cqnu.harunasandrivingtestingsystem.mapper.CourseMapper;
@@ -123,5 +124,10 @@ public class NewsServiceImpl implements INewsService {
             }
         }
         return newsList;
+    }
+
+    @Override
+    public boolean createNews(NewsVO newsVO){
+        return true;
     }
 }

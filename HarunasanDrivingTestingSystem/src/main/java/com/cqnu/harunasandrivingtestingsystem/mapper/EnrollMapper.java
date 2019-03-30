@@ -42,7 +42,8 @@ public interface EnrollMapper {
      * @param courseId 课程ID
      * @return
      */
-    List<Enroll> selectByStudentNameAndEnrollDateAndCourseName(@Param("studentName") String studentName,
+    List<Enroll> selectByStudentNameAndEnrollDateAndCourseName(@Param("schoolId") Integer schoolId,
+                                                               @Param("studentName") String studentName,
                                                                @Param("enrollDateBefore") LocalDateTime enrollDateBefore,
                                                                @Param("enrollDateAfter") LocalDateTime enrollDateAfter,
                                                                @Param("courseId") Integer courseId);
@@ -54,7 +55,8 @@ public interface EnrollMapper {
      * @param enrollDateAfter 注册时间下限
      * @return
      */
-    List<Enroll> selectAll(@Param("studentName") String studentName,
+    List<Enroll> selectAll(@Param("schoolId") Integer schoolId,
+                           @Param("studentName") String studentName,
                            @Param("enrollDateBefore") LocalDateTime enrollDateBefore,
                            @Param("enrollDateAfter") LocalDateTime enrollDateAfter);
 

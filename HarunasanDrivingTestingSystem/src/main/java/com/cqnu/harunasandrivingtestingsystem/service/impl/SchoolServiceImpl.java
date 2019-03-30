@@ -211,10 +211,10 @@ public class SchoolServiceImpl implements ISchoolService {
     }
 
     @Override
-    public PageInfo<EnrollSL> selectEnroll(String studentName, LocalDateTime timeBefore, LocalDateTime timeAfter, Integer courseId,
+    public PageInfo<EnrollSL> selectEnroll(Integer username,String studentName, LocalDateTime timeBefore, LocalDateTime timeAfter, Integer courseId,
                                            Integer pageNum, Integer pageSize){
         Page page = PageHelper.startPage(pageNum, pageSize);
-        List<Enroll> enrollList = enrollMapper.selectByStudentNameAndEnrollDateAndCourseName(studentName,timeBefore, timeAfter, courseId);
+        List<Enroll> enrollList = enrollMapper.selectByStudentNameAndEnrollDateAndCourseName(username,studentName,timeBefore, timeAfter, courseId);
         PageInfo<EnrollSL> pageInfo = new PageInfo(page);
         List<EnrollSL> enrollSLList = new ArrayList<>();
         for (Enroll enroll: enrollList){
@@ -227,9 +227,9 @@ public class SchoolServiceImpl implements ISchoolService {
     }
 
     @Override
-    public PageInfo<EnrollSL> selectAllEnroll(String studentName, LocalDateTime timeBefore, LocalDateTime timeAfter, Integer pageNum, Integer pageSize) {
+    public PageInfo<EnrollSL> selectAllEnroll(Integer username,String studentName, LocalDateTime timeBefore, LocalDateTime timeAfter, Integer pageNum, Integer pageSize) {
         Page page = PageHelper.startPage(pageNum, pageSize);
-        List<Enroll> enrollList = enrollMapper.selectAll(studentName,timeBefore, timeAfter);
+        List<Enroll> enrollList = enrollMapper.selectAll(username,studentName,timeBefore, timeAfter);
         PageInfo<EnrollSL> pageInfo = new PageInfo(page);
         List<EnrollSL> enrollSLList = new ArrayList<>();
         for (Enroll enroll: enrollList){

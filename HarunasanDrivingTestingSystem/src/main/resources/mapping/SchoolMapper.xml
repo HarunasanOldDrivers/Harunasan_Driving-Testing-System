@@ -88,7 +88,25 @@
     from hodts_db.school
     where school_authentication_status = 0
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="selectBySchoolName" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+      select
+      <include refid="Base_Column_List" />
+      ,
+      <include refid="Blob_Column_List" />
+      from hodts_db.school
+      where INSTR(school_name, #{schoolName,jdbcType=VARCHAR} )>0
+      and not school_authentication_status = 0
+    </select>
+  <select id="selectAuditingBySchoolName" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from hodts_db.school
+    where INSTR(school_name, #{schoolName,jdbcType=VARCHAR} )>0
+    and school_authentication_status = 0
+  </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from hodts_db.school
     where school_id = #{schoolId,jdbcType=INTEGER}
   </delete>

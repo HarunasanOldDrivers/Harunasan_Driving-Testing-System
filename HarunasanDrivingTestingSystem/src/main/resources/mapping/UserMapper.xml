@@ -34,6 +34,13 @@
       from hodts_db.user
       order by user_reg_date asc
     </select>
+    <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List" />
+      from hodts_db.user
+      where INSTR(user_nickname, #{userName,jdbcType=VARCHAR} )>0
+      order by user_reg_date asc
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from hodts_db.user
     where user_id = #{userId,jdbcType=INTEGER}

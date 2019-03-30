@@ -1,5 +1,7 @@
 package com.cqnu.harunasandrivingtestingsystem.service;
 
+import com.cqnu.harunasandrivingtestingsystem.entity.School;
+import com.cqnu.harunasandrivingtestingsystem.entity.User;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.AdminFE;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.AdminInfo;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.PageInfo;
@@ -28,6 +30,20 @@ public interface IAdminService {
      * @return
      */
     int banAdmin(int id, Integer status);
+
+    /**
+     * 禁用驾校账号
+     * @param id
+     * @return
+     */
+    int banSchool(int id, Integer status);
+
+    /**
+     * 禁用用户账号
+     * @param id
+     * @return
+     */
+    int banUser(int id, Integer status);
 
     /**
      * 删除管理员账号
@@ -77,6 +93,33 @@ public interface IAdminService {
      * @return
      */
     PageInfo<AdminInfo> search(Integer pageNum, Integer pageSize, String adminName, Integer roleId);
+
+    /**
+     * 搜索管理员
+     * @param pageNum 当前页
+     * @param pageSize 分页大小
+     * @param schoolName 驾校名称
+     * @return
+     */
+    PageInfo<School> searchSchool(Integer pageNum, Integer pageSize, String schoolName);
+
+    /**
+     * 搜索管理员
+     * @param pageNum 当前页
+     * @param pageSize 分页大小
+     * @param schoolName 驾校名称
+     * @return
+     */
+    PageInfo<School> searchAudtingSchool(Integer pageNum, Integer pageSize, String schoolName);
+
+    /**
+     * 搜索管理员
+     * @param pageNum 当前页
+     * @param pageSize 分页大小
+     * @param userName 用户昵称
+     * @return
+     */
+    PageInfo<User> searchUser(Integer pageNum, Integer pageSize, String userName);
 
     /**
      * 修改管理员信息

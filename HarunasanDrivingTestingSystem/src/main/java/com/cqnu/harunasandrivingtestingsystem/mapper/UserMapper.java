@@ -29,4 +29,11 @@ public interface UserMapper {
      * @return
      */
     List<User> selectAll();
+
+    /**
+     * 根据用户昵称查询用户
+     * @param userName
+     * @return
+     */
+    List<User> selectByName(String userName);
 }

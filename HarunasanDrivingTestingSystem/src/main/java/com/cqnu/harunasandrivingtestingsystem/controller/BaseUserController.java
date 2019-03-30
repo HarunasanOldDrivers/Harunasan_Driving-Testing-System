@@ -237,24 +237,18 @@ public class BaseUserController {
      * 忘记密码
      * @param newPassword 新密码
      * @return
-     * 需要权限;User
      */
     @PostMapping("/forgotPassword")
-    @PreAuthorize("hasRole('User')")
-    public Result forgotPassword(String newPassword, String verifyCode){
-        // 从http请求中获取token
-        String authToken = request.getHeader(this.tokenHeader);
-        // 从token中解析用户Id
-        String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
+    public Result forgotPassword(Integer username, String newPassword, String verifyCode){
         User user = baseUserService.getProfile(Integer.valueOf(username));
         if(validate(user.getUserTelphone(),verifyCode).getCode() == 408){
             return ResultUtil.failure(408, "验证码错误或失效");
         }
-        int msg = baseUserService.alterPassword(Integer.parseInt(username),username);
+        int msg = baseUserService.alterPassword(username,newPassword);
         if (msg == 1){
             return ResultUtil.success();
         } else {
-            return ResultUtil.failure(409,"修改密码失败");
+            return ResultUtil.failure(409,"密码重置失败");
         }
     }
 

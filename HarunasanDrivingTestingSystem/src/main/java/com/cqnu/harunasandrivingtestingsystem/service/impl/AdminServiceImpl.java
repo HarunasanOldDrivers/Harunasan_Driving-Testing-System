@@ -53,6 +53,9 @@ public class AdminServiceImpl implements IAdminService {
     @Resource
     private AdminRolesMapper adminRolesMapper;
 
+    @Resource
+    private UserMapper userMapper;
+
     @Autowired
     private SendSMS sendSMS;
 
@@ -80,8 +83,22 @@ public class AdminServiceImpl implements IAdminService {
     }
 
     @Override
+    public int banSchool(int id, Integer status) {
+        School school= schoolMapper.selectByPrimaryKey(id);
+        school.setSchoolEnable(status);
+        return schoolMapper.updateByPrimaryKeySelective(school);
+    }
+
+    @Override
+    public int banUser(int id, Integer status) {
+        User user = userMapper.selectByPrimaryKey(id);
+        user.setUserEnable(status);
+        return userMapper.updateByPrimaryKeySelective(user);
+    }
+
+    @Override
     public int deleteAdmin(int id) {
-        return 0;
+        return administratorMapper.deleteByPrimaryKey(id);
     }
 
     @Override
@@ -171,6 +188,36 @@ public class AdminServiceImpl implements IAdminService {
             adminInfoList.add(adminInfo);
         }
         pageInfo.setList(adminInfoList);
+
+        return  pageInfo;
+    }
+
+    @Override
+    public PageInfo<School> searchSchool(Integer pageNum, Integer pageSize, String schoolName){
+        Page page = PageHelper.startPage(pageNum, pageSize);
+        List<School> schoolList = schoolMapper.selectBySchoolName(schoolName);
+        PageInfo<School> pageInfo = new PageInfo<>(page);
+        pageInfo.setList(schoolList);
+
+        return  pageInfo;
+    }
+
+    @Override
+    public PageInfo<School> searchAudtingSchool(Integer pageNum, Integer pageSize, String schoolName){
+        Page page = PageHelper.startPage(pageNum, pageSize);
+        List<School> schoolList = schoolMapper.selectAuditingBySchoolName(schoolName);
+        PageInfo<School> pageInfo = new PageInfo<>(page);
+        pageInfo.setList(schoolList);
+
+        return  pageInfo;
+    }
+
+    @Override
+    public PageInfo<User> searchUser(Integer pageNum, Integer pageSize, String userName){
+        Page page = PageHelper.startPage(pageNum, pageSize);
+        List<User> userList = userMapper.selectByName(userName);
+        PageInfo<User> pageInfo = new PageInfo<>(page);
+        pageInfo.setList(userList);
 
         return  pageInfo;
     }

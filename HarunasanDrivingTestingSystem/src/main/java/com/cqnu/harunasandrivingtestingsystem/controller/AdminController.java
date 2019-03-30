@@ -11,6 +11,8 @@ import com.cqnu.harunasandrivingtestingsystem.service.IBaseUserService;
 import com.cqnu.harunasandrivingtestingsystem.service.INewsService;
 import com.cqnu.harunasandrivingtestingsystem.service.ISchoolService;
 import com.cqnu.harunasandrivingtestingsystem.service.impl.NewsServiceImpl;
+import com.cqnu.harunasandrivingtestingsystem.service.impl.QuestionsFourServiceImpl;
+import com.cqnu.harunasandrivingtestingsystem.service.impl.QuestionsOneServiceImpl;
 import com.cqnu.harunasandrivingtestingsystem.utils.Json2DB;
 import com.cqnu.harunasandrivingtestingsystem.utils.ResultUtil;
 import com.github.pagehelper.PageHelper;
@@ -60,6 +62,12 @@ public class AdminController {
     @Resource
     private AdministratorMapper administratorMapper;
 
+    @Resource
+    private QuestionsOneServiceImpl questionsOneService;
+
+    @Resource
+    private QuestionsFourServiceImpl questionsFourService;
+
     /**
      * 辅助操作 token 的工具类
      */
@@ -104,6 +112,38 @@ public class AdminController {
         Integer id = (Integer) map.get("id");
         Integer status = (Integer) map.get("status");
         if (adminService.banAdmin(id,status) == 1) {
+            return ResultUtil.success();
+        }
+        return ResultUtil.failure(800,"失败");
+    }
+
+    /**
+     * 改变驾校状态
+     * @param map json对象
+     * @return
+     */
+    @PostMapping("/banSchool")
+    @PreAuthorize("hasAnyRole('Admin_root','Admin_school')")
+    public Result banSchool(@RequestBody Map map){
+        Integer id = (Integer) map.get("id");
+        Integer status = (Integer) map.get("status");
+        if (adminService.banSchool(id,status) == 1) {
+            return ResultUtil.success();
+        }
+        return ResultUtil.failure(800,"失败");
+    }
+
+    /**
+     * 改变用户状态
+     * @param map json对象
+     * @return
+     */
+    @PostMapping("/banUser")
+    @PreAuthorize("hasAnyRole('Admin_root','Admin_user')")
+    public Result banUser(@RequestBody Map map){
+        Integer id = (Integer) map.get("id");
+        Integer status = (Integer) map.get("status");
+        if (adminService.banUser(id,status) == 1) {
             return ResultUtil.success();
         }
         return ResultUtil.failure(800,"失败");
@@ -201,6 +241,48 @@ public class AdminController {
     }
 
     /**
+     * 搜索驾校
+     * @param pageNo  当前页
+     * @param pageSize  分页大小
+     * @param schoolName  驾校名称
+     * @return
+     */
+    @GetMapping("/searchSchool")
+    @PreAuthorize("hasAnyRole('Admin_root','Admin_school')")
+    public PageInfo<School> searchSchool(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "5") Integer pageSize,
+                                      String schoolName){
+        return adminService.searchSchool(pageNo,pageSize,schoolName);
+    }
+
+    /**
+     * 搜索待审核驾校
+     * @param pageNo  当前页
+     * @param pageSize  分页大小
+     * @param schoolName  驾校名称
+     * @return
+     */
+    @GetMapping("/searchAuditingSchool")
+    @PreAuthorize("hasAnyRole('Admin_root','Admin_school')")
+    public PageInfo<School> searchAuditingSchool(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "5") Integer pageSize,
+                                         String schoolName){
+        return adminService.searchAudtingSchool(pageNo,pageSize,schoolName);
+    }
+
+    /**
+     * 搜索用户
+     * @param pageNo  当前页
+     * @param pageSize  分页大小
+     * @param userName  用户昵称
+     * @return
+     */
+    @GetMapping("/searchUser")
+    @PreAuthorize("hasAnyRole('Admin_root','Admin_user')")
+    public PageInfo<User> searchUser(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize,
+                                      String userName){
+        return adminService.searchUser(pageNo,pageSize,userName);
+    }
+
+    /**
      * 编辑管理员
      * @param map
      * @return
@@ -251,6 +333,7 @@ public class AdminController {
         return new PageInfo<>(schoolService.selectAuditingSchool());
     }
 
+
     /**
      * 获取所有用户
      */
@@ -260,6 +343,7 @@ public class AdminController {
         PageHelper.startPage(pageNo,pageSize);
         return new PageInfo<>(baseUserService.getUserList());
     }
+
 
     /**
      * 获取所有文章
@@ -309,4 +393,45 @@ public class AdminController {
     public Result editNews(@RequestBody NewsVO newsVO){
         return ResultUtil.success();
     }
+
+    /**
+     * 获取科目一
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @GetMapping("/questionsOneList")
+    @PreAuthorize("hasAnyRole('Admin_root','Admin_questions')")
+    public PageInfo<QuestionsOne> getQuestionsOneList(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize){
+        PageHelper.startPage(pageNo, pageSize);
+        return new PageInfo<QuestionsOne>(questionsOneService.getQuestions());
+    }
+
+    /**
+     * 获取科目四
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @GetMapping("/questionsFourList")
+    @PreAuthorize("hasAnyRole('Admin_root','Admin_questions')")
+    public PageInfo<QuestionsFour> getQuestionsFourList(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize){
+        PageHelper.startPage(pageNo, pageSize);
+        return new PageInfo<QuestionsFour>(questionsFourService.getQuestions());
+    }
+
+    /**
+     * 修改科目一
+     * @param questionsOne
+     * @return
+     */
+    @PostMapping("/editQuestionsOne")
+    @PreAuthorize("hasAnyRole('Admin_root','Admin_questions')")
+    public Result editQuestionsOne(@RequestBody QuestionsOne questionsOne){
+        if (questionsOneService.updateQuestions(questionsOne)){
+            return ResultUtil.success();
+        }
+        return ResultUtil.failure(2100,"修改错题失败");
+    }
+
 }

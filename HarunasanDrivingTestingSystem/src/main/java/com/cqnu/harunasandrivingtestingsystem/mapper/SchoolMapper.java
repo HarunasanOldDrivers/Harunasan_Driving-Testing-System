@@ -56,4 +56,16 @@ public interface SchoolMapper {
      * @return
      */
     List<School> selectAuditing();
+
+    /**
+     * 根据驾校名称查找驾校
+     * @return
+     */
+    List<School> selectBySchoolName(String schoolName);
+
+    /**
+     * 根据驾校名称查找待审核驾校
+     * @return
+     */
+    List<School> selectAuditingBySchoolName(String schoolName);
 }

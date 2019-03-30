@@ -1,6 +1,7 @@
 package com.cqnu.harunasandrivingtestingsystem.service.impl;
 
 import com.cqnu.harunasandrivingtestingsystem.entity.MistakesCollectionOne;
+import com.cqnu.harunasandrivingtestingsystem.entity.Questions;
 import com.cqnu.harunasandrivingtestingsystem.entity.QuestionsOne;
 import com.cqnu.harunasandrivingtestingsystem.mapper.MistakesCollectionOneMapper;
 import com.cqnu.harunasandrivingtestingsystem.mapper.QuestionsOneMapper;
@@ -34,6 +35,16 @@ public class QuestionsOneServiceImpl implements IQuestionsService {
     public List<QuestionsOne> getQuestions(){
         return questionsOneMapper.getAll();
     }
+
+    /**
+     * 修改题目
+     * @param questionsOne
+     * @return
+     */
+    public boolean updateQuestions(QuestionsOne questionsOne){
+        return questionsOneMapper.updateByPrimaryKeySelective(questionsOne) == 1;
+    }
+
 
     @Override
     public QuestionsOne orderTrain(Integer id) {

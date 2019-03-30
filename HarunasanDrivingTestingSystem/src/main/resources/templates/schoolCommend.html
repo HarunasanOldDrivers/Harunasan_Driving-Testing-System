@@ -81,7 +81,7 @@
 
                 <!--分页-->
                 <nav aria-label="Page navigation" class="col-md-offset-5">
-                    <ul class="pagination " id="Ulpagination" >
+                    <ul class="pagination" id="Ulpagination" >
                         <li id="LiNavigationFirstWrongLists" value="pre" >
                             <a href="#" aria-label="Previous" >
                                 首页
@@ -101,15 +101,15 @@
             <div class="col-md-12 container">
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <h3 class="findSchoolHeading"><strong>如何找到合适的驾校?</strong></h3>
+                        <h3 class="findSchoolHeading" style="color: #6d468f;"><strong>如何找到合适的驾校?</strong></h3>
                     </div>
                     <br>
                     <div class="panel-body">
                         <div class="col-md-12">
-                            <div class="col-md-3 col-md-offset-1" style="border-right: 1px solid #d1d1d1">
+                            <div class="col-md-3 " style="border-right: 1px solid #d1d1d1">
                                 <span class="glyphicon glyphicon-comment findSchoolGly"></span>
                             </div>
-                            <div class="col-md-8" >
+                            <div class="col-md-9" >
                                 <span class="findSchoolHeader"><strong>看评价</strong></span>
                                 <br>
                                 <span class="findSchoolContent">通过学员评价看驾校服务</span>
@@ -117,10 +117,10 @@
                             <br>
                         </div>
                         <div class="col-md-12" style="padding-top: 20px">
-                            <div class="col-md-3 col-md-offset-1" style="border-right: 1px solid #d1d1d1">
+                            <div class="col-md-3 " style="border-right: 1px solid #d1d1d1">
                                 <span class="glyphicon glyphicon-thumbs-up findSchoolGly"></span>
                             </div>
-                            <div class="col-md-8" >
+                            <div class="col-md-9" >
                                 <span class="findSchoolHeader"><strong>看口碑</strong></span>
                                 <br>
                                 <span class="findSchoolContent">通过认证等级看驾校信用</span>
@@ -128,10 +128,10 @@
                             <br>
                         </div>
                         <div class="col-md-12" style="padding-top: 20px">
-                            <div class="col-md-3 col-md-offset-1" style="border-right: 1px solid #d1d1d1">
+                            <div class="col-md-3 " style="border-right: 1px solid #d1d1d1">
                                 <span class="glyphicon glyphicon-user findSchoolGly"></span>
                             </div>
-                            <div class="col-md-8" >
+                            <div class="col-md-9" >
                                 <span class="findSchoolHeader"><strong>看师资</strong></span>
                                 <br>
                                 <span class="findSchoolContent">通过明星教练看驾校实力</span>
@@ -139,10 +139,10 @@
                             <br>
                         </div>
                         <div class="col-md-12" style="padding-top: 20px;padding-bottom: 30px">
-                                <div class="col-md-3 col-md-offset-1" style="border-right: 1px solid #d1d1d1">
+                                <div class="col-md-3 " style="border-right: 1px solid #d1d1d1">
                                     <span class="glyphicon glyphicon-blackboard findSchoolGly"></span>
                                 </div>
-                                <div class="col-md-8" >
+                                <div class="col-md-9" >
                                     <span class="findSchoolHeader"><strong>看教学</strong></span>
                                     <br>
                                     <span class="findSchoolContent">通过教学视频看教学质量</span>
@@ -159,7 +159,7 @@
                         <tr>
                             <th>驾校名称</th>
                             <th>课程名称</th>
-                            <th>驾校价格</th>
+                            <th>价格</th>
                         </tr>
                     </thead>
                     <tbody id="tbodyCommend">
@@ -174,12 +174,6 @@
 
 <script>
     $(document).ready(function () {
-
-        $("#nav").load("../nav",function () {
-            // 在载入完成之后改变状态
-            $("#mainpage").removeClass("active");
-            $("#schoolCommend").addClass("active");
-        });
         // // $('[data-toggle="tooltip"]').tooltip();  //初始化
         //设置评分
         /*

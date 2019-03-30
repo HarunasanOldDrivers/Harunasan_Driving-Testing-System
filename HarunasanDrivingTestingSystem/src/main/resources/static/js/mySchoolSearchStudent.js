@@ -153,7 +153,7 @@ $(document).ready(function () {
                     tbodyStudent.empty();
                     students = result.list;
                     //在表格中插入所有数据
-                    for(i=0 ; i < classes.length ; i ++){
+                    for(i=0 ; i < students.length ; i ++){
                         var Tr = $("<tr></tr>");
                         //插入课程名称，生成对应表格
                         var thClassName= $("<th class=\"\"></th>");

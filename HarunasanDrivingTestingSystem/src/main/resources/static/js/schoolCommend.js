@@ -1,4 +1,9 @@
 $(document).ready(function () {
+    $("#nav").load("../nav",function () {
+        // 在载入完成之后改变状态
+        $("#mainpage").removeClass("active");
+        $("#schoolCommend").addClass("active");
+    });
     //默认进入之后读取2k-3k的驾校
     var schools;
     //当前页
@@ -125,6 +130,7 @@ $(document).ready(function () {
         }
     });
 
+    //点击查询btn，刷新查询的学校数据
     $("#selectBtn").click(function () {
         var InputDistrict = $("#InputDistrict");
         var InputPrice = $("#InputPrice");

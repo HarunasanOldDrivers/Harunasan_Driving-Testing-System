@@ -7,6 +7,10 @@
     <script src="../js/bootstrap.min.js" type="text/javascript"></script>
     <link rel="stylesheet"  href="../css/bootstrap.min.css" />
     <script src="../js/studyInfoList.js" type="text/javascript"></script>
+    <!--驾考推荐JS-->
+    <!--引入此页面的CSS文件-->
+    <!--主要是衔接一下右边的样式-->
+    <link href="../css/schoolCommend.css" rel="stylesheet">
 </head>
 
 <body>
@@ -154,84 +158,152 @@
             </div>
 
             <!--分页-->
-            <nav aria-label="Page navigation" class="text-center">
-                <ul class="pagination pagination-lg">
-                    <li>
-                        <a href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
+            <nav aria-label="Page navigation" class="col-md-offset-4">
+                <ul class="pagination pagination-lg " id="Ulpagination" >
+                    <li id="LiNavigationFirstWrongLists" value="pre" >
+                        <a href="#" aria-label="Previous" >
+                            首页
                         </a>
                     </li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li>
-                        <a href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
+                    <li id="NextviousPagination">
+                        <a href="#" aria-label="Next" >
+                            尾页
                         </a>
                     </li>
                 </ul>
             </nav>
         </div>
         <!--右边信息栏-->
+        <!--<div class="col-md-4">-->
+            <!--<div class="panel panel-primary ">-->
+                <!--<div class="panel-heading">-->
+                    <!--<h2 class="text-center">学车视频</h2>-->
+                    <!--<span class="col-lg-offset-10"><a href="#"></a></span>-->
+                <!--</div>-->
+                <!--<div class="">-->
+                    <!--<div class="list-group">-->
+                        <!--<a href="" class="list-group-item">-->
+                            <!--<p>驾考是科目二难还是科目三难？教练说出真真相</p>-->
+                        <!--</a>-->
+                        <!--<a href="" class="list-group-item">-->
+                            <!--<p>警惕最危险的500米！江西男子酒后驾车酿悲剧</p>-->
+                        <!--</a>-->
+                        <!--<a href="" class="list-group-item">-->
+                            <!--<p>2019驾考报名须知，不知道的就麻烦了</p>-->
+                        <!--</a>-->
+                        <!--<a href="" class="list-group-item">-->
+                            <!--<p>科目二右转弯满分操作，知道的人都过了</p>-->
+                        <!--</a>-->
+                        <!--<a href="" class="list-group-item">-->
+                            <!--<p>已经报名驾校的有福了，学车费用将要升高</p>-->
+                        <!--</a>-->
+                        <!--<a href="" class="list-group-item">-->
+                            <!--<p>速看！车感差的人如何通过驾校考试！</p>-->
+                        <!--</a>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="panel panel-warning ">-->
+                <!--<div class="panel-heading">-->
+                    <!--<h2 class="text-center">学车动态</h2>-->
+                    <!--<span class="col-lg-offset-10"><a href="#"></a></span>-->
+                <!--</div>-->
+                <!--<div class="">-->
+                    <!--<div class="list-group">-->
+                        <!--<a href="" class="list-group-item">-->
+                            <!--<p>驾考是科目二难还是科目三难？教练说出真真相</p>-->
+                        <!--</a>-->
+                        <!--<a href="" class="list-group-item">-->
+                            <!--<p>警惕最危险的500米！江西男子酒后驾车酿悲剧</p>-->
+                        <!--</a>-->
+                        <!--<a href="" class="list-group-item">-->
+                            <!--<p>2019驾考报名须知，不知道的就麻烦了</p>-->
+                        <!--</a>-->
+                        <!--<a href="" class="list-group-item">-->
+                            <!--<p>科目二右转弯满分操作，知道的人都过了</p>-->
+                        <!--</a>-->
+                        <!--<a href="" class="list-group-item">-->
+                            <!--<p>已经报名驾校的有福了，学车费用将要升高</p>-->
+                        <!--</a>-->
+                        <!--<a href="" class="list-group-item">-->
+                            <!--<p>速看！车感差的人如何通过驾校考试！</p>-->
+                        <!--</a>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--找到适合你的驾校-->
         <div class="col-md-4">
-            <div class="panel panel-primary ">
-                <div class="panel-heading">
-                    <h2 class="text-center">学车视频</h2>
-                    <span class="col-lg-offset-10"><a href="#"></a></span>
-                </div>
-                <div class="">
-                    <div class="list-group">
-                        <a href="" class="list-group-item">
-                            <p>驾考是科目二难还是科目三难？教练说出真真相</p>
-                        </a>
-                        <a href="" class="list-group-item">
-                            <p>警惕最危险的500米！江西男子酒后驾车酿悲剧</p>
-                        </a>
-                        <a href="" class="list-group-item">
-                            <p>2019驾考报名须知，不知道的就麻烦了</p>
-                        </a>
-                        <a href="" class="list-group-item">
-                            <p>科目二右转弯满分操作，知道的人都过了</p>
-                        </a>
-                        <a href="" class="list-group-item">
-                            <p>已经报名驾校的有福了，学车费用将要升高</p>
-                        </a>
-                        <a href="" class="list-group-item">
-                            <p>速看！车感差的人如何通过驾校考试！</p>
-                        </a>
+            <div class="col-md-12 container">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="findSchoolHeading" style="color: #6d468f;"><strong>如何找到合适的驾校?</strong></h3>
+                    </div>
+                    <br>
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            <div class="col-md-3 " style="border-right: 1px solid #d1d1d1">
+                                <span class="glyphicon glyphicon-comment findSchoolGly"></span>
+                            </div>
+                            <div class="col-md-9" >
+                                <span class="findSchoolHeader"><strong>看评价</strong></span>
+                                <br>
+                                <span class="findSchoolContent">通过学员评价看驾校服务</span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col-md-12" style="padding-top: 20px">
+                            <div class="col-md-3 " style="border-right: 1px solid #d1d1d1">
+                                <span class="glyphicon glyphicon-thumbs-up findSchoolGly"></span>
+                            </div>
+                            <div class="col-md-9" >
+                                <span class="findSchoolHeader"><strong>看口碑</strong></span>
+                                <br>
+                                <span class="findSchoolContent">通过认证等级看驾校信用</span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col-md-12" style="padding-top: 20px">
+                            <div class="col-md-3 " style="border-right: 1px solid #d1d1d1">
+                                <span class="glyphicon glyphicon-user findSchoolGly"></span>
+                            </div>
+                            <div class="col-md-9" >
+                                <span class="findSchoolHeader"><strong>看师资</strong></span>
+                                <br>
+                                <span class="findSchoolContent">通过明星教练看驾校实力</span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col-md-12" style="padding-top: 20px;padding-bottom: 30px">
+                            <div class="col-md-3 " style="border-right: 1px solid #d1d1d1">
+                                <span class="glyphicon glyphicon-blackboard findSchoolGly"></span>
+                            </div>
+                            <div class="col-md-9" >
+                                <span class="findSchoolHeader"><strong>看教学</strong></span>
+                                <br>
+                                <span class="findSchoolContent">通过教学视频看教学质量</span>
+                            </div>
+                            <br>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="panel panel-warning ">
-                <div class="panel-heading">
-                    <h2 class="text-center">学车动态</h2>
-                    <span class="col-lg-offset-10"><a href="#"></a></span>
-                </div>
-                <div class="">
-                    <div class="list-group">
-                        <a href="" class="list-group-item">
-                            <p>驾考是科目二难还是科目三难？教练说出真真相</p>
-                        </a>
-                        <a href="" class="list-group-item">
-                            <p>警惕最危险的500米！江西男子酒后驾车酿悲剧</p>
-                        </a>
-                        <a href="" class="list-group-item">
-                            <p>2019驾考报名须知，不知道的就麻烦了</p>
-                        </a>
-                        <a href="" class="list-group-item">
-                            <p>科目二右转弯满分操作，知道的人都过了</p>
-                        </a>
-                        <a href="" class="list-group-item">
-                            <p>已经报名驾校的有福了，学车费用将要升高</p>
-                        </a>
-                        <a href="" class="list-group-item">
-                            <p>速看！车感差的人如何通过驾校考试！</p>
-                        </a>
-                    </div>
-                </div>
+            <div class="col-md-12 container">
+                <table class="table table-striped classCommend table-hover">
+                    <thead>
+                    <tr>
+                        <th>驾校名称</th>
+                        <th>课程名称</th>
+                        <th>价格</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tbodyCommend">
+                    <!--动态插入推荐课程-->
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

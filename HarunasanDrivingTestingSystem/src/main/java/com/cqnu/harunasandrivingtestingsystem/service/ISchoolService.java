@@ -136,7 +136,7 @@ public interface ISchoolService {
      * @param courseId      课程Id
      * @return  List<Enroll>
      */
-    PageInfo<EnrollSL> selectEnroll(String studentName, LocalDateTime timeBefore, LocalDateTime timeAfter,
+    PageInfo<EnrollSL> selectEnroll(Integer username,String studentName, LocalDateTime timeBefore, LocalDateTime timeAfter,
                                     Integer courseId, Integer pageNum, Integer pageSize);
 
     /**
@@ -146,7 +146,7 @@ public interface ISchoolService {
      * @param timeAfter     报名时间右区间
      * @return  List<Enroll>
      */
-    PageInfo<EnrollSL> selectAllEnroll(String studentName, LocalDateTime timeBefore, LocalDateTime timeAfter, Integer pageNum, Integer pageSize);
+    PageInfo<EnrollSL> selectAllEnroll(Integer username,String studentName, LocalDateTime timeBefore, LocalDateTime timeAfter, Integer pageNum, Integer pageSize);
 
     /**
      * 查询所有驾校

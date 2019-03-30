@@ -56,7 +56,6 @@ public class AuthenticationTokenFilter extends UsernamePasswordAuthenticationFil
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         // 尝试获取请求头的 token
         String authToken = httpRequest.getHeader(this.tokenHeader);
-//        logger.info("authToken：" + authToken);
         if (StringUtils.isEmpty(authToken)){
             authToken = httpRequest.getHeader(this.adminTokenHeader);
         }

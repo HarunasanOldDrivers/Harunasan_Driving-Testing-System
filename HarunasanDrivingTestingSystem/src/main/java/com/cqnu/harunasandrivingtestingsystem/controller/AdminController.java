@@ -3,6 +3,7 @@ package com.cqnu.harunasandrivingtestingsystem.controller;
 import com.alibaba.fastjson.JSON;
 import com.cqnu.harunasandrivingtestingsystem.entity.*;
 import com.cqnu.harunasandrivingtestingsystem.entity.VO.*;
+import com.cqnu.harunasandrivingtestingsystem.mapper.AdministratorMapper;
 import com.cqnu.harunasandrivingtestingsystem.security.JwtTokenUtil;
 import com.cqnu.harunasandrivingtestingsystem.security.UserDetailsServiceImpl;
 import com.cqnu.harunasandrivingtestingsystem.service.IAdminService;
@@ -55,6 +56,9 @@ public class AdminController {
 
     @Resource
     private INewsService newsService;
+
+    @Resource
+    private AdministratorMapper administratorMapper;
 
     /**
      * 辅助操作 token 的工具类
@@ -114,6 +118,10 @@ public class AdminController {
     public Result login(@RequestBody Map map) {
         String username = (String) map.get("username");
         String password = (String) map.get("password");
+        Administrator administrator = administratorMapper.selectByPrimaryKey(Integer.valueOf(username));
+        if (administrator.getEnable() != 1){
+            return ResultUtil.failure(452,"账号被冻结");
+        }
         if (adminService.loginById(Integer.parseInt(username), password)) {
             return ResultUtil.success(jwtTokenUtil.generateToken(userDetailsService.loadUserByUsername(String.valueOf(username), "Administrator"), "Administrator"));
         }
@@ -121,11 +129,11 @@ public class AdminController {
     }
 
     /**
-     * 获取管理员列表
+     * 获取管理员信息
      * @return
      */
     @GetMapping("/info")
-    @PreAuthorize("hasAuthority('Admin:root')")
+    @PreAuthorize("hasAuthority('Admin:Base')")
     public Result getInfo(){
         String authToken = request.getHeader(this.tokenHeader);
         String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
@@ -202,6 +210,8 @@ public class AdminController {
     public Result edit(@RequestBody Map map){
         Integer adminId = (Integer) map.get("adminId");
         String roleIdCash = (String) map.get("roleId");
+        String newPassword = (String) map.get("password");
+        logger.warn(newPassword);
         Integer roleId;
         if (roleIdCash.length()>1){
             roleId = null;
@@ -211,7 +221,7 @@ public class AdminController {
         String adminName = (String) map.get("adminName");
         String adminTel = (String) map.get("adminTel");
         logger.warn("adminId"+adminId+"adminName"+adminName+"adminTel"+adminTel+"roleId"+roleId);
-        int result = adminService.updateAdmin(adminId, adminName, adminTel, roleId);
+        int result = adminService.updateAdmin(adminId, adminName, adminTel, roleId, newPassword);
         logger.warn(String.valueOf(result));
         if (result == 2){
             return ResultUtil.success();
@@ -275,15 +285,28 @@ public class AdminController {
         return newsService.getArticle(id);
     }
 
-//    @PostMapping("/createNews")
-//    @PreAuthorize("hasAnyRole('Admin_root','Admin_news')")
-//    public Result createNews(@RequestBody NewsVO newsVO){
-//
-//    }
-//
-//    @PostMapping("/editNews")
-//    @PreAuthorize("hasAnyRole('Admin_root','Admin_news')")
-//    public Result editNews(@RequestBody NewsVO newsVO){
-//
-//    }
+    /**
+     * 创建资讯
+     * @param newsVO
+     * @return
+     */
+    @PostMapping("/createNews")
+    @PreAuthorize("hasAnyRole('Admin_root','Admin_news')")
+    public Result createNews(@RequestBody NewsVO newsVO){
+        if (newsVO == null){
+            return ResultUtil.failure(2000,"参数错误");
+        }
+        return ResultUtil.success();
+    }
+
+    /**
+     * 编辑资讯
+     * @param newsVO
+     * @return
+     */
+    @PostMapping("/editNews")
+    @PreAuthorize("hasAnyRole('Admin_root','Admin_news')")
+    public Result editNews(@RequestBody NewsVO newsVO){
+        return ResultUtil.success();
+    }
 }

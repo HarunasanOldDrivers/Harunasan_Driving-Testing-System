@@ -10,7 +10,7 @@
     <result column="user_telephone" jdbcType="VARCHAR" property="userTelephone" />
   </resultMap>
   <sql id="Base_Column_List">
-    enroll_id, course_id, user_id, enroll_date_time, user_name, user_telephone
+    enroll.enroll_id, enroll.course_id, enroll.user_id, enroll.enroll_date_time, enroll.user_name, enroll.user_telephone
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -34,9 +34,12 @@
           resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from hodts_db.enroll
-    where INSTR(user_name, #{studentName,jdbcType=VARCHAR} )>0
-    and course_id = #{courseId,jdbcType=INTEGER}
+    from hodts_db.enroll, hodts_db.course, hodts_db.school
+    where enroll.course_id = course.course_id
+    and course.school_id = school.school_id
+    and school.school_id = #{schoolId,jdbcType=INTEGER}
+    and INSTR(user_name, #{studentName,jdbcType=VARCHAR} )>0
+    and enroll.course_id = #{courseId,jdbcType=INTEGER}
     and #{enrollDateAfter,jdbcType=DATE} >= enroll_date_time
     and enroll_date_time >= #{enrollDateBefore,jdbcType=DATE}
     order by enroll_date_time desc
@@ -44,8 +47,11 @@
   <select id="selectAll" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from hodts_db.enroll
-    where INSTR(user_name, #{studentName,jdbcType=VARCHAR} )>0
+    from hodts_db.enroll, hodts_db.course, hodts_db.school
+    where enroll.course_id = course.course_id
+    and course.school_id = school.school_id
+    and school.school_id = #{schoolId,jdbcType=INTEGER}
+    and INSTR(user_name, #{studentName,jdbcType=VARCHAR} )>0
     and #{enrollDateAfter,jdbcType=DATE} >= enroll_date_time
     and enroll_date_time >= #{enrollDateBefore,jdbcType=DATE}
     order by enroll_date_time desc

@@ -1,5 +1,9 @@
 $(document).ready(function () {
-
+    $("#nav").load("../nav",function () {
+        // 在载入完成之后改变状态
+        $("#mainpage").removeClass("active");
+        $("#subjectFour").addClass("active");
+    });
     //顺序练习题号，从1开始
     var Currentid = 1;
     //解码当前处于哪个章节

@@ -109,9 +109,9 @@ $(document).ready(function () {
                     LiNavigationFirstWrongLists.next().children("a").text(i);
                     LiNavigationFirstWrongLists.next().children("li").addClass("liNavigation");
                 }
-                if(LiNavigationFirstWrongLists.next().text() === 1){
+
                 LiNavigationFirstWrongLists.next().addClass("active");
-                }
+
                 pageNum = result.pageNum;
                 total = result.total;
                 pages = result.pages;

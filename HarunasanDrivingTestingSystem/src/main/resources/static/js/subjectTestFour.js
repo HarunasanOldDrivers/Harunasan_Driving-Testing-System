@@ -4,6 +4,9 @@ $(document).ready(function () {
         $("#mainpage").removeClass("active");
         $("#subjectFour").addClass("active");
     });
+
+    var text;
+
     intBtn();
     intLabClick_1()
     displayBtn();

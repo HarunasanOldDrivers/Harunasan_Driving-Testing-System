@@ -1394,7 +1394,7 @@ $(document).ready(function () {
             },
             success:function (result) {
                 alert("删除成功");
-                // window.location.href="../subjectFour/wrongList";
+                window.location.href="../subjectFour/wrongList";
             },
             error:function () {
                 alert("网络好像开了小差了呢~删除没有成功呢");

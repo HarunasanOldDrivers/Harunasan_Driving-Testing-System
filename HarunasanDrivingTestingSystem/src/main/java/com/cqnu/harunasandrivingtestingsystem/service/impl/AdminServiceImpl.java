@@ -8,15 +8,20 @@ import com.cqnu.harunasandrivingtestingsystem.entity.VO.PageInfo;
 import com.cqnu.harunasandrivingtestingsystem.mapper.*;
 import com.cqnu.harunasandrivingtestingsystem.service.IAdminService;
 import com.cqnu.harunasandrivingtestingsystem.utils.Password2Hash;
+import com.cqnu.harunasandrivingtestingsystem.utils.SendSMS;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,6 +36,7 @@ public class AdminServiceImpl implements IAdminService {
 
     Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
 
+    private static final String AUDIT_REASON = "信息不完整";
 
     @Resource
     private AdministratorMapper administratorMapper;
@@ -47,18 +53,30 @@ public class AdminServiceImpl implements IAdminService {
     @Resource
     private AdminRolesMapper adminRolesMapper;
 
+    @Autowired
+    private SendSMS sendSMS;
+
     @Override
-    public int createAdmin(String name, String password, String phone) {
+    public int createAdmin(String name, String password, String phone, Integer role) {
         Administrator administrator = new Administrator();
         administrator.setAdminName(name);
+        // 对密码进行加密
         administrator.setAdminPassword(Password2Hash.sha256CryptWithSalt(password,name));
         administrator.setAdminPhone(phone);
-        return administratorMapper.insertSelective(administrator);
+        if (administratorMapper.insertSelective(administrator) == 1){
+            List<Administrator> administrator1 = administratorMapper.selectByName(name);
+            AdminRoles adminRoles = new AdminRoles(administrator1.get(0).getId(), role);
+            return adminRolesMapper.insertSelective(adminRoles);
+        }
+        return 0;
+
     }
 
     @Override
-    public int banAdmin(int id) {
-        return 0;
+    public int banAdmin(int id, Integer status) {
+        Administrator administrator = administratorMapper.selectByPrimaryKey(id);
+        administrator.setEnable(status);
+        return administratorMapper.updateByPrimaryKeySelective(administrator);
     }
 
     @Override
@@ -77,11 +95,6 @@ public class AdminServiceImpl implements IAdminService {
         } else {
             return false;
         }
-    }
-
-    @Override
-    public boolean loginByTelephone(String telephone, String password) {
-        return false;
     }
 
     @Override
@@ -122,14 +135,24 @@ public class AdminServiceImpl implements IAdminService {
     }
 
     @Override
-    public boolean audit(Integer schoolId, Integer status){
+    public boolean audit(Integer schoolId, Integer status, String text){
         School school = schoolMapper.selectByPrimaryKey(schoolId);
         if (school == null){
             logger.warn("School not found: ");
-            throw new UsernameNotFoundException("School not found");
+            return false;
         }
         school.setSchoolAuthenticationStatus((byte)status.intValue());
-        return schoolMapper.updateByPrimaryKeySelective(school) == 1;
+        school.setSchoolPassTime(new Date());
+        if(schoolMapper.updateByPrimaryKeySelective(school) == 1){
+            if (status == 2){
+                if (StringUtils.isEmpty(text)){
+                    sendSMS.sendSMSAudit(school.getSchoolCorporateTel(),school.getSchoolName(),AUDIT_REASON);
+                }
+                sendSMS.sendSMSAudit(school.getSchoolCorporateTel(),school.getSchoolName(),text);
+            }
+            return true;
+        }
+        return false;
     }
 
     @Override

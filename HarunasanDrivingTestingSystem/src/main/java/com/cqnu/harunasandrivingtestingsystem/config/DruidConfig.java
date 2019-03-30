@@ -23,7 +23,7 @@ import java.util.Map;
  * @author LiAixing
  * @version 1.0
  * @className DruidConfig
- * @description TODO
+ * @description Druid连接池配置文件
  * @date 2019/3/5 15:40
  **/
 

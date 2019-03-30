@@ -18,9 +18,23 @@ public interface CourseMapper {
 
     int updateByPrimaryKey(Course record);
 
+    /**
+     * 根据驾校id查询课程
+     * @param schoolId 驾校id
+     * @return
+     */
     Course selectBySchoolIdOrderByPrice(Integer schoolId);
 
+    /**
+     * 根据驾校id查询所有课程
+     * @param schoolId 驾校id
+     * @return
+     */
     List<Course> selectBySchoolId(Integer schoolId);
 
+    /**
+     * 查询所有课程
+     * @return
+     */
     List<Course> selectAll();
 }

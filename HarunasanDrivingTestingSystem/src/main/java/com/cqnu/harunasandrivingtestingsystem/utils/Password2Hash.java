@@ -15,10 +15,8 @@ public class Password2Hash {
     public static String sha256CryptWithSalt(String password, String account){
 
         byte[] plaintext = password.getBytes();
+        // 以sha256算法进行加盐加密
         return sha256Crypt(plaintext,"$5$"+encodeBase64String(account.getBytes()));
     }
 
-//    public static void main(String[] args) {
-//        System.out.println(sha256CryptWithSalt("123456","王二狗"));
-//    }
 }

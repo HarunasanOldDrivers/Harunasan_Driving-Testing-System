@@ -146,6 +146,7 @@ $(document).ready(function () {
                     success: function (result) {
                         // 生成导航页数量
                         var LiNavigationFirstWrongLists = $("#LiNavigationFirstWrongLists");
+                        LiNavigationFirstWrongLists.next().addClass("active");
                         for (var i = result.pages; i >= 1; i--) {
                             // LiNavigationFirstWrongLists.after("<li><a class='liNavigation' data-target='button' href=\"\">" + i + "</a></li>");
                         }
@@ -831,11 +832,11 @@ $(document).ready(function () {
                 }
             });
         }else {
-            if(LastPageCount === 1){
+            if(pageNo ==="尾页"){
                 var DivThreeQuestion =$("#DivThreeQuestion");
                 DivThreeQuestion.hide();
                 $(this).siblings().removeClass("active");
-                $(this).next().addClass("active");
+                $(this).prev().addClass("active");
                 //清除CSS样式
                 var SpanRightOrWrongTips = $("#SpanRightOrWrongTips");
                 var QoRightAnswer = $("#QoRightAnswer");
@@ -1037,13 +1038,181 @@ $(document).ready(function () {
                     }
                 });
             }
+            else if (!isNaN(pageNo)) {
+                var DivThreeQuestion =$("#DivThreeQuestion");
+                DivThreeQuestion.hide();
+                var DivTwoQuestion =$("#DivTwoQuestion");
+                DivThreeQuestion.hide();
+                $(this).siblings().removeClass("active");
+                $(this).addClass("active");
+                //清除CSS样式
+                var SpanRightOrWrongTips = $("#SpanRightOrWrongTips");
+                var QoRightAnswer = $("#QoRightAnswer");
+                var qoDescription = $("#qoDescription");
+                var DivAnswers = $("#DivAnswers");
+                var LiAnswers1 = $("#LiAnswers1");
+                var LiAnswers2 = $("#LiAnswers2");
+                var LiAnswers3 = $("#LiAnswers3");
+                var LiAnswers4 = $("#LiAnswers4");
+                var qoimage = $("#qoimage");
+                var qovideo = $("#qovideo");
+                var SpanQuestionIdTwo = $("SpanQuestionIdTwo");
+                var SpanQuestionTitleTwo =$("SpanQuestionTitleTwo");
+                var SpanQuestionIdThree = $("SpanQuestionIdThree");
+                var SpanQuestionTitleThree =$("SpanQuestionTitleThree");
+                var SpanQuestionId = $("SpanQuestionId");
+                var SpanQuestionTitle =$("SpanQuestionTitle");
+                SpanQuestionIdTwo.html("");
+                SpanQuestionTitleTwo.html("");
+                SpanQuestionId.html("");
+                SpanQuestionTitle.html("");
+                SpanQuestionIdThree.html("");
+                SpanQuestionTitleThree.html("");
+                $("#BtnConfirmAnswerC").show();
+                $("#BtnConfirmAnswerD").show();
+                var SpanUserChoose = $("#SpanUserChoose");
+                qoDescription.css("display", "none").val("");
+                DivAnswers.css("visibility", "hidden");
+                qoimage.attr("src", "");
+                qovideo.attr("src", "");
+                SpanUserChoose.removeClass("text-success text-danger").text("");
+                QoRightAnswer.removeClass("text-success text-danger").css("font-weight", "normal").text("");
+                SpanRightOrWrongTips.removeClass("text-success text-danger").css("font-weight", "normal").text("");
+                LiAnswers1.removeClass("text-success text-danger").css("font-weight", "normal").text("");
+                LiAnswers2.removeClass("text-success text-danger").css("font-weight", "normal").text("");
+                LiAnswers3.removeClass("text-success text-danger").css("font-weight", "normal").text("");
+                LiAnswers4.removeClass("text-success text-danger").css("font-weight", "normal").text("");
+
+                SpanRightOrWrongTips = $("#SpanRightOrWrongTipsTwo");
+                QoRightAnswer = $("#QoRightAnswerTwo");
+                qoDescription = $("#qoDescriptionTwo");
+                DivAnswers = $("#DivAnswersTwo");
+                LiAnswers1 = $("#LiAnswers1Two");
+                LiAnswers2 = $("#LiAnswers2Two");
+                LiAnswers3 = $("#LiAnswers3Two");
+                LiAnswers4 = $("#LiAnswers4Two");
+                qoimage = $("#qoimageTwo");
+                qovideo = $("#qovideoTwo");
+                $("#BtnConfirmAnswerCTwo").show();
+                $("#BtnConfirmAnswerDTwo").show();
+                SpanUserChoose = $("#SpanUserChooseTwo");
+                qoDescription.css("display", "none").val("");
+                DivAnswers.css("visibility", "hidden");
+                qoimage.attr("src", "");
+                qovideo.attr("src", "");
+                SpanUserChoose.removeClass("text-success text-danger").text("");
+                QoRightAnswer.removeClass("text-success text-danger").css("font-weight", "normal").text("");
+                SpanRightOrWrongTips.removeClass("text-success text-danger").css("font-weight", "normal").text("");
+                LiAnswers1.removeClass("text-success text-danger").css("font-weight", "normal").text("");
+                LiAnswers2.removeClass("text-success text-danger").css("font-weight", "normal").text("");
+                LiAnswers3.removeClass("text-success text-danger").css("font-weight", "normal").text("");
+                LiAnswers4.removeClass("text-success text-danger").css("font-weight", "normal").text("");
+
+
+                SpanRightOrWrongTips = $("#SpanRightOrWrongTipsThree");
+                QoRightAnswer = $("#QoRightAnswerThree");
+                qoDescription = $("#qoDescriptionThree");
+                DivAnswers = $("#DivAnswersThree");
+                LiAnswers1 = $("#LiAnswers1Three");
+                LiAnswers2 = $("#LiAnswers2Three");
+                LiAnswers3 = $("#LiAnswers3Three");
+                LiAnswers4 = $("#LiAnswers4Three");
+                qoimage = $("#qoimageThree");
+                qovideo = $("#qovideoThree");
+                $("#BtnConfirmAnswerCThree").show();
+                $("#BtnConfirmAnswerDThree").show();
+                SpanUserChoose = $("#SpanUserChooseThree");
+                qoDescription.css("display", "none").val("");
+                DivAnswers.css("visibility", "hidden");
+                qoimage.attr("src", "");
+                qovideo.attr("src", "");
+                SpanUserChoose.removeClass("text-success text-danger").text("");
+                QoRightAnswer.removeClass("text-success text-danger").css("font-weight", "normal").text("");
+                SpanRightOrWrongTips.removeClass("text-success text-danger").css("font-weight", "normal").text("");
+                LiAnswers1.removeClass("text-success text-danger").css("font-weight", "normal").text("");
+                LiAnswers2.removeClass("text-success text-danger").css("font-weight", "normal").text("");
+                LiAnswers3.removeClass("text-success text-danger").css("font-weight", "normal").text("");
+                LiAnswers4.removeClass("text-success text-danger").css("font-weight", "normal").text("");
+                $.ajax({
+                    type: "get",
+                    url: "/api/train/four/mistakes",
+                    dataType: 'json',
+                    data: {
+                        pageSize: 3,
+                        pageNo: pages
+                    },
+                    beforeSend: function (XMLHttpRequest) {
+                        var Authorization = $.cookie('Authorization');
+                        XMLHttpRequest.setRequestHeader("Authorization", Authorization);
+                    },
+                    success: function (result) {
+                        // 生成导航页数量
+                        var LiNavigationFirstWrongLists = $("#LiNavigationFirstWrongLists");
+                        for (var i = result.pages; i >= 1; i--) {
+                            // LiNavigationFirstWrongLists.after("<li><a class='liNavigation' data-target='button' href=\"\">" + i + "</a></li>");
+                        }
+                        var $textarea = $("#qoDescription");
+                        var $textareaTwo = $("#qoDescriptionTwo");
+                        var $textareaThree = $("#qoDescriptionThree");
+                        pageNum = result.pageNum;
+                        total = result.total;
+                        pages = result.pages;
+                        //第一道题
+                        $("#SpanQuestionId").html(result.list[0].qoId + "：");
+                        $("#SpanQuestionTitle").html(result.list[0].qoTitle);
+                        $("#LiAnswers1").html(result.list[0].qoOptionA);
+                        $("#LiAnswers2").html(result.list[0].qoOptionB);
+                        $textarea.val(result.list[0].qoDescription);
+                        var textareaValue = $textarea.val();
+                        $textarea.val(textareaValue);
+                        $("#QoRightAnswer").html(result.list[0].qoAnswer);
+                        $("#qoDifficulties").html(result.list[0].qoDifficultty);
+                        if ((result.list[0].qoType === 'judge')) {
+                            $("#qoType").html("判断题")
+                        } else if ((result.list[0].qoType === 'single')) {
+                            $("#qoType").html("单选题")
+                        } else {
+                            $("#qoType").html("多选题")
+                        }
+                        //如果有CD选项
+                        if (result.list[0].qoOptionC !== null) {
+                            $("#LiAnswers3").html(result.list[0].qoOptionC);
+                        } else {
+                            $("#BtnConfirmAnswerC").hide();
+                        }
+                        if (result.list[0].qoOptionD !== null) {
+                            $("#LiAnswers4").html(result.list[0].qoOptionD);
+                        } else {
+                            $("#BtnConfirmAnswerD").hide();
+                        }
+                        //如果有图片
+                        if (result.list[0].qoImage !== null) {
+                            $("#qoimage").attr("src", result.list[0].qoImage);
+                            $("#qoimage").css("display","block");
+                            $("#qovideo").css("display","none");
+                        }
+                        //如果有视频
+                        if (result.list[0].qoVideo !== null) {
+                            $("#qoimage").attr("src", result.list[0].qoVideo);
+                            $("#qoimage").css("display","none");
+                            $("#qovideo").css("display","block");
+
+                        }
+                    },
+                    error: function () {
+                        $("#SpanQuestionId").html("");
+                        $("#SpanQuestionTitle").html("");
+                        alert("网络好像开了小差了呢~");
+                    }
+                });
+            }
             else{
                 var DivThreeQuestion =$("#DivThreeQuestion");
                 DivThreeQuestion.hide();
                 var DivTwoQuestion =$("#DivTwoQuestion");
                 DivThreeQuestion.hide();
                 $(this).siblings().removeClass("active");
-                $(this).next().addClass("active");
+                $(this).addClass("active");
                 //清除CSS样式
                 var SpanRightOrWrongTips = $("#SpanRightOrWrongTips");
                 var QoRightAnswer = $("#QoRightAnswer");

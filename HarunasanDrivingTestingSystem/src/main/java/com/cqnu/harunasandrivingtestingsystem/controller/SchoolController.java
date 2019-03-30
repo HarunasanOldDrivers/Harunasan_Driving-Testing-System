@@ -34,7 +34,7 @@ import java.util.*;
  * @author LiAixing
  * @version 1.0
  * @className SchoolController
- * @description TODO
+ * @description 驾校Controller
  * @date 2019/3/14 3:10
  **/
 @RestController
@@ -84,6 +84,9 @@ public class SchoolController {
             if (!schoolService.checkAuditing(email)){
                 return ResultUtil.failure(408,"账号正在审核中或未通过审核");
             }
+            if (!schoolService.checkAuditing(email)){
+                return ResultUtil.failure(408,"您的账号已被冻结,请联系管理员");
+            }
             map.put("token",jwtTokenUtil.generateToken(userDetailsService.loadUserByUsername(String.valueOf(schoolService.getIdByEmail(email)),"School"),"School"));
             map.put("schoolName",schoolService.getSchoolNameByEmail(email));
             return ResultUtil.success(map);
@@ -96,7 +99,7 @@ public class SchoolController {
      * 验证验证码
      * @param telephone 手机号
      * @param verifyCode 验证码
-     * @return  408
+     * @return  code: 408 验证码错误或失效
      */
     @PostMapping("/validate")
     public Result validate(String telephone,String verifyCode){
@@ -150,7 +153,7 @@ public class SchoolController {
                          String companyName, String corporateName, String corporateTelephone, String socialCreditCode, Date startDate,
                          String district, String detailLocation,@RequestParam("image") MultipartFile[] files){
 
-
+        // 非空验证
         if (StringUtils.isEmpty(email) || StringUtils.isEmpty(schoolName) || StringUtils.isEmpty(password) || StringUtils.isEmpty(enrollTelephone) ||
             StringUtils.isEmpty(companyName) || StringUtils.isEmpty(corporateName) ||
             StringUtils.isEmpty(corporateTelephone) ||
@@ -163,6 +166,7 @@ public class SchoolController {
                             + " detailLocation: " + detailLocation + " files: " + files);
             return ResultUtil.failure(600,"参数错误");
         }
+        // 检校文件
         if (files.length != 3){
             return ResultUtil.failure(600,"文件上传失败");
         }
@@ -183,6 +187,7 @@ public class SchoolController {
     /**
      * 获取驾校信息
      * @return
+     * 需要权限:School
      */
     @GetMapping("/profile")
     @PreAuthorize("hasRole('School')")
@@ -197,6 +202,7 @@ public class SchoolController {
      * @param newTel    新报名电话
      * @return  code: 200 成功
      *          code: 605 修改报名电话失败
+     * 需要权限:School
      */
     @PostMapping("/alterTel")
     @PreAuthorize("hasRole('School')")
@@ -213,6 +219,7 @@ public class SchoolController {
      * 修改驾校简介
      * @param newDec  新简介
      * @return
+     * 需要权限:School
      */
     @PostMapping("/alterDescribe")
     @PreAuthorize("hasRole('School')")
@@ -229,6 +236,7 @@ public class SchoolController {
      * 修改首页图片
      * @param files 首页图片
      * @return
+     * 需要权限:School
      */
     @PostMapping("/alterIcon")
     @PreAuthorize("hasRole('School')")
@@ -257,6 +265,7 @@ public class SchoolController {
      * @param price 课程价格
      * @return  code: 200 成功
      *          code: 604 添加课程失败
+     * 需要权限:School
      */
     @PostMapping("/addCourse")
     @PreAuthorize("hasRole('School')")
@@ -274,6 +283,7 @@ public class SchoolController {
      * @return  code: 200 成功
      *          code: 620 查无此课
      *          code: 621 下架课程失败
+     * 需要权限:School
      */
     @PostMapping("/closeCourse")
     @PreAuthorize("hasAnyRole('School')")
@@ -291,6 +301,7 @@ public class SchoolController {
      * @param pageNo  当前页码
      * @param pageSize  分页大小
      * @return
+     * 需要权限:School
      */
     @GetMapping("/getCourse")
     @PreAuthorize("hasAnyRole('School')")
@@ -309,6 +320,7 @@ public class SchoolController {
      * @param courseId  课程Id
      * @return  PageInfo<Enroll>
      *          code : 600 参数错误
+     * 需要权限:School
      */
     @GetMapping("/selectEnroll")
     @PreAuthorize("hasAnyRole('School')")
@@ -336,6 +348,7 @@ public class SchoolController {
     /**
      * 获取课程名称
      * @return  { "courseId" : courseId, "courseName" : courseName}
+     * 需要权限:School
      */
     @GetMapping("/courseName")
     @PreAuthorize("hasAnyRole('School')")

@@ -1,16 +1,15 @@
 package com.cqnu.harunasandrivingtestingsystem.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.cqnu.harunasandrivingtestingsystem.entity.Administrator;
-import com.cqnu.harunasandrivingtestingsystem.entity.Result;
-import com.cqnu.harunasandrivingtestingsystem.entity.Roles;
-import com.cqnu.harunasandrivingtestingsystem.entity.VO.AdminFE;
-import com.cqnu.harunasandrivingtestingsystem.entity.VO.AdminInfo;
-import com.cqnu.harunasandrivingtestingsystem.entity.VO.MenuFE;
-import com.cqnu.harunasandrivingtestingsystem.entity.VO.PageInfo;
+import com.cqnu.harunasandrivingtestingsystem.entity.*;
+import com.cqnu.harunasandrivingtestingsystem.entity.VO.*;
 import com.cqnu.harunasandrivingtestingsystem.security.JwtTokenUtil;
 import com.cqnu.harunasandrivingtestingsystem.security.UserDetailsServiceImpl;
 import com.cqnu.harunasandrivingtestingsystem.service.IAdminService;
+import com.cqnu.harunasandrivingtestingsystem.service.IBaseUserService;
+import com.cqnu.harunasandrivingtestingsystem.service.INewsService;
+import com.cqnu.harunasandrivingtestingsystem.service.ISchoolService;
+import com.cqnu.harunasandrivingtestingsystem.service.impl.NewsServiceImpl;
 import com.cqnu.harunasandrivingtestingsystem.utils.Json2DB;
 import com.cqnu.harunasandrivingtestingsystem.utils.ResultUtil;
 import com.github.pagehelper.PageHelper;
@@ -26,16 +25,13 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author LiAixing
  * @version 1.0
  * @className AdminController
- * @description TODO
+ * @description 管理员Controller
  * @date 2019/2/23 3:54
  **/
 
@@ -49,7 +45,16 @@ public class AdminController {
     private IAdminService adminService;
 
     @Resource
+    private ISchoolService schoolService;
+
+    @Resource
+    private IBaseUserService baseUserService;
+
+    @Resource
     private UserDetailsServiceImpl userDetailsService;
+
+    @Resource
+    private INewsService newsService;
 
     /**
      * 辅助操作 token 的工具类
@@ -69,25 +74,42 @@ public class AdminController {
     @Value("${jwt.admin_header}")
     private String tokenHeader;
 
+    /**
+     * 创建管理员
+     * @param map  json对象，用map接收
+     * @return
+     */
     @PostMapping("/createAdmin")
     @PreAuthorize("hasAuthority('Admin:Create')")
-    public Result createAdmin(String name, String password, String phone){
-        try {
-            logger.info("New Administrator:" + URLDecoder.decode(name,"UTF-8"));
-            adminService.createAdmin(URLDecoder.decode(name,"UTF-8"),password,phone);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return ResultUtil.success();
+    public Result createAdmin(@RequestBody Map map){
+        String name = (String)map.get("name");
+        String password = (String)map.get("password");
+        String phone = (String)map.get("phone");
+        Integer role = (Integer) map.get("role");
+        return adminService.createAdmin(name,password,phone,role) ==1 ? ResultUtil.success() :ResultUtil.failure(800,"创建失败");
     }
 
+    /**
+     * 改变账号状态
+     * @param map json对象
+     * @return
+     */
     @PostMapping("/banAdmin")
     @PreAuthorize("hasRole('Admin_root')")
-    public Result banAdmin(Integer id, Integer status){
-
-        return ResultUtil.success();
+    public Result banAdmin(@RequestBody Map map){
+        Integer id = (Integer) map.get("id");
+        Integer status = (Integer) map.get("status");
+        if (adminService.banAdmin(id,status) == 1) {
+            return ResultUtil.success();
+        }
+        return ResultUtil.failure(800,"失败");
     }
 
+    /**
+     * 管理员登录
+     * @param map json对象
+     * @return
+     */
     @PostMapping("/login")
     public Result login(@RequestBody Map map) {
         String username = (String) map.get("username");
@@ -98,8 +120,12 @@ public class AdminController {
             return ResultUtil.failure(408,"登录失败");
     }
 
+    /**
+     * 获取管理员列表
+     * @return
+     */
     @GetMapping("/info")
-    @PreAuthorize("hasAuthority('Admin:Base')")
+    @PreAuthorize("hasAuthority('Admin:root')")
     public Result getInfo(){
         String authToken = request.getHeader(this.tokenHeader);
         String username = this.jwtTokenUtil.getUsernameFromToken(authToken);
@@ -112,20 +138,24 @@ public class AdminController {
 
     /**
      * 审核驾校
-     * @param schoolId  驾校Id
-     * @param status  状态码 { 0:未通过, 2:通过}
+     * schoolId  驾校Id
+     * status  状态码 { 1:未通过, 2:通过}
+     * text 未通过原因
      * @return
      */
     @PostMapping("/audit")
     @PreAuthorize("hasAuthority('Admin:Audit')")
-    public Result audit(Integer schoolId, Integer status){
+    public Result audit(@RequestBody Map map){
+        Integer schoolId = (Integer)map.get("schoolId");
+        Integer status = (Integer)map.get("status");
+        String text = (String)map.get("text");
         if (schoolId == null || status == null){
-            ResultUtil.failure(600,"参数错误");
+            return ResultUtil.failure(600,"参数错误");
         }
-        if ( status != 0 & status != 2 ){
-            ResultUtil.failure(600,"参数错误");
+        if ( status != 1 & status != 2 ){
+            return ResultUtil.failure(600,"参数错误");
         }
-        if (adminService.audit(schoolId,status)) {
+        if (adminService.audit(schoolId, status, text)) {
             return ResultUtil.success();
         } else {
             return ResultUtil.failure(1000,"审核失败");
@@ -140,7 +170,7 @@ public class AdminController {
      */
     @GetMapping("/list")
     @PreAuthorize("hasRole('Admin_root')")
-    public PageInfo<AdminInfo> getList(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize){
+    public PageInfo<AdminInfo> getList(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "5") Integer pageSize){
         return adminService.getList(pageNo,pageSize);
     }
 
@@ -154,7 +184,7 @@ public class AdminController {
      */
     @GetMapping("/search")
     @PreAuthorize("hasRole('Admin_root')")
-    public PageInfo<AdminInfo> search(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize,
+    public PageInfo<AdminInfo> search(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "5") Integer pageSize,
                                        String adminName, Integer roleId){
         if (roleId == null & StringUtils.isEmpty(adminName)){
             return getList(pageNo,pageSize);
@@ -162,6 +192,11 @@ public class AdminController {
         return adminService.search(pageNo,pageSize,adminName,roleId);
     }
 
+    /**
+     * 编辑管理员
+     * @param map
+     * @return
+     */
     @PostMapping("/edit")
     @PreAuthorize("hasRole('Admin_root')")
     public Result edit(@RequestBody Map map){
@@ -185,4 +220,70 @@ public class AdminController {
         }
     }
 
+    /**
+     * 获取所有驾校
+     * @return
+     */
+    @GetMapping("/schoolList")
+    @PreAuthorize("hasAnyRole('Admin_root','Admin_school')")
+    public PageInfo<School> getSchoolList(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize){
+        PageHelper.startPage(pageNo,pageSize);
+        return new PageInfo<>(schoolService.selectAllSchool());
+    }
+
+    /**
+     * 获取待审核驾校
+     */
+    @GetMapping("/auditingSchoolList")
+    @PreAuthorize("hasAnyRole('Admin_root','Admin_school')")
+    public PageInfo<School> getAuditingSchoolList(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize){
+        PageHelper.startPage(pageNo,pageSize);
+        return new PageInfo<>(schoolService.selectAuditingSchool());
+    }
+
+    /**
+     * 获取所有用户
+     */
+    @GetMapping("/userList")
+    @PreAuthorize("hasAnyRole('Admin_root','Admin_user')")
+    public PageInfo<User> getUserList(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize){
+        PageHelper.startPage(pageNo,pageSize);
+        return new PageInfo<>(baseUserService.getUserList());
+    }
+
+    /**
+     * 获取所有文章
+     * @param pageNo 当前页
+     * @param pageSize 分页大小
+     * @return
+     */
+    @GetMapping("/newsList")
+    @PreAuthorize("hasAnyRole('Admin_root','Admin_news')")
+    public PageInfo<News> getNewsList(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize) {
+        PageHelper.startPage(pageNo, pageSize);
+        return new PageInfo<>(newsService.getNewsList());
+    }
+
+    /**
+     * 获取指定文章
+     * @param id 文章id
+     * @return
+     */
+    @GetMapping("/news/{id}")
+    @PreAuthorize("hasAnyRole('Admin_root','Admin_news')")
+    public News getNews(@PathVariable Integer id){
+        return newsService.getArticle(id);
+    }
+
+//    @PostMapping("/createNews")
+//    @PreAuthorize("hasAnyRole('Admin_root','Admin_news')")
+//    public Result createNews(@RequestBody NewsVO newsVO){
+//
+//    }
+//
+//    @PostMapping("/editNews")
+//    @PreAuthorize("hasAnyRole('Admin_root','Admin_news')")
+//    public Result editNews(@RequestBody NewsVO newsVO){
+//
+//    }
 }

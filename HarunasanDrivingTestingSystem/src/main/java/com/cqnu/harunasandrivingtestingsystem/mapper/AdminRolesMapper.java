@@ -15,5 +15,10 @@ public interface AdminRolesMapper {
 
     int updateByPrimaryKey(AdminRoles record);
 
+    /**
+     * 根据管理员id查询管理员/角色关系
+     * @param adminId 管理员id
+     * @return
+     */
     AdminRoles selectByAdminId(Integer adminId);
 }

@@ -20,10 +20,40 @@ public interface SchoolMapper {
 
     int updateByPrimaryKey(School record);
 
-    School selectIdByEmail(String telephone);
+    /**
+     * 根据邮箱查找驾校
+     * @param email
+     * @return
+     */
+    School selectIdByEmail(String email);
 
+    /**
+     * 根据邮箱查找驾校名称
+     * @param email
+     * @return
+     */
     String selectSchoolNameByEmail(String email);
 
-    List<School> searchSchools(@Param("schoolName") String school, @Param("area") String area,
+    /**
+     * 根据 驾校名称，地区，价格区间查找驾校
+     * @param schoolName
+     * @param area
+     * @param minPrice
+     * @param maxPrice
+     * @return
+     */
+    List<School> searchSchools(@Param("schoolName") String schoolName, @Param("area") String area,
                                @Param("minPrice") Integer minPrice, @Param("maxPrice") Integer maxPrice);
+
+    /**
+     * 查找所有驾校
+     * @return
+     */
+    List<School> selectAll();
+
+    /**
+     * 查找待审核驾校
+     * @return
+     */
+    List<School> selectAuditing();
 }

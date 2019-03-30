@@ -22,7 +22,7 @@ import java.util.Set;
  * @author LiAixing
  * @version 1.0
  * @className RedisConfig
- * @description TODO
+ * @description Redis配置文件
  * @date 2019/3/12 15:49
  **/
 @EnableCaching

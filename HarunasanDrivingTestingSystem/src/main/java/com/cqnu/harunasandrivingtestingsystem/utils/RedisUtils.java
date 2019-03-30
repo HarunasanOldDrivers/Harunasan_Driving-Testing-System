@@ -91,20 +91,4 @@ public class RedisUtils {
         }
     }
 
-
-    public static void main(String[] args) {
-        RedisUtils redisUtils = new RedisUtils();
-        redisUtils.set("123456","123456");
-
-//
-//        JedisConnectionFactory factory = new JedisConnectionFactory();
-//        factory.setPort(6379);
-//        factory.setHostName("teriri.com");
-//        factory.setPassword("harunasan");
-//        factory.setDatabase(0);
-//        RedisConnection conn = factory.getConnection();
-//        conn.set("hello".getBytes(), "world".getBytes());
-//        System.out.println(new String(conn.get("hello".getBytes())));
-
-    }
 }

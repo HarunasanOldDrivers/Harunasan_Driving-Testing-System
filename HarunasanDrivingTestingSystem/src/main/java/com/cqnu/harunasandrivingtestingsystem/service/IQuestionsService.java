@@ -169,12 +169,35 @@ public interface IQuestionsService {
      */
     String judge(Integer id, String answer);
 
+    /**
+     * 添加错题
+     * @param username 用户id
+     * @param qoid 题号
+     * @return
+     */
     int addMistake(Integer username, Integer qoid);
 
+    /**
+     * 删除错题
+     * @param username 用户id
+     * @param qoId 题号
+     * @return
+     */
     int deleteMistake(Integer username, Integer qoId);
 
+    /**
+     * 顺序获取错题
+     * @param id  序号
+     * @param username  用户id
+     * @return
+     */
     Questions orderMistake(@RequestParam(defaultValue = "1") Integer id, Integer username);
 
+    /**
+     * 随机获取错题
+     * @param username 用户id
+     * @return
+     */
     Questions randomMistake(Integer username);
 
 }

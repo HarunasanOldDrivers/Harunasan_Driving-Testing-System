@@ -77,10 +77,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 添加无权限时的处理
                 .accessDeniedHandler(this.accessDeniedHandler);
 
-        // 这块是配置跨域请求的
-        // ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = httpSecurity.authorizeRequests();
-        //让Spring security放行所有preflight request
-//        registry.requestMatchers(CorsUtils::isPreFlightRequest).permitAll();
     }
 
     @Override

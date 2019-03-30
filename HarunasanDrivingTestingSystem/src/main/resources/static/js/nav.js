@@ -19,13 +19,54 @@ $(document).ready(function () {
         $(".UserNameAndLogoff").hide();
     }
 
-    //点击登录之后按钮禁用
-    // $(".js-loading-btn").on("click",function (e) {
-    //     var btn = $(this).button("loading");
-    //     setTimeout(function (e) {
-    //         btn.button("reset")
-    //     },3000)
-    // })
+    //发送验证码修改密码
+    $("#BtnForgetGetCode").click(function () {
+        // UserInfo.sendSMS
+        var inputTelCode = $("#inputTelCode");
+        //如果有值，发送验证码
+        if(inputTelCode.val()){
+            $.ajax({
+                type:"get",
+                url:"/api/user/sendSMS",
+                dataType:"json",
+                data:{
+                    telephone:inputTelCode.val()
+                },
+                beforeSend: function (XMLHttpRequest) {
+                    var Authorization = $.cookie('Authorization');
+                    XMLHttpRequest.setRequestHeader("Authorization", Authorization);
+                },
+                success:function (result) {
+                    alert("发送验证码成功，请注意查收");
+                },
+                error:function (result) {
+                    alert("验证码错误，请重新输入");
+                }
+            });
+        }else{
+            alert("请输入手机号/账号");
+        }
+
+    });
+
+    //提交修改密码
+    $("#BtnSubmitNewPassword").click(function () {
+        var inputForgetUserAccountTel = $("#inputForgetUserAccountTel");
+        var inputForgetUserPassword = $("#inputForgetUserPassword");
+        var inputUserPasswordAgain = $("#inputUserPasswordAgain");
+        var inputTelCode = $("#inputTelCode");
+        if (inputForgetUserPassword.val() && inputForgetUserAccountTel.val() && inputUserPasswordAgain.val() && inputTelCode.val() ){
+           if(inputForgetUserPassword.val() === inputUserPasswordAgain.val()){
+               alert("两次密码填写正确");
+           }
+           else{
+               alert("两次输入密码不一致");
+           }
+        }else {
+            alert("请填写所有信息以及验证码");
+        }
+    });
+
 
     //点击普通用户登录时发送Ajax请求
     UserLogin.click(function () {

@@ -97,7 +97,7 @@ public class AdminController {
         String name = (String)map.get("name");
         String password = (String)map.get("password");
         String phone = (String)map.get("phone");
-        Integer role = (Integer) map.get("role");
+        Integer role = Integer.valueOf((String)map.get("role"));
         return adminService.createAdmin(name,password,phone,role) ==1 ? ResultUtil.success() :ResultUtil.failure(800,"创建失败");
     }
 
@@ -422,16 +422,83 @@ public class AdminController {
 
     /**
      * 修改科目一
-     * @param questionsOne
+     * @param map1
      * @return
      */
     @PostMapping("/editQuestionsOne")
     @PreAuthorize("hasAnyRole('Admin_root','Admin_questions')")
-    public Result editQuestionsOne(@RequestBody QuestionsOne questionsOne){
+    public Result editQuestionsOne(@RequestBody Map map1){
+        Map map = (Map) map1.get("questionsFour");
+        logger.warn(String.valueOf(map.get("qoDifficulty")));
+        QuestionsOne questionsOne = new QuestionsOne();
+        questionsOne.setQoAnswer(String.valueOf(map.get("qoAnswer")));
+        questionsOne.setQoChapter(String.valueOf(map.get("qoChapter")));
+        questionsOne.setQoDescription(String.valueOf(map.get("qoDescription")));
+        questionsOne.setQoDifficultty(Integer.valueOf(String.valueOf(map.get("qoDifficulty"))));
+        questionsOne.setQoImage((String)map.get("qoImage"));
+        questionsOne.setQoVideo(String.valueOf(map.get("qoVideo")));
+        questionsOne.setQoKnowledge(String.valueOf(map.get("qoKnowledge")));
+        questionsOne.setQoTitle(String.valueOf(map.get("qoTitle")));
+        questionsOne.setQoType(String.valueOf(map.get("qoType")));
+        questionsOne.setQoId(Integer.valueOf(String.valueOf(map.get("qoId"))));
+        questionsOne.setQoOptionA(String.valueOf(map.get("qoOptionA")));
+        questionsOne.setQoOptionB(String.valueOf(map.get("qoOptionB")));
+        questionsOne.setQoOptionC(String.valueOf(map.get("qoOptionC")));
+        questionsOne.setQoOptionD(String.valueOf(map.get("qoOptionD")));
         if (questionsOneService.updateQuestions(questionsOne)){
             return ResultUtil.success();
         }
-        return ResultUtil.failure(2100,"修改错题失败");
+        return ResultUtil.failure(2100,"修改科目一失败");
+    }
+
+    /**
+     * 修改科目四
+     * @param map1
+     * @return
+     */
+    @PostMapping("/editQuestionsFour")
+    @PreAuthorize("hasAnyRole('Admin_root','Admin_questions')")
+    public Result editQuestionsFour(@RequestBody Map map1){
+        Map map = (Map) map1.get("questionsFour");
+        logger.warn(String.valueOf(map.get("qoDifficulty")));
+        QuestionsFour questionsFour = new QuestionsFour();
+        questionsFour.setQoAnswer(String.valueOf(map.get("qoAnswer")));
+        questionsFour.setQoChapter(String.valueOf(map.get("qoChapter")));
+        questionsFour.setQoDescription(String.valueOf(map.get("qoDescription")));
+        questionsFour.setQoDifficulty(Integer.valueOf(String.valueOf(map.get("qoDifficulty"))));
+        questionsFour.setQoImage((String)map.get("qoImage"));
+        questionsFour.setQoVideo(String.valueOf(map.get("qoVideo")));
+        questionsFour.setQoKnowledge(String.valueOf(map.get("qoKnowledge")));
+        questionsFour.setQoTitle(String.valueOf(map.get("qoTitle")));
+        questionsFour.setQoType(String.valueOf(map.get("qoType")));
+        questionsFour.setQoId(Integer.valueOf(String.valueOf(map.get("qoId"))));
+        questionsFour.setQoOptionA(String.valueOf(map.get("qoOptionA")));
+        questionsFour.setQoOptionB(String.valueOf(map.get("qoOptionB")));
+        questionsFour.setQoOptionC(String.valueOf(map.get("qoOptionC")));
+        questionsFour.setQoOptionD(String.valueOf(map.get("qoOptionD")));
+        if (questionsFourService.updateQuestions(questionsFour)){
+            return ResultUtil.success();
+        }
+        return ResultUtil.failure(2100,"修改科目一失败");
+    }
+
+//    @PostMapping("/createNews")
+//    @PreAuthorize("hasAnyRole('Admin_root','Admin_news')")
+//    public Result createNews(@RequestBody Map map){
+//        Integer newsType = (Integer)map.get("newsType");
+//        String newsContent = (String)map.get("newsContent");
+//        String newsTitle = (String)map.get("newsTitle");
+//        String newsAuthor = (String)map.get("newsAuthor");
+//        if ()
+//    }
+
+    @GetMapping("/deleteNews")
+    @PreAuthorize("hasAnyRole('Admin_root','Admin_news')")
+    public Result deleteNews(Integer id){
+        if (newsService.deleteNews(id)){
+            return ResultUtil.success();
+        }
+        return ResultUtil.failure(500,"删除失败");
     }
 
 }

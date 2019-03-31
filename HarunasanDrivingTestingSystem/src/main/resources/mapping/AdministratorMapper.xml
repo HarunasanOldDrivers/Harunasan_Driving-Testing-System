@@ -40,6 +40,12 @@
     where administrator.Id = admin_roles.Aid
     and INSTR(Admin_Name, #{adminName,jdbcType=VARCHAR} )>0
   </select>
+  <select id="selectByString" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="EX_Column_List" />
+    from hodts_db.administrator
+    where administrator.Admin_Password = #{adminName,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from hodts_db.administrator
     where Id = #{id,jdbcType=INTEGER}

@@ -117,10 +117,10 @@ public class NewsServiceImpl implements INewsService {
         }
         for (News news : newsList){
             int length = news.getNewsContent().length();
-            if ( length < END_INDEX-90){
+            if ( length < END_INDEX){
                 news.setNewsContent(news.getNewsContent().substring(0, length) + "......");
             }else {
-                news.setNewsContent(news.getNewsContent().substring(0, END_INDEX-90) + "......");
+                news.setNewsContent(news.getNewsContent().substring(0, END_INDEX) + "......");
             }
         }
         return newsList;
@@ -129,5 +129,10 @@ public class NewsServiceImpl implements INewsService {
     @Override
     public boolean createNews(NewsVO newsVO){
         return true;
+    }
+
+    @Override
+    public boolean deleteNews(Integer id){
+        return newsMapper.deleteByPrimaryKey(id) == 1;
     }
 }

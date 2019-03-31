@@ -10,8 +10,8 @@ public class AdminRoles {
     public AdminRoles() {
     }
 
-    public AdminRoles(Integer id, Integer rid) {
-        this.id = id;
+    public AdminRoles(Integer aid, Integer rid) {
+        this.aid = aid;
         this.rid = rid;
     }
 

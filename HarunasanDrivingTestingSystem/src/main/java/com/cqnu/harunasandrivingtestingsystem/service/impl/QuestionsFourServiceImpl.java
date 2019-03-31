@@ -35,6 +35,15 @@ public class QuestionsFourServiceImpl implements IQuestionsService {
         return questionsFourMapper.getAll();
     }
 
+    /**
+     * 修改题目
+     * @param questionsFour
+     * @return
+     */
+    public boolean updateQuestions(QuestionsFour questionsFour){
+        return questionsFourMapper.updateByPrimaryKeySelective(questionsFour) == 1;
+    }
+
     @Override
     public QuestionsFour orderTrain(Integer id) {
         return questionsFourMapper.selectByPrimaryKey(id);

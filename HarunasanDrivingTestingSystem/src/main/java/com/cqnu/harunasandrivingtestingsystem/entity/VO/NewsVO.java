@@ -11,7 +11,6 @@ import java.util.Date;
  **/
 public class NewsVO {
 
-
     private Integer newsType;
 
     private String newsTitle;

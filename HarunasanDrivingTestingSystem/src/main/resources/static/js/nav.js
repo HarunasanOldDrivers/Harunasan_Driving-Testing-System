@@ -22,7 +22,7 @@ $(document).ready(function () {
     //发送验证码修改密码
     $("#BtnForgetGetCode").click(function () {
         // UserInfo.sendSMS
-        var inputTelCode = $("#inputTelCode");
+        var inputForgetUserAccountTel = $("#inputForgetUserAccountTel");
         //如果有值，发送验证码
         if(inputTelCode.val()){
             $.ajax({

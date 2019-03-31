@@ -163,7 +163,7 @@ $(document).ready(function () {
                         $("#LiAnswers2").html(result.list[0].qoOptionB);
                         $textarea.val(result.list[0].qoDescription);
                         var textareaValue = $textarea.val();
-                        $textarea.val(textareaValue);
+                        $textarea.html(textareaValue);
                         $("#QoRightAnswer").html(result.list[0].qoAnswer);
                         $("#qoDifficulties").html(result.list[0].qoDifficultty);
                         if ((result.list[0].qoType === 'judge')) {

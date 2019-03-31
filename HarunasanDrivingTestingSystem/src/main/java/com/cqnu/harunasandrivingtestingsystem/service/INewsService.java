@@ -70,4 +70,6 @@ public interface INewsService {
      * @return
      */
     boolean createNews(NewsVO newsVO);
+
+    boolean deleteNews(Integer id);
 }

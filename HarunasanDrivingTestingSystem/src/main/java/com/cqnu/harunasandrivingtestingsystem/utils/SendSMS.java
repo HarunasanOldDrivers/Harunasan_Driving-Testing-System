@@ -94,6 +94,30 @@ public class SendSMS {
         }
         return null;
     }
+    public SmsSingleSenderResult sendSMSAudit2(String telphone, String schoolName){
+
+//        phoneNumbers[0] = telphone;
+
+        try {
+            //数组具体的元素个数和模板中变量个数必须一致，例如事例中templateId:5678对应一个变量，参数数组中元素个数也必须是一个
+            String[] params = {schoolName};
+            SmsSingleSender ssender = new SmsSingleSender(appid, appkey);
+            // 签名参数未提供或者为空时，会使用默认签名发送短信
+            SmsSingleSenderResult result = ssender.sendWithParam("86", telphone,
+                    305362, params, smsSign, "", "");
+            return result;
+        } catch (HTTPException e) {
+            // HTTP响应码错误
+            e.printStackTrace();
+        } catch (JSONException e) {
+            // json解析错误
+            e.printStackTrace();
+        } catch (IOException e) {
+            // 网络IO错误
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
     public static void main(String[] args) {

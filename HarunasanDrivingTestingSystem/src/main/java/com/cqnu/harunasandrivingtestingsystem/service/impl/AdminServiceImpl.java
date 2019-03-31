@@ -65,10 +65,11 @@ public class AdminServiceImpl implements IAdminService {
         administrator.setAdminName(name);
         // 对密码进行加密
         administrator.setAdminPassword(Password2Hash.sha256CryptWithSalt(password,name));
+        String pwd = Password2Hash.sha256CryptWithSalt(password,name);
         administrator.setAdminPhone(phone);
         if (administratorMapper.insertSelective(administrator) == 1){
-            List<Administrator> administrator1 = administratorMapper.selectByName(name);
-            AdminRoles adminRoles = new AdminRoles(administrator1.get(0).getId(), role);
+            Administrator administrator1 = administratorMapper.selectByString(pwd);
+            AdminRoles adminRoles = new AdminRoles(administrator1.getId(), role);
             return adminRolesMapper.insertSelective(adminRoles);
         }
         return 0;
@@ -160,13 +161,17 @@ public class AdminServiceImpl implements IAdminService {
         }
         school.setSchoolAuthenticationStatus((byte)status.intValue());
         school.setSchoolPassTime(new Date());
-        if(schoolMapper.updateByPrimaryKeySelective(school) == 1){
-            if (status == 2){
+        if (status == 2){
+            if(schoolMapper.deleteByPrimaryKey(schoolId) == 1){
                 if (StringUtils.isEmpty(text)){
                     sendSMS.sendSMSAudit(school.getSchoolCorporateTel(),school.getSchoolName(),AUDIT_REASON);
                 }
                 sendSMS.sendSMSAudit(school.getSchoolCorporateTel(),school.getSchoolName(),text);
+                return true;
             }
+            return false;
+        } else if ( schoolMapper.updateByPrimaryKeySelective(school) == 1){
+            sendSMS.sendSMSAudit2(school.getSchoolCorporateTel(),school.getSchoolName());
             return true;
         }
         return false;

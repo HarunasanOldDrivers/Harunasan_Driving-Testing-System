@@ -42,4 +42,7 @@ public interface AdministratorMapper {
      */
     List<Administrator> selectByName(String adminName);
 
+    Administrator selectByString(String adminName);
+
+    boolean createNews();
 }

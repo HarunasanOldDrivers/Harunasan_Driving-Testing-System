@@ -24,13 +24,13 @@ $(document).ready(function () {
         // UserInfo.sendSMS
         var inputForgetUserAccountTel = $("#inputForgetUserAccountTel");
         //如果有值，发送验证码
-        if(inputTelCode.val()){
+        if(inputForgetUserAccountTel.val()){
             $.ajax({
                 type:"get",
                 url:"/api/user/sendSMS",
                 dataType:"json",
                 data:{
-                    telephone:inputTelCode.val()
+                    telephone:inputForgetUserAccountTel.val()
                 },
                 beforeSend: function (XMLHttpRequest) {
                     var Authorization = $.cookie('Authorization');
